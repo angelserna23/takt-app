@@ -695,6 +695,7 @@ const I = {
   estudios:'<circle cx="12" cy="14" r="7"/><path d="M12 10.5V14l2.2 1.6"/><path d="M10 3h4"/><path d="M12 3v4"/>',
   oee:'<path d="M3 12h4l3-8 4 16 3-8h4"/>',
   costo:'<circle cx="12" cy="12" r="9"/><path d="M15 9.2a3 3 0 0 0-3-1.6c-1.7 0-3 .9-3 2.2 0 3 6 1.6 6 4.6 0 1.3-1.3 2.2-3 2.2a3 3 0 0 1-3-1.6"/><path d="M12 5.6v2M12 16.4v2"/>',
+  df:'<rect x="8" y="2.5" width="8" height="5" rx="1.5"/><path d="M12 7.5v3M12 10.5l4 3-4 3-4-3z"/><path d="M12 16.5v2.5"/><rect x="8" y="19" width="8" height="3" rx="1.5"/>',
   chart:'<path d="M4 20V4M4 20h16"/><path d="M7 15l4-5 3 3 5-6"/>',
   at:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 1.8M9.5 3h5M12 3v2"/>',
   pc:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.9.3 5 2.6 5 5.8"/>',
@@ -757,8 +758,7 @@ const FORMATS=[
   {id:'we',name:'Work Element',desc:'Ocupación del operador en operaciones cíclicas por elementos y balanceo: ensamble, inspección.',ready:true,tag:'LISTO'},
   {id:'st',name:'Speed Trial',desc:'Velocidad real de la línea contra el objetivo: OEE, pérdidas, Pareto, caída de JPH y costo.',ready:true,tag:'LISTO'},
   {id:'mm',name:'Man Machine Chart',desc:'Recorrido del operador contra el tiempo ciclo de las máquinas: maquinados, fundición.',ready:true,tag:'LISTO'},
-  {id:'sm',name:'SMED',desc:'Cambio de modelo: separar lo interno de lo externo y reducir el tiempo de paro.',ready:true,tag:'LISTO'},
-  {id:'df',name:'Diagrama de flujo',desc:'Flujo del proceso con símbolos ASME: operación, inspección, transporte, demora, almacenamiento y decisiones.',ready:true,tag:'LISTO'}
+  {id:'sm',name:'SMED',desc:'Cambio de modelo: separar lo interno de lo externo y reducir el tiempo de paro.',ready:true,tag:'LISTO'}
 ];
 
 
@@ -767,13 +767,13 @@ const TEMPLATE=['Inspección visual','Marcar','Inspección con lima','Inspecció
 const defaultActs=()=>TEMPLATE.map((n,i)=>({id:i+1,name:n.replace('*','').toUpperCase(),nec:n[0]!=='*'}));
 const S={studies:[],draft:null,view:'hdr',opId:null,keep:false};
 let uid=1000;const nid=()=>++uid;
-const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['pc','Cálculo de personal'],['at','Actual Time']];
+const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['pc','Cálculo de personal'],['at','Actual Time'],['df','Diagramas de flujo']];
 
 function route(){const h=(location.hash||'#estudios').slice(1);return h||'estudios';}
 function go(h){if(location.hash==='#'+h)render();else location.hash=h;}
 window.addEventListener('hashchange',render);
 
-function sectionOf(r){if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r.startsWith('df')||r==='estudios')return 'estudios';return r;}
+function sectionOf(r){if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r==='df'||r.startsWith('df-'))return 'df';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r==='estudios')return 'estudios';return r;}
 
 function renderNav(r){
   const sec=sectionOf(r);
@@ -979,7 +979,7 @@ function vNuevo(){
 function vInicio(){setHead('Tablero',[['Inicio','inicio']]);
   return `<section class="glass panel empty"><span class="tag">AL FINAL</span><h2>Tablero del Analista</h2><p>Se diseña al final, cuando los formatos ya generen datos: operaciones sobre takt, capacidad teórica, eficiencia de balanceo y estudios vencidos.</p></section>`;}
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
-  return `<section class="glass panel atmore"><div class="row"><div><h2>Capacidad y eficiencia</h2><p class="sub">Herramientas mensuales por área</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button></div></div></section>
+  return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Capacidad, eficiencia y diagramas de flujo</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="df">${svg('df',18)} Diagramas de flujo</button></div></div></section>
   <section class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
   ${[['Plantas, líneas y estaciones','Jerarquía planta → línea → estación.'],['Takt de la línea','Demanda diaria, turnos y minutos disponibles por turno.'],['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
 
@@ -3250,7 +3250,7 @@ function dfSvg(d,o){o=o||{};const L=d.lay;const ro=!!o.ro;const CW=150,CH=112,G=
     ${cells}${ghostArrows}${arrows}${boxes}</svg>`;}
 // ---- lista ----
 function vDFList(){
-  setHead('Diagrama de flujo',[['Estudios','estudios'],['Diagrama de flujo','df']]);
+  setHead('Diagramas de flujo',[['Diagramas de flujo','df']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Diagramas de flujo de proceso</h2><p class="sub">Símbolos ASME: operación, inspección, transporte, demora, almacenamiento y decisiones</p></div>
     <button class="btn orange" type="button" data-dfnew="1">${svg('plus',18,2.2)} Nuevo diagrama</button></div>
@@ -3282,7 +3282,7 @@ function dfEditor(d){const n=DF.sel&&dfGet(d,DF.sel);if(!n)return '';const ord=d
 // ---- vista principal ----
 function vDF(){
   if(!DF.d)dfNewStudy();const d=DF.d;const tit=dfName(d);
-  setHead(tit,[['Estudios','estudios'],['Diagrama de flujo','df'],[tit,'df-nuevo']]);
+  setHead(tit,[['Diagramas de flujo','df'],[tit,'df-nuevo']]);
   const del=DF.studies.includes(d)?`<button class="btn danger sm" type="button" data-dfdel="1">${svg('trash',16,2)} Eliminar</button>`:'';
   let body='';
   if(DF.view==='info')body=`<div class="row"><div><h2>Información</h2><p class="sub">Datos del proceso que se va a diagramar</p></div><div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn" type="button" data-dfv="diag" data-dfneed="1">Continuar al diagrama ${svg('next',18,2.2)}</button></div></div>

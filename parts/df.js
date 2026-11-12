@@ -44,7 +44,7 @@ function dfSvg(d,o){o=o||{};const L=d.lay;const ro=!!o.ro;const CW=150,CH=112,G=
     ${cells}${ghostArrows}${arrows}${boxes}</svg>`;}
 // ---- lista ----
 function vDFList(){
-  setHead('Diagrama de flujo',[['Estudios','estudios'],['Diagrama de flujo','df']]);
+  setHead('Diagramas de flujo',[['Diagramas de flujo','df']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Diagramas de flujo de proceso</h2><p class="sub">Símbolos ASME: operación, inspección, transporte, demora, almacenamiento y decisiones</p></div>
     <button class="btn orange" type="button" data-dfnew="1">${svg('plus',18,2.2)} Nuevo diagrama</button></div>
@@ -76,7 +76,7 @@ function dfEditor(d){const n=DF.sel&&dfGet(d,DF.sel);if(!n)return '';const ord=d
 // ---- vista principal ----
 function vDF(){
   if(!DF.d)dfNewStudy();const d=DF.d;const tit=dfName(d);
-  setHead(tit,[['Estudios','estudios'],['Diagrama de flujo','df'],[tit,'df-nuevo']]);
+  setHead(tit,[['Diagramas de flujo','df'],[tit,'df-nuevo']]);
   const del=DF.studies.includes(d)?`<button class="btn danger sm" type="button" data-dfdel="1">${svg('trash',16,2)} Eliminar</button>`:'';
   let body='';
   if(DF.view==='info')body=`<div class="row"><div><h2>Información</h2><p class="sub">Datos del proceso que se va a diagramar</p></div><div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn" type="button" data-dfv="diag" data-dfneed="1">Continuar al diagrama ${svg('next',18,2.2)}</button></div></div>

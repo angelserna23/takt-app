@@ -6,7 +6,11 @@ with sync_playwright() as p:
     b=p.chromium.launch()
     for w,h,tag in [(1366,1000,'lap'),(1024,1366,'tab'),(393,851,'phone')]:
         pg=b.new_page(viewport={'width':w,'height':h},has_touch=True);pg.route('**/fonts.googleapis.com/**',lambda r:r.abort());pg.on('pageerror',lambda e:errs.append(tag+' '+str(e)))
-        pg.goto(IDX+'#estudios');pg.click('.fmt[data-go=df]');pg.click('[data-dfnew]')
+        pg.goto(IDX+('#config' if tag=='phone' else '#estudios'))
+        print(tag,'ya no está en Estudios',pg.locator('.fmt[data-go=df]').count()==0)
+        (pg.locator('.atmore [data-go=df]') if tag=='phone' else pg.locator('.navbtn[data-go=df]')).click();pg.wait_for_timeout(150)
+        print(tag,'menú activo',pg.locator('.navbtn[aria-current=page]').get_attribute('data-go'),'| regresar a estudios oculto',pg.locator('#backall').is_hidden())
+        pg.click('[data-dfnew]')
         pg.locator('[data-dfneed]').click();print(tag,'faltan',pg.locator('label.miss').count())
         pg.fill('input[name=titulo]','recepción de material');pg.fill('input[name=analista]','angel');pg.locator('[data-dfneed]').click()
         # 1) casilla libre → Inicio

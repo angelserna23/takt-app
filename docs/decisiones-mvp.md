@@ -205,7 +205,7 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Pruebas: 6 de cálculo (parts/ectest.js) + pantalla (tests/smoke/smoke_ec.py).
 
 ## Diagrama de flujo de proceso — PRIMERA VERSIÓN (2026-11-12, Angel probando)
-Formato en Estudios de tiempos («Diagrama de flujo»). Construcción como el layout del Man Machine: hoja en cuadrícula, tocar casilla libre (+) para poner un símbolo, arrastrar para mover o intercambiar; flechas rectas en escuadra que se acomodan solas.
+**Sección propia del menú «Diagramas de flujo»** (no es un estudio de tiempos; pedido de Angel 2026-11-12), debajo de Actual Time; en teléfono, desde «Más». Construcción como el layout del Man Machine: hoja en cuadrícula, tocar casilla libre (+) para poner un símbolo, arrastrar para mover o intercambiar; flechas rectas en escuadra que se acomodan solas.
 - Símbolos ASME: Operación (círculo), Inspección (cuadrado), Transporte (flecha), Demora (D), Almacenamiento (triángulo), más Decisión (rombo) e Inicio / fin.
 - Cada símbolo pide su acción al ponerlo (foco directo al campo); responsable y tiempo (min); distancia (m) solo en transporte.
 - Al seleccionar un símbolo aparece el «+ SIGUIENTE» en la casilla libre de abajo; en la decisión aparecen dos automáticos: SÍ abajo (verde) y NO a la derecha (rojo). Conexiones editables con listas; se permiten regresos (retrabajo) dibujados por un pasillo a la derecha.
