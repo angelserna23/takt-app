@@ -29,7 +29,7 @@ function dfSvg(d,o){o=o||{};const ro=!!o.ro;const L=d.lay;const{CW,CH,G,P}=DFG;
     return `<polyline points="${P_.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ')}" class="dfarrow ${e.out}" marker-end="url(#dfah)"/>${e.label?`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${p1[0]<p0[0]?'end':'start'}" class="dfel ${e.out}">${e.label}</text>`:''}`;}).join('');
   const boxes=d.nodes.map(n=>{const p=L.pos[n.id];if(!p)return '';const x=cx(p[1]),y=cy(p[0]);const on=!ro&&DF.sel===n.id;const lines=dfWrap(n.desc||'',17);const empty=!String(n.desc).trim();
     const meta=[num(n.tiempo)?fT(num(n.tiempo))+' min':'',n.t==='tra'&&num(n.dist)?fT(num(n.dist))+' m':''].filter(Boolean).join(' · ');
-    return `<g class="dfbox ${on?'on':''} ${empty?'empty':''}" ${ro?'':`data-dfbox="${n.id}" tabindex="0" role="button"`} aria-label="${esc(DF_SYM[n.t].n)} ${no[n.id]||''}: ${esc(n.desc||'sin acción')}">
+    return `<g class="dfbox ${on?'on':''} ${empty?'empty':''}" ${ro?'':`data-dfbox="${n.id}" tabindex="0" role="button"`} aria-label="${esc(DF_SYM[n.t].n)} ${no[n.id]||''}: ${esc(n.desc||'sin acción')}"><title>${no[n.id]||''}. ${esc(DF_SYM[n.t].n)}: ${esc(n.desc||'sin acción')}${n.resp?' · '+esc(n.resp):''}</title>
       <rect x="${x}" y="${y}" width="${CW}" height="${CH}" rx="14"/><text x="${x+10}" y="${y+17}" class="dfnum">${no[n.id]||''}</text>
       ${dfShape(n.t,x+CW/2,y+30)}
       ${(empty?[ro?'—':'ESCRIBE LA ACCIÓN']:lines).map((l,i)=>`<text x="${x+CW/2}" y="${y+68+i*14}" text-anchor="middle" class="dfdesc ${empty?'ph':''}">${esc(l)}</text>`).join('')}
@@ -73,15 +73,16 @@ function dfPop(d){const n=DF.sel&&dfGet(d,DF.sel);if(!n)return '';const ord=dfOr
   return `<div class="dfpop" id="dfpop" role="dialog" aria-label="Paso ${no[n.id]} · ${DF_SYM[n.t].n}">
     <div class="dfpoph"><b>${dfIcon(n.t,26)} Paso ${no[n.id]}</b><button type="button" class="iconbtn" data-dfdesel="1" aria-label="Cerrar">✕</button></div>
     <div class="dftypes" role="group" aria-label="Tipo de símbolo">${Object.keys(DF_SYM).map(t=>`<button type="button" class="dft" data-dftype="${t}" aria-pressed="${n.t===t}" title="${DF_SYM[t].n}" aria-label="${DF_SYM[t].n}">${dfIcon(t,26)}</button>`).join('')}<span class="hint">${DF_SYM[n.t].n}</span></div>
-    <label class="${!String(n.desc).trim()?'miss':''}">${dfIsDec(n)?'Pregunta':'Acción'} <span class="req" aria-hidden="true">*</span><input data-dff="desc" value="${esc(n.desc)}" placeholder="${dfIsDec(n)?'Ej. ¿CUMPLE?':n.t==='ini'?'Ej. INICIO / FIN':'Ej. DESCARGAR MATERIAL'}" autocomplete="off" enterkeyhint="done"></label>
+    <label class="${!String(n.desc).trim()?'miss':''}">${dfIsDec(n)?'Pregunta':'Acción'} <span class="req" aria-hidden="true">*</span><textarea data-dff="desc" class="dfta" rows="2" placeholder="${dfIsDec(n)?'Ej. ¿CUMPLE?':n.t==='ini'?'Ej. INICIO / FIN':'Ej. DESCARGAR MATERIAL'}" autocomplete="off" enterkeyhint="done">${esc(n.desc)}</textarea></label>
     ${n.t!=='ini'&&!dfIsDec(n)?`<label>Responsable<input data-dff="resp" value="${esc(n.resp)}" autocomplete="off"></label>
       <div class="dfpop2"><label>Tiempo (min)<input data-dff="tiempo" value="${esc(n.tiempo)}" inputmode="decimal" autocomplete="off"></label>${n.t==='tra'?`<label>Distancia (m)<input data-dff="dist" value="${esc(n.dist)}" inputmode="decimal" autocomplete="off"></label>`:''}</div>`:''}
     <label>Viene de<select data-dfprev="1"><option value="">— es el inicio / sin antecesor —</option>${prevOpts}</select></label>
     ${dfOuts(n).map(([k,l])=>`<label>${l?'Camino '+l+' va a':'Va a'}<select data-dfc="${k}">${nextOpts(n[k])}</select></label>`).join('')}
     <div class="row" style="margin-top:6px;gap:8px"><button type="button" class="btn danger sm" data-dfrm="${n.id}">${svg('trash',16,2)} Quitar</button><button type="button" class="btn sm" data-dfdesel="1">Listo</button></div>
   </div>`;}
+function dfTaGrow(t){if(!t)return;t.style.height='auto';t.style.height=(t.scrollHeight+2)+'px';}
 function dfPopClean(keep){document.querySelectorAll('body > .dfpop').forEach(x=>{if(x!==keep)x.remove();});}
-function dfPlacePop(){const pop=document.querySelector('.dflay #dfpop');dfPopClean(null);if(!pop)return;const wrap=pop.parentElement;const g=document.querySelector(`[data-dfbox="${DF.sel}"]`);
+function dfPlacePop(){const pop=document.querySelector('.dflay #dfpop');dfPopClean(null);if(!pop)return;dfTaGrow(pop.querySelector('.dfta'));const wrap=pop.parentElement;const g=document.querySelector(`[data-dfbox="${DF.sel}"]`);
   if(window.innerWidth<=700){pop.classList.add('sheet');document.body.appendChild(pop);if(g){const r=g.getBoundingClientRect();const room=window.innerHeight-pop.offsetHeight-16;if(r.bottom>room||r.top<70)scrollBy({top:r.top-Math.max(70,room-r.height-10),behavior:'smooth'});}return;}
   if(!g)return;const r=g.getBoundingClientRect(),w=wrap.getBoundingClientRect();let left=r.right-w.left+wrap.scrollLeft+14;
   if(left+pop.offsetWidth>wrap.scrollWidth-6)left=r.left-w.left+wrap.scrollLeft-pop.offsetWidth-14;
@@ -161,7 +162,7 @@ document.addEventListener('click',e=>{
 document.addEventListener('input',e=>{const el=e.target;const d=DF.d;if(!d||!el.dataset)return;
   if(el.closest&&el.closest('#dfh')){dfSync();if(DF.miss.length)DF.miss=DF.miss.filter(k=>!String(d[k]||'').trim());return;}
   if(el.dataset.dff){const n=dfGet(d,DF.sel);if(!n)return;n[el.dataset.dff]=el.value;const g=document.querySelector(`[data-dfbox="${n.id}"]`);
-    if(el.dataset.dff==='desc'){el.closest('label').classList.toggle('miss',!el.value.trim());if(g){const tx=[...g.querySelectorAll('.dfdesc')];const L=dfWrap(el.value,17);tx.forEach((t,i)=>{t.textContent=L[i]||(i===0&&!el.value.trim()?'ESCRIBE LA ACCIÓN':'');t.classList.toggle('ph',!el.value.trim());});}}}
+    if(el.dataset.dff==='desc'){dfTaGrow(el);const tt=g&&g.querySelector('title');if(tt)tt.textContent=(tt.textContent.split(':')[0])+': '+(el.value||'sin acción');el.closest('label').classList.toggle('miss',!el.value.trim());if(g){const tx=[...g.querySelectorAll('.dfdesc')];const L=dfWrap(el.value,17);tx.forEach((t,i)=>{t.textContent=L[i]||(i===0&&!el.value.trim()?'ESCRIBE LA ACCIÓN':'');t.classList.toggle('ph',!el.value.trim());});}}}
 });
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.dff&&DF.sel){e.preventDefault();DF.sel=null;dfRe();}});
 document.addEventListener('change',e=>{const el=e.target;const d=DF.d;if(!d||!el.dataset)return;const n=DF.sel&&dfGet(d,DF.sel);if(!n)return;

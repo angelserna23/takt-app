@@ -28,7 +28,10 @@ with sync_playwright() as p:
         pg.click('[data-dfpal=dec]');pg.fill('[data-dff=desc]','¿cumple?')
         pg.click('[data-dfpal=tra]');pg.fill('[data-dff=desc]','llevar a almacén');pg.fill('[data-dff=dist]','40');pg.fill('[data-dff=tiempo]','3')
         print(tag,'transporte viene de',pg.locator('[data-dfprev] option:checked').inner_text())
-        pg.click('[data-dfpal=dem]');pg.fill('[data-dff=desc]','espera calidad')
+        pg.click('[data-dfpal=dem]');h0=pg.locator('[data-dff=desc]').bounding_box()['height']
+        larga='espera de disposición del material por parte del área de calidad y del proveedor antes de liberar'
+        pg.locator('[data-dff=desc]').fill('');pg.locator('[data-dff=desc]').type(larga,delay=0)
+        h1=pg.locator('[data-dff=desc]').bounding_box()['height'];print(tag,'acción larga: crece hacia abajo',h1>h0,round(h0),'→',round(h1),'| completo al pasar el mouse',larga.upper() in pg.locator('[data-dfbox] title').last.text_content())
         v=[o.get_attribute('value') for o in pg.locator('[data-dfprev] option').all() if 'NO' in o.inner_text()][0];pg.select_option('[data-dfprev]',v);pg.wait_for_timeout(80)
         print(tag,'demora viene de',pg.locator('[data-dfprev] option:checked').inner_text(),'| flechas',pg.locator('.dfarrow').count(),'etiquetas',[t.text_content() for t in pg.locator('.dfel').all()])
         print(tag,'overflow',pg.evaluate('document.documentElement.scrollWidth>innerWidth'))

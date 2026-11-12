@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Seguimos con el **Diagrama de flujo de proceso** (primera versión ya construida): te paso mis comentarios de las pruebas.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Siguiente: **guardado de estudios** (según la hoja de ruta). Revisa decisiones-mvp.md y propónme cómo hacerlo antes de construir.
 
 ## Pasos para Claude al iniciar
 
@@ -38,6 +38,7 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Listos: 6 estudios de tiempos + Cálculo de personal. Todas las pruebas pasan.
 - Actual Time: concluido (2026-11-11).
 - Eficiencia compuesta: concluida como vista de planta dentro de Actual Time (2026-11-12).
-- Diagrama de flujo de proceso: primera versión construida (2026-11-12); Angel la está probando y manda comentarios.
+- Diagramas de flujo de proceso: concluido como sección propia del menú (2026-11-12).
+- Siguiente (hoja de ruta): guardado de estudios; después pagos, Inicio y diseño final.
 - Pendiente de decidir: nombre del año fiscal (hoy FY27 = abr 2026 – mar 2027; Angel lo llama FY2026).
 - Después: Diagrama de flujo de proceso, guardado de datos, Inicio, pagos y diseño final.

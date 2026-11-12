@@ -204,11 +204,12 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Pantalla: 4 KPI de planta, trayectoria (una línea por área + planta gruesa), tabla áreas × meses con cambio en puntos, mini gráfica de piezas por hora-hombre por área. Ejemplo de planta (ensamble + MH y maquinado).
 - Pruebas: 6 de cálculo (parts/ectest.js) + pantalla (tests/smoke/smoke_ec.py).
 
-## Diagramas de flujo de proceso — SEGUNDA VERSIÓN (2026-11-12, Angel probando)
+## Diagramas de flujo de proceso — CONCLUIDO (2026-11-12)
 **Sección propia del menú «Diagramas de flujo»** (no es un estudio de tiempos), debajo de Actual Time; en teléfono, desde «Más».
 - **Hoja en blanco** con puntos de referencia; cuadrícula invisible: los símbolos se acomodan solos en la casilla más cercana (sin casillas «+»).
 - **Barra de símbolos** fija arriba (ASME: Operación, Inspección, Transporte, Demora, Almacenamiento + Decisión e Inicio / fin). Arrastrar a la hoja = poner ahí; tocar = poner debajo del último. En teléfono la barra se desliza de lado y se arrastra hacia abajo.
 - Al poner o tocar un símbolo se abre una **nube junto al símbolo** (en teléfono, pestaña desde abajo, por encima de todo): tipo, acción*, responsable, tiempo, distancia (transporte), **«Viene de»** (antecesor; en decisiones se elige SÍ o NO) y «Va a». Enter o «Listo» la cierra. Así no se sube y baja por la página.
+- Acción en un cuadro que crece hacia abajo al escribir (textos largos). En el símbolo se ven 2 renglones con «…»; al pasar el mouse se ve el texto completo (y en la nube al tocarlo).
 - Antecesor por defecto = el último símbolo puesto con salida libre (en decisión: primero SÍ, luego NO). Si el recién puesto se cambia a otro antecesor, se reacomoda solo junto a él (NO → a la derecha).
 - Flechas rectas en escuadra; NO hacia abajo y regresos (retrabajo) rodean por la derecha. Arrastrar un símbolo lo mueve; sobre otro, los intercambia.
 - Resumen ASME sin cambios: actividades, tiempo, distancia, % de operaciones, tabla por símbolo, tabla del proceso y diagrama. Avisos de flujo incompleto.
@@ -234,7 +235,7 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Jerarquía planta → línea → estación desde el día uno.
 
 ## Hoja de ruta acordada (nov 2026)
-- Actual Time y Eficiencia compuesta concluidos. Diagrama de flujo de proceso: primera versión (2026-11-12), en pruebas con Angel. Después: guardado y Diagrama de flujo de proceso (símbolos ASME; idea de armarlo solo desde DS/SMED).
+- Actual Time y Eficiencia compuesta concluidos. Diagramas de flujo concluido (2026-11-12). Siguiente: guardado de estudios y Diagrama de flujo de proceso (símbolos ASME; idea de armarlo solo desde DS/SMED).
 - Un formato a la vez, sin adelantarse. Menú agrupado propuesto (sin confirmar): Inicio · Estudios de tiempos · Capacidad y eficiencia · Herramientas · Aprende · Configuración.
 - Después de esos tres: guardado. Pagos (suscripción, sin publicidad), Inicio y diseño final al último.
 
