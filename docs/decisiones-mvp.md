@@ -1,6 +1,6 @@
 # Takt — Decisiones del MVP (Estudios de tiempos)
 
-Última actualización: 2026-11-11
+Última actualización: 2026-11-12
 
 ## Alcance (cambio importante)
 - **OEE y costo ya no son pilares/módulos aparte.** Se manejan solo dentro del **Speed Trial**. Se quitaron las secciones "OEE" y "Costo MO" del menú (laptop y teléfono). Angel definirá qué va en su lugar.
@@ -215,6 +215,12 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Resumen ASME sin cambios: actividades, tiempo, distancia, % de operaciones, tabla por símbolo, tabla del proceso y diagrama. Avisos de flujo incompleto.
 - Pruebas: 10 de lógica (parts/dftest.js) + pantalla (tests/smoke/smoke_df.py: arrastre desde la barra, nube, «Viene de», mover).
 
+## Aprende (tutoriales) — DECIDIDO, por construir (2026-11-12)
+- Sección propia del menú «Aprende» con un tutorial por herramienta (6 estudios, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo); se elige cuál ver.
+- **Opción B (elegida):** demo en vivo dentro de la app real, con un cursor «bot» que toca botones y llena campos reales y un globo que explica cada paso; pausar / siguiente / repetir / «ahora hazlo tú». No se usan videos grabados dentro de la app (pesan y quedan viejos con cada cambio de pantalla); de la misma demo se pueden grabar videos para marketing.
+- Contenido: qué responde y cuándo usarlo → demo con datos ficticios → cómo leer los resultados. Pasos definidos como datos y probados automáticamente.
+- Orden: motor + 1–2 tutoriales para validar; el resto idealmente después del diseño final.
+
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
 
@@ -234,10 +240,11 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 ## Datos
 - Jerarquía planta → línea → estación desde el día uno.
 
-## Hoja de ruta acordada (nov 2026)
-- Actual Time y Eficiencia compuesta concluidos. Diagramas de flujo concluido (2026-11-12). Siguiente: guardado de estudios y Diagrama de flujo de proceso (símbolos ASME; idea de armarlo solo desde DS/SMED).
-- Un formato a la vez, sin adelantarse. Menú agrupado propuesto (sin confirmar): Inicio · Estudios de tiempos · Capacidad y eficiencia · Herramientas · Aprende · Configuración.
-- Después de esos tres: guardado. Pagos (suscripción, sin publicidad), Inicio y diseño final al último.
+## Hoja de ruta acordada (actualizada 2026-11-12)
+- Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo.
+- Siguiente: **Aprende** (tutoriales, opción B: motor + 1–2 tutoriales para validar).
+- Después: guardado de estudios y exportación a PDF/Excel → pagos (suscripción, sin publicidad) → Inicio (tablero del analista) → diseño final (paleta y UX/UI) → completar tutoriales.
+- Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · (Aprende) · Configuración.
 
 ## Dónde vive el código
 - **Fuente de verdad: GitHub `angelserna23/takt-app` (rama main).** Ver CONTINUAR.md para retomar en un chat nuevo. Un commit al cerrar cada chat.
