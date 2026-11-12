@@ -169,7 +169,7 @@ Resumen anual:
 - Gráficas: HC por mes (volumen vs esquema + meta), % de ocupación por mes, **personal que agrega valor (operadores + líderes) vs afectación (supervisores, TPM, proyectos, otros)** sobre la plantilla del esquema, con alerta en rojo arriba de 35 % (umbral confirmado por Angel), y **trazabilidad por línea** (JPH plan, TC, OEE, LAT, Actual Time, % ocupación) con una serie por renglón.
 - Tabla por mes con reducir, LAT, Actual Time y afectación. Pruebas: 11 casos.
 
-## Actual Time — EN ANÁLISIS (2026-11-11)
+## Actual Time — PRIMERA VERSIÓN CONSTRUIDA (2026-11-11, en pruebas con Angel)
 Base: Excel propio de Angel (hojas Ensamble + Manejo de materiales, y Maquinado; Fundición = Maquinado). Datos del archivo inventados; en la app se usan datos ficticios propios.
 Pregunta que responde: ¿cuántos minutos-hombre cuesta realmente cada pieza, mes a mes (año fiscal abr–mar), y en qué se va la gente?
 - Actual Time real = horas trabajadas × 60 ÷ producción (equivale a ST ÷ eficiencia del Excel; con varias partes, ST ponderado por producción).
@@ -187,6 +187,9 @@ Pregunta que responde: ¿cuántos minutos-hombre cuesta realmente cada pieza, me
 - JPMH = JPH ÷ (HC ÷ grupos) en real y compromiso (el Excel mezclaba HC total y HC por grupo).
 - Unidades: horas-hombre mensuales en horas; Actual Time en minutos por pieza.
 - Grupos: comprometidos para la meta (TARGET); **reales** para convertir horas en personas (cascada de HC y forecast). Si no se capturan reales, se usan los comprometidos. Se muestra la comparación real vs comprometido (el Excel usaba siempre los comprometidos).
+- Pantalla (menú propio «Actual Time»; en teléfono desde «Más»): Información (nombre, tipo, incluir manejo de materiales, FY) → Meses (pestañas abr–mar, copiar mes anterior, ejemplo de 5 meses; tabla de números de parte con ST/LAT, LAT de MH y producción; horas, afectaciones, plan, real, indirectos, DST; KPIs y cascada en vivo; días validados contra el mes) → Resumen anual (8 KPI, Actual Time vs meta, cascada con selector de mes, eficiencia, horas, producción, JPH, DSTR o JPMH, tabla). Selector Ensamble / Manejo de materiales cuando aplica.
+- En maquinado/fundición/otro: botón «Traer LAT de Cálculo de personal» (mismo tipo y FY) por número de parte.
+- Pruebas: 14 de cálculo (parts/attest.js) + pantalla (tests/smoke/smoke_at.py, laptop/tablet/teléfono).
 - Errores del Excel a corregir: ausentismo con valor absoluto (tiempo extra se mostraba como ausentismo); total de afectaciones de MH leía las de ensamble; meses vacíos graficados como 0; DSTR MH sin categorías; 22.5 h/día fijo dentro de fórmulas; días > días del mes sin validar; AVERAGE simple de ST con varias partes.
 
 ## Usuarios
@@ -209,7 +212,7 @@ Pregunta que responde: ¿cuántos minutos-hombre cuesta realmente cada pieza, me
 - Jerarquía planta → línea → estación desde el día uno.
 
 ## Hoja de ruta acordada (nov 2026)
-- Siguiente formato: **Actual Time** (Angel manda su Excel/VBA y su explicación → comentarios → validar en chat → construir). Después: Eficiencia compuesta y Diagrama de flujo de proceso (símbolos ASME; idea de armarlo solo desde DS/SMED).
+- Actual Time construido (en pruebas). Después: Eficiencia compuesta (¿ya cubierta por la gráfica de eficiencia de Actual Time? confirmar con Angel) y Diagrama de flujo de proceso (símbolos ASME; idea de armarlo solo desde DS/SMED).
 - Un formato a la vez, sin adelantarse. Menú agrupado propuesto (sin confirmar): Inicio · Estudios de tiempos · Capacidad y eficiencia · Herramientas · Aprende · Configuración.
 - Después de esos tres: guardado. Pagos (suscripción, sin publicidad), Inicio y diseño final al último.
 

@@ -33,8 +33,8 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
 
-## Estado al 2026-11-11
+## Estado al 2026-11-11 (noche)
 
 - Listos: 6 estudios de tiempos + Cálculo de personal. Todas las pruebas pasan.
-- Siguiente: Actual Time (esperando el formato de Angel).
-- Después: Eficiencia compuesta, Diagrama de flujo de proceso, guardado de datos, Inicio, pagos y diseño final.
+- Actual Time: primera versión construida y publicada (2026-11-11); Angel la está probando y mandará comentarios.
+- Después: Eficiencia compuesta (confirmar si ya la cubre Actual Time), Diagrama de flujo de proceso, guardado de datos, Inicio, pagos y diseño final.
