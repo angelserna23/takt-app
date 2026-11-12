@@ -24,8 +24,8 @@ assert.strictEqual(S.act,3);assert.strictEqual(S.dec,1);assert.strictEqual(S.row
 dfRemove(d,c.id);assert.strictEqual(b.next,null);assert.strictEqual(d.lay.pos[c.id],undefined);
 // Caso 9: flechas en escuadra (solo horizontales y verticales)
 const g={cx:c=>c*200,cy:r=>r*150,W:140,H:90,G:60};const ortho=P=>P.every((p,i)=>i===0||p[0]===P[i-1][0]||p[1]===P[i-1][1]);
-[[[0,0],[1,0],'next'],[[0,0],[0,2],'next'],[[0,0],[2,1],'next'],[[1,0],[2,2],'no'],[[3,1],[0,0],'next'],[[2,2],[0,2],'next']].forEach(([A,B,o])=>assert.ok(ortho(dfPath(A,B,o,g)),JSON.stringify([A,B])));
-assert.strictEqual(dfPath([0,0],[1,0],'next',g).length,2);assert.strictEqual(dfPath([1,0],[2,2],'no',g).length,3);
+[[[0,0],[1,0],'next'],[[0,0],[0,2],'next'],[[0,0],[2,1],'next'],[[1,0],[2,2],'no'],[[3,1],[0,0],'next'],[[1,0],[3,0],'no'],[[2,2],[0,2],'next']].forEach(([A,B,o])=>assert.ok(ortho(dfPath(A,B,o,g)),JSON.stringify([A,B])));
+assert.strictEqual(dfPath([0,0],[1,0],'next',g).length,2);assert.ok(dfPath([1,0],[3,0],'no',g).every(p=>p[0]>=70),'NO hacia abajo no cruza la columna');assert.strictEqual(dfPath([1,0],[2,2],'no',g).length,3);
 // Caso 10: mover e intercambiar no cambia las conexiones
 const e=D();const p1=dfAdd(e,'op',[0,0]);const p2=dfAdd(e,'insp',[1,0],p1.id);dfSwap(e.lay,p1.id,p2.id);assert.deepStrictEqual(e.lay.pos[p1.id],[1,0]);assert.strictEqual(p1.next,p2.id);
 dfMoveTo(e.lay,p2.id,[5,6]);assert.strictEqual(e.lay.cols,7);

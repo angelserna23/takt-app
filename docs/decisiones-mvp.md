@@ -204,15 +204,15 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Pantalla: 4 KPI de planta, trayectoria (una línea por área + planta gruesa), tabla áreas × meses con cambio en puntos, mini gráfica de piezas por hora-hombre por área. Ejemplo de planta (ensamble + MH y maquinado).
 - Pruebas: 6 de cálculo (parts/ectest.js) + pantalla (tests/smoke/smoke_ec.py).
 
-## Diagrama de flujo de proceso — PRIMERA VERSIÓN (2026-11-12, Angel probando)
-**Sección propia del menú «Diagramas de flujo»** (no es un estudio de tiempos; pedido de Angel 2026-11-12), debajo de Actual Time; en teléfono, desde «Más». Construcción como el layout del Man Machine: hoja en cuadrícula, tocar casilla libre (+) para poner un símbolo, arrastrar para mover o intercambiar; flechas rectas en escuadra que se acomodan solas.
-- Símbolos ASME: Operación (círculo), Inspección (cuadrado), Transporte (flecha), Demora (D), Almacenamiento (triángulo), más Decisión (rombo) e Inicio / fin.
-- Cada símbolo pide su acción al ponerlo (foco directo al campo); responsable y tiempo (min); distancia (m) solo en transporte.
-- Al seleccionar un símbolo aparece el «+ SIGUIENTE» en la casilla libre de abajo; en la decisión aparecen dos automáticos: SÍ abajo (verde) y NO a la derecha (rojo). Conexiones editables con listas; se permiten regresos (retrabajo) dibujados por un pasillo a la derecha.
-- Un «Inicio / fin» que recibe flechas es el fin del proceso. Avisos: sin acción, decisión sin SÍ/NO, sin siguiente paso, símbolo suelto.
-- Resumen ASME: actividades, tiempo, distancia, % de operaciones (cantidad y tiempo), tabla por símbolo, tabla del proceso en orden del flujo (SÍ → n · NO → m) y el diagrama.
-- Información: título*, proceso, área, analista*, fecha, método actual / propuesto. Ejemplo ficticio: recepción de materia prima con retrabajo.
-- Pruebas: 10 de lógica (parts/dftest.js) + pantalla (tests/smoke/smoke_df.py).
+## Diagramas de flujo de proceso — SEGUNDA VERSIÓN (2026-11-12, Angel probando)
+**Sección propia del menú «Diagramas de flujo»** (no es un estudio de tiempos), debajo de Actual Time; en teléfono, desde «Más».
+- **Hoja en blanco** con puntos de referencia; cuadrícula invisible: los símbolos se acomodan solos en la casilla más cercana (sin casillas «+»).
+- **Barra de símbolos** fija arriba (ASME: Operación, Inspección, Transporte, Demora, Almacenamiento + Decisión e Inicio / fin). Arrastrar a la hoja = poner ahí; tocar = poner debajo del último. En teléfono la barra se desliza de lado y se arrastra hacia abajo.
+- Al poner o tocar un símbolo se abre una **nube junto al símbolo** (en teléfono, pestaña desde abajo, por encima de todo): tipo, acción*, responsable, tiempo, distancia (transporte), **«Viene de»** (antecesor; en decisiones se elige SÍ o NO) y «Va a». Enter o «Listo» la cierra. Así no se sube y baja por la página.
+- Antecesor por defecto = el último símbolo puesto con salida libre (en decisión: primero SÍ, luego NO). Si el recién puesto se cambia a otro antecesor, se reacomoda solo junto a él (NO → a la derecha).
+- Flechas rectas en escuadra; NO hacia abajo y regresos (retrabajo) rodean por la derecha. Arrastrar un símbolo lo mueve; sobre otro, los intercambia.
+- Resumen ASME sin cambios: actividades, tiempo, distancia, % de operaciones, tabla por símbolo, tabla del proceso y diagrama. Avisos de flujo incompleto.
+- Pruebas: 10 de lógica (parts/dftest.js) + pantalla (tests/smoke/smoke_df.py: arrastre desde la barra, nube, «Viene de», mover).
 
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.

@@ -50,6 +50,7 @@ function dfWarn(d){const w=[];const s=dfStart(d);
 // Ruta de la flecha en escuadra (solo tramos horizontales y verticales) entre dos casillas.
 // geo: {cx(c), cy(r), W, H, G}. Devuelve los puntos de la polilínea.
 function dfPath(a,b,out,g){const[ra,ca]=a,[rb,cb]=b;const ax=g.cx(ca)+g.W/2,ay=g.cy(ra)+g.H/2,bx=g.cx(cb)+g.W/2,by=g.cy(rb)+g.H/2;const hw=g.W/2,hh=g.H/2;
+  if(ca===cb&&rb>ra&&out==='no'){const lane=g.cx(ca)+g.W+g.G/2;return [[ax+hw,ay],[lane,ay],[lane,by],[bx+hw,by]];}   // NO hacia abajo: rodea por la derecha
   if(ca===cb&&rb>ra)return [[ax,ay+hh],[bx,by-hh]];                             // abajo en la misma columna
   if(ra===rb&&cb!==ca){const s=cb>ca?1:-1;return [[ax+s*hw,ay],[bx-s*hw,by]];}   // misma fila
   if(rb>ra){if(out==='no'){const s=cb>ca?1:-1;return [[ax+s*hw,ay],[bx,ay],[bx,by-hh]];}   // NO: primero de lado y luego baja
