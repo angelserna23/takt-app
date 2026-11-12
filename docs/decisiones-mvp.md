@@ -194,8 +194,9 @@ Resumen anual:
 - Después de esos tres: guardado. Pagos (suscripción, sin publicidad), Inicio y diseño final al último.
 
 ## Dónde vive el código
-- App completa (index.html, un solo archivo): artifact https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f (slug b963594a-ed0b-4bfe-9897-a3ee86914094). En un chat nuevo se lee con read_artifact y se republica sobre el mismo slug.
-- Cálculos puros y pruebas en Node: docs del proyecto takt-app/codigo-calculos-1.md y -2.md (copiar cada archivo a parts/ y correr `node parts/<x>test.js`).
+- **Fuente de verdad: GitHub `angelserna23/takt-app` (rama main).** Ver CONTINUAR.md para retomar en un chat nuevo. Un commit al cerrar cada chat.
+- App publicada: artifact https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f (slug b963594a-ed0b-4bfe-9897-a3ee86914094); se republica sobre el mismo slug.
+- Respaldo en el proyecto: takt-app/codigo-calculos-1.md y -2.md (cálculos y pruebas al 2026-11-11).
 
 ## Pendientes
 - Tiempo estándar: en espera.
