@@ -619,6 +619,7 @@ body.dragging{cursor:grabbing;-webkit-user-select:none;user-select:none}
 .atnote{display:flex;gap:8px;align-items:center;margin:12px 0 0}
 .atarea button{padding:0 14px;font-family:'IBM Plex Sans',sans-serif;font-size:13px}
 .atmore{display:none}
+.atmonths .pcm{min-height:72px}.atmonths .pcm b{font-size:15px}.atmonths .pcm small{font-size:13px}.atback{margin-left:-4px}
 @media (max-width:700px){.atmore{display:block}.atarea{width:100%}.atarea button{flex:1;font-size:11px;padding:0 6px}}
 </style>
 </head>
@@ -2760,7 +2761,7 @@ function atMH(m){const mh=m.mh||{};
     partes:(m.partes||[]).map(p=>({parte:p.parte,st:p.lat,prod:p.prod}))}));}
 
 // ===== ACTUAL TIME · pantallas =====
-const AT={studies:[],d:null,view:'info',m:0,area:'ens',cm:null,miss:[]};
+const AT={studies:[],d:null,view:'info',m:null,area:'ens',cm:null,miss:[]};
 const AT_TIPOS=['ENSAMBLE','MAQUINADO','FUNDICIÓN','OTRO'];
 const AT_AFL={tecnico:'Técnico',evento:'Evento',tpm:'TPM',proyectos:'Proyectos (PIC)',otros:'Otros'};
 const atTipo=d=>d.tipo==='OTRO'&&String(d.tipoOtro||'').trim()?String(d.tipoOtro).trim():d.tipo;
@@ -2772,7 +2773,7 @@ const atEmptyAf=()=>({tecnico:'',evento:'',tpm:'',proyectos:'',otros:''});
 const atNewPart=()=>({id:nid(),parte:'',st:'',lat:'',prod:''});
 function atNewMonth(){return {partes:[atNewPart()],horasTrab:'',afect:atEmptyAf(),dias:'',horasDia:'22.5',hcPlan:'',jphCommit:'',gruposCommit:'',gruposReal:'',hcRes:'',jphRes:'',sv:'',lider:'',otrosInd:'',dst:'',
   mh:{horasTrab:'',afect:atEmptyAf(),hcPlan:'',hcRes:'',sv:'',lider:'',otrosInd:''}};}
-function atNew(){AT.d={id:nid(),nombre:'',tipo:'ENSAMBLE',tipoOtro:'',mh:true,fy:pcFY(),months:Array(12).fill(null)};AT.view='info';AT.m=0;AT.area='ens';AT.cm=null;AT.miss=[];}
+function atNew(){AT.d={id:nid(),nombre:'',tipo:'ENSAMBLE',tipoOtro:'',mh:true,fy:pcFY(),months:Array(12).fill(null)};AT.view='info';AT.m=null;AT.area='ens';AT.cm=null;AT.miss=[];}
 const atR=(m,area)=>m?(area==='mh'?atMH(m):atMonth(m)):null;
 const atAll=(d,area)=>d.months.map(m=>atR(m,area));
 const atClone=m=>{const c=JSON.parse(JSON.stringify(m));c.partes.forEach(p=>p.id=nid());return c;};
@@ -2906,6 +2907,23 @@ function atFields(d,mo,area){const m=AT.m;const dm=atDiasMes(d.fy,m);const badD=
     ${g('Indirectos',atFld(mo,'sv','SV')+atFld(mo,'lider','Líder')+atFld(mo,'otrosInd','Otros indirectos'),'personas')}
     ${atIsDSTR(d)?g('DSTR',atFld(mo,'dst','Tiempo estándar de diseño (DST)',{w2:1}),'objetivo ya determinado; al real se le resta la afectación base'):''}`;}
 
+// ---- tarjetas del año (vista general de meses y resumen anual) ----
+function atYearKpis(d,area){const R=atAll(d,area);const ok=R.map((r,i)=>[r,i]).filter(([r])=>r&&r.prod);if(!ok.length)return '';
+  const sum=k=>ok.reduce((a,[r])=>a+r[k],0);const atY=sum('prod')?sum('trab')*60/sum('prod'):0;const effY=sum('trab')?sum('horasReq')/sum('trab'):0;
+  const tgt=ok.filter(([r])=>r.target);const tgtY=tgt.length?tgt.reduce((a,[r])=>a+r.target*r.prod,0)/tgt.reduce((a,[r])=>a+r.prod,0):0;
+  const[lm,li]=ok[ok.length-1];
+  return `<div class="kpis pck8" style="margin-top:16px">
+        <div class="kpi"><span>Actual Time del año</span><span class="v" style="color:${tgtY&&atY>tgtY?'#B42318':'#15803D'}">${f2(atY)}</span><span class="sub">Σ horas trabajadas × 60 ÷ Σ producción</span></div>
+        <div class="kpi"><span>Meta del año</span><span class="v">${f2(tgtY)}</span><span class="sub">TARGET ponderado por producción</span></div>
+        <div class="kpi"><span>Eficiencia del año</span><span class="v" style="color:var(--blue)">${pc(effY,1)}</span><span class="sub">Σ horas requeridas ÷ Σ trabajadas</span></div>
+        <div class="kpi"><span>Producción del año</span><span class="v" style="font-size:28px">${nInt(sum('prod'))}</span><span class="sub">${ok.length} mes${ok.length!==1?'es':''}</span></div>
+        <div class="kpi"><span>Actual Time · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.target&&lm.atReal>lm.target?'#B42318':'#15803D'}">${f2(lm.atReal)}</span><span class="sub">meta ${f2(lm.target)} · sin afectación ${f2(lm.atSA)}</span></div>
+        <div class="kpi"><span>GAP de personal · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.gap>0?'var(--orange)':lm.gap<0?'#B42318':'#15803D'}">${lm.gap>0?'+':''}${f1(lm.gap)}</span><span class="sub">operadores ${f1(lm.res2)} vs requeridos ${f1(lm.hcReq)}</span></div>
+        <div class="kpi"><span>${lm.dif<0?'Ausentismo':'Arriba del plan'} · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.dif<0?'#B42318':'var(--orange)'}">${lm.dif<0?'−':'+'}${f1(Math.abs(lm.dif))}</span><span class="sub">HC trabajado ${f1(lm.hcTrab)} vs plan ${f1(lm.hcPlan)}</span></div>
+        ${atIsDSTR(d)?`<div class="kpi"><span>DSTR · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.dstrObj&&lm.dstrReal>lm.dstrObj?'#B42318':'#15803D'}">${f2(lm.dstrReal)}</span><span class="sub">objetivo ${f2(lm.dstrObj)}</span></div>`
+          :atIsJPMH(d)?`<div class="kpi"><span>JPMH · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.jpmh<lm.jpmhCommit?'#B42318':'#15803D'}">${f2(lm.jpmh)}</span><span class="sub">compromiso ${f2(lm.jpmhCommit)}</span></div>`
+          :`<div class="kpi"><span>Forecast · ${PC_MONTHS[li]}</span><span class="v">${f2(lm.forecast)}</span><span class="sub">(60 ÷ JPH real) × HC ÷ grupos</span></div>`}
+      </div>`;}
 // ---- vista principal ----
 function vAT(){
   if(!AT.d)atNew();const d=AT.d;const tit=atName(d);if(!atHasMH(d))AT.area='ens';
@@ -2924,21 +2942,26 @@ function vAT(){
     ${d.tipo==='ENSAMBLE'?`<div style="margin-top:16px"><span class="mmlbl">Manejo de materiales <span class="hint">espejo de ensamble con su propio personal</span></span><div class="chips"><button type="button" class="chip" data-atmh="1" aria-pressed="${!!d.mh}">Incluir</button><button type="button" class="chip" data-atmh="0" aria-pressed="${!d.mh}">No incluir</button></div></div>`:''}
     <div style="margin-top:16px"><span class="mmlbl">Año fiscal <span class="hint">abril a marzo</span></span><div class="chips">${fys.map(f=>`<button type="button" class="chip" data-atfy="${f}" aria-pressed="${d.fy===f}">FY${String(f).padStart(2,'0')} · abr ${2000+f-1} – mar ${2000+f}</button>`).join('')}</div></div>`;
   }
-  if(AT.view==='mes'){const m=AT.m;const mo=d.months[m];const area=AT.area;
+  if(AT.view==='mes'&&AT.m==null){const area=AT.area;const R=atAll(d,area);const n=R.filter(r=>r&&r.prod).length;
+    body=`<div class="row"><div><h2>Meses · FY${String(d.fy).padStart(2,'0')}</h2><p class="sub">${esc(atTipo(d))}${atHasMH(d)?' + manejo de materiales':''} · ${n} de 12 meses capturados · toca un mes para capturarlo o revisarlo</p></div>${atAreaSeg(d)}</div>
+    <div class="pcmonths atmonths" role="list" aria-label="Meses del año fiscal">${PC_MONTHS.map((nm,i)=>{const r=R[i];const over=r&&r.target&&r.atReal>r.target;return `<button type="button" role="listitem" class="pcm ${r&&r.prod?'ok':''}" data-atm="${i}" aria-label="${atMonthLbl(d,i)}"><b>${nm.slice(0,3).toUpperCase()}</b><small class="mono" ${r&&r.prod?`style="color:${over?'#B42318':'#15803D'}"`:''}>${r&&r.prod?f1(r.atReal):d.months[i]?'incompleto':'—'}</small></button>`;}).join('')}</div>
+    ${n?`<p class="mmlbl" style="margin:18px 0 0">Acumulado del año</p>${atYearKpis(d,area)}`:`<div class="slot empty" style="min-height:180px;margin-top:16px"><b style="font-size:17px">Aún no hay meses capturados</b><p>Toca un mes para empezar. Cada mes se captura una vez, al cierre.</p>${d.months.every(x=>!x)?`<button class="btn ghost" type="button" data-atexample="1">Cargar ejemplo (5 meses)</button>`:''}</div>`}
+    <div class="pcbottom"><button class="btn ghost" type="button" data-atv="info">${svg('back',18,2.2)} Información</button><button class="btn" type="button" data-atv="res">Resumen anual ${svg('next',18,2.2)}</button></div>`;
+  }
+  else if(AT.view==='mes'){const m=AT.m;const mo=d.months[m];const area=AT.area;
     const prev=(()=>{for(let i=m-1;i>=0;i--)if(d.months[i])return i;return -1;})();
     const src=mo&&atPcSrc(d,m);
-    body=`<div class="row"><div><h2>${atMonthLbl(d,m)}</h2><p class="sub">${mo?esc(atTipo(d))+(atHasMH(d)?' + manejo de materiales':'')+' · se captura al cierre del mes':'Mes sin capturar'}</p></div>${atAreaSeg(d)}</div>
-    <div class="pcmonths" role="tablist" aria-label="Meses del año fiscal">${PC_MONTHS.map((n,i)=>{const r=atR(d.months[i],area);return `<button type="button" role="tab" class="pcm ${i===m?'on':''} ${r&&r.prod?'ok':''}" data-atm="${i}" aria-selected="${i===m}"><b>${n.slice(0,3).toUpperCase()}</b><small class="mono">${r&&r.prod?f1(r.atReal):'—'}</small></button>`;}).join('')}</div>
+    body=`<div class="row"><div><button type="button" class="btn ghost sm atback" data-atmall="1">${svg('back',16,2.2)} Todos los meses</button><h2 style="margin-top:10px">${atMonthLbl(d,m)}</h2><p class="sub">${mo?esc(atTipo(d))+(atHasMH(d)?' + manejo de materiales':'')+' · se captura al cierre del mes':'Mes sin capturar'}</p></div>${atAreaSeg(d)}</div>
     ${!mo?`<div class="slot empty" style="min-height:200px;margin-top:16px"><b style="font-size:17px">${PC_MONTHS[m]} sin capturar</b><p>${prev>=0?`Copia <b>${PC_MONTHS[prev]}</b> (partes, plan y personal) y cambia solo lo que se movió.`:'Captura las partes, las horas y el personal del mes.'}</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">${prev>=0?`<button class="btn" type="button" data-atcopy="${prev}">Copiar de ${PC_MONTHS[prev]}</button>`:''}<button class="btn ghost" type="button" data-atstart="1">${svg('plus',18,2.2)} Empezar en blanco</button>${d.months.every(x=>!x)?`<button class="btn ghost" type="button" data-atexample="1">Cargar ejemplo (5 meses)</button>`:''}</div></div>`
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">${prev>=0?`<button class="btn" type="button" data-atcopy="${prev}">Copiar de ${PC_MONTHS[prev]}</button>`:''}<button class="btn ghost" type="button" data-atstart="1">${svg('plus',18,2.2)} Empezar en blanco</button></div></div>`
     :`<div data-atlive="1" style="margin-top:16px">${atKpis(d,atR(mo,area),area)}</div>
     <div class="pcgrp" style="margin-top:18px"><b>Números de parte <span class="hint">cada parte aporta sus horas requeridas = producción × ${area==='mh'?'LAT':atTimeLbl(d.tipo)} ÷ 60</span></b>${atPartRows(d,mo,area)}
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px"><button class="btn ghost sm" type="button" data-atpadd="1">${svg('plus',16,2.2)} Agregar parte</button>${src?`<button class="btn ghost sm" type="button" data-atpc="1">Traer LAT de Cálculo de personal</button>`:''}</div></div>
     <div class="pcbody atbody">${atFields(d,mo,area)}</div>
     <div class="glass" style="margin-top:16px;padding:20px;border-radius:18px"><div class="row"><div><b style="font-size:16px">Cascada de headcount${atHasMH(d)?' · '+atAreaLbl(area).toLowerCase():''}</b><p class="sub" style="margin:2px 0 0">Horas convertidas a personas equivalentes: días × horas por día ÷ grupos reales = <span data-athper="1">${f2(atR(mo,area).hPer)}</span> h por persona</p></div></div>
       <div class="stchart parchart" data-atcasc="1">${atCasc(atR(mo,area))}</div></div>
-    ${prev>=0?`<div style="margin-top:12px"><button class="btn ghost sm" type="button" data-atcopy="${prev}" data-atask="1">Reemplazar con ${PC_MONTHS[prev]}</button> <button class="btn ghost sm" type="button" data-atclear="1">Borrar mes</button></div>`:`<div style="margin-top:12px"><button class="btn ghost sm" type="button" data-atclear="1">Borrar mes</button></div>`}`}
-    <div class="pcbottom"><button class="btn ghost" type="button" data-atv="info">${svg('back',18,2.2)} Información</button><button class="btn" type="button" data-atv="res">Resumen anual ${svg('next',18,2.2)}</button></div>`;
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">${prev>=0?`<button class="btn ghost sm" type="button" data-atcopy="${prev}" data-atask="1">Reemplazar con ${PC_MONTHS[prev]}</button>`:''}<button class="btn ghost sm" type="button" data-atclear="1">Borrar mes</button></div>`}
+    <div class="pcbottom"><button class="btn ghost" type="button" data-atmall="1">${svg('back',18,2.2)} Todos los meses</button><div style="display:flex;gap:10px;flex-wrap:wrap">${m>0?`<button class="btn ghost" type="button" data-atm="${m-1}">${svg('back',18,2.2)} ${PC_MONTHS[m-1]}</button>`:''}${m<11?`<button class="btn" type="button" data-atm="${m+1}">${PC_MONTHS[m+1]} ${svg('next',18,2.2)}</button>`:''}</div></div>`;
   }
   if(AT.view==='res'){const area=AT.area;const R=atAll(d,area);const ok=R.map((r,i)=>[r,i]).filter(([r])=>r&&r.prod);const tl=area==='mh'?'LAT':atTimeLbl(d.tipo);
     body=`<div class="row"><div><h2>Resumen anual · FY${String(d.fy).padStart(2,'0')}</h2><p class="sub">${esc(d.nombre)} · ${esc(atTipo(d))}${atHasMH(d)?' · '+atAreaLbl(area).toLowerCase():''} · ${ok.length} de 12 meses capturados</p></div>
@@ -2948,18 +2971,7 @@ function vAT(){
       const tgt=ok.filter(([r])=>r.target);const tgtY=tgt.length?tgt.reduce((a,[r])=>a+r.target*r.prod,0)/tgt.reduce((a,[r])=>a+r.prod,0):0;
       const[lm,li]=ok[ok.length-1];const cm=AT.cm!=null&&R[AT.cm]&&R[AT.cm].prod?AT.cm:li;const cr=R[cm];
       const AF='#C2410C',SA='#E9A47F',TG='#1D5FA8';
-      return `<div class="kpis pck8" style="margin-top:16px">
-        <div class="kpi"><span>Actual Time del año</span><span class="v" style="color:${tgtY&&atY>tgtY?'#B42318':'#15803D'}">${f2(atY)}</span><span class="sub">Σ horas trabajadas × 60 ÷ Σ producción</span></div>
-        <div class="kpi"><span>Meta del año</span><span class="v">${f2(tgtY)}</span><span class="sub">TARGET ponderado por producción</span></div>
-        <div class="kpi"><span>Eficiencia del año</span><span class="v" style="color:var(--blue)">${pc(effY,1)}</span><span class="sub">Σ horas requeridas ÷ Σ trabajadas</span></div>
-        <div class="kpi"><span>Producción del año</span><span class="v" style="font-size:28px">${nInt(sum('prod'))}</span><span class="sub">${ok.length} mes${ok.length!==1?'es':''}</span></div>
-        <div class="kpi"><span>Actual Time · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.target&&lm.atReal>lm.target?'#B42318':'#15803D'}">${f2(lm.atReal)}</span><span class="sub">meta ${f2(lm.target)} · sin afectación ${f2(lm.atSA)}</span></div>
-        <div class="kpi"><span>GAP de personal · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.gap>0?'var(--orange)':lm.gap<0?'#B42318':'#15803D'}">${lm.gap>0?'+':''}${f1(lm.gap)}</span><span class="sub">operadores ${f1(lm.res2)} vs requeridos ${f1(lm.hcReq)}</span></div>
-        <div class="kpi"><span>${lm.dif<0?'Ausentismo':'Arriba del plan'} · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.dif<0?'#B42318':'var(--orange)'}">${lm.dif<0?'−':'+'}${f1(Math.abs(lm.dif))}</span><span class="sub">HC trabajado ${f1(lm.hcTrab)} vs plan ${f1(lm.hcPlan)}</span></div>
-        ${atIsDSTR(d)?`<div class="kpi"><span>DSTR · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.dstrObj&&lm.dstrReal>lm.dstrObj?'#B42318':'#15803D'}">${f2(lm.dstrReal)}</span><span class="sub">objetivo ${f2(lm.dstrObj)}</span></div>`
-          :atIsJPMH(d)?`<div class="kpi"><span>JPMH · ${PC_MONTHS[li]}</span><span class="v" style="color:${lm.jpmh<lm.jpmhCommit?'#B42318':'#15803D'}">${f2(lm.jpmh)}</span><span class="sub">compromiso ${f2(lm.jpmhCommit)}</span></div>`
-          :`<div class="kpi"><span>Forecast · ${PC_MONTHS[li]}</span><span class="v">${f2(lm.forecast)}</span><span class="sub">(60 ÷ JPH real) × HC ÷ grupos</span></div>`}
-      </div>
+      return `${atYearKpis(d,area)}
       ${atBox(d,area,{title:'Actual Time'+(atHasMH(d)?' · '+atAreaLbl(area).toLowerCase():''),sub:'Minutos-hombre por pieza contra la meta · abajo es mejor',bars:[['Con afectación',AF,r=>r.atReal],['Sin afectación',SA,r=>r.atSA]],lines:[['Meta (TARGET)',TG,r=>r.target,1]]})}
       <div class="glass" style="margin-top:16px;padding:20px;border-radius:18px"><div class="row"><div><b style="font-size:16px">Cascada de headcount · ${PC_MONTHS[cm]}</b><p class="sub" style="margin:2px 0 0">Del plan al HC requerido, en personas equivalentes</p></div></div>
         <div class="chips" style="margin-top:10px" role="group" aria-label="Mes">${ok.map(([r,i])=>`<button type="button" class="chip sm" data-atcm="${i}" aria-pressed="${i===cm}">${PC_MONTHS[i].slice(0,3).toUpperCase()}</button>`).join('')}</div>
@@ -2979,7 +2991,7 @@ function vAT(){
 // ---- eventos ----
 const atRe=()=>{S.keep=true;render(true);S.keep=false;};
 function atSync(){const f=document.getElementById('ath');if(f&&AT.d)new FormData(f).forEach((v,k)=>AT.d[k]=v);}
-function atLive(){const d=AT.d;const mo=d&&d.months[AT.m];if(!mo)return;const r=atR(mo,AT.area);
+function atLive(){const d=AT.d;const mo=d&&AT.m!=null&&d.months[AT.m];if(!mo)return;const r=atR(mo,AT.area);
   const set=(sel,h)=>{const e=document.querySelector(sel);if(e)e.innerHTML=h;};
   set('[data-atlive]',atKpis(d,r,AT.area));set('[data-atcasc]',atCasc(r));set('[data-athper]',f2(r.hPer));
   mo.partes.forEach((p,i)=>{set(`[data-atph="${p.id}"]`,h2(r.partes[i].horasReq));set(`[data-atpp="${p.id}"]`,pc(r.partes[i].pct,1));});
@@ -2989,18 +3001,19 @@ function atLive(){const d=AT.d;const mo=d&&d.months[AT.m];if(!mo)return;const r=
 document.addEventListener('click',e=>{
   const t=e.target.closest&&e.target.closest('button');if(!t||t.disabled)return;const D=t.dataset;
   if(D.atnew){atNew();go('at-nuevo');return;}
-  if(D.atopen){AT.d=AT.studies.find(x=>x.id==D.atopen);AT.view=AT.d.months.some(Boolean)?'res':'info';AT.area='ens';AT.cm=null;AT.miss=[];go('at-nuevo');return;}
+  if(D.atopen){AT.d=AT.studies.find(x=>x.id==D.atopen);AT.view=AT.d.months.some(Boolean)?'res':'info';AT.m=null;AT.area='ens';AT.cm=null;AT.miss=[];go('at-nuevo');return;}
   const d=AT.d;if(!d||!Object.keys(D).some(k=>k.startsWith('at')))return;
   if(D.atv){atSync();if(D.atneed){AT.miss=String(d.nombre||'').trim()?[]:['nombre'];if(AT.miss.length){atRe();return;}if(!AT.studies.includes(d))AT.studies.unshift(d);
-      const i=d.months.findIndex(Boolean);AT.m=i>=0?i:0;}
-    AT.view=D.atv;render();return;}
+}
+    if(D.atv==='mes')AT.m=null;AT.view=D.atv;render();return;}
   if(D.attipo){atSync();d.tipo=D.attipo;atRe();return;}
   if(D.atmh!==undefined){atSync();d.mh=D.atmh==='1';atRe();return;}
   if(D.atfy){atSync();d.fy=+D.atfy;atRe();return;}
   if(D.atarea){AT.area=D.atarea;atRe();return;}
-  if(D.atm!==undefined){AT.m=+D.atm;atRe();return;}
+  if(D.atm!==undefined){AT.m=+D.atm;render();scrollTo({top:0});return;}
+  if(D.atmall){AT.m=null;render();scrollTo({top:0});return;}
   if(D.atcm!==undefined){AT.cm=+D.atcm;atRe();return;}
-  if(D.atexample){atExample(d);AT.m=0;atRe();return;}
+  if(D.atexample){atExample(d);AT.m=null;atRe();return;}
   if(D.atstart){d.months[AT.m]=atNewMonth();atRe();return;}
   if(D.atcopy!==undefined){const doit=()=>{d.months[AT.m]=atClone(d.months[+D.atcopy]);atRe();};
     if(D.atask)ask('¿Reemplazar '+PC_MONTHS[AT.m]+'?','Se borra lo capturado en '+PC_MONTHS[AT.m]+' y se copia '+PC_MONTHS[+D.atcopy]+'.','Reemplazar',doit);else doit();return;}
@@ -3014,7 +3027,7 @@ document.addEventListener('click',e=>{
 document.addEventListener('input',e=>{const el=e.target;const d=AT.d;if(!d||!el.dataset)return;
   if(el.closest&&el.closest('#ath')){atSync();if(AT.miss.length&&String(d.nombre||'').trim())AT.miss=[];return;}
   if(el.dataset.attipootro){d.tipoOtro=el.value;return;}
-  const mo=d.months[AT.m];if(!mo)return;
+  if(AT.m==null)return;const mo=d.months[AT.m];if(!mo)return;
   const val=el.dataset.atint?(String(el.value).trim()===''?'':String(pcInt(el.value))):el.value;
   if(el.dataset.atf){atSet(mo,el.dataset.atf,val);atLive();return;}
   if(el.dataset.atp){const[id,k]=el.dataset.atp.split('|');const p=mo.partes.find(x=>x.id==id);if(!p)return;p[k]=val;if(k!=='parte')atLive();}

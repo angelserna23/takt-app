@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Siguiente formato: **Actual Time**. Te adjunto mi Excel/VBA y te explico qué responde: analízalo y pásame comentarios antes de construir.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Siguiente formato: **Eficiencia compuesta**. Te adjunto mi Excel/VBA y te explico qué responde: analízalo y pásame comentarios antes de construir.
 
 ## Pasos para Claude al iniciar
 
@@ -36,5 +36,6 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 ## Estado al 2026-11-11 (noche)
 
 - Listos: 6 estudios de tiempos + Cálculo de personal. Todas las pruebas pasan.
-- Actual Time: primera versión construida y publicada (2026-11-11); Angel la está probando y mandará comentarios.
-- Después: Eficiencia compuesta (confirmar si ya la cubre Actual Time), Diagrama de flujo de proceso, guardado de datos, Inicio, pagos y diseño final.
+- Actual Time: concluido (2026-11-11).
+- Siguiente: Eficiencia compuesta (Angel manda su formato; evaluar si se integra a Actual Time).
+- Después: Diagrama de flujo de proceso, guardado de datos, Inicio, pagos y diseño final.

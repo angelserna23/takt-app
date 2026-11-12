@@ -15,6 +15,8 @@ with sync_playwright() as p:
         pg.fill('input[name=nombre]','ensamble planta 1');print(tag,'mayúsculas',pg.input_value('input[name=nombre]'))
         pg.locator('[data-atneed]').last.click()
         pg.click('[data-atexample]');pg.wait_for_timeout(150)
+        print(tag,'general: meses',pg.locator('.atmonths .pcm.ok').count(),'tarjetas del año',[k.inner_text().split('\n')[1] for k in pg.locator('.pck8 .kpi').all()][:4],'campos visibles',pg.locator('[data-atf]').count())
+        pg.click('.atmonths [data-atm="0"]');pg.wait_for_timeout(100)
         print(tag,'abril ens',kpis(pg))
         assert kpis(pg)[0]=='72.00' and kpis(pg)[1]=='50.00', kpis(pg)
         pg.screenshot(path=f'/tmp/at_mes_{tag}.png',full_page=True)
@@ -29,7 +31,7 @@ with sync_playwright() as p:
         pg.click('[data-atarea=mh]');pg.wait_for_timeout(100);print(tag,'MH abril',kpis(pg)[:2])
         pg.click('[data-atarea=ens]')
         # copiar a junio
-        pg.click('[data-atm="5"]');pg.click('[data-atcopy="4"]');print(tag,'junio copiado partes',pg.locator('[data-atp$="|parte"]').count())
+        pg.locator('[data-atmall]').first.click();pg.click('.atmonths [data-atm="5"]');pg.click('[data-atcopy="4"]');print(tag,'junio copiado partes',pg.locator('[data-atp$="|parte"]').count())
         pg.locator('[data-atv=res]:not([disabled])').last.click();pg.wait_for_timeout(300)
         print(tag,'tabla meses',pg.locator('.smtbl tbody tr').count(),'gráficas',pg.locator('.stchart svg').count())
         pg.screenshot(path=f'/tmp/at_res_{tag}.png',full_page=True)
@@ -38,8 +40,8 @@ with sync_playwright() as p:
     # maquinado: JPMH y grupos reales
     pg=b.new_page(viewport={'width':1366,'height':1000});pg.route('**/fonts.googleapis.com/**',lambda r:r.abort());pg.on('pageerror',lambda e:errs.append('maq '+str(e)))
     pg.goto(IDX+'#at');pg.click('[data-atnew]');pg.fill('input[name=nombre]','maquinado');pg.click('[data-attipo=MAQUINADO]');pg.locator('[data-atneed]').last.click()
-    pg.click('[data-atexample]');pg.wait_for_timeout(100);print('maq abril',kpis(pg));print('maq sin selector MH',pg.locator('[data-atarea]').count())
-    pg.click('[data-atm="4"]');print('maq agosto (2 grupos reales)',kpis(pg))
+    pg.click('[data-atexample]');pg.wait_for_timeout(100);pg.click('.atmonths [data-atm="0"]');print('maq abril',kpis(pg));print('maq sin selector MH',pg.locator('[data-atarea]').count())
+    pg.locator('.pcbottom [data-atm="1"]').click();pg.locator('[data-atmall]').first.click();pg.click('.atmonths [data-atm="4"]');print('maq agosto (2 grupos reales)',kpis(pg))
     pg.locator('[data-atv=res]:not([disabled])').last.click();pg.wait_for_timeout(200);pg.screenshot(path='/tmp/at_res_maq.png',full_page=True)
     print('maq títulos',[x.inner_text() for x in pg.locator('.glass > b').all()])
     b.close()
