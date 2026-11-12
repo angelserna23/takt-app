@@ -1,7 +1,7 @@
 // ===== CÁLCULO DE PERSONAL (headcount) · lógica del formato de Angel =====
-// Año fiscal: abril → marzo. FY27 = abril 2026 a marzo 2027.
+// Año fiscal: abril → marzo. Se nombra por el año en que empieza: FY26 = abril 2026 a marzo 2027.
 const PC_MONTHS=['Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre','Enero','Febrero','Marzo'];
-function pcFY(date){const d=date||new Date();return (d.getFullYear()+(d.getMonth()>=3?1:0))%100;}
+function pcFY(date){const d=date||new Date();return (d.getFullYear()-(d.getMonth()>=3?0:1))%100;}
 // Volumen: la coma es separador de miles (30,000 = 30000)
 function pcInt(v){const x=parseFloat(String(v??'').replace(/[^0-9.\-]/g,''));return isNaN(x)?0:x;}
 const pcGroups=e=>({A:1,B:2,C:3})[String(e||'').toUpperCase()]||0;

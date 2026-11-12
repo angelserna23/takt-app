@@ -150,7 +150,7 @@ Base: método SMED público (Shingo). Sin material de empleadores; ejemplo ficti
 
 ## Cálculo de personal (headcount) — CONCLUIDO (2026-11-11)
 Sección propia del menú ("Cálculo de personal"; en teléfono, pestaña "Personal"). Base: formato y VBA propios de Angel (headcount_sheet, v1.13), con datos ficticios.
-Estructura en 3 niveles: **Cálculo** (un área, p. ej. MAQUINADO, por año fiscal) → **12 meses** (abril a marzo; FY27 = abr 2026 – mar 2027) → **renglones** por mes (sublíneas: Línea 1…8 en maquinado, por modelo en fundición, uno en ensamble). Cada mes tiene sus propios renglones (personal e indirectos pueden variar mes a mes); "Copiar del mes anterior" para no recapturar.
+Estructura en 3 niveles: **Cálculo** (un área, p. ej. MAQUINADO, por año fiscal) → **12 meses** (abril a marzo; **se nombra por el año en que empieza: FY26 = abr 2026 – mar 2027**, decidido por Angel 2026-11-12) → **renglones** por mes (sublíneas: Línea 1…8 en maquinado, por modelo en fundición, uno en ensamble). Cada mes tiene sus propios renglones (personal e indirectos pueden variar mes a mes); "Copiar del mes anterior" para no recapturar.
 Por renglón: nombre, parte, proceso, días, horas/día, TPM (h/día), domingos, JPH plan (capturado), OEE plan (solo visual), volumen, esquema A/B/C (1/2/3 grupos), operadores, líderes, supervisores (por grupo), indirectos TPM/proyectos/otros.
 Fórmulas (todas se muestran como KPI):
 - TC = (60 ÷ JPH) × OEE (visual, no afecta el HC).

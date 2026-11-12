@@ -15,7 +15,7 @@ function atNew(){AT.d={id:nid(),nombre:'',tipo:'ENSAMBLE',tipoOtro:'',mh:true,fy
 const atR=(m,area)=>m?(area==='mh'?atMH(m):atMonth(m)):null;
 const atAll=(d,area)=>d.months.map(m=>atR(m,area));
 const atClone=m=>{const c=JSON.parse(JSON.stringify(m));c.partes.forEach(p=>p.id=nid());return c;};
-const atMonthLbl=(d,i)=>PC_MONTHS[i]+' '+(2000+d.fy-(i<9?1:0));
+const atMonthLbl=(d,i)=>PC_MONTHS[i]+' '+(2000+d.fy+(i<9?0:1));
 const atAreaLbl=a=>a==='mh'?'Manejo de materiales':'Ensamble';
 const f1=x=>(Math.round(x*10)/10).toFixed(1);
 const h2=x=>(+x||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -178,7 +178,7 @@ function vAT(){
       ${d.tipo==='OTRO'?`<label class="form" style="display:block;margin-top:10px;max-width:420px"><span style="display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px">¿Qué área es?</span><input data-attipootro="1" value="${esc(d.tipoOtro||'')}" placeholder="Ej. PINTURA" autocomplete="off" style="width:100%"></label>`:''}
       <p class="sub" style="margin-top:8px">${d.tipo==='ENSAMBLE'?'Tiempo por pieza: <b>ST</b> (tiempo estándar planeado). Incluye DSTR.':'Tiempo por pieza: <b>LAT</b> (Line Actual Time de Cálculo de personal).'+(atIsJPMH(d)?' Incluye JPMH.':'')}</p></div>
     ${d.tipo==='ENSAMBLE'?`<div style="margin-top:16px"><span class="mmlbl">Manejo de materiales <span class="hint">espejo de ensamble con su propio personal</span></span><div class="chips"><button type="button" class="chip" data-atmh="1" aria-pressed="${!!d.mh}">Incluir</button><button type="button" class="chip" data-atmh="0" aria-pressed="${!d.mh}">No incluir</button></div></div>`:''}
-    <div style="margin-top:16px"><span class="mmlbl">Año fiscal <span class="hint">abril a marzo</span></span><div class="chips">${fys.map(f=>`<button type="button" class="chip" data-atfy="${f}" aria-pressed="${d.fy===f}">FY${String(f).padStart(2,'0')} · abr ${2000+f-1} – mar ${2000+f}</button>`).join('')}</div></div>`;
+    <div style="margin-top:16px"><span class="mmlbl">Año fiscal <span class="hint">abril a marzo</span></span><div class="chips">${fys.map(f=>`<button type="button" class="chip" data-atfy="${f}" aria-pressed="${d.fy===f}">FY${String(f).padStart(2,'0')} · abr ${2000+f} – mar ${2000+f+1}</button>`).join('')}</div></div>`;
   }
   if(AT.view==='mes'&&AT.m==null){const area=AT.area;const R=atAll(d,area);const n=R.filter(r=>r&&r.prod).length;
     body=`<div class="row"><div><h2>Meses · FY${String(d.fy).padStart(2,'0')}</h2><p class="sub">${esc(atTipo(d))}${atHasMH(d)?' + manejo de materiales':''} · ${n} de 12 meses capturados · toca un mes para capturarlo o revisarlo</p></div>${atAreaSeg(d)}</div>

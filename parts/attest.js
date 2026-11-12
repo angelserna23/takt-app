@@ -43,6 +43,6 @@ const EM=Object.assign({},ENS,{partes:[{parte:'A',st:30,lat:9,prod:12000},{parte
   mh:{horasTrab:6000,afect:{tpm:300},hcPlan:28,hcRes:30,sv:2,lider:3,otrosInd:1}});
 const em=atMH(EM);near(em.prod,20000);near(em.horasReq,20000*9/60);near(em.atReal,18);near(em.target,14);
 near(em.dstrReal,18/15-0.07);near(em.hcTrab,6000/225);near(em.res2,(6000-300)/225-6);near(atMonth(EM).atReal,72);
-// Caso 11: días del mes del año fiscal (FY27): abril 2026 = 30, febrero 2027 = 28
-assert.strictEqual(atDiasMes(27,0),30);assert.strictEqual(atDiasMes(27,10),28);assert.strictEqual(atDiasMes(27,9),31);
+// Caso 11: días del mes del año fiscal (FY26 = abril 2026 a marzo 2027): abril = 30, enero = 31, febrero 2027 = 28; FY27 incluye febrero 2028 = 29
+assert.strictEqual(atDiasMes(26,0),30);assert.strictEqual(atDiasMes(26,10),28);assert.strictEqual(atDiasMes(26,9),31);assert.strictEqual(atDiasMes(27,10),29);
 console.log('OK: Actual Time, 14 casos pasan · AT real '+e.atReal.toFixed(2)+' vs target '+e.target.toFixed(2)+' · GAP '+e.gap.toFixed(2)+' HC');

@@ -40,5 +40,5 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Eficiencia compuesta: concluida como vista de planta dentro de Actual Time (2026-11-12).
 - Diagramas de flujo de proceso: concluido como sección propia del menú (2026-11-12).
 - Siguiente (hoja de ruta): guardado de estudios; después pagos, Inicio y diseño final.
-- Pendiente de decidir: nombre del año fiscal (hoy FY27 = abr 2026 – mar 2027; Angel lo llama FY2026).
+- Año fiscal: se nombra por el año en que empieza (FY26 = abr 2026 – mar 2027).
 - Después: Diagrama de flujo de proceso, guardado de datos, Inicio, pagos y diseño final.

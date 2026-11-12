@@ -19,8 +19,8 @@ near(d.hDisp,364);assert.strictEqual(d.Z,2);assert.strictEqual(d.hcVol,9);assert
 const m=pcMonth([L1,L2,L4],5);assert.strictEqual(m.hcVol,55);assert.strictEqual(m.hcEsq,66);assert.strictEqual(m.hcRed,64);near(m.occ,(500+400+225)/(623+649+364));
 // Caso 6: sin esquema o sin JPH no truena (el Excel daba "Empty")
 const e=pcRow({dias:26,hd:22.5,vol:100});assert.strictEqual(e.hcVol,0);assert.strictEqual(e.occ,0);assert.strictEqual(pcMonth([],5).hcVol,0);
-// Caso 7: año fiscal desde abril: noviembre 2026 → FY27; marzo 2026 → FY26
-assert.strictEqual(pcFY(new Date(2026,10,11)),27);assert.strictEqual(pcFY(new Date(2026,2,1)),26);
+// Caso 7: año fiscal desde abril, nombrado por el año en que empieza: noviembre 2026 → FY26; marzo 2027 → FY26; marzo 2026 → FY25; abril 2026 → FY26
+assert.strictEqual(pcFY(new Date(2026,10,11)),26);assert.strictEqual(pcFY(new Date(2027,2,31)),26);assert.strictEqual(pcFY(new Date(2026,2,1)),25);assert.strictEqual(pcFY(new Date(2026,3,1)),26);
 // Caso 8: volumen con coma de miles
 assert.strictEqual(pcRow(Object.assign({},L1,{vol:'15,000'})).hcVol,25);near(pcRow(Object.assign({},L1,{vol:'15,000'})).hReq,500);
 // Caso 9: personal que agrega valor vs afectación (plantilla del esquema): Línea 1 = 18 directos (5+1)×3 y 10 de afectación (1×3 + 7)

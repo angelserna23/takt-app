@@ -48,8 +48,8 @@ function atMonth(m){
     hPer,hcPlan,hcTrab,dif,ausentismo:Math.max(0,-dif),arribaPlan:Math.max(0,dif),afHC,res1,sv,lider,otrosInd,res2,hcReq,gap,
     dstrObj,dstrReal,dstrRealSA,vsTarget:target?atReal-target:0};
 }
-// Días del mes del año fiscal (FY27: abril 2026 … marzo 2027) para validar la captura
-function atDiasMes(fy,i){const y=2000+fy-(i<9?1:0),mo=(i+3)%12;return new Date(y,mo+1,0).getDate();}
+// Días del mes del año fiscal (FY26: abril 2026 … marzo 2027) para validar la captura
+function atDiasMes(fy,i){const y=2000+fy+(i<9?0:1),mo=(i+3)%12;return new Date(y,mo+1,0).getDate();}
 // Tiempo por pieza: ensamble usa el tiempo estándar planeado (ST); manejo de materiales, maquinado y fundición
 // usan el Line Actual Time (LAT) que sale de Cálculo de personal.
 function atTimeLbl(tipo){return tipo==='ENSAMBLE'?'ST':'LAT';}
