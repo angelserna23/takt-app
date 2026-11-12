@@ -2,3 +2,14 @@ __pycache__/
 *.pyc
 node_modules/
 .DS_Store
+
+# Formatos originales de Angel (se analizan, no se suben)
+*.xlsx
+*.xlsm
+*.xls
+~$*
+
+# Trabajo temporal y capturas de pruebas
+scratch/
+*.png
+*.log

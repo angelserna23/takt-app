@@ -12,7 +12,19 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 2. Leer `docs/decisiones-mvp.md` completo: reglas generales, unidades, reglas de teléfono y la hoja de ruta.
 3. Correr `for t in test dstest wetest sttest mmtest smtest pctest; do node parts/$t.js; done`: todas deben decir OK.
 4. Para publicar cambios de la app: el artifact ya existe (slug `b963594a-ed0b-4bfe-9897-a3ee86914094`). Republicar `index.html` sobre ese mismo slug (pedir la versión actual con get_artifact y usarla como base_version). No crear un artifact nuevo.
-5. Al terminar el chat: copiar cambios al repo (index.html, parts/, tests/smoke/, docs/decisiones-mvp.md), correr pruebas, commit y push a `main`.
+5. Al terminar el chat: seguir la rutina de cierre (abajo).
+
+## Rutina de cierre ("por hoy terminamos")
+
+Cuando Angel diga que por hoy terminamos, Claude hace, en este orden:
+
+1. Correr todas las pruebas. Si algo falla, avisar y **no** subir.
+2. Actualizar `docs/decisiones-mvp.md` y la sección "Estado" de este archivo con lo hecho en el día.
+3. `git status` y revisar la lista; agregar solo lo que corresponde (nunca `git add .` a ciegas). Los Excel de Angel y los temporales quedan fuera por `.gitignore`.
+4. `git commit` con mensaje descriptivo (p. ej. `Actual Time: cálculo validado + 8 pruebas`).
+5. `git push` a `main` y confirmar a Angel el número de commit. Sin push, el trabajo se pierde al cerrar el chat.
+
+Además: commit + push intermedio cada vez que se cierre algo importante (cálculo validado, pantalla lista), por si el chat se corta.
 
 ## Forma de trabajo acordada
 
