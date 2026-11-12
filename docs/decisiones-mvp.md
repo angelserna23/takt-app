@@ -194,6 +194,16 @@ Pregunta que responde: ¿cuántos minutos-hombre cuesta realmente cada pieza, me
 - Pruebas: 14 de cálculo (parts/attest.js) + pantalla (tests/smoke/smoke_at.py, laptop/tablet/teléfono).
 - Errores del Excel a corregir: ausentismo con valor absoluto (tiempo extra se mostraba como ausentismo); total de afectaciones de MH leía las de ensamble; meses vacíos graficados como 0; DSTR MH sin categorías; 22.5 h/día fijo dentro de fórmulas; días > días del mes sin validar; AVERAGE simple de ST con varias partes.
 
+## Eficiencia compuesta — CONCLUIDO como vista dentro de Actual Time (2026-11-12)
+No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en la lista de Actual Time. Vista general de planta que junta los Actual Time del año fiscal.
+- Áreas: ensamble + manejo de materiales = una sola área (requeridas, trabajadas y afectaciones sumadas; piezas de ensamble); maquinado y fundición, cada una aparte.
+- Eficiencia con y sin afectación (selector). Inventario y pre-arranque van en afectaciones «otros» del Actual Time. Sin genba y sin reparto de áreas sin producción (Angel, 2026-11-12).
+- Planta = Σ requeridas ÷ Σ trabajadas de todas las áreas (el Excel promediaba % simple). Año = suma de horas, sin mezclar el marzo del año anterior (el Excel lo incluía en el promedio).
+- Cambio vs mes anterior en puntos; abril contra marzo del FY anterior si existe el Actual Time de la misma área (mismo nombre y tipo).
+- Piezas por hora-hombre (eficiencia por volumen): solo tendencia por área contra su mes anterior, en %; no se comparan áreas entre sí.
+- Pantalla: 4 KPI de planta, trayectoria (una línea por área + planta gruesa), tabla áreas × meses con cambio en puntos, mini gráfica de piezas por hora-hombre por área. Ejemplo de planta (ensamble + MH y maquinado).
+- Pruebas: 6 de cálculo (parts/ectest.js) + pantalla (tests/smoke/smoke_ec.py).
+
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
 
@@ -214,7 +224,7 @@ Pregunta que responde: ¿cuántos minutos-hombre cuesta realmente cada pieza, me
 - Jerarquía planta → línea → estación desde el día uno.
 
 ## Hoja de ruta acordada (nov 2026)
-- Actual Time concluido. Siguiente: Eficiencia compuesta (Angel manda su formato; él cree que no agrega valor porque era un concentrado de la misma eficiencia; posible «Actual Time / Eficiencia compuesta»). Sus nombres de áreas son inventados por Angel y Diagrama de flujo de proceso (símbolos ASME; idea de armarlo solo desde DS/SMED).
+- Actual Time y Eficiencia compuesta concluidos. Siguiente: Diagrama de flujo de proceso y Diagrama de flujo de proceso (símbolos ASME; idea de armarlo solo desde DS/SMED).
 - Un formato a la vez, sin adelantarse. Menú agrupado propuesto (sin confirmar): Inicio · Estudios de tiempos · Capacidad y eficiencia · Herramientas · Aprende · Configuración.
 - Después de esos tres: guardado. Pagos (suscripción, sin publicidad), Inicio y diseño final al último.
 

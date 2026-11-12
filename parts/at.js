@@ -53,7 +53,7 @@ function vATList(){
   setHead('Actual Time',[['Actual Time','at']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Actual Time</h2><p class="sub">Minutos-hombre reales por pieza, mes a mes del año fiscal (abril a marzo)</p></div>
-    <button class="btn orange" type="button" data-atnew="1">${svg('plus',18,2.2)} Nuevo Actual Time</button></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-ecopen="1">${svg('chart',18,2)} Eficiencia compuesta</button><button class="btn orange" type="button" data-atnew="1">${svg('plus',18,2.2)} Nuevo Actual Time</button></div></div>
     <div class="grid" style="margin-top:18px">
     ${AT.studies.map(st=>{const R=atAll(st,'ens');const last=R.map((x,i)=>[x,i]).filter(([x])=>x&&x.prod).pop();
       return `<div class="studyrow"><button type="button" class="study" data-atopen="${st.id}">
