@@ -25,7 +25,7 @@ Prototipo publicado: https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f
 ## Correr las pruebas
 
 ```bash
-for t in test dstest wetest sttest mmtest smtest pctest attest ectest; do node parts/$t.js; done
+for t in test dstest wetest sttest mmtest smtest pctest attest ectest dftest; do node parts/$t.js; done
 # Pantallas (requiere: pip install playwright && playwright install chromium)
 python3 tests/smoke/smoke_pc.py
 ```

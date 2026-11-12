@@ -4,13 +4,13 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Siguiente formato: **Diagrama de flujo de proceso**. Te adjunto mi Excel/VBA y te explico qué responde: analízalo y pásame comentarios antes de construir.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Seguimos con el **Diagrama de flujo de proceso** (primera versión ya construida): te paso mis comentarios de las pruebas.
 
 ## Pasos para Claude al iniciar
 
 1. Clonar `angelserna23/takt-app` (rama `main`).
 2. Leer `docs/decisiones-mvp.md` completo: reglas generales, unidades, reglas de teléfono y la hoja de ruta.
-3. Correr `for t in test dstest wetest sttest mmtest smtest pctest attest ectest; do node parts/$t.js; done`: todas deben decir OK.
+3. Correr `for t in test dstest wetest sttest mmtest smtest pctest attest ectest dftest; do node parts/$t.js; done`: todas deben decir OK.
 4. Para publicar cambios de la app: el artifact ya existe (slug `b963594a-ed0b-4bfe-9897-a3ee86914094`). Republicar `index.html` sobre ese mismo slug (pedir la versión actual con get_artifact y usarla como base_version). No crear un artifact nuevo.
 5. Al terminar el chat: seguir la rutina de cierre (abajo).
 
@@ -38,5 +38,6 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Listos: 6 estudios de tiempos + Cálculo de personal. Todas las pruebas pasan.
 - Actual Time: concluido (2026-11-11).
 - Eficiencia compuesta: concluida como vista de planta dentro de Actual Time (2026-11-12).
-- Siguiente: Diagrama de flujo de proceso.
+- Diagrama de flujo de proceso: primera versión construida (2026-11-12); Angel la está probando y manda comentarios.
+- Pendiente de decidir: nombre del año fiscal (hoy FY27 = abr 2026 – mar 2027; Angel lo llama FY2026).
 - Después: Diagrama de flujo de proceso, guardado de datos, Inicio, pagos y diseño final.

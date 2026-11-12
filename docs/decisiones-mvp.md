@@ -204,6 +204,16 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Pantalla: 4 KPI de planta, trayectoria (una línea por área + planta gruesa), tabla áreas × meses con cambio en puntos, mini gráfica de piezas por hora-hombre por área. Ejemplo de planta (ensamble + MH y maquinado).
 - Pruebas: 6 de cálculo (parts/ectest.js) + pantalla (tests/smoke/smoke_ec.py).
 
+## Diagrama de flujo de proceso — PRIMERA VERSIÓN (2026-11-12, Angel probando)
+Formato en Estudios de tiempos («Diagrama de flujo»). Construcción como el layout del Man Machine: hoja en cuadrícula, tocar casilla libre (+) para poner un símbolo, arrastrar para mover o intercambiar; flechas rectas en escuadra que se acomodan solas.
+- Símbolos ASME: Operación (círculo), Inspección (cuadrado), Transporte (flecha), Demora (D), Almacenamiento (triángulo), más Decisión (rombo) e Inicio / fin.
+- Cada símbolo pide su acción al ponerlo (foco directo al campo); responsable y tiempo (min); distancia (m) solo en transporte.
+- Al seleccionar un símbolo aparece el «+ SIGUIENTE» en la casilla libre de abajo; en la decisión aparecen dos automáticos: SÍ abajo (verde) y NO a la derecha (rojo). Conexiones editables con listas; se permiten regresos (retrabajo) dibujados por un pasillo a la derecha.
+- Un «Inicio / fin» que recibe flechas es el fin del proceso. Avisos: sin acción, decisión sin SÍ/NO, sin siguiente paso, símbolo suelto.
+- Resumen ASME: actividades, tiempo, distancia, % de operaciones (cantidad y tiempo), tabla por símbolo, tabla del proceso en orden del flujo (SÍ → n · NO → m) y el diagrama.
+- Información: título*, proceso, área, analista*, fecha, método actual / propuesto. Ejemplo ficticio: recepción de materia prima con retrabajo.
+- Pruebas: 10 de lógica (parts/dftest.js) + pantalla (tests/smoke/smoke_df.py).
+
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
 
@@ -224,7 +234,7 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Jerarquía planta → línea → estación desde el día uno.
 
 ## Hoja de ruta acordada (nov 2026)
-- Actual Time y Eficiencia compuesta concluidos. Siguiente: Diagrama de flujo de proceso y Diagrama de flujo de proceso (símbolos ASME; idea de armarlo solo desde DS/SMED).
+- Actual Time y Eficiencia compuesta concluidos. Diagrama de flujo de proceso: primera versión (2026-11-12), en pruebas con Angel. Después: guardado y Diagrama de flujo de proceso (símbolos ASME; idea de armarlo solo desde DS/SMED).
 - Un formato a la vez, sin adelantarse. Menú agrupado propuesto (sin confirmar): Inicio · Estudios de tiempos · Capacidad y eficiencia · Herramientas · Aprende · Configuración.
 - Después de esos tres: guardado. Pagos (suscripción, sin publicidad), Inicio y diseño final al último.
 
