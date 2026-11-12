@@ -169,6 +169,26 @@ Resumen anual:
 - Gráficas: HC por mes (volumen vs esquema + meta), % de ocupación por mes, **personal que agrega valor (operadores + líderes) vs afectación (supervisores, TPM, proyectos, otros)** sobre la plantilla del esquema, con alerta en rojo arriba de 35 % (umbral confirmado por Angel), y **trazabilidad por línea** (JPH plan, TC, OEE, LAT, Actual Time, % ocupación) con una serie por renglón.
 - Tabla por mes con reducir, LAT, Actual Time y afectación. Pruebas: 11 casos.
 
+## Actual Time — EN ANÁLISIS (2026-11-11)
+Base: Excel propio de Angel (hojas Ensamble + Manejo de materiales, y Maquinado; Fundición = Maquinado). Datos del archivo inventados; en la app se usan datos ficticios propios.
+Pregunta que responde: ¿cuántos minutos-hombre cuesta realmente cada pieza, mes a mes (año fiscal abr–mar), y en qué se va la gente?
+- Actual Time real = horas trabajadas × 60 ÷ producción (equivale a ST ÷ eficiencia del Excel; con varias partes, ST ponderado por producción).
+- Una fila por número de parte (parte, ST, producción → horas requeridas), como en Cálculo de personal; puede haber 100+ partes. Las partes solo aportan horas requeridas: afectaciones, HC y resultados se calculan sobre el total del área.
+- Eficiencia = horas requeridas ÷ horas trabajadas. Sin afectación = horas requeridas ÷ (trabajadas − afectaciones).
+- Horas genba: fuera del estándar (poco común). Si alguien las usa, las captura en afectaciones "otros" (personal × grupos × días × horas/día).
+- Meta: solo **TARGET** = (60 ÷ JPH comprometido) × HC comprometido ÷ grupos. Se quita COMMITMENT (era dato fijo de planeación).
+- HC resultado y forecast: como en el archivo, (60 ÷ JPH) × HC ÷ grupos.
+- Cascada de HC (selector de mes): plan → ausentismo → HC trabajado → afectaciones (técnico, evento, TPM, proyectos, otros) → SV, líder, otros → operadores → GAP → HC requerido. Los líderes se restan aquí (se queda como el archivo; confirmado por Angel).
+- DSTR solo en ensamble (incluye Manejo de materiales: espejo de ensamble con el HC de manejo de materiales y el mismo DST). JPMH solo en maquinado/fundición.
+- DSTR: el objetivo ya viene determinado (ya incluye la afectación base); el real se grafica −0.07. El 0.07 queda implícito (constante, no se captura). Se quita la fila "objetivo −0.07".
+- Tiempo por pieza: **ST** (tiempo estándar planeado) solo en ensamble; **LAT** (de Cálculo de personal) en manejo de materiales, maquinado y fundición. Lo captura el ingeniero mes con mes, igual que horas por día (22.5 de ejemplo).
+- Manejo de materiales = espejo de ensamble: misma producción, días, horas/día, JPH, grupos y DST; su propio LAT por parte, horas trabajadas, afectaciones, HC e indirectos.
+- Uso principal en computadora; adaptable a teléfono.
+- JPMH = JPH ÷ (HC ÷ grupos) en real y compromiso (el Excel mezclaba HC total y HC por grupo).
+- Unidades: horas-hombre mensuales en horas; Actual Time en minutos por pieza.
+- Grupos: comprometidos para la meta (TARGET); **reales** para convertir horas en personas (cascada de HC y forecast). Si no se capturan reales, se usan los comprometidos. Se muestra la comparación real vs comprometido (el Excel usaba siempre los comprometidos).
+- Errores del Excel a corregir: ausentismo con valor absoluto (tiempo extra se mostraba como ausentismo); total de afectaciones de MH leía las de ensamble; meses vacíos graficados como 0; DSTR MH sin categorías; 22.5 h/día fijo dentro de fórmulas; días > días del mes sin validar; AVERAGE simple de ST con varias partes.
+
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
 

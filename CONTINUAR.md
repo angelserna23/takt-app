@@ -10,7 +10,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 1. Clonar `angelserna23/takt-app` (rama `main`).
 2. Leer `docs/decisiones-mvp.md` completo: reglas generales, unidades, reglas de teléfono y la hoja de ruta.
-3. Correr `for t in test dstest wetest sttest mmtest smtest pctest; do node parts/$t.js; done`: todas deben decir OK.
+3. Correr `for t in test dstest wetest sttest mmtest smtest pctest attest; do node parts/$t.js; done`: todas deben decir OK.
 4. Para publicar cambios de la app: el artifact ya existe (slug `b963594a-ed0b-4bfe-9897-a3ee86914094`). Republicar `index.html` sobre ese mismo slug (pedir la versión actual con get_artifact y usarla como base_version). No crear un artifact nuevo.
 5. Al terminar el chat: seguir la rutina de cierre (abajo).
 
