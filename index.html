@@ -619,6 +619,7 @@ body.dragging{cursor:grabbing;-webkit-user-select:none;user-select:none}
 .atnote{display:flex;gap:8px;align-items:center;margin:12px 0 0}
 .atarea button{padding:0 14px;font-family:'IBM Plex Sans',sans-serif;font-size:13px}
 .atmore{display:none}
+.attbl input.atcopy{background:rgba(27,36,48,.05);color:var(--muted);border-style:dashed}
 .atmonths .pcm{min-height:72px}.atmonths .pcm b{font-size:15px}.atmonths .pcm small{font-size:13px}.atback{margin-left:-4px}
 @media (max-width:700px){.atmore{display:block}.atarea{width:100%}.atarea button{flex:1;font-size:11px;padding:0 6px}}
 </style>
@@ -994,10 +995,10 @@ function render(keep){
 }
 
 let ASK=null;
-function ask(title,text,okLabel,fn){ASK=fn;const m=document.getElementById('modal');
+function ask(title,text,okLabel,fn,o){o=o||{};ASK=fn;const m=document.getElementById('modal');
   m.innerHTML=`<div class="mback" data-mcancel="1"></div><div class="mbox glass" role="alertdialog" aria-modal="true" aria-labelledby="mt" aria-describedby="md">
-  <div class="micon" aria-hidden="true">${svg('trash',26,2)}</div><h2 id="mt">${esc(title)}</h2><p id="md">${esc(text)}</p>
-  <div class="row" style="margin-top:20px;justify-content:flex-end"><button class="btn ghost" type="button" data-mcancel="1">Cancelar</button><button class="btn danger solid" type="button" data-mok="1">${esc(okLabel)}</button></div></div>`;
+  <div class="micon" aria-hidden="true"${o.ok?' style="background:rgba(194,65,12,.12);color:var(--orange)"':''}>${svg(o.icon||'trash',26,2)}</div><h2 id="mt">${esc(title)}</h2><p id="md">${esc(text)}</p>
+  <div class="row" style="margin-top:20px;justify-content:flex-end"><button class="btn ghost" type="button" data-mcancel="1">Cancelar</button><button class="btn ${o.ok?'orange':'danger solid'}" type="button" data-mok="1">${esc(okLabel)}</button></div></div>`;
   m.hidden=false;m.querySelector('[data-mcancel].btn').focus();}
 function closeAsk(){ASK=null;const m=document.getElementById('modal');m.hidden=true;m.innerHTML='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ASK)closeAsk();});
@@ -2791,7 +2792,7 @@ function atExample(d){
   const ens=d.tipo==='ENSAMBLE';
   for(let i=0;i<5;i++){const m=atNewMonth();
     if(ens){
-      m.partes=[{id:nid(),parte:'MOD-A',st:'30',lat:'6',prod:String([12000,13200,9800,12500,11000][i])},{id:nid(),parte:'MOD-B',st:'40',lat:'12',prod:String([8000,8600,6400,8200,7300][i])}];
+      m.partes=[{id:nid(),parte:'MOD-A',st:'30',lat:'9',prod:String([12000,13200,9800,12500,11000][i])},{id:nid(),parte:'MOD-B',st:'40',lat:'9',prod:String([8000,8600,6400,8200,7300][i])}];
       Object.assign(m,{horasTrab:String([24000,25800,22400,26500,21900][i]),dias:String([20,22,21,22,21][i]),hcPlan:'100',jphCommit:'60',gruposCommit:'2',hcRes:String([104,106,98,108,96][i]),jphRes:String([55,56,50,52,51][i]),sv:'6',lider:'12',otrosInd:'8',dst:'15'});
       m.afect={tecnico:String([200,0,150,0,0][i]),evento:String([300,450,0,300,0][i]),tpm:'900',proyectos:String([100,0,0,100,0][i]),otros:String([1500,1200,2200,0,900][i])};
       m.mh={horasTrab:String([6000,6400,5600,6300,5500][i]),afect:Object.assign(atEmptyAf(),{tpm:'300',tecnico:String([0,120,0,0,0][i])}),hcPlan:'28',hcRes:String([30,31,29,31,28][i]),sv:'2',lider:'3',otrosInd:'1'};
@@ -2882,9 +2883,9 @@ const atBox=(d,area,o)=>`<div class="glass" style="margin-top:16px;padding:20px;
 
 // ---- tabla de números de parte ----
 function atPartRows(d,mo,area){const tl=atTimeLbl(d.tipo);const mh=atHasMH(d);const r=atR(mo,area);
-  return `<div class="tbl attbl"><table><thead><tr><th style="width:40px">#</th><th style="text-align:left">No. de parte</th><th>${tl} ${d.tipo==='ENSAMBLE'?'ensamble':''}<br><small>min-h/pza</small></th>${mh?`<th>LAT manejo de materiales<br><small>min-h/pza</small></th>`:''}<th>Producción<br><small>piezas</small></th><th>Horas requeridas${mh?'<br><small>'+atAreaLbl(area).toLowerCase()+'</small>':''}</th><th>% del total</th><th style="width:52px"></th></tr></thead><tbody>
+  return `<div class="tbl attbl"><table><thead><tr><th style="width:40px">#</th><th style="text-align:left">No. de parte</th><th>${tl} ${d.tipo==='ENSAMBLE'?'ensamble':''}<br><small>min-h/pza</small></th>${mh?`<th>LAT manejo de materiales<br><small>uno para toda la línea</small></th>`:''}<th>Producción<br><small>piezas</small></th><th>Horas requeridas${mh?'<br><small>'+atAreaLbl(area).toLowerCase()+'</small>':''}</th><th>% del total</th><th style="width:52px"></th></tr></thead><tbody>
     ${mo.partes.map((p,i)=>{const x=r.partes[i];return `<tr><td>${i+1}</td><td><input class="txt" data-atp="${p.id}|parte" value="${esc(p.parte)}" placeholder="Ej. MOD-A" autocomplete="off" aria-label="Número de parte ${i+1}"></td>
-      <td><input data-atp="${p.id}|st" value="${esc(p.st)}" inputmode="decimal" autocomplete="off" aria-label="${tl} parte ${i+1}"></td>${mh?`<td><input data-atp="${p.id}|lat" value="${esc(p.lat)}" inputmode="decimal" autocomplete="off" aria-label="LAT manejo de materiales parte ${i+1}"></td>`:''}
+      <td><input data-atp="${p.id}|st" value="${esc(p.st)}" inputmode="decimal" autocomplete="off" aria-label="${tl} parte ${i+1}"></td>${mh?(i===0?`<td><input data-atp="${p.id}|lat" value="${esc(p.lat)}" inputmode="decimal" autocomplete="off" aria-label="LAT de manejo de materiales (aplica a todas las partes)"></td>`:`<td><input class="atcopy" data-atlatc="${p.id}" value="${esc(p.lat)}" readonly tabindex="-1" aria-label="LAT de manejo de materiales copiado de la primera parte" title="Se copia de la primera parte"></td>`):''}
       <td><input data-atp="${p.id}|prod" data-atint="1" value="${esc(pcIntFmt(p.prod))}" inputmode="decimal" autocomplete="off" aria-label="Producción parte ${i+1}"></td>
       <td data-atph="${p.id}">${h2(x.horasReq)}</td><td data-atpp="${p.id}">${pc(x.pct,1)}</td>
       <td><button type="button" class="iconbtn" data-atpdel="${p.id}" aria-label="Quitar parte ${i+1}" title="Quitar parte" ${mo.partes.length<2?'disabled':''}>${svg('trash',16,2)}</button></td></tr>`;}).join('')}
@@ -2961,7 +2962,7 @@ function vAT(){
     <div class="glass" style="margin-top:16px;padding:20px;border-radius:18px"><div class="row"><div><b style="font-size:16px">Cascada de headcount${atHasMH(d)?' · '+atAreaLbl(area).toLowerCase():''}</b><p class="sub" style="margin:2px 0 0">Horas convertidas a personas equivalentes: días × horas por día ÷ grupos reales = <span data-athper="1">${f2(atR(mo,area).hPer)}</span> h por persona</p></div></div>
       <div class="stchart parchart" data-atcasc="1">${atCasc(atR(mo,area))}</div></div>
     <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">${prev>=0?`<button class="btn ghost sm" type="button" data-atcopy="${prev}" data-atask="1">Reemplazar con ${PC_MONTHS[prev]}</button>`:''}<button class="btn ghost sm" type="button" data-atclear="1">Borrar mes</button></div>`}
-    <div class="pcbottom"><button class="btn ghost" type="button" data-atmall="1">${svg('back',18,2.2)} Todos los meses</button><div style="display:flex;gap:10px;flex-wrap:wrap">${m>0?`<button class="btn ghost" type="button" data-atm="${m-1}">${svg('back',18,2.2)} ${PC_MONTHS[m-1]}</button>`:''}${m<11?`<button class="btn" type="button" data-atm="${m+1}">${PC_MONTHS[m+1]} ${svg('next',18,2.2)}</button>`:''}</div></div>`;
+    <div class="pcbottom"><button class="btn ghost" type="button" data-atmall="1">${svg('back',18,2.2)} Todos los meses</button>${!mo?'':atHasMH(d)&&area==='ens'?`<button class="btn" type="button" data-atarea="mh" data-attop="1">Siguiente: manejo de materiales ${svg('next',18,2.2)}</button>`:`<div style="display:flex;gap:10px;flex-wrap:wrap">${atHasMH(d)?`<button class="btn ghost" type="button" data-atarea="ens" data-attop="1">${svg('back',18,2.2)} Ensamble</button>`:''}<button class="btn orange" type="button" data-atsave="1">Guardar ${PC_MONTHS[m].toLowerCase()} ${svg('next',18,2.2)}</button></div>`}</div>`;
   }
   if(AT.view==='res'){const area=AT.area;const R=atAll(d,area);const ok=R.map((r,i)=>[r,i]).filter(([r])=>r&&r.prod);const tl=area==='mh'?'LAT':atTimeLbl(d.tipo);
     body=`<div class="row"><div><h2>Resumen anual · FY${String(d.fy).padStart(2,'0')}</h2><p class="sub">${esc(d.nombre)} · ${esc(atTipo(d))}${atHasMH(d)?' · '+atAreaLbl(area).toLowerCase():''} · ${ok.length} de 12 meses capturados</p></div>
@@ -3009,7 +3010,10 @@ document.addEventListener('click',e=>{
   if(D.attipo){atSync();d.tipo=D.attipo;atRe();return;}
   if(D.atmh!==undefined){atSync();d.mh=D.atmh==='1';atRe();return;}
   if(D.atfy){atSync();d.fy=+D.atfy;atRe();return;}
-  if(D.atarea){AT.area=D.atarea;atRe();return;}
+  if(D.atarea){AT.area=D.atarea;if(D.attop){render();scrollTo({top:0});}else atRe();return;}
+  if(D.atsave){const mo=d.months[AT.m];const done=()=>{if(!AT.studies.includes(d))AT.studies.unshift(d);AT.cm=AT.m;AT.m=null;AT.view='res';AT.area='ens';render();scrollTo({top:0});};
+    const faltan=[];if(!num(mo.horasTrab)||!atMonth(mo).prod)faltan.push('ensamble');if(atHasMH(d)&&(!num((mo.mh||{}).horasTrab)||!num((mo.partes[0]||{}).lat)))faltan.push('manejo de materiales');
+    if(faltan.length)ask('¿Guardar '+PC_MONTHS[AT.m]+' incompleto?','Falta capturar '+faltan.join(' y ')+' (horas trabajadas, producción o LAT). Puedes guardarlo así y completarlo después.','Guardar así',done,{ok:1,icon:'list'});else done();return;}
   if(D.atm!==undefined){AT.m=+D.atm;render();scrollTo({top:0});return;}
   if(D.atmall){AT.m=null;render();scrollTo({top:0});return;}
   if(D.atcm!==undefined){AT.cm=+D.atcm;atRe();return;}
@@ -3018,7 +3022,7 @@ document.addEventListener('click',e=>{
   if(D.atcopy!==undefined){const doit=()=>{d.months[AT.m]=atClone(d.months[+D.atcopy]);atRe();};
     if(D.atask)ask('¿Reemplazar '+PC_MONTHS[AT.m]+'?','Se borra lo capturado en '+PC_MONTHS[AT.m]+' y se copia '+PC_MONTHS[+D.atcopy]+'.','Reemplazar',doit);else doit();return;}
   if(D.atclear){ask('¿Borrar '+PC_MONTHS[AT.m]+'?','Se borra todo lo capturado en '+PC_MONTHS[AT.m]+'. Los demás meses no cambian.','Borrar mes',()=>{d.months[AT.m]=null;atRe();});return;}
-  if(D.atpadd){d.months[AT.m].partes.push(atNewPart());atRe();const ins=document.querySelectorAll('[data-atp$="|parte"]');if(ins.length)ins[ins.length-1].focus({preventScroll:false});return;}
+  if(D.atpadd){const ps=d.months[AT.m].partes;const np=atNewPart();np.lat=ps.length?ps[0].lat:'';ps.push(np);atRe();const ins=document.querySelectorAll('[data-atp$="|parte"]');if(ins.length)ins[ins.length-1].focus({preventScroll:false});return;}
   if(D.atpdel){const mo=d.months[AT.m];const p=mo.partes.find(x=>x.id==D.atpdel);ask('¿Quitar esta parte?','Se quita «'+(p.parte||'parte sin nombre')+'» de '+PC_MONTHS[AT.m]+'.','Quitar',()=>{mo.partes=mo.partes.filter(x=>x!==p);atRe();});return;}
   if(D.atpc){atFromPC(d,AT.m);atRe();return;}
   if(D.atdel){ask('¿Eliminar este Actual Time?','Se borra «'+atName(d)+'» con todos sus meses. No se puede deshacer.','Eliminar',()=>{AT.studies=AT.studies.filter(x=>x!==d);AT.d=null;go('at');});return;}
@@ -3030,7 +3034,7 @@ document.addEventListener('input',e=>{const el=e.target;const d=AT.d;if(!d||!el.
   if(AT.m==null)return;const mo=d.months[AT.m];if(!mo)return;
   const val=el.dataset.atint?(String(el.value).trim()===''?'':String(pcInt(el.value))):el.value;
   if(el.dataset.atf){atSet(mo,el.dataset.atf,val);atLive();return;}
-  if(el.dataset.atp){const[id,k]=el.dataset.atp.split('|');const p=mo.partes.find(x=>x.id==id);if(!p)return;p[k]=val;if(k!=='parte')atLive();}
+  if(el.dataset.atp){const[id,k]=el.dataset.atp.split('|');const p=mo.partes.find(x=>x.id==id);if(!p)return;p[k]=val;if(k==='lat'){mo.partes.forEach(x=>x.lat=val);document.querySelectorAll('[data-atlatc]').forEach(e=>e.value=val);}if(k!=='parte')atLive();}
 });
 document.addEventListener('focusout',e=>{const el=e.target;if(el.dataset&&el.dataset.atint&&AT.d)el.value=pcIntFmt(el.value);});
 

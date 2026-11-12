@@ -27,9 +27,15 @@ with sync_playwright() as p:
         # días inválidos
         pg.fill('[data-atf=dias]','34');pg.wait_for_timeout(50);print(tag,'días 34 marcado',pg.locator('label.miss [data-atf=dias]').count(),pg.locator('label.miss .athint').inner_text())
         pg.fill('[data-atf=dias]','20')
-        # manejo de materiales
-        pg.click('[data-atarea=mh]');pg.wait_for_timeout(100);print(tag,'MH abril',kpis(pg)[:2])
-        pg.click('[data-atarea=ens]')
+        # LAT de manejo de materiales: se captura una vez en la primera parte y se copia a las demás
+        pg.locator('[data-atp$="|lat"]').fill('10');pg.wait_for_timeout(50)
+        print(tag,'LAT copiado',[e.input_value() for e in pg.locator('[data-atlatc]').all()],'editables',pg.locator('[data-atp$="|lat"]').count())
+        pg.click('[data-atpadd]');print(tag,'parte nueva hereda LAT',pg.locator('[data-atlatc]').last.input_value())
+        pg.locator('[data-atpdel]').last.click();pg.click('#modal [data-mok]')
+        # abajo: ensamble → manejo de materiales → guardar
+        pg.locator('.pcbottom [data-atarea=mh]').click();pg.wait_for_timeout(100);print(tag,'MH abril',kpis(pg)[:2],'| abajo:',pg.locator('.pcbottom').inner_text().replace('\n',' '))
+        pg.click('[data-atsave]');pg.wait_for_timeout(150);print(tag,'tras guardar →',pg.locator('h2').first.inner_text())
+        pg.locator('[data-atv=mes]').last.click();pg.click('.atmonths [data-atm="0"]')
         # copiar a junio
         pg.locator('[data-atmall]').first.click();pg.click('.atmonths [data-atm="5"]');pg.click('[data-atcopy="4"]');print(tag,'junio copiado partes',pg.locator('[data-atp$="|parte"]').count())
         pg.locator('[data-atv=res]:not([disabled])').last.click();pg.wait_for_timeout(300)
@@ -41,7 +47,7 @@ with sync_playwright() as p:
     pg=b.new_page(viewport={'width':1366,'height':1000});pg.route('**/fonts.googleapis.com/**',lambda r:r.abort());pg.on('pageerror',lambda e:errs.append('maq '+str(e)))
     pg.goto(IDX+'#at');pg.click('[data-atnew]');pg.fill('input[name=nombre]','maquinado');pg.click('[data-attipo=MAQUINADO]');pg.locator('[data-atneed]').last.click()
     pg.click('[data-atexample]');pg.wait_for_timeout(100);pg.click('.atmonths [data-atm="0"]');print('maq abril',kpis(pg));print('maq sin selector MH',pg.locator('[data-atarea]').count())
-    pg.locator('.pcbottom [data-atm="1"]').click();pg.locator('[data-atmall]').first.click();pg.click('.atmonths [data-atm="4"]');print('maq agosto (2 grupos reales)',kpis(pg))
+    print('maq abajo:',pg.locator('.pcbottom').inner_text().replace('\n',' '));pg.locator('[data-atmall]').first.click();pg.click('.atmonths [data-atm="4"]');print('maq agosto (2 grupos reales)',kpis(pg))
     pg.locator('[data-atv=res]:not([disabled])').last.click();pg.wait_for_timeout(200);pg.screenshot(path='/tmp/at_res_maq.png',full_page=True)
     print('maq títulos',[x.inner_text() for x in pg.locator('.glass > b').all()])
     b.close()

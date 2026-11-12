@@ -38,9 +38,10 @@ near(c.horasReq,req,1e-6);near(c.prod,pz);near(c.atReal,24000*60/pz,1e-9);near(c
 // Caso 13: ST en ensamble, LAT en las demás áreas
 assert.strictEqual(atTimeLbl('ENSAMBLE'),'ST');assert.strictEqual(atTimeLbl('MAQUINADO'),'LAT');assert.strictEqual(atTimeLbl('FUNDICIÓN'),'LAT');
 // Caso 14: Manejo de materiales como espejo de ensamble (misma producción y DST; su LAT, horas y HC)
-const EM=Object.assign({},ENS,{partes:[{parte:'A',st:30,lat:6,prod:12000},{parte:'B',st:40,lat:12,prod:8000}],
+const EM=Object.assign({},ENS,{partes:[{parte:'A',st:30,lat:9,prod:12000},{parte:'B',st:40,lat:9,prod:8000}],  // un solo LAT de MH para toda la línea
+
   mh:{horasTrab:6000,afect:{tpm:300},hcPlan:28,hcRes:30,sv:2,lider:3,otrosInd:1}});
-const em=atMH(EM);near(em.prod,20000);near(em.horasReq,(12000*6+8000*12)/60);near(em.atReal,18);near(em.target,14);
+const em=atMH(EM);near(em.prod,20000);near(em.horasReq,20000*9/60);near(em.atReal,18);near(em.target,14);
 near(em.dstrReal,18/15-0.07);near(em.hcTrab,6000/225);near(em.res2,(6000-300)/225-6);near(atMonth(EM).atReal,72);
 // Caso 11: días del mes del año fiscal (FY27): abril 2026 = 30, febrero 2027 = 28
 assert.strictEqual(atDiasMes(27,0),30);assert.strictEqual(atDiasMes(27,10),28);assert.strictEqual(atDiasMes(27,9),31);
