@@ -20,12 +20,13 @@ Prototipo publicado: https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f
 
 - Estudios de tiempos: Work Sampling, Delay Study, Work Element, Speed Trial, Man Machine Chart, SMED (todos listos).
 - Cálculo de personal (headcount): listo.
-- Siguiente: Actual Time → Eficiencia compuesta → Diagrama de flujo de proceso.
+- Actual Time + Eficiencia compuesta y Diagramas de flujo: listos.
+- Aprende (tutoriales con demo en vivo y modo guiado): motor + Work Sampling listos.
 
 ## Correr las pruebas
 
 ```bash
-for t in test dstest wetest sttest mmtest smtest pctest attest ectest dftest; do node parts/$t.js; done
+for t in test dstest wetest sttest mmtest smtest pctest attest ectest dftest tuttest; do node parts/$t.js; done
 # Pantallas (requiere: pip install playwright && playwright install chromium)
 python3 tests/smoke/smoke_pc.py
 ```

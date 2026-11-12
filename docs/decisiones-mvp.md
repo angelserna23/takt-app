@@ -215,11 +215,18 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Resumen ASME sin cambios: actividades, tiempo, distancia, % de operaciones, tabla por símbolo, tabla del proceso y diagrama. Avisos de flujo incompleto.
 - Pruebas: 10 de lógica (parts/dftest.js) + pantalla (tests/smoke/smoke_df.py: arrastre desde la barra, nube, «Viene de», mover).
 
-## Aprende (tutoriales) — DECIDIDO, por construir (2026-11-12)
-- Sección propia del menú «Aprende» con un tutorial por herramienta (6 estudios, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo); se elige cuál ver.
-- **Opción B (elegida):** demo en vivo dentro de la app real, con un cursor «bot» que toca botones y llena campos reales y un globo que explica cada paso; pausar / siguiente / repetir / «ahora hazlo tú». No se usan videos grabados dentro de la app (pesan y quedan viejos con cada cambio de pantalla); de la misma demo se pueden grabar videos para marketing.
-- Contenido: qué responde y cuándo usarlo → demo con datos ficticios → cómo leer los resultados. Pasos definidos como datos y probados automáticamente.
-- Orden: motor + 1–2 tutoriales para validar; el resto idealmente después del diseño final.
+## Aprende (tutoriales) — MOTOR LISTO + Work Sampling (2026-11-12; Angel valida)
+- Sección propia del menú «Aprende» (debajo de Diagramas de flujo; en teléfono desde «Más»). 9 tarjetas en 3 grupos: Estudios de tiempos (6), Capacidad y eficiencia (Personal; Actual Time + Eficiencia compuesta), Procesos (Diagramas de flujo). Estado: NUEVO / VISTO / PRÓXIMAMENTE.
+- Ficha por tutorial: qué pregunta responde, úsalo cuando, no es para, lo que vas a ver; botones «Ver demo» y «Hazlo tú (guiado)».
+- **Opción B:** demo en vivo dentro de la app real. Cursor «bot» naranja, anillo sobre el elemento, globo con el texto (en teléfono, hoja abajo; el motor sube el elemento para que no quede tapado). Barra de control: Pausa/Seguir, Siguiente, Reiniciar, velocidad 1×/2×, Salir (botones ≥ 48 px). Al final: Repetir / Ahora hazlo tú / Volver a Aprende.
+- «Repetir paso» se cambió por «Reiniciar»: los pasos cambian el estado (un toque suma una observación), así que repetir uno solo no es confiable.
+- **Hazlo tú = modo guiado** con el mismo guion: el globo dice qué tocar y espera; los toques fuera del objetivo se ignoran (el globo se sacude); en campos sugiere un valor pero acepta cualquiera (avanza con Enter o Siguiente).
+- **Sin historial (Angel, 2026-11-12):** al entrar se guarda una copia de todo el estado y al salir se restaura, en demo y en guiado. No hay opción de conservar el ejemplo. En demo una capa bloquea los toques del usuario.
+- Pasos como datos: `ir`, `toca`, `escribe` (letra por letra, dispara `input` → MAYÚSCULAS), `elige`, `serie` (varios toques), `señala` (solo explica; `txt` para elegir el elemento por su texto). Se ignoran elementos ocultos o deshabilitados (hallazgo: la pestaña «02 Conteo» deshabilitada tiene el mismo selector que el botón de continuar). Si un paso no encuentra su elemento en 4 s, se detiene con «La pantalla cambió».
+- Botón «Ver tutorial» en la lista de cada formato que ya tiene tutorial (hoy: Work Sampling).
+- Tutorial Work Sampling (19 pasos): estudio «BALANCEO LÍNEA DE POLEAS», operador «ENSAMBLADOR 1», 20 observaciones (4 innecesarias = 20.0 %, precisión ±17.5 %, faltan 226 para ±5 %); lee % innecesario, precisión, área de oportunidad y «¿Qué sigue?». En guiado se piden 10 toques.
+- Pruebas: parts/tuttest.js (lee los guiones directo de index.html y valida su forma) + tests/smoke/smoke_tut.py (demo a 20× y guiado en laptop, tablet y teléfono; sin historial al salir; el estudio real del usuario queda intacto).
+- Siguiente: tutorial de SMED (patrón para formatos con cronómetro: el bot registra 2 pasos en segundos y luego carga el ejemplo). El resto, idealmente tras el diseño final.
 
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
@@ -242,9 +249,9 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 
 ## Hoja de ruta acordada (actualizada 2026-11-12)
 - Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo.
-- Siguiente: **Aprende** (tutoriales, opción B: motor + 1–2 tutoriales para validar).
+- Aprende: motor + tutorial de Work Sampling listos (2026-11-12). Siguiente: validación de Angel → tutorial de SMED.
 - Después: guardado de estudios y exportación a PDF/Excel → pagos (suscripción, sin publicidad) → Inicio (tablero del analista) → diseño final (paleta y UX/UI) → completar tutoriales.
-- Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · (Aprende) · Configuración.
+- Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
 
 ## Dónde vive el código
 - **Fuente de verdad: GitHub `angelserna23/takt-app` (rama main).** Ver CONTINUAR.md para retomar en un chat nuevo. Un commit al cerrar cada chat.

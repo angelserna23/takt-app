@@ -4,13 +4,13 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Siguiente: **sección «Aprende» (tutoriales, opción B: demo en vivo con un bot)**. Propónme el diseño del motor y de las pantallas antes de construir; empezamos con el motor y uno o dos tutoriales para validarlo.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Siguiente: **tutorial de SMED en «Aprende»** (el motor y el de Work Sampling ya están; revisa mis comentarios de la validación).
 
 ## Pasos para Claude al iniciar
 
 1. Clonar `angelserna23/takt-app` (rama `main`).
 2. Leer `docs/decisiones-mvp.md` completo: reglas generales, unidades, reglas de teléfono y la hoja de ruta.
-3. Correr `for t in test dstest wetest sttest mmtest smtest pctest attest ectest dftest; do node parts/$t.js; done`: todas deben decir OK.
+3. Correr `for t in test dstest wetest sttest mmtest smtest pctest attest ectest dftest tuttest; do node parts/$t.js; done`: todas deben decir OK.
 4. Para publicar cambios de la app: el artifact ya existe (slug `b963594a-ed0b-4bfe-9897-a3ee86914094`). Republicar `index.html` sobre ese mismo slug (pedir la versión actual con get_artifact y usarla como base_version). No crear un artifact nuevo.
 5. Al terminar el chat: seguir la rutina de cierre (abajo).
 
@@ -33,16 +33,11 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
 
-## Estado al 2026-11-12 (cierre del chat)
+## Estado al 2026-11-12 (tarde)
 
-- Listos: 6 estudios de tiempos (Work Sampling, Delay Study, Work Element, Speed Trial, Man Machine, SMED), Cálculo de personal, Actual Time con Eficiencia compuesta (vista de planta) y Diagramas de flujo de proceso (sección propia del menú). Todas las pruebas pasan.
-- Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Configuración. En teléfono: Personal en la barra; Actual Time y Diagramas de flujo desde «Más».
-- Año fiscal: se nombra por el año en que empieza (FY26 = abr 2026 – mar 2027).
-- **Siguiente: «Aprende» (tutoriales), opción B elegida por Angel (2026-11-12):**
-  - Sección propia del menú «Aprende», con una tarjeta por herramienta: los 6 estudios, Cálculo de personal, Actual Time (+ Eficiencia compuesta) y Diagramas de flujo. Se elige el tutorial de cada uno.
-  - Cada tutorial: qué pregunta responde y cuándo usarlo → **demo en vivo** dentro de la app real: un cursor «bot» se mueve, toca los botones reales y escribe en los campos reales, con un globo que explica cada paso → cómo leer los resultados.
-  - Controles: pausar, siguiente paso, repetir y «ahora hazlo tú». Usa las pantallas reales para que nunca quede viejo; los pasos se definen como datos (selector + acción + texto del globo) y una prueba automática corre cada tutorial para avisar si una pantalla cambió.
-  - Datos ficticios (los ejemplos que ya tiene cada formato). Más adelante, de la misma demo se graban videos (Playwright) para redes y la página de venta.
-  - Plan: primero el motor + 1 o 2 tutoriales para validar con Angel; los demás después (lo ideal es terminarlos tras el diseño final, porque dependen de que las pantallas ya no cambien).
-- Pendiente menor: 3 pruebas de pantalla viejas fallan desde antes de 2026-11-11 porque buscan botones de diseños anteriores (`tests/smoke/smoke_ds.py`, `smoke_ds2.py`, `smoke_we_tab.py`); actualizarlas o quitarlas. Las demás pruebas de pantalla pasan.
-- Después: guardado de estudios (y exportación PDF/Excel), pagos (suscripción, sin publicidad), Inicio (tablero del analista) y diseño final (paleta y UX/UI).
+- Listos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo y **Aprende (motor de tutoriales + tutorial de Work Sampling)**. Todas las pruebas pasan (11 de cálculo + pantallas, incluida `tests/smoke/smoke_tut.py`).
+- Menú: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración. En teléfono: Personal en la barra; Actual Time, Diagramas de flujo y Aprende desde «Más».
+- Aprende (detalle en `docs/decisiones-mvp.md`): demo en vivo con bot + modo guiado «Hazlo tú» con el mismo guion; todo en sandbox, sin historial. Pasos como datos en `TUTS` dentro de `index.html`.
+- **Siguiente:** validación de Angel del tutorial de Work Sampling → tutorial de SMED (patrón para formatos con cronómetro). Los demás tutoriales, idealmente después del diseño final.
+- Pendiente menor: `smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores; actualizarlas o quitarlas.
+- Después: guardado de estudios (y exportación PDF/Excel), pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI) y completar tutoriales.

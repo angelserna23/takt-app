@@ -659,6 +659,36 @@ body.dragging{cursor:grabbing;-webkit-user-select:none;user-select:none}
 .dftypes{display:flex;flex-wrap:wrap;gap:4px;align-items:center}.dft{width:40px;height:36px;border-radius:9px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}.dft[aria-pressed=true]{border:2px solid #C2410C;background:#FDF0E8}
 .dftypes .hint{margin-left:4px;font-size:12px}
 .dfpop.sheet{position:fixed;left:8px;right:8px;bottom:8px;top:auto!important;left:8px!important;width:auto;max-height:58vh;overflow:auto;z-index:60;border-radius:20px;box-shadow:0 -10px 40px rgba(27,36,48,.25)}
+/* ---- Aprende: tutoriales ---- */
+.tutcard .tutmin{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink2);margin-top:auto}
+.tutficha .tutq{font-size:26px;line-height:1.25;margin:12px 0 0;max-width:760px}
+.tutficha .kpi p{margin:6px 0 0;font-size:14px;line-height:1.5;color:var(--ink)}.tutficha .kpi ol{margin:6px 0 0;padding-left:20px;font-size:14px;line-height:1.6}
+#tut{position:fixed;inset:0;z-index:900;pointer-events:none}
+#tut .tutshield{position:fixed;inset:0;pointer-events:none}
+body.tutdemo #tut .tutshield{pointer-events:auto;cursor:default}
+body.tutoring .tabbar{display:none}
+body.tutoring #view{padding-bottom:110px}
+.tutring{position:fixed;border-radius:14px;border:3px solid #C2410C;box-shadow:0 0 0 9999px rgba(27,36,48,.10),0 0 0 6px rgba(194,65,12,.18);transition:all .28s ease;pointer-events:none}
+.tutcur{position:fixed;left:0;top:0;width:0;height:0;transition-property:transform;transition-timing-function:cubic-bezier(.45,.05,.25,1);pointer-events:none;z-index:2}
+.tutcur span{position:absolute;left:-11px;top:-11px;width:22px;height:22px;border-radius:50%;background:#C2410C;border:3px solid #fff;box-shadow:0 4px 14px rgba(27,36,48,.35)}
+.tutcur span::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px solid rgba(194,65,12,.55);opacity:0}
+.tutcur.tutping span::after{animation:tutping .45s ease-out}
+@keyframes tutping{0%{transform:scale(.5);opacity:1}100%{transform:scale(1.9);opacity:0}}
+.tutbub{position:fixed;width:min(360px,calc(100vw - 24px));padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.97);border:1px solid rgba(194,65,12,.35);box-shadow:0 18px 44px rgba(27,36,48,.22);pointer-events:auto;transition:left .28s ease,top .28s ease}
+.tutbub p{margin:6px 0 0;font-size:15px;line-height:1.45;color:var(--ink)}
+.tutbub .tutn{font-size:11px;font-weight:600;letter-spacing:.06em;color:#C2410C}
+.tutbub .tutsug{display:block;margin-top:8px;font-size:13px;font-weight:600;color:var(--blue)}.tutbub .tutsug[hidden]{display:none}
+.tutbub.sheet{left:8px!important;right:8px;top:auto!important;bottom:84px;width:auto;max-height:34vh;overflow:auto}
+.tutbub.pop{animation:tutpop .22s ease-out}@keyframes tutpop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.tutbub.shake{animation:tutshake .35s}@keyframes tutshake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.tutbar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:8px;border-radius:20px;background:rgba(27,36,48,.94);color:#fff;box-shadow:0 14px 40px rgba(27,36,48,.35);pointer-events:auto}
+.tutbar[hidden]{display:none}
+.tutpos{padding:0 10px;font-size:13px;opacity:.8;white-space:nowrap}
+.tutb{display:flex;align-items:center;gap:6px;min-width:48px;min-height:48px;padding:0 12px;border-radius:14px;border:0;background:rgba(255,255,255,.08);color:#fff;font:600 14px 'IBM Plex Sans',sans-serif;cursor:pointer;justify-content:center}
+.tutb:hover{background:rgba(255,255,255,.18)}
+@media (max-width:700px){.tutbar{left:8px;right:8px;bottom:8px;transform:none;justify-content:space-between}.tutb span{display:none}.tutb{flex:1}}
+.tutend{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(27,36,48,.28);pointer-events:auto}
+.tutend[hidden]{display:none}.tutend .mbox{max-width:520px;width:100%}
 </style>
 </head>
 <body>
@@ -715,6 +745,7 @@ const I = {
   chart:'<path d="M4 20V4M4 20h16"/><path d="M7 15l4-5 3 3 5-6"/>',
   at:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 1.8M9.5 3h5M12 3v2"/>',
   pc:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.9.3 5 2.6 5 5.8"/>',
+  aprende:'<path d="M3 6.5c3-1.4 6-1.4 9 0v13c-3-1.4-6-1.4-9 0z"/><path d="M21 6.5c-3-1.4-6-1.4-9 0v13c3-1.4 6-1.4 9 0z"/>',
   config:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
   lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
@@ -783,13 +814,13 @@ const TEMPLATE=['Inspección visual','Marcar','Inspección con lima','Inspecció
 const defaultActs=()=>TEMPLATE.map((n,i)=>({id:i+1,name:n.replace('*','').toUpperCase(),nec:n[0]!=='*'}));
 const S={studies:[],draft:null,view:'hdr',opId:null,keep:false};
 let uid=1000;const nid=()=>++uid;
-const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['pc','Cálculo de personal'],['at','Actual Time'],['df','Diagramas de flujo']];
+const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['pc','Cálculo de personal'],['at','Actual Time'],['df','Diagramas de flujo'],['aprende','Aprende']];
 
 function route(){const h=(location.hash||'#estudios').slice(1);return h||'estudios';}
 function go(h){if(location.hash==='#'+h)render();else location.hash=h;}
 window.addEventListener('hashchange',render);
 
-function sectionOf(r){if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r==='df'||r.startsWith('df-'))return 'df';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r==='estudios')return 'estudios';return r;}
+function sectionOf(r){if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r==='df'||r.startsWith('df-'))return 'df';if(r==='aprende'||r.startsWith('aprende-'))return 'aprende';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r==='estudios')return 'estudios';return r;}
 
 function renderNav(r){
   const sec=sectionOf(r);
@@ -834,7 +865,7 @@ function vWS(){
   setHead('Work Sampling',[['Estudios','estudios'],['Work Sampling','ws']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Muestreos</h2><p class="sub">Estudios de Work Sampling</p></div>
-    <button class="btn orange" type="button" data-go="ws-nuevo">${svg('plus',18,2.2)} Nuevo estudio</button></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('ws')}<button class="btn orange" type="button" data-go="ws-nuevo">${svg('plus',18,2.2)} Nuevo estudio</button></div></div>
     <div class="grid" style="margin-top:18px">
     ${S.studies.map(st=>{const L=calcLine(st.ops);return `<div class="studyrow"><button type="button" class="study" data-open="${st.id}">
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">WS</div>
@@ -995,7 +1026,7 @@ function vNuevo(){
 function vInicio(){setHead('Tablero',[['Inicio','inicio']]);
   return `<section class="glass panel empty"><span class="tag">AL FINAL</span><h2>Tablero del Analista</h2><p>Se diseña al final, cuando los formatos ya generen datos: operaciones sobre takt, capacidad teórica, eficiencia de balanceo y estudios vencidos.</p></section>`;}
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
-  return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Capacidad, eficiencia y diagramas de flujo</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="df">${svg('df',18)} Diagramas de flujo</button></div></div></section>
+  return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="df">${svg('df',18)} Diagramas de flujo</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
   <section class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
   ${[['Plantas, líneas y estaciones','Jerarquía planta → línea → estación.'],['Takt de la línea','Demanda diaria, turnos y minutos disponibles por turno.'],['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
 
@@ -1028,6 +1059,8 @@ function render(keep){
   else if(r.startsWith('fmt-'))html=vPending(r);
   else if(r==='inicio')html=vInicio();
   else if(r==='config')html=vConfig();
+  else if(r==='aprende')html=vAprende();
+  else if(r.startsWith('aprende-'))html=vAprendeFicha(r.slice(8));
   else html=vEstudios();
   const v=document.getElementById('view');v.innerHTML=`<div class="${keep?'':'view'}" style="display:flex;flex-direction:column;gap:16px">${html}</div>`;
   // Teléfono: los botones de acción del encabezado de cada pantalla bajan al final, para no regresar a buscarlos
@@ -3434,6 +3467,208 @@ document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest
     else if(k==='pc'){PC.studies=PC.studies.filter(x=>x.id!=id);if(PC.d&&PC.d.id==id)PC.d=null;}
     else if(k==='sm'){SM.studies=SM.studies.filter(x=>x.id!=id);if(SM.d&&SM.d.id==id)SM.d=null;}
     render();});},true);
+// ================= Aprende: tutoriales con demo en vivo =================
+// Los tutoriales son DATOS: cada paso dice qué elemento (selector CSS), qué acción y qué explica el globo.
+// Acciones: ir (cambiar de pantalla) · toca · escribe · elige (select) · serie (varios toques seguidos) · señala (solo explica).
+// El mismo guion sirve para dos modos: 'demo' (el bot lo hace) y 'tu' (el globo indica y espera al usuario).
+// Todo corre en sandbox: se guarda una copia del estado al entrar y se restaura al salir, así no queda historial.
+const TUT_GROUPS=[['est','Estudios de tiempos'],['cap','Capacidad y eficiencia'],['proc','Procesos']];
+const TUTS=[
+  {id:'ws',grupo:'est',nombre:'Work Sampling',min:3,
+   pregunta:'¿En qué se le va el tiempo a cada operador?',
+   cuando:'En cualquier proceso, cíclico o no, cuando quieres saber qué parte del tiempo es necesaria y cuál no agrega valor.',
+   noPara:'Medir tiempo ciclo, JPH u OEE: para eso están Work Element y Speed Trial.',
+   veras:['Crear el estudio y sus datos de encabezado','Validar las actividades del operador (necesarias e innecesarias)','Contar observaciones con un toque','Leer el % innecesario, la precisión y el área de oportunidad'],
+   pasos:[
+    {ir:'ws',señala:'#view section.panel h2',di:'Work Sampling responde una pregunta: ¿en qué se le va el tiempo a cada operador? Observas en rondas y anotas qué está haciendo. Vamos a hacer uno con datos ficticios.'},
+    {toca:'#view [data-go="ws-nuevo"]',di:'Todo empieza con «Nuevo estudio».',tu:'Toca «Nuevo estudio».'},
+    {escribe:'input[name=titulo]',valor:'BALANCEO LÍNEA DE POLEAS',di:'El título es lo que va arriba de tu hoja. Todo lo que escribes queda en MAYÚSCULAS.'},
+    {escribe:'input[name=area]',valor:'ENSAMBLE 1',di:'El área donde haces el muestreo.'},
+    {escribe:'input[name=analista]',valor:'J. PÉREZ',di:'Quién hace el estudio.'},
+    {señala:'select[name=conf]',di:'Nivel de confianza y margen de error definen cuántas observaciones necesitas. Lo usual es 95 % y ±5 %; la app te avisa si te faltan.'},
+    {toca:'[data-wsv="hub"]',di:'Continuamos a los operadores.',tu:'Toca «Continuar a operadores».'},
+    {señala:'[data-enter]',di:'Cada operador tiene su tarjeta con su estado, sus observaciones y su % innecesario. La app crea el primero.'},
+    {toca:'[data-enter]',di:'Lo abrimos para validar sus actividades.',tu:'Toca la tarjeta del operador.'},
+    {escribe:'[data-oname]',valor:'ENSAMBLADOR 1',limpiar:true,di:'Ponle el nombre del puesto o del operador.'},
+    {señala:'.cat.inn',di:'Las actividades vienen de la plantilla. Las naranjas son innecesarias (limpieza, plática, espera). Cualquiera se cambia con un toque en Necesaria / Innecesaria.'},
+    {toca:'[data-wsv="count"]',di:'Con las actividades validadas, empieza el conteo.',tu:'Toca «Validar y empezar conteo».'},
+    {serie:'[data-tap="{v}"]',base:'[data-tap]',v:[11,1,10,11,1,10,7,11,1,4,10,11,1,10,6,11,1,10,7,5],nTu:10,
+     di:'En cada ronda miras al operador y tocas lo que está haciendo en ese instante. Cada toque es una observación; la hora de inicio es la del primer toque.',
+     tu:'Toca 10 veces, como si observaras al operador en 10 rondas.'},
+    {señala:'.total',di:'Aquí llevas la cuenta. Si te equivocas, «Deshacer» quita el último toque.'},
+    {toca:'[data-wsv="res"]',di:'Terminamos el conteo de este operador.',tu:'Toca «Terminar conteo».'},
+    {señala:'.kpi',txt:'Innecesario',di:'El resultado principal: la parte de su tiempo que no agrega valor. Ese es tu margen de mejora.'},
+    {señala:'.kpi',txt:'Precisión',di:'Con pocas observaciones el margen de error es grande. La app te dice cuántas faltan para llegar a ±5 %: sigue contando antes de concluir.'},
+    {señala:'.glass',txt:'Área de oportunidad',di:'Las actividades innecesarias, de mayor a menor: ataca primero la más grande. En «Notas del analista» escribe el porqué.'},
+    {señala:'.nextbox',di:'Desde aquí sigues con otro operador o ves la general de línea, que suma los conteos de todos (no promedia porcentajes).'}
+   ]},
+  {id:'ds',grupo:'est',nombre:'Delay Study',pregunta:'¿Qué tan ocupados están los operadores en actividades no cíclicas, y cómo se rebalancean?'},
+  {id:'we',grupo:'est',nombre:'Work Element',pregunta:'¿Cuánto tarda cada elemento del ciclo y cómo se balancea la carga?'},
+  {id:'st',grupo:'est',nombre:'Speed Trial',pregunta:'¿A qué velocidad corre la línea contra el objetivo, y qué la frena?'},
+  {id:'mm',grupo:'est',nombre:'Man Machine Chart',pregunta:'¿Quién limita la celda: el operador o la máquina?'},
+  {id:'sm',grupo:'est',nombre:'SMED',pregunta:'¿Cuánto del cambio de modelo puede hacerse con la máquina corriendo?'},
+  {id:'pc',grupo:'cap',nombre:'Cálculo de personal',pregunta:'¿Cuántas personas necesita cada área, mes a mes?'},
+  {id:'at',grupo:'cap',nombre:'Actual Time y Eficiencia compuesta',pregunta:'¿Cuántos minutos-hombre cuesta realmente cada pieza, y cómo va la planta?'},
+  {id:'df',grupo:'proc',nombre:'Diagramas de flujo',pregunta:'¿Cómo fluye el proceso y dónde están las demoras y los transportes?'}
+];
+const TUT_SEEN=new Set();
+const tutReady=t=>!!(t&&t.pasos);
+const tutBtn=id=>tutReady(TUTS.find(t=>t.id===id))?`<button class="btn ghost" type="button" data-go="aprende-${id}">${svg('aprende',18)} Ver tutorial</button>`:'';
+
+function vAprende(){
+  setHead('Aprende',[['Tutoriales','aprende']]);
+  return `<section class="glass panel"><div><h2>Aprende con una demo en vivo</h2><p class="sub">Un bot usa la app real con datos ficticios y te explica cada paso. Después lo haces tú, guiado. Nada de lo que se hace en un tutorial se guarda.</p></div></section>
+  ${TUT_GROUPS.map(([g,l])=>`<section aria-label="${l}"><b style="font-size:15px;color:var(--ink2);display:block;margin:4px 2px 10px">${l}</b>
+    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">${TUTS.filter(t=>t.grupo===g).map(t=>{const ok=tutReady(t);const tag=!ok?'PRÓXIMAMENTE':TUT_SEEN.has(t.id)?'VISTO':'NUEVO';
+      return `<button type="button" class="fmt tutcard ${ok?'':'off'}" data-go="aprende-${t.id}"><span class="t"><b>${esc(t.nombre)}</b><span class="tag ${tag==='NUEVO'?'on':''}">${tag}</span></span><span class="d">${esc(t.pregunta)}</span>${ok?`<span class="tutmin">${svg('estudios',15,2)} ≈ ${t.min} min</span>`:''}</button>`;}).join('')}</div></section>`).join('')}`;
+}
+function vAprendeFicha(id){
+  const t=TUTS.find(x=>x.id===id);if(!t)return vAprende();
+  setHead(t.nombre,[['Aprende','aprende'],[t.nombre,'aprende-'+id]]);
+  const back=`<button class="btn ghost" type="button" data-go="aprende">${svg('back',18,2.2)} Todos los tutoriales</button>`;
+  if(!tutReady(t))return `<section class="glass panel empty"><span class="tag">PRÓXIMAMENTE</span><h2>${esc(t.nombre)}</h2><p>${esc(t.pregunta)}<br>Este tutorial se arma cuando la pantalla tenga su diseño final, para que no quede viejo.</p>${back}</section>`;
+  return `<section class="glass panel view tutficha">
+    <span class="tag on">TUTORIAL · ≈ ${t.min} MIN</span>
+    <h2 class="tutq">${esc(t.pregunta)}</h2>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:18px">
+      <div class="kpi"><span>Úsalo cuando</span><p>${esc(t.cuando)}</p></div>
+      <div class="kpi"><span>No es para</span><p>${esc(t.noPara)}</p></div>
+      <div class="kpi"><span>Lo que vas a ver</span><ol>${t.veras.map(v=>`<li>${esc(v)}</li>`).join('')}</ol></div>
+    </div>
+    <p class="sub" style="margin-top:16px">Datos ficticios. Al salir, todo se descarta: no quedan estudios ni historial.</p>
+    ${foot(back,`<button class="btn ghost" type="button" data-tutgo="${id}|tu">Hazlo tú (guiado)</button><button class="btn orange" type="button" data-tutgo="${id}|demo">${svg('next',18,2.2)} Ver demo</button>`)}
+  </section>`;
+}
+
+// ---------- motor ----------
+let TR=null;let tutRunId=0;const TUT_ABORT={};
+const tutSnapNow=()=>structuredClone({S,DS,ST,MM,SM,PC,AT,EC,DF,uid});
+function tutRestore(s){const c=structuredClone(s);
+  [[S,'S'],[DS,'DS'],[ST,'ST'],[MM,'MM'],[SM,'SM'],[PC,'PC'],[AT,'AT'],[EC,'EC'],[DF,'DF']].forEach(([o,k])=>{Object.keys(o).forEach(x=>delete o[x]);Object.assign(o,c[k]);});uid=c.uid;}
+const tutPhone=()=>window.innerWidth<=700;
+const tutNorm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function tutSel(p,k){const s=p.toca||p.escribe||p.elige||p.señala||(p.serie&&p.serie.replace('{v}',p.v[(k||0)%p.v.length]));return s;}
+// Busca el elemento: si hay txt, el más profundo de los que contienen ese texto
+function tutQuery(sel,txt){let L=[...document.querySelectorAll(sel)].filter(e=>e.getClientRects().length&&!e.disabled);
+  if(txt){const n=tutNorm(txt);L=L.filter(e=>tutNorm(e.textContent).includes(n));L=L.filter(e=>!L.some(o=>o!==e&&e.contains(o)));}
+  return L[0]||null;}
+async function tutFind(run,sel,txt){const t0=Date.now();
+  while(Date.now()-t0<4000){tutAlive(run);const el=tutQuery(sel,txt);if(el)return el;await new Promise(r=>setTimeout(r,60));}
+  throw {tutErr:'No se encontró «'+sel+(txt?' · '+txt:'')+'». La pantalla cambió: hay que actualizar este tutorial.'};}
+function tutAlive(run){if(!TR||TR.run!==run)throw TUT_ABORT;}
+// Espera respetando pausa, velocidad y «Siguiente»
+async function tutWait(run,ms){let left=ms;
+  while(left>0){tutAlive(run);if(TR.skip){TR.skip=false;return;}
+    if(!TR.paused||TR.once)left-=50*TR.speed;await new Promise(r=>setTimeout(r,50));}}
+async function tutGate(run){while(TR&&TR.run===run&&TR.paused&&!TR.once)await new Promise(r=>setTimeout(r,60));tutAlive(run);}
+const tutRead=s=>Math.max(1900,String(s).split(/\s+/).length*290);
+
+function tutLayer(){let L=document.getElementById('tut');if(L)return L;
+  L=document.createElement('div');L.id='tut';
+  L.innerHTML=`<div class="tutshield"></div><div class="tutring" hidden></div><div class="tutcur" hidden><span></span></div>
+  <div class="tutbub glass" role="status" aria-live="polite" hidden><span class="tutn mono"></span><p></p><span class="tutsug"></span></div>
+  <div class="tutbar glass" role="toolbar" aria-label="Controles del tutorial"></div><div class="tutend" hidden></div>`;
+  document.body.appendChild(L);return L;}
+function tutBar(){const L=tutLayer();const T=TR;if(!T)return;const n=T.t.pasos.length;const demo=T.mode==='demo';
+  L.querySelector('.tutbar').innerHTML=`<span class="tutpos mono">${Math.min(T.i+1,n)} / ${n}</span>
+    ${demo?`<button type="button" class="tutb" data-tutc="pause" aria-label="${T.paused?'Seguir':'Pausar'}">${T.paused?'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'}<span>${T.paused?'Seguir':'Pausa'}</span></button>`:''}
+    <button type="button" class="tutb" data-tutc="next">${svg('next',20,2.4)}<span>Siguiente</span></button>
+    <button type="button" class="tutb" data-tutc="restart">${svg('undo',20,2.2)}<span>Reiniciar</span></button>
+    ${demo?`<button type="button" class="tutb" data-tutc="speed" aria-label="Velocidad">${T.speed>=2?'2×':'1×'}</button>`:''}
+    <button type="button" class="tutb" data-tutc="exit" aria-label="Salir del tutorial">${svg('plus',20,2.4).replace('<svg','<svg style="transform:rotate(45deg)"')}<span>Salir</span></button>`;}
+
+// Coloca anillo, globo y cursor siguiendo al elemento (la app vuelve a pintar la pantalla seguido)
+function tutTrack(){if(!TR)return;const L=tutLayer();const ring=L.querySelector('.tutring'),bub=L.querySelector('.tutbub');
+  let el=TR.el;if(el&&!el.isConnected&&TR.sel){el=TR.el=tutQuery(TR.sel,TR.txt);}
+  if(el&&!ring.hidden){const r=el.getBoundingClientRect();Object.assign(ring.style,{left:r.left-6+'px',top:r.top-6+'px',width:r.width+12+'px',height:r.height+12+'px'});
+    if(!tutPhone()&&!bub.hidden){const bw=bub.offsetWidth,bh=bub.offsetHeight,barH=86;let top=r.bottom+14;
+      if(top+bh>innerHeight-barH)top=r.top-bh-14;if(top<8)top=Math.min(innerHeight-barH-bh,Math.max(8,r.top+12));
+      let left=Math.min(Math.max(12,r.left+r.width/2-bw/2),innerWidth-bw-12);bub.style.left=left+'px';bub.style.top=top+'px';}}
+  requestAnimationFrame(tutTrack);}
+function tutSay(text,sug){const L=tutLayer();const b=L.querySelector('.tutbub');const n=TR.t.pasos.length;
+  b.querySelector('.tutn').textContent=(TR.mode==='demo'?'DEMO':'HAZLO TÚ')+' · PASO '+Math.min(TR.i+1,n)+' DE '+n;
+  b.querySelector('p').textContent=text;const s=b.querySelector('.tutsug');s.textContent=sug||'';s.hidden=!sug;
+  b.classList.toggle('sheet',tutPhone());b.hidden=false;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');}
+async function tutAim(run,el,sel,txt){TR.el=el;TR.sel=sel;TR.txt=txt;
+  const top=tutPhone()?70:90,bottom=innerHeight-(tutPhone()?Math.round(innerHeight*.36)+80:110);
+  let r=el.getBoundingClientRect();
+  if(r.top<top||r.bottom>bottom){window.scrollBy({top:r.top-(top+Math.max(0,(bottom-top-r.height)/2)),behavior:'smooth'});await tutWait(run,420);}
+  tutLayer().querySelector('.tutring').hidden=false;}
+async function tutMove(run,el,ms){const c=tutLayer().querySelector('.tutcur');c.hidden=false;const r=el.getBoundingClientRect();
+  const x=r.left+Math.min(r.width/2,r.width-14),y=r.top+Math.min(r.height/2,r.height-10);
+  c.style.transitionDuration=Math.round(ms/TR.speed)+'ms';c.style.transform=`translate(${x}px,${y}px)`;await tutWait(run,ms);}
+async function tutClick(run,el){const c=tutLayer().querySelector('.tutcur');c.classList.remove('tutping');void c.offsetWidth;c.classList.add('tutping');
+  await tutWait(run,160);tutAlive(run);el.click();await tutWait(run,260);}
+async function tutType(run,el,val,clear){el.focus({preventScroll:true});if(clear){el.value='';el.dispatchEvent(new Event('input',{bubbles:true}));}
+  for(const ch of val){tutAlive(run);el.value+=ch;el.dispatchEvent(new Event('input',{bubbles:true}));await tutWait(run,55);}
+  el.dispatchEvent(new Event('change',{bubbles:true}));el.blur();}
+
+// Modo guiado: espera a que el usuario haga la acción en el elemento correcto
+function tutExpect(run,p){return new Promise((res,rej)=>{TR.expect={p,res,count:0};const iv=setInterval(()=>{if(!TR||TR.run!==run){clearInterval(iv);rej(TUT_ABORT);}},120);TR.expect.iv=iv;});}
+function tutDone(){const e=TR&&TR.expect;if(!e)return;clearInterval(e.iv);TR.expect=null;setTimeout(e.res,30);}
+document.addEventListener('click',e=>{if(!TR||TR.mode!=='tu'||!TR.expect)return;const x=e.target;if(x.closest&&x.closest('#tut'))return;
+  const ex=TR.expect,p=ex.p;const sel=p.toca||p.escribe||p.elige||p.base;const ok=sel&&x.closest&&x.closest(sel);
+  if(!ok){e.preventDefault();e.stopPropagation();const b=document.querySelector('#tut .tutbub');b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');return;}
+  if(p.toca)tutDone();
+  if(p.serie){ex.count++;tutSay(p.tu||p.di,'Llevas '+ex.count+' de '+p.nTu);if(ex.count>=p.nTu)tutDone();}},true);
+document.addEventListener('keydown',e=>{if(!TR||TR.mode!=='tu'||!TR.expect)return;const p=TR.expect.p;if(e.key==='Enter'&&p.escribe&&e.target.closest&&e.target.closest(p.escribe))tutDone();},true);
+document.addEventListener('change',e=>{if(!TR||TR.mode!=='tu'||!TR.expect)return;const p=TR.expect.p;const s=p.escribe||p.elige;if(s&&e.target.closest&&e.target.closest(s)&&e.target.value)tutDone();},true);
+
+async function tutStep(run,p){
+  if(p.ir){go(p.ir);await tutWait(run,250);}
+  const sel=tutSel(p,0);const el=await tutFind(run,sel,p.txt);await tutAim(run,el,sel,p.txt);
+  if(TR.mode==='tu'){
+    const sug=p.escribe?'Escribe, por ejemplo: '+p.valor:p.elige?'Elige: '+p.valor:p.serie?'Llevas 0 de '+p.nTu:p.señala?'Toca «Siguiente» cuando lo hayas leído.':'';
+    tutSay(p.tu||p.di,sug);if(p.escribe)el.focus({preventScroll:true});
+    if(p.serie){TR.sel=p.base;TR.el=tutQuery(p.base);}
+    await tutExpect(run,p);return;}
+  tutSay(p.di);await tutMove(run,el,650);
+  if(p.señala){await tutWait(run,tutRead(p.di));return;}
+  await tutWait(run,Math.max(900,tutRead(p.di)-900));
+  if(p.toca)await tutClick(run,el);
+  else if(p.escribe){await tutClick(run,el);const f=tutQuery(sel)||el;await tutType(run,f,p.valor,p.limpiar);await tutWait(run,350);}
+  else if(p.elige){el.value=p.valor;el.dispatchEvent(new Event('change',{bubbles:true}));await tutWait(run,500);}
+  else if(p.serie){for(let k=0;k<p.v.length;k++){await tutGate(run);const s=tutSel(p,k);const b=await tutFind(run,s);TR.el=b;TR.sel=s;await tutMove(run,b,280);await tutClick(run,b);}}
+}
+async function tutLoop(run){
+  try{while(TR&&TR.run===run&&TR.i<TR.t.pasos.length){
+      await tutGate(run);TR.once=false;tutBar();document.body.dataset.tut='run';
+      await tutStep(run,TR.t.pasos[TR.i]);tutAlive(run);TR.i++;}
+    tutAlive(run);tutFinish();}
+  catch(e){if(e===TUT_ABORT)return;if(!TR||TR.run!==run)return;
+    TR.err=e&&e.tutErr||String(e&&e.message||e);document.body.dataset.tut='error';tutSay('⚠ '+TR.err);TR.paused=true;tutBar();console.warn('[tutorial]',TR.err);}}
+function tutStart(id,mode,speed){const t=TUTS.find(x=>x.id===id);if(!tutReady(t))return;
+  const snap=TR?TR.snap:tutSnapNow();if(TR){tutRestore(snap);}
+  TR={t,mode,i:0,paused:false,once:false,skip:false,speed:speed||1,run:++tutRunId,snap,el:null,sel:null,expect:null,err:null};
+  window.scrollTo({top:0});document.body.classList.add('tutoring');document.body.classList.toggle('tutdemo',mode==='demo');
+  const L=tutLayer();L.hidden=false;L.querySelector('.tutend').hidden=true;L.querySelector('.tutcur').hidden=true;L.querySelector('.tutring').hidden=true;L.querySelector('.tutbar').hidden=false;
+  tutBar();requestAnimationFrame(tutTrack);tutLoop(TR.run);}
+function tutFinish(){const T=TR;TUT_SEEN.add(T.t.id);document.body.dataset.tut='fin';const L=tutLayer();
+  ['.tutring','.tutcur','.tutbub'].forEach(s=>L.querySelector(s).hidden=true);L.querySelector('.tutbar').hidden=true;
+  const end=L.querySelector('.tutend');const demo=T.mode==='demo';
+  end.innerHTML=`<div class="mbox glass"><div class="micon" style="background:rgba(29,95,168,.12);color:var(--blue)">${svg('aprende',26,2)}</div>
+    <h2>${demo?'Así se hace un '+esc(T.t.nombre):'¡Listo! Lo hiciste tú'}</h2><p>${demo?'Ahora hazlo tú: el globo te dice qué tocar y espera a que lo hagas.':'Ya sabes hacer el flujo completo. Con un estudio real, cuenta hasta que la precisión cumpla.'} Al salir, todo lo del tutorial se descarta.</p>
+    <div class="row" style="margin-top:20px;justify-content:flex-end;flex-wrap:wrap"><button class="btn ghost" type="button" data-tutc="exit">Volver a Aprende</button>
+    <button class="btn ghost" type="button" data-tutc="${demo?'restart':'demo'}">${demo?'Repetir demo':'Ver la demo'}</button>
+    <button class="btn orange" type="button" data-tutc="${demo?'tu':'restart'}">${demo?'Ahora hazlo tú':'Repetir'}</button></div></div>`;
+  end.hidden=false;}
+function tutExit(){if(!TR)return;const id=TR.t.id;tutRestore(TR.snap);TR=null;tutRunId++;
+  document.body.classList.remove('tutoring','tutdemo');delete document.body.dataset.tut;const L=document.getElementById('tut');if(L)L.remove();go('aprende-'+id);}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-tutgo]');if(!b)return;const[id,m]=b.dataset.tutgo.split('|');tutStart(id,m);});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#tut [data-tutc]');if(!b||!TR)return;e.stopPropagation();const c=b.dataset.tutc;
+  if(c==='pause'){TR.paused=!TR.paused;TR.once=false;tutBar();}
+  else if(c==='next'){if(TR.mode==='tu'&&TR.expect)tutDone();else if(TR.paused)TR.once=true;else TR.skip=true;}
+  else if(c==='speed'){TR.speed=TR.speed>=2?1:2;tutBar();}
+  else if(c==='restart')tutStart(TR.t.id,TR.mode,TR.speed);
+  else if(c==='tu'||c==='demo')tutStart(TR.t.id,c);
+  else if(c==='exit')tutExit();},true);
+window.addEventListener('resize',()=>{const b=document.querySelector('#tut .tutbub');if(b)b.classList.toggle('sheet',tutPhone());});
+// Gancho para las pruebas automáticas
+window.TaktTut={start:(id,mode,speed)=>tutStart(id,mode,speed),exit:()=>tutExit(),
+  state:()=>TR?{i:TR.i,n:TR.t.pasos.length,mode:TR.mode,err:TR.err,expect:TR.expect?{...TR.expect.p}:null,count:TR.expect?TR.expect.count:0}:null,
+  list:()=>TUTS.map(t=>({id:t.id,ready:tutReady(t),pasos:t.pasos||null})),
+  counts:()=>({ws:S.studies.length,ds:DS.studies.length,st:ST.studies.length,mm:MM.studies.length,sm:SM.studies.length,pc:PC.studies.length,at:AT.studies.length,df:DF.studies.length})};
+
 render();
 })();
 </script>
