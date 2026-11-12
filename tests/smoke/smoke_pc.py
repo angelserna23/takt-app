@@ -1,0 +1,40 @@
+import pathlib as _pl
+IDX='file://'+str(_pl.Path(__file__).resolve().parents[2]/'index.html')
+from playwright.sync_api import sync_playwright
+errs=[]
+with sync_playwright() as p:
+    b=p.chromium.launch()
+    for w,h,tag in [(1366,1000,'lap'),(1024,1366,'tab'),(393,851,'phone')]:
+        pg=b.new_page(viewport={'width':w,'height':h},has_touch=True);pg.route('**/fonts.googleapis.com/**',lambda r:r.abort());pg.on('pageerror',lambda e:errs.append(tag+' '+str(e)))
+        pg.goto(IDX+'#estudios')
+        pg.locator('[data-go=pc]').filter(has=pg.locator('svg')).first.click() if tag!='phone' else pg.locator('.tab[data-go=pc]').click()
+        pg.wait_for_timeout(100);pg.click('[data-pcnew]')
+        pg.locator('[data-pcneed]').last.click();print(tag,'falta nombre',pg.locator('label.miss').count())
+        pg.fill('input[name=nombre]','maquinado planta 1');pg.locator('[data-pcneed]').last.click()
+        pg.click('[data-pcexample]');pg.wait_for_timeout(100)
+        print(tag,'abril',[k.inner_text().split('\n')[1] for k in pg.locator('[data-pctot] .kpi').all()])
+        print(tag,'renglones',[x.inner_text().replace('\n',' ') for x in pg.locator('.pchc').all()])
+        pg.locator('.pchd').first.click();pg.wait_for_timeout(100)
+        pg.fill('[data-pcf$="|vol"]','13706');pg.wait_for_timeout(100)
+        print(tag,'tras editar vol',pg.locator('[data-pchc]').first.inner_text().replace('\n',' '),'| total',pg.locator('[data-pctot] .kpi').first.inner_text().split('\n')[1])
+        pg.screenshot(path=f'/tmp/pc_mes_{tag}.png',full_page=True)
+        pg.click('[data-pcm="2"]');pg.click('[data-pccopy="1"]');print(tag,'junio copiado',pg.locator('.pccard').count())
+        pg.locator('[data-pcv=res]:not([disabled])').last.click();pg.wait_for_timeout(300)
+        print(tag,'tabla meses',pg.locator('.smtbl tbody tr').count())
+        pg.screenshot(path=f'/tmp/pc_res_{tag}.png',full_page=True)
+        print(tag,'overflow',pg.evaluate('document.documentElement.scrollWidth>innerWidth'))
+        pg.click('[data-pcfinish]');pg.wait_for_timeout(200);print(tag,'lista',pg.locator('[data-pcopen]').inner_text().replace('\n',' ')[:120])
+    b.close()
+print('ERRORS',errs)
+# extra: OTRO, volumen con miles, resumen abajo
+with sync_playwright() as p:
+    b=p.chromium.launch();pg=b.new_page(viewport={'width':1024,'height':1366});pg.route('**/fonts.googleapis.com/**',lambda r:r.abort());pg.on('pageerror',lambda e:errs.append(str(e)))
+    pg.goto(IDX+'#pc');pg.click('[data-pcnew]');pg.fill('input[name=nombre]','pintura')
+    pg.click('[data-pctipo=OTRO]');pg.fill('#pctipootro','pintura');pg.locator('[data-pcneed]').last.click()
+    pg.click('[data-pcexample]');pg.locator('.pchd').first.click()
+    v=pg.locator('[data-pcf$="|vol"]');print('vol mostrado',v.input_value());v.fill('30000');pg.locator('[data-pcf$="|op"]').click();print('tras salir',v.input_value())
+    print('HC',pg.locator('[data-pchc]').first.inner_text().replace('\n',' '))
+    print('boton abajo',pg.locator('.pcbottom [data-pcv=res]').count(),'arriba',pg.locator('.row [data-pcv=res]').count())
+    pg.click('.pcbottom [data-pcv=res]');pg.click('[data-pcfinish]');pg.wait_for_timeout(200);print('lista',pg.locator('[data-pcopen]').inner_text().replace('\n',' ')[:60])
+    b.close()
+print('ERRORS',errs)
