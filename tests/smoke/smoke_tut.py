@@ -19,7 +19,7 @@ with sync_playwright() as p:
         pg.goto(IDX+('#config' if tag=='phone' else '#estudios'))
         # Entrada: menú lateral en laptop/tablet; en teléfono desde «Más»
         (pg.locator('.atmore [data-go=aprende]') if tag=='phone' else pg.locator('.navbtn[data-go=aprende]')).click();pg.wait_for_timeout(150)
-        check(tag,pg.locator('.tutcard').count()==10,'10 tarjetas de tutorial')
+        check(tag,pg.locator('.tutcard').count()==11,'11 tarjetas de tutorial')
         check(tag,pg.locator('.tutcard.off').count()==0,'ninguna marcada como próximamente')
         if tag!='phone':check(tag,pg.locator('.navbtn[aria-current=page]').get_attribute('data-go')=='aprende','menú Aprende activo')
         tl=pg.evaluate('TaktTut.list()')
@@ -57,7 +57,8 @@ with sync_playwright() as p:
                 if 'toca' in e:
                     pg.evaluate('TaktTut.mark()');L=pg.locator('[data-tutt]');L.click(force=L.evaluate('e=>e instanceof SVGElement'))
                 elif 'escribe' in e:
-                    pg.evaluate('TaktTut.mark()');f=pg.locator('[data-tutt]');f.fill('');f.type(e['valor']);f.press('Enter')
+                    # espera a que el campo esté estable (la nube de Diagramas de flujo se abre después del toque) y lo vuelve a ubicar
+                    pg.evaluate('TaktTut.mark()');pg.wait_for_timeout(150);pg.evaluate('TaktTut.mark()');f=pg.locator('[data-tutt]');f.fill('');f.type(e['valor']);f.press('Enter')
                 elif 'serie' in e:
                     for k in range(e['nTu']):
                         pg.evaluate('TaktTut.mark()');pg.locator('[data-tutt]').click();pg.wait_for_timeout(60)

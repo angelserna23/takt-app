@@ -20,15 +20,16 @@ Prototipo publicado: https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f
 
 - Estudios de tiempos: Work Sampling, Delay Study, Work Element, Speed Trial, Man Machine Chart, SMED (todos listos).
 - Takt y balanceo de línea: takt + estaciones traídas de los Work Element + balanceo contra el takt: listo.
+- Hoja de trabajo estándar: secuencia con símbolos ASME y puntos clave, flujo automático, impresión en una página (lista para comentarios).
 - Cálculo de personal (headcount): listo.
 - Actual Time + Eficiencia compuesta y Diagramas de flujo: listos.
-- Aprende (tutoriales con demo en vivo y modo guiado): los 10 listos (6 estudios, Takt y balanceo, Personal, Actual Time + Eficiencia compuesta, Diagramas de flujo).
+- Aprende (tutoriales con demo en vivo y modo guiado): los 11 listos (6 estudios, Takt y balanceo, Hoja estándar, Personal, Actual Time + Eficiencia compuesta, Diagramas de flujo).
 - Guardado: almacén en el navegador (IndexedDB) con versiones y migraciones; «Guardar» explícito; jerarquía Planta → Área → Línea → Estación en Configuración y en cada estudio.
 
 ## Correr las pruebas
 
 ```bash
-bash tests/correr_pruebas.sh          # todo: cálculos + guardado + los 10 tutoriales en laptop, tablet y teléfono (≈ 5 min)
+bash tests/correr_pruebas.sh          # todo: cálculos + guardado + los 11 tutoriales en laptop, tablet y teléfono (≈ 5 min)
 bash tests/correr_pruebas.sh rapido   # solo cálculos
 # Requiere: pip install playwright && playwright install chromium
 ```

@@ -736,6 +736,74 @@ body.tutoring #view{padding-bottom:110px}
 .tkel .tkt{width:84px;flex:0 0 84px;text-align:right;font-family:'IBM Plex Mono',monospace}
 .tkst,.tkwer{min-width:0}
 @media (max-width:700px){.tkwe,.tkgrid{grid-template-columns:minmax(0,1fr)}.tkel{gap:6px}.tkel .tkt{width:62px;flex-basis:62px;padding:0 8px}.tkel .opn{width:26px;height:26px;flex-basis:26px;font-size:13px}.tkst{padding:12px}}
+/* Hoja de trabajo estándar */
+.hseppsel{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.hsepb{display:flex;align-items:center;gap:10px;min-height:56px;padding:8px 12px;border-radius:14px;border:1.5px solid var(--line);background:rgba(255,255,255,.75);color:var(--ink2);font-weight:600;font-size:14px;text-align:left;cursor:pointer}
+.hsepb[aria-pressed="true"]{border-color:var(--blue);background:#EAF1FA;color:var(--blue)}
+.hspasos{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.hsp{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:16px;background:rgba(255,255,255,.72);border:1px solid var(--line)}
+.hsp1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.hsp1 .hsmv{margin-left:auto;display:flex;gap:4px}
+.hsmv [data-hsup] svg{transform:rotate(90deg)}.hsmv [data-hsdown] svg{transform:rotate(90deg)}
+.hssyms{display:flex;gap:4px}.hssyms .dft{width:44px;height:44px}
+.hsp2,.hskprow{display:flex;gap:8px;align-items:center}
+.hsp2 input,.hskprow input{height:44px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:0 10px;font-size:15px;min-width:0;flex:1}
+.hsp2 .hst{flex:0 0 90px;width:90px;text-align:right;font-family:'IBM Plex Mono',monospace}
+.hskprow{padding-left:34px}.hskprow .seg button{min-width:44px;height:40px;display:grid;place-items:center}
+.hswarn{margin:12px 0 0;padding:10px 14px;border-radius:12px;background:#FDF0E8;color:#9A3412;font-size:14px}
+.hswrap{margin-top:16px;overflow-x:auto}
+.hssheet{--ink-s:var(--ink);background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:16px;box-shadow:0 18px 40px -24px rgba(27,36,48,.35);min-width:0}
+.hssheet h3{margin:0 0 8px;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.hshead{display:flex;gap:18px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;padding-bottom:14px;border-bottom:3px solid var(--ink)}
+.hstitle{display:flex;flex-direction:column;gap:2px}.hstitle small{font:700 12px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--orange)}
+.hstitle b{font-size:26px;line-height:1.15}.hstitle span{color:var(--muted);font-size:14px}
+.hsmeta{display:grid;grid-template-columns:repeat(4,auto);gap:4px 22px;margin:0}.hsmeta dt{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.hsmeta dd{margin:0;font-weight:700;font-size:15px}
+.hskpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.hskpis>div{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:16px;background:#fff;border:1px solid var(--line)}
+.hskpis span{font-size:12px;color:var(--muted);font-weight:600}.hskpis b{font-size:28px;line-height:1.1}.hskpis small{font-size:12px;color:var(--muted)}
+.hspct i{display:block;height:6px;border-radius:9px;background:#E7ECF2;overflow:hidden;margin:4px 0}.hspct em{display:block;height:100%;border-radius:9px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.hsbody{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start}
+.hsseq table{width:100%;border-collapse:collapse;font-size:14px}.hsseq th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:6px;border-bottom:1.5px solid var(--line)}
+.hsseq td{padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:center}.hsseq td.hsd{text-align:left;font-weight:600}.hsseq td:last-child{text-align:left}
+.hsseq .hstot td{border-bottom:0;font-weight:700}
+.hskp{display:flex;gap:6px;align-items:flex-start;font-size:12.5px;line-height:1.3;margin:2px 0}
+.hskpm{display:none;margin-top:4px;font-weight:500}
+.hskp.kseg{color:#9A3412}.hskp.kcal{color:#1D4F8C}.hskp.kerg{color:#166534}
+.hsfl2{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px}
+.hsflowsvg{display:block;height:auto}.hsflowsvg .hsnum{font:700 11px 'IBM Plex Mono',monospace;fill:#1B2430}
+.hsflowsvg .hslbl{font:600 11.5px 'Inter',system-ui,sans-serif;fill:#1B2430}.hsflowsvg .hsmin{font:500 10.5px 'IBM Plex Mono',monospace;fill:#5B6673}
+.hsflowsvg.anim .hsfl{stroke-dasharray:1;stroke-dashoffset:1;animation:hsdraw .35s ease forwards;animation-delay:calc(var(--i) * 70ms + 120ms)}
+.hsflowsvg.anim .hsnode{opacity:0;animation:hsin .3s ease forwards;animation-delay:calc(var(--i) * 70ms)}
+@keyframes hsdraw{to{stroke-dashoffset:0}}@keyframes hsin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hsflowsvg.anim .hsfl{animation:none;stroke-dashoffset:0}.hsflowsvg.anim .hsnode{animation:none;opacity:1}}
+.hsfoot{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start;padding-top:12px;border-top:1.5px solid var(--line)}
+.hsepp>div{display:flex;flex-wrap:wrap;gap:10px}.hsepp span{display:flex;flex-direction:column;align-items:center;gap:2px;width:74px;text-align:center;color:var(--blue)}.hsepp span small{font-size:10.5px;color:var(--ink2);line-height:1.2}
+.hsres>div{display:flex;gap:10px;flex-wrap:wrap}.hsres span{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:46px}.hsres small{font-size:10.5px;color:var(--muted)}
+.hsleg{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 0;font-size:11.5px;color:var(--ink2)}.hsleg span{display:flex;gap:4px;align-items:center}
+.hsfirm{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.hsfirm div{display:flex;flex-direction:column;justify-content:flex-end;min-height:62px;border-bottom:1.5px solid var(--ink);padding-bottom:4px}
+.hsfirm b{font-size:12.5px}.hsfirm span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+@media (max-width:1180px){.hsfoot{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.hsfirm{grid-column:1/-1}}
+@media (max-width:1000px){.hsbody{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:700px){.hsfoot{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:700px){.hskpis{grid-template-columns:repeat(2,minmax(0,1fr))}.hsmeta{grid-template-columns:repeat(2,auto)}.hssheet{padding:14px}.hstitle b{font-size:21px}
+  .hsseq td:last-child,.hsseq th:last-child{display:none}.hskpm{display:block}.hskprow{padding-left:0;flex-wrap:wrap}.hskprow input{flex-basis:100%}.hsp2 .hst{flex-basis:72px;width:72px}}
+/* copia de papel: siempre fuera de pantalla; solo se ve al imprimir */
+.hsprint{position:fixed;left:-30000px;top:0;visibility:hidden;pointer-events:none}
+.hsprint .hssheet{transform-origin:top left}
+.hssheet.pr{background:#fff;border:1.5px solid #1B2430;border-radius:0;box-shadow:none;padding:14px;gap:10px;color:#000;font-size:12px}
+.hssheet.pr .hstitle b{font-size:20px}.hssheet.pr .hskpis>div{border:1px solid #1B2430;border-radius:4px;padding:6px 10px}.hssheet.pr .hskpis b{font-size:20px}
+.hssheet.pr .hsseq table{font-size:11.5px}.hssheet.pr .hsseq td{padding:4px}.hssheet.pr .hsfl2{border:1px solid #1B2430;border-radius:4px;padding:6px}
+.hssheet.pr .hsbody{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}.hssheet.pr .hsfoot{grid-template-columns:1.2fr 1fr 1fr}.hssheet.pr .hskpis{grid-template-columns:repeat(4,1fr)}.hssheet.pr .hsmeta{grid-template-columns:repeat(4,auto)}
+.hssheet.pr .hsseq td:last-child,.hssheet.pr .hsseq th:last-child{display:table-cell}.hssheet.pr .hsfirm{grid-column:auto}.hssheet.pr .hskp{font-size:10.5px}
+@page{size:letter landscape;margin:0.3in}
+@media print{
+  /* al imprimir solo existe la hoja: lo demás sale del documento y los contenedores no ocupan espacio */
+  html:has(.hsprint),body:has(.hsprint){background:#fff!important;height:auto!important;min-height:0!important;overflow:visible!important}
+  body:has(.hsprint) *:not(:has(.hsprint)):not(.hsprint):not(.hsprint *){display:none!important}
+  body:has(.hsprint) :has(.hsprint){position:static!important;display:block!important;margin:0!important;padding:0!important;border:0!important;min-height:0!important;height:auto!important;overflow:visible!important;background:none!important;box-shadow:none!important;transform:none!important;backdrop-filter:none!important}
+  body:has(.hsprint) .hsprint{position:static;left:0;visibility:visible;height:7.8in;overflow:hidden}
+  body:has(.hsprint) .hsprint *{animation:none!important}
+  .hssheet.pr{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
 </head>
 <body>
@@ -801,6 +869,8 @@ const I = {
   next:'<path d="M9 6l6 6-6 6"/>',
   trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
   undo:'<path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>',
+  print:'<path d="M7 8V3h10v5M7 17H4.5A1.5 1.5 0 0 1 3 15.5v-6A1.5 1.5 0 0 1 4.5 8h15A1.5 1.5 0 0 1 21 9.5v6a1.5 1.5 0 0 1-1.5 1.5H17"/><path d="M7 13h10v8H7z"/>',
+  hs:'<path d="M6 3h9l4 4v14H6z"/><circle cx="10" cy="10" r="1.6"/><path d="M10 11.6v2.2"/><rect x="8.6" y="14.6" width="2.8" height="2.8"/><path d="M13.5 10h3M13.5 16h3"/>',
   list:'<path d="M8 6h12M8 12h12M8 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/>',
   more:'<circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/>'
 };
@@ -864,13 +934,13 @@ const S={studies:[],draft:null,view:'hdr',opId:null,keep:false};
 let uid=1000;const nid=()=>++uid;
 // Fecha de hoy en la hora local (no en hora universal: en México, después de las 6 p. m. la UTC ya es mañana)
 const hoyLocal=(d=new Date())=>{const z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());};
-const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['tk','Takt y balanceo'],['pc','Cálculo de personal'],['at','Actual Time'],['df','Diagramas de flujo'],['aprende','Aprende']];
+const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['tk','Takt y balanceo'],['hs','Hoja estándar'],['pc','Cálculo de personal'],['at','Actual Time'],['df','Diagramas de flujo'],['aprende','Aprende']];
 
 function route(){const h=(location.hash||'#estudios').slice(1);return h||'estudios';}
 function go(h){if(location.hash==='#'+h)render();else location.hash=h;}
 window.addEventListener('hashchange',render);
 
-function sectionOf(r){if(r==='tk'||r.startsWith('tk-'))return 'tk';if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r==='df'||r.startsWith('df-'))return 'df';if(r==='aprende'||r.startsWith('aprende-'))return 'aprende';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r==='estudios')return 'estudios';return r;}
+function sectionOf(r){if(r==='tk'||r.startsWith('tk-'))return 'tk';if(r==='hs'||r.startsWith('hs-'))return 'hs';if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r==='df'||r.startsWith('df-'))return 'df';if(r==='aprende'||r.startsWith('aprende-'))return 'aprende';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r==='estudios')return 'estudios';return r;}
 
 function renderNav(r){
   const sec=sectionOf(r);
@@ -1076,7 +1146,7 @@ function vNuevo(){
 function vInicio(){setHead('Tablero',[['Inicio','inicio']]);
   return `<section class="glass panel empty"><span class="tag">AL FINAL</span><h2>Tablero del Analista</h2><p>Se diseña al final, cuando los formatos ya generen datos: operaciones sobre takt, capacidad teórica, eficiencia de balanceo y estudios vencidos.</p></section>`;}
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
-  return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Takt, capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="tk">${svg('tk',18)} Takt y balanceo</button><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="df">${svg('df',18)} Diagramas de flujo</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
+  return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Takt, capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="tk">${svg('tk',18)} Takt y balanceo</button><button class="btn ghost" type="button" data-go="hs">${svg('hs',18)} Hoja estándar</button><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="df">${svg('df',18)} Diagramas de flujo</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
   ${vCatalogo()}
   <section class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
   ${tkConfigCard()}${[['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
@@ -1097,6 +1167,8 @@ function render(keep){
   else if(r==='st-nuevo')html=vST();
   else if(r==='mm')html=vMMList();
   else if(r==='mm-nuevo')html=vMM();
+  else if(r==='hs')html=vHSList();
+  else if(r==='hs-nuevo')html=vHS();
   else if(r==='tk')html=vTKList();
   else if(r==='tk-nuevo')html=vTK();
   else if(r==='pc')html=vPCList();
@@ -1117,7 +1189,7 @@ function render(keep){
   else html=vEstudios();
   const v=document.getElementById('view');v.innerHTML=`<div class="${keep?'':'view'}" style="display:flex;flex-direction:column;gap:16px">${html}</div>`;
   // Teléfono: los botones de acción del encabezado de cada pantalla bajan al final, para no regresar a buscarlos
-  if(window.innerWidth<=700)v.querySelectorAll('section.panel').forEach(sec=>{const row=[...sec.children].find(c=>c.classList.contains('row'));if(!row||row.children.length<2)return;const g=row.lastElementChild;if(!g.querySelector('.btn')||g.querySelector('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-tknew],[data-pcnew],[data-atnew],[data-dfnew],[data-go="ws-nuevo"]')||g.matches('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-go="ws-nuevo"]'))return;g.classList.add('mobfoot');sec.appendChild(g);});
+  if(window.innerWidth<=700)v.querySelectorAll('section.panel').forEach(sec=>{const row=[...sec.children].find(c=>c.classList.contains('row'));if(!row||row.children.length<2)return;const g=row.lastElementChild;if(!g.querySelector('.btn')||g.querySelector('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-tknew],[data-hsnew],[data-pcnew],[data-atnew],[data-dfnew],[data-go="ws-nuevo"]')||g.matches('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-go="ws-nuevo"]'))return;g.classList.add('mobfoot');sec.appendChild(g);});
   requestAnimationFrame(()=>{document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');document.querySelectorAll('.vfill').forEach(f=>f.style.height=f.dataset.h+'%');});
   if(!keep)window.scrollTo({top:0});
   if(typeof storeDecorate==='function'&&STORE.ready){storeDecorate();storeChip();ubicDecorate();}
@@ -3733,6 +3805,194 @@ function tkConfigCard(){const by=new Map();TK.studies.forEach(s=>{const ln=s.ubi
       :'<p class="sub" style="line-height:1.5;margin:0">Se calcula en «Takt y balanceo» con la demanda diaria, los turnos y los paros programados. Aquí aparece el más reciente de cada línea.</p>'}
     <button class="btn ghost sm" type="button" data-go="tk" style="align-self:flex-start">${svg('tk',16)} Abrir Takt y balanceo</button></div>`;}
 
+// ===== HOJA DE TRABAJO ESTÁNDAR · cómo se hace el trabajo en una estación =====
+// Módulo AISLADO (regla de Angel): todo se captura aquí, no trae ni liga datos de otros módulos. Takt a mano.
+// Se imprime en carta horizontal (una página) y en tablet se ve con el estilo de la app.
+// <hs-pure> Funciones puras: se prueban en Node (parts/hstest.js) leyendo este bloque directo de index.html.
+const HS_SYMS=['op','insp','tra','dem','alm'];   // símbolos ASME de un paso (orden del resumen)
+const HS_KP=['seg','cal','erg'];                  // tipos de punto clave: seguridad, calidad, ergonomía
+function hsNum(v){const x=parseFloat(String(v??'').replace(',','.'));return isNaN(x)?0:x;}
+// TC = Σ tiempos de los pasos (min por pieza). Takt capturado a mano; vacío = sin comparación.
+function hsCalc(d){const P=d.pasos||[];const tc=P.reduce((a,p)=>a+hsNum(p.t),0);const takt=hsNum(d.takt);
+  const res={};HS_SYMS.forEach(s=>res[s]={n:0,t:0});
+  P.forEach(p=>{const s=HS_SYMS.includes(p.sym)?p.sym:'op';res[s].n++;res[s].t+=hsNum(p.t);});
+  const kp={seg:0,cal:0,erg:0};P.forEach(p=>(p.kp||[]).forEach(k=>{if(HS_KP.includes(k.tipo)&&String(k.txt||'').trim())kp[k.tipo]++;}));
+  return {tc,takt,pct:takt>0?tc/takt:0,holg:takt>0?takt-tc:0,over:takt>0&&tc>takt+1e-9,n:P.length,res,kp};}
+// </hs-pure>
+
+const HS={studies:[],d:null,view:'info',miss:[]};
+const HS_EPP={lentes:['Lentes de seguridad','<circle cx="7" cy="13" r="3.5"/><circle cx="17" cy="13" r="3.5"/><path d="M10.5 13h3M3.5 12.5 2 9M20.5 12.5 22 9"/>'],
+  guantes:['Guantes','<path d="M7.5 21v-5L5 12.5V8a1.2 1.2 0 0 1 2.4 0v3.5M7.4 11V5a1.2 1.2 0 0 1 2.4 0v6M9.8 10.5V4a1.2 1.2 0 0 1 2.4 0v6.5M12.2 10.5V5a1.2 1.2 0 0 1 2.4 0v7.5l1.5-1.8a1.3 1.3 0 0 1 2 1.6L15.5 17v4"/>'],
+  auditiva:['Protección auditiva','<path d="M5 15c0-5 3-9 7-9s7 4 7 9"/><rect x="3" y="13.5" width="4" height="6.5" rx="1.6"/><rect x="17" y="13.5" width="4" height="6.5" rx="1.6"/>'],
+  casco:['Casco','<path d="M3 17.5h18M5 17.5V15a7 7 0 0 1 14 0v2.5M10 8.6V5.5h4v3.1"/>'],
+  zapato:['Zapato de seguridad','<path d="M3 17V7.5h5l2 4.5 8.6 2a2.5 2.5 0 0 1 2.4 2.4V17zM3 20h18M3 13h4"/>'],
+  careta:['Careta','<path d="M4 5h16M6 5v8.5a6 6 0 0 0 12 0V5M9 10h6"/>'],
+  mascarilla:['Mascarilla','<path d="M5 9c3-2 11-2 14 0v4c-2 4.5-12 4.5-14 0zM5 10.5H2.5M19 10.5h2.5M9 11h6M9 13.5h6"/>'],
+  mandil:['Mandil / peto','<path d="M8.5 3h7v4l3.5 2.5V21H5V9.5L8.5 7zM8.5 7h7M9 13h6"/>']};
+const hsEppIcon=(k,sz)=>`<svg viewBox="0 0 24 24" width="${sz||22}" height="${sz||22}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${HS_EPP[k][1]}</svg>`;
+const HS_KPN={seg:'Seguridad',cal:'Calidad',erg:'Ergonomía'};
+const hsKpIcon=(t,sz)=>{sz=sz||18;const g={seg:'<path d="M12 3 22 20H2z" fill="#FDECE4" stroke="#C2410C"/><path d="M12 9.5v5" stroke="#C2410C"/><circle cx="12" cy="17.2" r=".6" fill="#C2410C" stroke="#C2410C"/>',
+  cal:'<path d="M12 2.5 21.5 12 12 21.5 2.5 12z" fill="#DCE8F6" stroke="#1D5FA8"/><path d="m8.5 12 2.4 2.4 4.6-4.8" stroke="#1D5FA8"/>',
+  erg:'<circle cx="12" cy="12" r="10" fill="#E3F4EA" stroke="#15803D"/><circle cx="12" cy="7" r="1.5" fill="#15803D" stroke="#15803D"/><path d="M12 9.5v5M8.5 11h7M12 14.5l-2.5 3.5M12 14.5l2.5 3.5" stroke="#15803D"/>'}[t];
+  return `<svg viewBox="0 0 24 24" width="${sz}" height="${sz}" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;flex:0 0 auto">${g}</svg>`;};
+// Ejemplo ficticio: inserción de balero (8 pasos, Σ 1.12 min; con takt 1.20 = 93.3 %)
+const HS_EXAMPLE=[['CAMINAR AL CONTENEDOR DE CARCASAS','tra',0.06,[]],['TOMAR CARCASA Y COLOCAR EN DISPOSITIVO','op',0.15,[['cal','MUESCA HACIA EL OPERADOR']]],
+  ['INSERTAR BALERO CON PRENSA','op',0.32,[['seg','MANOS FUERA DE LA PRENSA: BOTÓN BIMANUAL']]],['ESPERAR CICLO DE PRENSA','dem',0.10,[]],
+  ['VERIFICAR ALTURA DEL BALERO CON CALIBRADOR','insp',0.18,[['cal','PASA / NO PASA; SI NO PASA, A CONTENEDOR ROJO']]],['GIRAR PIEZA Y COLOCAR TAPA','op',0.17,[['erg','GIRAR CON AMBAS MANOS, SIN TORCER MUÑECA']]],
+  ['LLEVAR PIEZA A LA BANDA','tra',0.08,[]],['DEJAR PIEZA EN CONTENEDOR DE PRODUCTO TERMINADO','alm',0.06,[]]];
+const hsName=d=>d.operacion||'Nueva hoja estándar';
+function hsNew(){HS.d={id:nid(),ubic:{},operacion:'',parte:'',revision:'A',fecha:hoyLocal(new Date()),elaboro:'',reviso:'',aprobo:'',operadores:'1',takt:'',epp:[],pasos:[],estado:'Abierto'};HS.view='info';HS.miss=[];}
+const hsPaso=(desc,sym,t,kp)=>({id:nid(),desc:desc||'',sym:sym||'op',t:t==null?'':String(t),kp:(kp||[]).map(([tipo,txt])=>({id:nid(),tipo,txt}))});
+const hsFix=v=>v?fT(v.toFixed(3)):'—';
+
+function vHSList(){
+  setHead('Hoja estándar',[['Hoja estándar','hs']]);
+  return `<section class="glass panel">
+    <div class="row"><div><h2>Hojas de trabajo estándar</h2><p class="sub">Cómo se hace el trabajo en cada estación: secuencia, puntos clave, flujo y equipo de protección. Se imprime y se consulta en la tablet.</p></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('hs')}<button class="btn orange" type="button" data-hsnew="1">${svg('plus',18,2.2)} Nueva hoja</button></div></div>
+    <div class="grid" style="margin-top:18px">
+    ${HS.studies.map(st=>{const r=hsCalc(st);return `<div class="studyrow"><button type="button" class="study" data-hsopen="${st.id}">
+      <div class="logo" style="background:rgba(194,65,12,.1);color:var(--orange)" aria-hidden="true">HS</div>
+      <div class="meta"><b>${esc(hsName(st))} <span class="tag ${st.estado==='Cerrado'?'':'on'}" style="vertical-align:2px;margin-left:6px">${st.estado==='Cerrado'?'GUARDADA':'EN PROCESO'}</span></b><span>${esc(ubLabel(st))} · rev. ${esc(st.revision||'—')} · ${esc(st.fecha)} · ${r.n} paso${r.n!==1?'s':''}</span></div>
+      <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:${r.over?'var(--orange)':'var(--blue)'}">${hsFix(r.tc)}</span><br><span style="font-size:12px;color:var(--muted)">tiempo ciclo (min)</span></div>
+      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="hs|${st.id}" data-sdeln="${esc(hsName(st))}" aria-label="Eliminar ${esc(hsName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`}).join('')}
+    ${HS.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('hs',30)}</div><b style="font-size:17px">Aún no hay hojas</b><p>Toca <b>Nueva hoja</b>: encabezado, pasos con su símbolo y puntos clave, y la hoja lista para imprimir.</p></div>`}
+    </div></section>`;
+}
+function hsSteps(){const L=[['info','Encabezado'],['sec','Secuencia'],['hoja','Hoja']];const idx=L.findIndex(x=>x[0]===HS.view);
+  return `<nav class="steps" aria-label="Pasos de la hoja">${L.map(([v,l],i)=>`<button type="button" class="step ${i<idx?'done':''}" data-hsv="${v}" ${i>idx?'disabled title="Usa el botón de continuar"':''} ${i===idx?'aria-current="step"':''}><span class="n">0${i+1}</span><span class="lbl">${l}</span></button>`).join('')}</nav>`;}
+// Flujo del proceso en serpentina: columna 1 baja, columna 2 sube, etc. Lo dibuja solo con los pasos.
+function hsFlow(d,pr){const P=d.pasos;if(!P.length)return '<p class="sub">Sin pasos.</p>';
+  const per=pr?12:9,rowH=pr?44:52,colW0=Math.ceil(P.length/per)===1?(pr?300:280):(pr?160:200),colW=colW0,padT=30,cols=Math.ceil(P.length/per),rows=Math.min(per,P.length);
+  const W=cols*colW,H=padT*2+(rows-1)*rowH;
+  const pos=P.map((p,i)=>{const c=Math.floor(i/per),r=i%per,rr=c%2?rows-1-r:r;return [c*colW+24,padT+rr*rowH];});
+  const segs=[];pos.forEach(([x,y],i)=>{if(!i)return;const [px,py]=pos[i-1];
+    if(px===x){const dn=py<y;segs.push(`M${x},${py+(dn?17:-17)} L${x},${y+(dn?-19:19)}`);}
+    else{const up=Math.floor((i-1)/per)%2===1,o=up?-1:1;segs.push(`M${px},${py+17*o} L${px},${py+26*o} L${x},${py+26*o} L${x},${y+19*o}`);}});
+  const lbl=Math.floor((colW-54)/(pr?7.2:7.6));const mk='hsar'+(pr?'p':'s');
+  return `<svg class="hsflowsvg ${pr?'':'anim'}" viewBox="-4 0 ${W+8} ${H}" width="${pr?W+8:'100%'}" style="${pr?'max-width:100%':''}" role="img" aria-label="Flujo del proceso de la estación: ${P.length} pasos">
+    <defs><marker id="${mk}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6673"/></marker></defs>
+    ${segs.map((d2,i)=>`<path d="${d2}" class="hsfl" style="--i:${i}" fill="none" stroke="#5B6673" stroke-width="1.6" marker-end="url(#${mk})" pathLength="1"/>`).join('')}
+    ${pos.map(([x,y],i)=>{const p=P[i];const s=HS_SYMS.includes(p.sym)?p.sym:'op';const t=String(p.desc||'—');const kp=(p.kp||[]).filter(k=>String(k.txt||'').trim());
+      return `<g class="hsnode" style="--i:${i}">${dfShape(s,x,y,0.7)}<text x="${x}" y="${y+4}" text-anchor="middle" class="hsnum ${s}">${i+1}</text>
+      <text x="${x+22}" y="${y-2}" class="hslbl">${esc(t.length>lbl?t.slice(0,lbl-1)+'…':t)}</text><text x="${x+22}" y="${y+12}" class="hsmin">${hsNum(p.t)?fT(p.t)+' min':''}${kp.map(k=>' '+({seg:'⚠',cal:'◆',erg:'●'})[k.tipo]).join('')}</text></g>`;}).join('')}
+  </svg>`;}
+// La hoja (misma estructura en pantalla y en impresión; pr = versión de papel)
+function hsSheet(d,pr){const r=hsCalc(d);const ub=ubLabel(d);const P=d.pasos;
+  const kpLine=p=>(p.kp||[]).filter(k=>String(k.txt||'').trim()).map(k=>`<span class="hskp k${k.tipo}">${hsKpIcon(k.tipo,pr?13:16)}${esc(k.txt)}</span>`).join('');
+  return `<article class="hssheet ${pr?'pr':''}">
+    <header class="hshead"><div class="hstitle"><small>HOJA DE TRABAJO ESTÁNDAR</small><b>${esc(d.operacion||'—')}</b><span>${esc(ub)}</span></div>
+      <dl class="hsmeta"><div><dt>No. de parte / modelo</dt><dd>${esc(d.parte||'—')}</dd></div><div><dt>Revisión</dt><dd>${esc(d.revision||'—')}</dd></div><div><dt>Fecha</dt><dd>${esc(d.fecha||'—')}</dd></div><div><dt>Operadores</dt><dd>${esc(d.operadores||'—')}</dd></div></dl></header>
+    <div class="hskpis">
+      <div><span>Takt</span><b class="mono">${r.takt?fT(r.takt.toFixed(3)):'—'}</b><small>min / pieza</small></div>
+      <div><span>Tiempo ciclo</span><b class="mono" style="color:${r.over?'var(--orange)':'var(--blue)'}">${hsFix(r.tc)}</b><small>min / pieza</small></div>
+      <div class="hspct"><span>% del takt</span><b class="mono" style="color:${r.over?'var(--orange)':'inherit'}">${r.takt?pc(r.pct,1):'—'}</b><i><em style="width:${Math.min(r.pct,1)*100}%;background:${r.over?'var(--orange)':'var(--blue)'}"></em></i><small>${r.takt?(r.over?'excede '+f2(-r.holg):'holgura '+f2(r.holg))+' min':'sin takt capturado'}</small></div>
+      <div><span>Pasos</span><b class="mono">${r.n}</b><small>${r.kp.seg+r.kp.cal+r.kp.erg} puntos clave</small></div>
+    </div>
+    <div class="hsbody">
+      <section class="hsseq"><h3>Secuencia de trabajo</h3><table><thead><tr><th>#</th><th aria-label="Símbolo"></th><th style="text-align:left">Paso</th><th>min</th><th style="text-align:left">Puntos clave</th></tr></thead><tbody>
+        ${P.map((p,i)=>`<tr><td class="mono">${i+1}</td><td>${dfIcon(HS_SYMS.includes(p.sym)?p.sym:'op',pr?20:24)}</td><td class="hsd">${esc(p.desc||'—')}${pr?'':`<div class="hskpm">${kpLine(p)}</div>`}</td><td class="mono">${hsNum(p.t)?fT(p.t):'—'}</td><td>${kpLine(p)}</td></tr>`).join('')||'<tr><td colspan="5" class="sub">Sin pasos.</td></tr>'}
+        <tr class="hstot"><td></td><td></td><td>Tiempo ciclo</td><td class="mono"><b>${hsFix(r.tc)}</b></td><td></td></tr></tbody></table></section>
+      <section class="hsfl2"><h3>Flujo del proceso</h3>${hsFlow(d,pr)}</section>
+    </div>
+    <footer class="hsfoot">
+      <div class="hsepp"><h3>Equipo de protección</h3><div>${(d.epp||[]).filter(k=>HS_EPP[k]).map(k=>`<span title="${HS_EPP[k][0]}">${hsEppIcon(k,pr?24:30)}<small>${HS_EPP[k][0]}</small></span>`).join('')||'<small class="sub">No indicado</small>'}</div></div>
+      <div class="hsres"><h3>Resumen</h3><div>${HS_SYMS.map(s=>`<span>${dfIcon(s,pr?18:22)}<b class="mono">${r.res[s].n}</b><small class="mono">${r.res[s].t?fT(r.res[s].t.toFixed(3)):'0'} min</small></span>`).join('')}</div>
+        <p class="hsleg">${HS_KP.map(k=>`<span>${hsKpIcon(k,pr?12:14)}${HS_KPN[k]} (${r.kp[k]})</span>`).join('')}</p></div>
+      <div class="hsfirm">${[['Elaboró',d.elaboro],['Revisó',d.reviso],['Aprobó',d.aprobo]].map(([l,v])=>`<div><b>${esc(v||' ')}</b><span>${l}</span></div>`).join('')}</div>
+    </footer>
+  </article>`;}
+// Escala la copia de papel para que quepa en una hoja carta horizontal (área útil ≈ 10.4 × 7.9 in = 998 × 758 px)
+function hsPrintFit(){const el=document.querySelector('.hsprint .hssheet');if(!el)return 1;const W=998,H=730;let s=1;
+  for(let i=0;i<5;i++){el.style.width=(W/s)+'px';el.style.transform='';const h=el.offsetHeight;const ns=Math.min(1,H/h);if(Math.abs(ns-s)<0.004){s=ns;break;}s=ns;}
+  el.style.width=(W/s)+'px';el.style.transform=`scale(${s})`;el.dataset.scale=s.toFixed(3);return s;}
+window.addEventListener('beforeprint',hsPrintFit);
+window.TaktHS={fit:hsPrintFit,calc:d=>hsCalc(d)};
+
+function vHS(){
+  if(!HS.d)hsNew();const d=HS.d;const tit=hsName(d);const r=hsCalc(d);
+  setHead(tit,[['Hoja estándar','hs'],[tit,'hs-nuevo']]);
+  const del=HS.studies.includes(d)?`<button class="btn danger sm" type="button" data-hsdel="1">${svg('trash',16,2)} Eliminar</button>`:'';
+  const miss=k=>HS.miss.includes(k)?'miss':'';
+  let body='';
+  if(HS.view==='info'){
+    body=`<div class="row"><div><h2>Encabezado</h2><p class="sub">Los datos que van arriba de la hoja</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn" type="button" data-hsv="sec" data-hsneed="1">Continuar a secuencia ${svg('next',18,2.2)}</button></div></div>
+    <form class="form" id="hsh" style="margin-top:18px" onsubmit="return false">
+      <label style="grid-column:1/-1" class="${miss('operacion')}">Operación <span class="req" aria-hidden="true">*</span><input name="operacion" value="${esc(d.operacion)}" placeholder="Ej. INSERCIÓN DE BALERO" aria-required="true"></label>
+      <label>No. de parte / modelo<input name="parte" value="${esc(d.parte)}" placeholder="Ej. PL-2040"></label>
+      <label>Revisión<input name="revision" value="${esc(d.revision)}"></label>
+      <label>Fecha<input type="date" name="fecha" value="${esc(d.fecha)}"></label>
+      <label>Operadores<input name="operadores" value="${esc(d.operadores)}" inputmode="decimal"></label>
+      <label>Takt (min por pieza) <span class="hint">opcional</span><input name="takt" value="${esc(d.takt)}" inputmode="decimal" placeholder="Ej. 1.2"></label>
+      <label class="${miss('elaboro')}">Elaboró <span class="req" aria-hidden="true">*</span><input name="elaboro" value="${esc(d.elaboro)}" placeholder="Nombre" aria-required="true"></label>
+      <label>Revisó<input name="reviso" value="${esc(d.reviso)}" placeholder="Nombre"></label>
+      <label>Aprobó<input name="aprobo" value="${esc(d.aprobo)}" placeholder="Nombre"></label>
+    </form>${ubicPicker('hs',d)}
+    <div style="margin-top:22px"><b style="font-size:17px">Equipo de protección</b><p class="sub">Toca los que se usan en la estación</p></div>
+    <div class="hseppsel" role="group" aria-label="Equipo de protección">${Object.keys(HS_EPP).map(k=>`<button type="button" class="hsepb" data-hsepp="${k}" aria-pressed="${(d.epp||[]).includes(k)}">${hsEppIcon(k,30)}<span>${HS_EPP[k][0]}</span></button>`).join('')}</div>`;
+  }
+  if(HS.view==='sec'){const many=d.pasos.length>18;
+    const row=(p,i)=>`<div class="hsp" data-hsrow="${p.id}">
+      <div class="hsp1"><span class="mono opn">${i+1}</span>
+        <div class="hssyms" role="group" aria-label="Símbolo del paso ${i+1}">${HS_SYMS.map(s=>`<button type="button" class="dft" data-hssym="${s}" data-hsid="${p.id}" aria-pressed="${p.sym===s}" title="${DF_SYM[s].n}" aria-label="${DF_SYM[s].n}">${dfIcon(s,24)}</button>`).join('')}</div>
+        <span class="hsmv"><button type="button" class="iconbtn" data-hsup="${p.id}" ${i?'':'disabled'} aria-label="Subir paso ${i+1}">${svg('back',16,2.2)}</button><button type="button" class="iconbtn" data-hsdown="${p.id}" ${i<d.pasos.length-1?'':'disabled'} aria-label="Bajar paso ${i+1}">${svg('next',16,2.2)}</button><button type="button" class="iconbtn" data-hspdel="${p.id}" aria-label="Quitar paso ${i+1}">${svg('trash',16)}</button></span></div>
+      <div class="hsp2"><input data-hsd="${p.id}" value="${esc(p.desc)}" placeholder="Descripción del paso" aria-label="Descripción del paso ${i+1}" autocomplete="off"><input class="hst" data-hst="${p.id}" value="${esc(p.t)}" inputmode="decimal" placeholder="min" aria-label="Tiempo del paso ${i+1} (min)"></div>
+      ${(p.kp||[]).map(k=>`<div class="hskprow"><div class="seg" role="group" aria-label="Tipo de punto clave">${HS_KP.map(t=>`<button type="button" data-hskt="${t}" data-hsk="${k.id}" aria-pressed="${k.tipo===t}" title="${HS_KPN[t]}" aria-label="${HS_KPN[t]}">${hsKpIcon(t,18)}</button>`).join('')}</div><input data-hskx="${k.id}" value="${esc(k.txt)}" placeholder="Punto clave" aria-label="Punto clave del paso ${i+1}" autocomplete="off"><button type="button" class="iconbtn" data-hskdel="${k.id}" aria-label="Quitar punto clave">${svg('trash',16)}</button></div>`).join('')}
+      <button type="button" class="btn ghost sm" data-hskadd="${p.id}" style="align-self:flex-start">${svg('plus',16,2.2)} Punto clave</button></div>`;
+    body=`<div class="row"><div><h2>Secuencia de trabajo</h2><p class="sub">Cada paso con su símbolo ASME, su tiempo (min) y, si aplica, sus puntos clave de seguridad ⚠, calidad ◆ o ergonomía.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-hsv="info">${svg('back',18,2.2)} Encabezado</button><button class="btn" type="button" data-hsv="hoja" ${d.pasos.length?'':'disabled'}>Ver hoja ${svg('next',18,2.2)}</button></div></div>
+    <div class="kpis" style="margin-top:14px">
+      <div class="kpi"><span>Tiempo ciclo</span><span class="v" id="hstc" style="color:var(--blue)">${hsFix(r.tc)}</span><span class="sub">min · suma de los pasos</span></div>
+      <div class="kpi"><span>% del takt</span><span class="v" id="hspct">${r.takt?pc(r.pct,1):'—'}</span><span class="sub">${r.takt?'takt '+fT(r.takt.toFixed(3))+' min':'sin takt en el encabezado'}</span></div>
+    </div>
+    ${many?`<p class="hswarn">${d.pasos.length} pasos: la hoja impresa saldrá con letra chica. Si puedes, junta pasos cortos.</p>`:''}
+    <div class="hspasos">${d.pasos.map(row).join('')||'<div class="slot empty" style="min-height:140px"><p>Aún no hay pasos. Agrega el primero o carga el ejemplo.</p></div>'}</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><button class="btn ghost" type="button" data-hspadd="1">${svg('plus',16,2.2)} Paso</button>${d.pasos.length?'':`<button class="btn ghost" type="button" data-hsexample="1">Cargar ejemplo (8 pasos)</button>`}</div>
+    ${foot(`<button class="btn ghost" type="button" data-hsv="info">${svg('back',18,2.2)} Encabezado</button>`,`<button class="btn" type="button" data-hsv="hoja" ${d.pasos.length?'':'disabled'}>Ver hoja ${svg('next',18,2.2)}</button>`)}`;
+  }
+  if(HS.view==='hoja'){
+    body=`<div class="row"><div><h2>Hoja de trabajo estándar</h2><p class="sub">Así se ve en la tablet. Al imprimir sale en carta horizontal, en una página.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn ghost" type="button" data-hsv="sec">${svg('back',18,2.2)} Secuencia</button><button class="btn ghost" type="button" data-hsprint="1">${svg('print',18)} Imprimir</button><button class="btn orange" type="button" data-hsfinish="1">Guardar hoja</button></div></div>
+    <p class="hswarn" id="hsprintmsg" hidden>Si no se abrió la ventana de impresión: en el enlace de prueba está bloqueada; funcionará en la app publicada.</p>
+    ${d.pasos.length>18?`<p class="hswarn">${d.pasos.length} pasos: al imprimir la letra saldrá chica.</p>`:''}
+    <div class="hswrap">${hsSheet(d,false)}</div>`;
+  }
+  return `${hsSteps()}<section class="glass panel ${S.keep?'':'view'}">${body}</section>${HS.view==='hoja'?`<div class="hsprint" aria-hidden="true">${hsSheet(d,true)}</div>`:''}`;
+}
+// ---- eventos Hoja estándar ----
+const hsRe=()=>{S.keep=true;render(true);S.keep=false;};
+function hsSync(){const f=document.getElementById('hsh');if(f&&HS.d)new FormData(f).forEach((v,k)=>HS.d[k]=v);}
+function hsMiss(d){const m=[];if(!String(d.operacion||'').trim())m.push('operacion');if(!String(d.elaboro||'').trim())m.push('elaboro');return m;}
+const hsP=id=>HS.d.pasos.find(p=>p.id==id);
+document.addEventListener('click',e=>{
+  if(e.target.classList&&e.target.classList.contains('mback'))return;
+  const t=e.target.closest('button');if(!t||t.disabled)return;const D=t.dataset;
+  if(D.hsnew){hsNew();go('hs-nuevo');return;}
+  if(D.hsopen){HS.d=HS.studies.find(x=>x.id==D.hsopen);HS.view=HS.d.pasos.length?'hoja':'info';HS.miss=[];go('hs-nuevo');return;}
+  const d=HS.d;if(!d||!Object.keys(D).some(k=>k.startsWith('hs')))return;
+  if(D.hsv){hsSync();if(HS.view==='info'&&D.hsv!=='info'){HS.miss=hsMiss(d);if(HS.miss.length){hsRe();return;}if(!HS.studies.includes(d))HS.studies.unshift(d);}
+    HS.view=D.hsv;render();return;}
+  if(D.hsepp){hsSync();const k=D.hsepp;d.epp=d.epp||[];d.epp=d.epp.includes(k)?d.epp.filter(x=>x!==k):[...d.epp,k];t.setAttribute('aria-pressed',d.epp.includes(k));return;}
+  if(D.hsexample){HS_EXAMPLE.forEach(([a,s,tt,kp])=>d.pasos.push(hsPaso(a,s,tt,kp)));if(!String(d.takt||'').trim())d.takt='1.2';hsRe();return;}
+  if(D.hspadd){d.pasos.push(hsPaso());hsRe();const ins=document.querySelectorAll('[data-hsd]');if(ins.length)ins[ins.length-1].focus({preventScroll:false});return;}
+  if(D.hssym){const p=hsP(D.hsid);if(p)p.sym=D.hssym;hsRe();return;}
+  if(D.hsup||D.hsdown){const id=+(D.hsup||D.hsdown);const i=d.pasos.findIndex(p=>p.id===id);const j=D.hsup?i-1:i+1;if(i<0||j<0||j>=d.pasos.length)return;[d.pasos[i],d.pasos[j]]=[d.pasos[j],d.pasos[i]];hsRe();return;}
+  if(D.hspdel){const p=hsP(D.hspdel);const go2=()=>{d.pasos=d.pasos.filter(x=>x!==p);hsRe();};if(p&&(String(p.desc).trim()||(p.kp||[]).length))ask('¿Quitar el paso?','Se quita «'+(p.desc||'paso')+'» con sus puntos clave.','Quitar paso',go2);else go2();return;}
+  if(D.hskadd){const p=hsP(D.hskadd);if(p){p.kp=p.kp||[];p.kp.push({id:nid(),tipo:'seg',txt:''});hsRe();const k=p.kp[p.kp.length-1];const x=document.querySelector(`[data-hskx="${k.id}"]`);if(x)x.focus({preventScroll:true});}return;}
+  if(D.hskt){d.pasos.forEach(p=>(p.kp||[]).forEach(k=>{if(k.id==D.hsk)k.tipo=D.hskt;}));hsRe();return;}
+  if(D.hskdel){d.pasos.forEach(p=>{p.kp=(p.kp||[]).filter(k=>k.id!=D.hskdel);});hsRe();return;}
+  if(D.hsprint){hsPrintFit();const m=document.getElementById('hsprintmsg');try{window.print();}catch(_){}if(m)setTimeout(()=>{m.hidden=false;},400);return;}
+  if(D.hsdel){ask('¿Eliminar esta hoja?','Se borra «'+hsName(d)+'».','Eliminar',()=>{HS.studies=HS.studies.filter(x=>x!==d);HS.d=null;go('hs');});return;}
+  if(D.hsfinish){d.estado='Cerrado';if(!HS.studies.includes(d))HS.studies.unshift(d);storeSave('hs',d);HS.d=null;go('hs');return;}
+});
+document.addEventListener('input',e=>{const el=e.target;const d=HS.d;if(!d||!el.dataset||!route().startsWith('hs'))return;const D=el.dataset;
+  if(el.closest&&el.closest('#hsh')){hsSync();if(HS.miss.length)HS.miss=hsMiss(d).filter(k=>HS.miss.includes(k));return;}
+  if(D.hsd){const p=hsP(D.hsd);if(p)p.desc=el.value;return;}
+  if(D.hst){const p=hsP(D.hst);if(!p)return;p.t=el.value;const r=hsCalc(d);const a=document.getElementById('hstc'),b=document.getElementById('hspct');if(a)a.textContent=hsFix(r.tc);if(b)b.textContent=r.takt?pc(r.pct,1):'—';return;}
+  if(D.hskx){d.pasos.forEach(p=>(p.kp||[]).forEach(k=>{if(k.id==D.hskx)k.txt=el.value;}));return;}
+});
+
 // ---- eliminar estudio desde la lista (todos los formatos) ----
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-sdel]');if(!t)return;e.stopPropagation();
   const[k,id]=t.dataset.sdel.split('|');const nm=t.dataset.sdeln||'este estudio';
@@ -3746,6 +4006,7 @@ document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest
     else if(k==='pc'){PC.studies=PC.studies.filter(x=>x.id!=id);if(PC.d&&PC.d.id==id)PC.d=null;}
     else if(k==='sm'){SM.studies=SM.studies.filter(x=>x.id!=id);if(SM.d&&SM.d.id==id)SM.d=null;}
     else if(k==='tk'){TK.studies=TK.studies.filter(x=>x.id!=id);if(TK.d&&TK.d.id==id)TK.d=null;}
+    else if(k==='hs'){HS.studies=HS.studies.filter(x=>x.id!=id);if(HS.d&&HS.d.id==id)HS.d=null;}
     render();});},true);
 // ================= Aprende: tutoriales con demo en vivo =================
 // Los tutoriales son DATOS: cada paso dice qué elemento (selector CSS), qué acción y qué explica el globo.
@@ -4035,6 +4296,32 @@ const TUTS=[
     {señala:'.kpi',txt:'Capacidad teórica',di:'Con el nuevo cuello de botella (1.06) la línea da 56.6 piezas por hora: 830 al día, ya cumple las 800.'},
     {señala:'.kpi',txt:'Personal teórico',di:'Contenido de trabajo ÷ takt = 3.67: con 4 estaciones basta. Si el resultado diera menos estaciones de las que tienes, hay oportunidad de juntar.'}
    ]},
+  {id:'hs',grupo:'proc',nombre:'Hoja de trabajo estándar',min:3,
+   pregunta:'¿Cómo se hace el trabajo en esta estación, paso a paso?',
+   cuando:'Para documentar una estación de la línea y enseñar al operador nuevo: secuencia, puntos clave, flujo y equipo de protección. Se imprime y se consulta en la tablet.',
+   noPara:'Medir tiempos (para eso están los estudios) ni comparar el ciclo de varios operadores con máquinas (eso es el Man Machine).',
+   veras:['Llenar el encabezado y el equipo de protección','Capturar los pasos con su símbolo ASME, tiempo y puntos clave','Ver la hoja con el flujo dibujado solo','Imprimirla en carta horizontal, en una página'],
+   pasos:[
+    {ir:'hs',señala:'#view section.panel h2',di:'La hoja de trabajo estándar documenta cómo se hace el trabajo en una estación. Todo se captura aquí: no trae datos de otros estudios.'},
+    {toca:'#view [data-hsnew]',di:'Empezamos una hoja nueva.',tu:'Toca «Nueva hoja».'},
+    {escribe:'input[name=operacion]',valor:'INSERCIÓN DE BALERO',di:'La operación es el título grande de la hoja.'},
+    {escribe:'input[name=parte]',valor:'PL-2040',di:'Número de parte o modelo.'},
+    {señala:'.ubic',di:'La ubicación se pide hasta la estación: así la hoja queda en su lugar de la línea.'},
+    {escribe:'input[name=takt]',valor:'1.2',di:'El takt se escribe a mano (opcional): 1.2 minutos por pieza.'},
+    {escribe:'input[name=elaboro]',valor:'J. PÉREZ',di:'Quién elaboró la hoja (obligatorio). Revisó y aprobó salen como líneas de firma.'},
+    {toca:'[data-hsepp="lentes"]',di:'El equipo de protección se elige con un toque.',tu:'Toca «Lentes de seguridad».'},
+    {toca:'[data-hsepp="guantes"]',di:'También guantes.',tu:'Toca «Guantes».'},
+    {toca:'[data-hsneed]',di:'Pasamos a la secuencia.',tu:'Toca «Continuar a secuencia».'},
+    {toca:'[data-hsexample]',di:'En la demo cargamos un ejemplo ficticio de 8 pasos.',tu:'Toca «Cargar ejemplo».'},
+    {señala:'.hssyms',di:'Cada paso lleva su símbolo ASME: operación, inspección, transporte, demora o almacén. Con eso se dibuja el flujo.'},
+    {señala:'.hskprow',di:'Los puntos clave se marcan como seguridad ⚠, calidad ◆ o ergonomía. Un paso puede tener varios.'},
+    {señala:'#hstc',di:'El tiempo ciclo es la suma de los pasos: 1.12 min, el 93.3 % del takt.'},
+    {toca:'[data-hsv="hoja"]',di:'Vemos la hoja.',tu:'Toca «Ver hoja».'},
+    {señala:'.hskpis',di:'Arriba: takt, tiempo ciclo, % del takt con su holgura y los pasos.'},
+    {señala:'.hsfl2',di:'El flujo del proceso se dibujó solo con los símbolos de cada paso; con muchos pasos se acomoda en serpentina.'},
+    {señala:'.hsfoot',di:'Abajo: equipo de protección, resumen por símbolo y las firmas de elaboró, revisó y aprobó.'},
+    {señala:'[data-hsprint]',di:'«Imprimir» la acomoda en carta horizontal, en una sola página, con alto contraste para pegarla en la estación.'}
+   ]},
   {id:'df',grupo:'proc',nombre:'Diagramas de flujo',min:3,
    pregunta:'¿Cómo fluye el proceso y dónde están las demoras y los transportes?',
    cuando:'Para documentar un proceso con símbolos ASME (operación, inspección, transporte, demora, almacenamiento) y ver qué parte agrega valor.',
@@ -4103,9 +4390,9 @@ function vAprendeFicha(id){
 
 // ---------- motor ----------
 let TR=null;let tutRunId=0;const TUT_ABORT={};
-const tutSnapNow=()=>structuredClone({S,DS,ST,MM,SM,PC,AT,EC,DF,TK,uid});
+const tutSnapNow=()=>structuredClone({S,DS,ST,MM,SM,PC,AT,EC,DF,TK,HS,uid});
 function tutRestore(s){const c=structuredClone(s);
-  [[S,'S'],[DS,'DS'],[ST,'ST'],[MM,'MM'],[SM,'SM'],[PC,'PC'],[AT,'AT'],[EC,'EC'],[DF,'DF'],[TK,'TK']].forEach(([o,k])=>{Object.keys(o).forEach(x=>delete o[x]);Object.assign(o,c[k]);});uid=c.uid;}
+  [[S,'S'],[DS,'DS'],[ST,'ST'],[MM,'MM'],[SM,'SM'],[PC,'PC'],[AT,'AT'],[EC,'EC'],[DF,'DF'],[TK,'TK'],[HS,'HS']].forEach(([o,k])=>{Object.keys(o).forEach(x=>delete o[x]);Object.assign(o,c[k]);});uid=c.uid;}
 const tutPhone=()=>window.innerWidth<=700;
 const tutNorm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 // Texto de un elemento: lo visible más lo escrito en sus campos (los nombres editables viven en inputs)
@@ -4237,7 +4524,7 @@ window.TaktTut={start:(id,mode,speed)=>tutStart(id,mode,speed),exit:()=>tutExit(
   list:()=>TUTS.map(t=>({id:t.id,ready:tutReady(t),pasos:t.pasos||null})),
   mark:()=>{document.querySelectorAll('[data-tutt]').forEach(e=>e.removeAttribute('data-tutt'));const p=TR&&TR.expect&&TR.expect.p;if(!p)return false;
     const el=p.serie?tutQuery(p.base):tutQuery(p.toca||p.escribe||p.elige,p.txt,p.en);if(!el)return false;el.setAttribute('data-tutt','1');return true;},
-  counts:()=>({ws:S.studies.length,ds:DS.studies.length,st:ST.studies.length,mm:MM.studies.length,sm:SM.studies.length,pc:PC.studies.length,at:AT.studies.length,df:DF.studies.length,tk:TK.studies.length})};
+  counts:()=>({ws:S.studies.length,ds:DS.studies.length,st:ST.studies.length,mm:MM.studies.length,sm:SM.studies.length,pc:PC.studies.length,at:AT.studies.length,df:DF.studies.length,tk:TK.studies.length,hs:HS.studies.length})};
 
 // ================= Almacén: guardado de estudios =================
 // Patrón repositorio: los formatos NO saben dónde se guarda. Solo llaman storeSave / storeRemove.
@@ -4271,15 +4558,16 @@ function storeMaxId(o){let m=0;const seen=new Set();
 function storeStateOf(d,saved){if(!d||!d._uuid||!saved.has(d._uuid))return 'nuevo';return JSON.stringify(d)===saved.get(d._uuid)?'ok':'cambios';}
 // </store-pure>
 
-const STORE_SCHEMA={ws:2,ds:2,we:2,st:2,mm:2,sm:2,pc:2,at:2,df:2,tk:1};  // versión actual de cada formato
+const STORE_SCHEMA={ws:2,ds:2,we:2,st:2,mm:2,sm:2,pc:2,at:2,df:2,tk:1,hs:1};  // versión actual de cada formato
+// hs (Hoja estándar) también nace en la v1 con ubicación (hasta estación).
 // tk (Takt y balanceo) nace en la v1 ya con ubicación: no necesita la migración v1 → v2 de los demás.
 const STORE_MIGS={};                                                // STORE_MIGS[kind][v] = datos v → v+1
 // v1 → v2 (Fase 2, 2026-11-12): se agrega la ubicación en la jerarquía de planta; los estudios ya guardados quedan «Sin asignar».
 const storeMigUbic=d=>{d.ubic=d.ubic&&typeof d.ubic==='object'&&!Array.isArray(d.ubic)?d.ubic:{};return d;};
 ['ws','ds','we','st','mm','sm','pc','at','df'].forEach(k=>{STORE_MIGS[k]=STORE_MIGS[k]||{};STORE_MIGS[k][1]=storeMigUbic;});
-const STORE_KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk'];
-const STORE_ANALISIS=new Set(['pc','at','df','tk']);                      // pueden guardarse a medias
-const storeBox=k=>({ws:S,ds:DS,we:DS,st:ST,mm:MM,sm:SM,pc:PC,at:AT,df:DF,tk:TK})[k];
+const STORE_KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk','hs'];
+const STORE_ANALISIS=new Set(['pc','at','df','tk','hs']);                      // pueden guardarse a medias
+const storeBox=k=>({ws:S,ds:DS,we:DS,st:ST,mm:MM,sm:SM,pc:PC,at:AT,df:DF,tk:TK,hs:HS})[k];
 const STORE={db:null,ok:false,ready:false,saved:new Map(),err:null};
 const storeTut=()=>typeof TR!=='undefined'&&!!TR;
 
@@ -4304,7 +4592,7 @@ async function storeInit(){
       const d=e.data;d._uuid=e.uuid;storeBox(e.kind).studies.push(d);STORE.saved.set(e.uuid,JSON.stringify(d));
       if(e.schema!==env.schema)storePut(e.kind,d,env);  // deja guardada la versión ya migrada
     });
-    uid=Math.max(uid,storeMaxId({S:S.studies,DS:DS.studies,ST:ST.studies,MM:MM.studies,SM:SM.studies,PC:PC.studies,AT:AT.studies,DF:DF.studies,TK:TK.studies,cat:ST.cat}));
+    uid=Math.max(uid,storeMaxId({S:S.studies,DS:DS.studies,ST:ST.studies,MM:MM.studies,SM:SM.studies,PC:PC.studies,AT:AT.studies,DF:DF.studies,TK:TK.studies,HS:HS.studies,cat:ST.cat}));
     if(bad.length){STORE.err='No se pudieron abrir '+bad.length+' estudio(s) guardados.';console.warn('[almacén]',bad);}
   }catch(e){STORE.err='No se pudo leer lo guardado.';console.warn('[almacén]',e);}
   STORE.ready=true;
@@ -4336,7 +4624,7 @@ function storeDiscard(d){const j=d&&d._uuid&&STORE.saved.get(d._uuid);if(!j)retu
 function storeCurrent(){const r=route();
   if(r==='ws-nuevo')return['ws',S.draft];if(r==='ds-nuevo'||r==='we-nuevo')return[(DS.d&&DS.d.kind)||'ds',DS.d];
   if(r==='st-nuevo')return['st',ST.d];if(r==='mm-nuevo')return['mm',MM.d];if(r==='sm-nuevo')return['sm',SM.d];
-  if(r==='pc-nuevo')return['pc',PC.d];if(r==='tk-nuevo')return['tk',TK.d];if(r==='at-nuevo')return['at',AT.d];if(r==='df-nuevo')return['df',DF.d];return[null,null];}
+  if(r==='pc-nuevo')return['pc',PC.d];if(r==='tk-nuevo')return['tk',TK.d];if(r==='hs-nuevo')return['hs',HS.d];if(r==='at-nuevo')return['at',AT.d];if(r==='df-nuevo')return['df',DF.d];return[null,null];}
 function storeChip(){const el=document.getElementById('savechip');if(!el)return;const[k,d]=storeCurrent();
   if(storeTut()||!k||!d){el.hidden=true;return;}
   const st=storeStateOf(d,STORE.saved);const inList=storeBox(k).studies.includes(d);
@@ -4375,8 +4663,8 @@ const UB_LV=['planta','area','linea','estacion'];
 const UB_LBL={planta:'Planta',area:'Área',linea:'Línea',estacion:'Estación'};
 const UB_KIDS={planta:'areas',area:'lineas',linea:'estaciones'};
 // Hasta qué nivel llega el selector de cada formato, y qué nivel se pide (Angel, 2026-11-12). «Sin asignar» siempre se permite.
-const UB_DEEP={ws:4,ds:4,we:4,st:4,sm:4,mm:3,pc:2,at:2,df:3,tk:3};
-const UB_REQ={ws:3,ds:3,we:3,st:3,sm:3,mm:3,pc:2,at:2,df:1,tk:3};
+const UB_DEEP={ws:4,ds:4,we:4,st:4,sm:4,mm:3,pc:2,at:2,df:3,tk:3,hs:4};
+const UB_REQ={ws:3,ds:3,we:3,st:3,sm:3,mm:3,pc:2,at:2,df:1,tk:3,hs:4};
 const UB={adding:null};            // nivel que se está agregando desde el selector
 const UBF={planta:'',area:'',linea:''};  // filtro de las listas
 // Hijos de un nodo (o las plantas si no hay padre)
@@ -4439,7 +4727,7 @@ function vCatalogo(){
 
 // Listas: ubicación de cada estudio + filtro por planta, área y línea
 function ubicDecorate(){if(storeTut())return;const rows=[...document.querySelectorAll('#view [data-sdel]')];const r=route();
-  const isList=['ws','ds','we','st','mm','sm','pc','at','df','tk'].includes(r);if(!isList)return;
+  const isList=['ws','ds','we','st','mm','sm','pc','at','df','tk','hs'].includes(r);if(!isList)return;
   const panel=document.querySelector('#view section.panel');if(panel&&!panel.querySelector('.ubfilter')&&CAT.plantas.length){
     const f=(lv,i)=>{const parent=i?UBF[UB_LV[i-1]]:null;const off=i&&!parent;const opts=off?[]:ubKids(lv,parent);
       return `<label><span>${UB_LBL[lv]}</span><select data-ubf="${lv}" ${off?'disabled':''}><option value="">Todas</option>${opts.map(n=>`<option value="${n.id}" ${UBF[lv]===n.id?'selected':''}>${esc(n.nombre)}</option>`).join('')}</select></label>`;};

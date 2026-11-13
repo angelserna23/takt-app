@@ -50,9 +50,22 @@ def make(pg,k):
         pg.locator('.lane').filter(has=pg.locator('input[value="EST 30"]')).locator('[data-tkmove]').click();pg.wait_for_timeout(120)
         check('tk',pg.locator('.kpi').filter(has_text='Eficiencia').first.inner_text().find('95.3%')>=0,'mover ATORNILLAR a EST 30: eficiencia 81.5 % → 95.3 %')
         en(pg,'[data-tkv="res"]');return '[data-tkfinish]'
+    if k=='hs':
+        go(pg,'hs');en(pg,'#view [data-hsnew]');pg.fill('input[name=operacion]','hoja guardada');pg.fill('input[name=elaboro]','jp');pg.fill('input[name=takt]','1.2')
+        en(pg,'[data-hsepp="lentes"]');en(pg,'[data-hsneed]');en(pg,'[data-hsexample]')
+        check('hs',pg.locator('#hstc').inner_text()=='1.12','ejemplo: tiempo ciclo 1.12')
+        en(pg,'[data-hspadd]');pg.locator('[data-hsd]').last.fill('paso extra');pg.locator('[data-hst]').last.fill('0,05')
+        check('hs',pg.locator('#hstc').inner_text()=='1.17','paso extra con coma decimal: 1.17')
+        en(pg,'[data-hsv="hoja"]')
+        check('hs',pg.locator('.hssheet').first.inner_text().find('PASO EXTRA')>=0,'la hoja muestra el paso en MAYÚSCULAS')
+        pg.emulate_media(media='print');pg.evaluate('TaktHS.fit()')
+        pdf=pg.pdf(format='Letter',landscape=True,prefer_css_page_size=True,print_background=True);pg.emulate_media(media='screen')
+        import re as _re
+        check('hs',len(_re.findall(rb'/Type\s*/Page[^s]',pdf))==1,'al imprimir: carta horizontal en 1 página')
+        return '[data-hsfinish]'
     if k=='df':
         go(pg,'df');en(pg,'#view [data-dfnew]');pg.fill('input[name=titulo]','recepción');pg.fill('input[name=analista]','jp');en(pg,'[data-dfneed]');en(pg,'[data-dfexample]');en(pg,'[data-dfv="res"]');return '[data-dffinish]'
-KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk']
+KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk','hs']
 with sync_playwright() as p:
     b=p.chromium.launch();ctx=b.new_context(viewport={'width':1366,'height':900},timezone_id='America/Mexico_City')
     pg=ctx.new_page();pg.route('**/fonts.googleapis.com/**',lambda r:r.abort());pg.on('pageerror',lambda e:errs.append(str(e)))
@@ -78,6 +91,9 @@ with sync_playwright() as p:
     check('base',pg.evaluate('TaktStore.uid()')>=maxid,f'el contador de IDs sigue desde el más alto ({pg.evaluate("TaktStore.uid()")} ≥ {maxid})')
     go(pg,'tk');pg.locator('[data-tkopen]').first.click();pg.wait_for_timeout(200)
     check('tk',pg.locator('.kpi').filter(has_text='Capacidad').first.inner_text().find('830')>=0 and pg.locator('.kpi').filter(has_text='Eficiencia').first.inner_text().find('95.3%')>=0,'al reabrir el balanceo: 830 pzs/día y 95.3 % (con el antes 81.5 %)')
+    go(pg,'hs');pg.locator('[data-hsopen]').first.click();pg.wait_for_timeout(250)
+    sh=pg.locator('.hssheet').first.inner_text()
+    check('hs',sh.find('1.17')>=0 and sh.find('PASO EXTRA')>=0 and sh.find('MUESCA')>=0 and pg.locator('.hswrap .hsepp [title="Lentes de seguridad"]').count()==1,'al reabrir la hoja: pasos, puntos clave, tiempo ciclo y equipo de protección')
     go(pg,'config');check('tk',pg.locator('.slot').filter(has_text='Takt de la línea').count()==1,'Configuración muestra la tarjeta de takt por línea')
     # los resultados se recalculan igual: Speed Trial y Man Machine
     go(pg,'st');pg.locator('[data-stopen]').first.click();pg.wait_for_timeout(200)
@@ -159,4 +175,4 @@ with sync_playwright() as p:
     b.close()
 print('errores JS:',errs or 'ninguno')
 if fails or errs:print('FALLAS:',fails);sys.exit(1)
-print('OK: guardado en los 10 formatos (guardar, recargar, cambios, descartar, borrar, tutoriales)')
+print('OK: guardado en los 11 formatos (guardar, recargar, cambios, descartar, borrar, tutoriales)')
