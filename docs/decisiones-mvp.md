@@ -276,7 +276,7 @@ Siguiente:
 - **Fase 3:** avisos de almacenamiento lleno o no disponible visibles en pantalla (hoy: mensaje al guardar) y persistencia de los ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Después (otra etapa): servidor, cuentas y sincronización; exportación PDF/Excel casi al final.
 
-## Reportes en PDF — TODOS GENERADOS, EN REVISIÓN DE ANGEL (2026-11-13)
+## Reportes en PDF — TERMINADO (2026-11-13)
 Diseño: `docs/superpowers/specs/2026-11-13-reportes-pdf-design.md`. Opción A: «Descargar PDF» = impresión del navegador → «Guardar como PDF». **Solo PDF, nunca Excel** (Angel: se trabaja en la app; lo exportado es para leer y enviar). Formato común carta vertical con encabezado, secciones y pie «Página x de y». Un módulo a la vez.
 - Work Sampling: listo para comentarios (resumen de línea con precisión, quién pesa más en lo innecesario, distribución, tabla por actividad, detalle por operador; sin columna de total cuando hay un solo operador).
 - Formato común aprobado por Angel (2026-11-13). Delay Study: listo para comentarios (resumen, Yamazumi fijo para papel con la línea del disponible exacta, detalle por operador, actividades cronometradas con racks × SNP y vueltas vacías).
@@ -292,6 +292,7 @@ Diseño: `docs/superpowers/specs/2026-11-13-reportes-pdf-design.md`. Opción A: 
   - Actual Time: se incluyó para que Angel decida si se queda. Por área (ensamble y manejo de materiales): resumen anual, gráficas del año, cascada de headcount del último mes y resumen por mes.
 - Técnica: los reportes nuevos reusan las gráficas SVG de la app (`repSvg`): sin animación, ancho de hoja, alto máximo de una página e ids propios para que los marcadores de flecha no choquen con la pantalla. La etiqueta de cada barra del Yamazumi lleva fondo blanco para que la línea del límite no la tape.
 - Botón «Descargar PDF» en cada lista y en la pantalla de resultados de todos los formatos. Hoja estándar ya imprimía por su cuenta.
+- **Aprobados todos por Angel (2026-11-13), incluido Actual Time: se queda.** La exportación a Excel queda descartada: lo exportado es solo PDF.
 
 ## Diagrama de espagueti + sección «Diagramas» — TERMINADO (2026-11-13)
 Diseño: `docs/superpowers/specs/2026-11-13-diagrama-espagueti-design.md`.
@@ -359,7 +360,7 @@ Para afinar en piso (no bloquea): botón «Actualizar desde el Work Element» (h
 - Estudios complementarios (orden acordado 2026-11-13): **1) Takt y balanceo de línea (terminado)** → **2) hoja de trabajo estándar (terminado)** → al terminarla, Angel elige el siguiente entre: plan de acción + antes/después (falta decidir si habla de dinero o solo tiempos/piezas/horas-hombre) · diagrama de espagueti · ergonomía NOM-036 (apoyo, no dictamen). **Tiempo estándar: DESCARTADO por completo** (2026-11-13; los estándares los da el cliente y no queremos riesgo legal). **Ergonomía NOM-036: DESCARTADO** (Angel, 2026-11-13; la usa Seguridad e Higiene, no el ingeniero; ya tienen sus formatos; sería otra disciplina en la app). **VSM: DESCARTADO** (Angel, 2026-11-13; en la práctica siempre lleva subensambles, sería un editor complejo de uso esporádico). **Cronometrar desde video: DESCARTADO** (Angel, 2026-11-13; haría pesada la app y requiere mucho espacio). **Curva de aprendizaje: DESCARTADO** (2026-11-13; lo lleva RRHH). **Plan de acción + antes/después: DESCARTADO por completo** (Angel, 2026-11-13; no mezclar demasiadas cosas ni volver compleja la app). Principio: la app se queda enfocada en análisis de ingeniería industrial, simple de usar. **Horarios aleatorios del Work Sampling: DESCARTADO** (2026-11-13; el Work Sampling se hace en casos esporádicos, no agrega valor).
 - **Regla de aislamiento (Angel, 2026-11-13): todos los módulos son aislados —se capturan desde cero, no traen ni ligan datos de otros—. La única excepción es Takt y balanceo (trae los Work Element de la línea porque lo necesita). Aplica a los que vienen y a los futuros.**
 - Regla para cada estudio nuevo: nace con guardado (su versión en `STORE_SCHEMA`), ubicación en la jerarquía, tutorial en Aprende y sus pruebas en `smoke_store.py` y `smoke_tut.py`.
-- Luego: Inicio (tablero) → diseño final → pagos → exportación PDF/Excel.
+- Luego: Inicio (tablero) → guardado Fase 3 → diseño final → pagos. Exportación: hecha como reportes PDF (2026-11-13); Excel descartado.
 - Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Takt y balanceo · Hoja estándar · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
 
 ## Análisis de brechas (2026-11-12)
