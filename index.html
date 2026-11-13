@@ -809,6 +809,11 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .inav{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:700 13px 'IBM Plex Mono',monospace;background:var(--blue);color:#fff}
 .inwc>span:last-child{display:flex;flex-direction:column;min-width:0}.inwc small{font-size:12px;color:var(--muted)}.inwk{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.inwk i{font:600 11px 'IBM Plex Mono',monospace;font-style:normal;padding:2px 6px;border-radius:6px;background:#E7ECF2}
 @media (max-width:700px){.incard{flex-basis:78vw}.inra .iconbtn{display:none}}
+@keyframes inup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}@keyframes inringd{from{stroke-dasharray:0 100}}@keyframes indraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.view .inkpi,.view .incard,.view .inwc{animation:inup .55s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * 70ms)}
+.view .inkpi:nth-child(2){--i:1}.view .inkpi:nth-child(3){--i:2}.view .inkpi:nth-child(4){--i:3}
+.view .inringv{animation:inringd 1.1s .25s cubic-bezier(.2,.8,.2,1) both}.view .insparkl{animation:indraw 1.4s .3s ease both}
+@media (prefers-reduced-motion:reduce){.view .inkpi,.view .incard,.view .inwc,.view .inringv,.view .insparkl{animation:none}}
 @media (max-width:1100px){.inkpis{grid-template-columns:1fr 1fr}}
 @media (max-width:700px){.inkpis{grid-template-columns:1fr}.inkpi.big>b{font-size:38px}}.rep .rsvg.rpad{padding-right:9%}.rtbl.rnw tbody th{white-space:nowrap}.rtbl.rsm td,.rtbl.rsm th{padding:2.5px 5px}
 .rybar b{position:relative;z-index:2;background:#fff;border-radius:3px}.rep .rtbl svg{vertical-align:middle}
@@ -1369,7 +1374,23 @@ function vInicio(){const PL=inPlantas();
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-inplanta],[data-inlinea],[data-inmove]');if(!b)return;
   if(b.dataset.inmove){const tr=b.closest('.inrow').querySelector('.intrack');const c=tr.querySelector('.incard');tr.scrollBy({left:(+b.dataset.inmove)*((c?c.offsetWidth:260)+14),behavior:'smooth'});return;}
   if(b.dataset.inplanta!==undefined){IN.planta=b.dataset.inplanta;IN.linea='';}else IN.linea=b.dataset.inlinea;S.keep=true;render(true);S.keep=false;});
-window.TaktInicio={kpis:inKpis,head:(k,id)=>{const d=storeBox(k).studies.find(x=>x.id==id);return d?inHead(k,d):null;},setMax:n=>{IN.max=n;}};
+// ---- dinamismo: números que cuentan, anillos que se dibujan, renglones que avanzan solos ----
+// Avance automático: una tarjeta cada 5 s; se detiene para siempre en ese renglón en cuanto la persona lo toca, lo desliza o lo enfoca.
+// Nada se mueve con «reducir movimiento» ni durante un tutorial. Al salir de Inicio se limpian los temporizadores.
+const IN_T={timers:[]};
+const inQuiet=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(_){return false;}};
+function inStop(){IN_T.timers.forEach(t=>{clearTimeout(t);clearInterval(t);});IN_T.timers=[];}
+function inCount(el){const end=el.textContent,to=parseFloat(el.dataset.count);if(!isFinite(to))return;const dec=(String(el.dataset.count).split('.')[1]||'').length;const suf=el.dataset.suf||'';const sg=el.dataset.sign&&to>0?'+':'';
+  const t0=performance.now(),D=900;const step=t=>{if(!el.isConnected)return;const k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,3);
+    if(k<1){el.textContent=sg+(to*e).toFixed(dec)+suf;requestAnimationFrame(step);}else el.textContent=end;};requestAnimationFrame(step);}
+function inAfter(keep){inStop();if(route()!=='inicio'||inQuiet()||storeTut())return;
+  if(!keep)document.querySelectorAll('#view [data-count]').forEach(inCount);
+  document.querySelectorAll('#view .inrow').forEach((row,i)=>{const tr=row.querySelector('.intrack');if(!tr||tr.scrollWidth<=tr.clientWidth+4)return;
+    const off=()=>{row.dataset.inquieto='1';};['pointerdown','touchstart','wheel','keydown','focusin'].forEach(ev=>row.addEventListener(ev,off,{passive:true}));
+    const go1=()=>{if(row.dataset.inquieto||!row.isConnected)return;const c=tr.querySelector('.incard');const w=(c?c.offsetWidth:260)+14;
+      tr.scrollTo({left:tr.scrollLeft+w>=tr.scrollWidth-tr.clientWidth+2?0:tr.scrollLeft+w,behavior:'smooth'});};
+    IN_T.timers.push(setTimeout(()=>{go1();IN_T.timers.push(setInterval(go1,5000));},5000+i*700));});}
+window.TaktInicio={timers:()=>IN_T.timers.length,kpis:inKpis,head:(k,id)=>{const d=storeBox(k).studies.find(x=>x.id==id);return d?inHead(k,d):null;},setMax:n=>{IN.max=n;}};
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
   return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Takt, capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="tk">${svg('tk',18)} Takt y balanceo</button><button class="btn ghost" type="button" data-go="hs">${svg('hs',18)} Hoja estándar</button><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="diag">${svg('diag',18)} Diagramas</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
   ${vCatalogo()}
@@ -1420,6 +1441,7 @@ function render(keep){
   if(window.innerWidth<=700)v.querySelectorAll('section.panel').forEach(sec=>{const row=[...sec.children].find(c=>c.classList.contains('row'));if(!row||row.children.length<2)return;const g=row.lastElementChild;if(!g.querySelector('.btn')||g.querySelector('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-tknew],[data-hsnew],[data-spnew],[data-pcnew],[data-atnew],[data-dfnew],[data-go="ws-nuevo"]')||g.matches('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-go="ws-nuevo"]'))return;g.classList.add('mobfoot');sec.appendChild(g);});
   requestAnimationFrame(()=>{document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');document.querySelectorAll('.vfill').forEach(f=>f.style.height=f.dataset.h+'%');});
   if(!keep)window.scrollTo({top:0});
+  inAfter(keep);
   if(typeof storeDecorate==='function'&&STORE.ready){storeDecorate();storeChip();ubicDecorate();}
 }
 

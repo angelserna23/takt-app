@@ -40,6 +40,7 @@ def kpis(pg):
     go(pg,'inicio');pg.click('[data-inplanta="sem-pn"]');pg.wait_for_timeout(200)
     N=pg.evaluate("TaktInicio.kpis('sem-pn')");S=pg.evaluate("TaktInicio.kpis('sem-ps')")
     check('kpis',N and S and N['fy']==S['fy'] and N['mes']==S['mes'],'Norte y Sur tienen indicadores del mismo año y mes')
+    pg.wait_for_timeout(1400)   # el número cuenta desde 0
     t=pg.locator('[data-inkpi="efic"]').inner_text()
     check('kpis',t.replace(' ','').startswith(f"{N['efic']*100:.1f}%"),f'Inicio muestra la eficiencia de planta ({t.strip()} vs {N["efic"]*100:.1f}%)')
     # La Eficiencia compuesta (todas las plantas) = suma de horas de Norte + Sur: el filtro por planta reparte bien
@@ -83,6 +84,23 @@ def renglones(pg):
     check('inicio',we.locator('[data-inopen]').count()==3 and f'Ver todos ({tot})' in we.inner_text(),f'renglón con más del máximo: pinta 3 y «Ver todos ({tot})»')
     pg.evaluate('TaktInicio.setMax(12)')
 
+def sl(pg,k):return pg.evaluate(f"document.querySelector('[data-inrow=\"{k}\"] .intrack').scrollLeft")
+def dinamismo(b):
+    ctx=b.new_context(viewport={'width':1366,'height':900});pg=ctx.new_page();pg.on('pageerror',lambda e:errs.append(str(e)))
+    pg.goto(IDX);pg.wait_for_function('window.TaktStore&&TaktStore.ready()');pg.evaluate('TaktSeed.load()');reload(pg);norte(pg)
+    a=sl(pg,'we');pg.wait_for_timeout(6600);b1=sl(pg,'we')
+    check('anim',b1>a,f'el renglón avanza solo ({a} → {b1})')
+    pg.dispatch_event('[data-inrow="we"] .intrack','pointerdown');pg.wait_for_timeout(700);x=sl(pg,'we');pg.wait_for_timeout(6600)
+    check('anim',sl(pg,'we')==x,'al tocarlo deja de avanzar solo')
+    n=pg.evaluate('TaktInicio.timers()');go(pg,'st')
+    check('anim',n>0 and pg.evaluate('TaktInicio.timers()')==0,f'al salir de Inicio no quedan temporizadores ({n} → 0)')
+    ctx.close()
+    ctx=b.new_context(viewport={'width':1366,'height':900},reduced_motion='reduce');pg=ctx.new_page()
+    pg.goto(IDX);pg.wait_for_function('window.TaktStore&&TaktStore.ready()');pg.evaluate('TaktSeed.load()');reload(pg);norte(pg)
+    a=sl(pg,'we');pg.wait_for_timeout(6000)
+    check('anim',sl(pg,'we')==a and pg.evaluate('TaktInicio.timers()')==0,'con «reducir movimiento» todo queda quieto')
+    ctx.close()
+
 with sync_playwright() as p:
     b=p.chromium.launch()
     pg=b.new_page(viewport={'width':1366,'height':900});pg.on('pageerror',lambda e:errs.append(str(e)))
@@ -90,6 +108,7 @@ with sync_playwright() as p:
     semilla(pg)
     kpis(pg)
     renglones(pg)
+    dinamismo(b)
     auto(b)
     b.close()
 check('js',not errs,'sin errores de JavaScript '+(str(errs[:3]) if errs else ''))
