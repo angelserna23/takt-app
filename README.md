@@ -21,7 +21,7 @@ Prototipo publicado: https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f
 - Estudios de tiempos: Work Sampling, Delay Study, Work Element, Speed Trial, Man Machine Chart, SMED (todos listos).
 - Cálculo de personal (headcount): listo.
 - Actual Time + Eficiencia compuesta y Diagramas de flujo: listos.
-- Aprende (tutoriales con demo en vivo y modo guiado): motor + Work Sampling listos.
+- Aprende (tutoriales con demo en vivo y modo guiado): los 6 estudios de tiempos listos.
 
 ## Correr las pruebas
 

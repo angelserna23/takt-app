@@ -1181,7 +1181,7 @@ function vDSList(kind){
   setHead(NM,[['Estudios','estudios'],[NM,kind]]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Estudios de ${NM}</h2><p class="sub">${WEk?'Ocupación de operadores en operaciones cíclicas, por elementos':'Ocupación de operadores en actividades no cíclicas'}</p></div>
-    <button class="btn orange" type="button" data-dsnew="${kind}">${svg('plus',18,2.2)} Nuevo estudio</button></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn(kind)}<button class="btn orange" type="button" data-dsnew="${kind}">${svg('plus',18,2.2)} Nuevo estudio</button></div></div>
     <div class="grid" style="margin-top:18px">
     ${list.map(st=>{const r=dsCalc(st.acts,st.ops,st.assign,st.obj,st.disp);return `<div class="studyrow"><button type="button" class="study" data-dsopen="${st.id}">
       <div class="logo" style="background:rgba(194,65,12,.1);color:var(--orange)" aria-hidden="true">${WEk?'WE':'DS'}</div>
@@ -1285,7 +1285,7 @@ function vDS(){
     </div>
     <div class="row" style="margin-top:22px"><div><b style="font-size:17px">Actividades registradas</b><p class="sub">${mine.length} actividad${mine.length!==1?'es':''} de ${esc(op.name)} · la más reciente arriba · puedes corregir cualquier dato</p></div></div>
     <div class="grid" style="margin-top:12px;gap:12px">${mine.map((a,i)=>dsActRow(a,i,d)).reverse().join('')||'<div class="slot empty" style="min-height:120px"><p>Aún no hay actividades registradas.</p></div>'}</div>
-    <button class="btn ghost" type="button" data-dsadd="1" style="margin-top:12px">${svg('plus',18,2.2)} Agregar actividad a mano</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><button class="btn ghost" type="button" data-dsadd="1">${svg('plus',18,2.2)} Agregar actividad a mano</button>${mine.length?'':`<button class="btn ghost" type="button" data-dsexample="1">Cargar ejemplo (4 actividades)</button>`}</div>
     ${dsFoot(`<button class="btn ghost" type="button" data-dsv="info">${svg('back',18,2.2)} Información</button>`,del)}`;
   }
   if(DS.view==='asig'){
@@ -1353,7 +1353,7 @@ function dragMove(x,y){const g=DRAG.ghost;g.style.left=(x-DRAG.ox)+'px';g.style.
 function dragEnd(){const d=DS.d;if(DRAG.active){DRAG_SUPPRESS=true;setTimeout(()=>DRAG_SUPPRESS=false,0);
   if(DRAG.lane&&d){const v=DRAG.lane.dataset.lane;d.assign[DRAG.id]=v==='none'?null:+v;DS.sel=null;}
   DRAG.ghost.remove();document.body.classList.remove('dragging');}
-  clearTimeout(DRAG.timer);DRAG=null;if(DS.view==='asig'){S.keep=true;render(true);S.keep=false;}}
+  const moved=DRAG.active;clearTimeout(DRAG.timer);DRAG=null;if(moved&&DS.view==='asig'){S.keep=true;render(true);S.keep=false;}}   // sin arrastre no se vuelve a pintar: si no, el toque (seleccionar → Mover aquí) se pierde
 document.addEventListener('pointerdown',e=>{const c=e.target.closest('.achip');if(!c||DS.view!=='asig'||e.button>0)return;
   const r=c.getBoundingClientRect();DRAG={id:+c.dataset.dssel,chip:c,x:e.clientX,y:e.clientY,ox:e.clientX-r.left,oy:e.clientY-r.top,touch:e.pointerType!=='mouse',active:false};
   if(DRAG.touch)DRAG.timer=setTimeout(()=>{if(DRAG&&!DRAG.active){dragStart();dragMove(DRAG.x,DRAG.y);}},280);});
@@ -1368,6 +1368,10 @@ document.addEventListener('click',e=>{if(DRAG_SUPPRESS){e.stopPropagation();e.pr
 // ---- eventos Delay Study ----
 function dsSync(){const f=document.getElementById('dsh');if(f&&DS.d)new FormData(f).forEach((v,k)=>DS.d[k]=v);}
 setInterval(()=>{if(DS.run){const el=document.getElementById('dsclock');if(el)el.textContent=((Date.now()-DS.run)/60000).toFixed(2);}},100);
+// Ejemplo ficticio (surtido a una línea de poleas, objetivo 60 pzs/h): [actividad, material, racks, SNP, minutos]. Sin racks/SNP = vuelta vacía.
+const DS_EXAMPLE=[
+  [['SURTIR CASCARONES','CASCARONES',1,24,6],['REGRESO VACÍO','','','',2],['SURTIR TORNILLERÍA','TORNILLOS',1,100,5],['RETIRAR EMPAQUE','EMPAQUE',2,12,7.2]],
+  [['SURTIR POLEAS','POLEAS',1,20,9],['REGRESO VACÍO','','','',3],['ETIQUETAR CAJAS','ETIQUETAS',1,30,6],['TRASLADO A ALMACÉN','PRODUCTO TERMINADO',2,15,9]]];
 function dsLap(){const now=Date.now();const c=DS.cur;const id=nid();DS.d.assign[id]=DS.op;DS.d.acts.push({id,cap:DS.op,secs:(now-DS.run)/1000,name:c.name,material:c.material,racks:c.racks,snp:c.snp,parte:c.parte,linkTo:null});DS.cur=blankCur(c);DS.run=now;}
 document.addEventListener('click',e=>{
   if(e.target.classList&&e.target.classList.contains('mback'))return;
@@ -1384,6 +1388,7 @@ document.addEventListener('click',e=>{
   if(D.dsstart){DS.run=Date.now();S.keep=true;render(true);S.keep=false;return;}
   if(D.dslap){dsLap();S.keep=true;render(true);S.keep=false;const r=document.getElementById('dsr'+d.acts[d.acts.length-1].id);if(r)r.classList.add('flash');const ni=document.getElementById('curname');if(ni)ni.focus({preventScroll:true});return;}
   if(D.dsstop){dsLap();DS.run=null;S.keep=true;render(true);S.keep=false;return;}
+  if(D.dsexample){const k=Math.max(0,d.ops.findIndex(o=>o.id===DS.op))%DS_EXAMPLE.length;DS_EXAMPLE[k].forEach(([name,material,racks,snp,min])=>{const id=nid();d.assign[id]=DS.op;d.acts.push({id,cap:DS.op,secs:min*60,name,material,racks:String(racks),snp:String(snp),parte:'',linkTo:null});});DS.run=null;S.keep=true;render(true);S.keep=false;return;}
   if(D.dsadd){const id=nid();d.assign[id]=DS.op;d.acts.push({id,cap:DS.op,secs:0,name:'',material:'',racks:'',snp:'',parte:'',va:true,linkTo:null});S.keep=true;render(true);S.keep=false;return;}
   if(D.dsdel){const id=+D.dsdel;const a=d.acts.find(x=>x.id===id);ask('¿Quitar esta actividad?','Se borra «'+(a.name||'Actividad')+'» y su tiempo de '+f2(a.secs/60)+' min.','Quitar actividad',()=>{d.acts=d.acts.filter(x=>x.id!==id);d.acts.forEach(x=>{if(x.linkTo===id)x.linkTo=null;});delete d.assign[id];S.keep=true;render(true);S.keep=false;});return;}
   if(D.dscva){DS.cur.va=D.dscva==='1';S.keep=true;render(true);S.keep=false;return;}
@@ -1499,11 +1504,14 @@ function weCrono(d,op,del){
       </div></div>
       <div class="wemeter" aria-hidden="true">${Array.from({length:n},(_,c)=>`<span class="${c<done?'ok':ptr&&ptr.c===c?'now':''}"></span>`).join('')}</div>
     </div>
-    <div style="margin-top:20px"><b style="font-size:17px">Tiempos por ciclo (min)</b><p class="sub">Puedes corregir cualquier celda; el promedio se recalcula solo</p></div>
+    <div class="row" style="margin-top:20px"><div><b style="font-size:17px">Tiempos por ciclo (min)</b><p class="sub">Puedes corregir cualquier celda; el promedio se recalcula solo</p></div><button class="btn ghost sm" type="button" data-weexample="1" ${DS.run?'disabled':''}>Cargar tiempos de ejemplo</button></div>
     ${tbl}
     ${dsFoot(`<button class="btn ghost" type="button" data-dsv="elem">${svg('back',18,2.2)} Elementos</button>`,del)}`;
 }
 
+// Tiempos de ejemplo (ficticios) por verbo, en minutos, con una variación pequeña ciclo a ciclo
+const WE_EX_BASE={TOMAR:0.06,COLOCAR:0.09,AJUSTAR:0.14,MOVER:0.05,GIRAR:0.04,INSPECCIONAR:0.11,ATORNILLAR:0.18,SOLTAR:0.03};
+const WE_EX_VAR=[0,0.01,-0.01,0.02,0,-0.02,0.01,0,-0.01,0.02];
 function weTap(){const d=DS.d;const els=dsSeq(d,DS.op);const n=weN(d);const p=wePtr(els,n);if(!p||!DS.run)return;
   const now=Date.now();const e=els[p.e];e.times=e.times||[];e.times[p.c]=(now-DS.run)/60000;weSync(e);const q=wePtr(els,n);DS.run=q&&q.e>0?now:null;}   // al cerrar el ciclo se detiene: el analista arranca el siguiente cuando esté listo
 document.addEventListener('click',e=>{
@@ -1515,6 +1523,8 @@ document.addEventListener('click',e=>{
     if((a.times||[]).some(x=>x!==''&&x!=null))ask('¿Quitar «'+a.name+'»?','Este elemento ya tiene tiempos cronometrados y se borran.','Quitar elemento',go);else go();return;}
   if(D.wemove){const id=+D.wemove;const seq=dsSeq(d,DS.op);const i=seq.findIndex(x=>x.id===id);const j=i+(+D.dir);if(j<0||j>=seq.length)return;
     const ia=d.acts.indexOf(seq[i]),ib=d.acts.indexOf(seq[j]);[d.acts[ia],d.acts[ib]]=[d.acts[ib],d.acts[ia]];S.keep=true;render(true);S.keep=false;return;}
+  if(D.weexample){const els=dsSeq(d,DS.op);const n=weN(d);const fill=()=>{els.forEach((e,i)=>{const b=WE_EX_BASE[String(e.name).trim()]??0.10;e.times=Array.from({length:n},(_,c)=>(Math.max(0.01,b+WE_EX_VAR[(c+i)%WE_EX_VAR.length])).toFixed(2));weSync(e);});DS.run=null;S.keep=true;render(true);S.keep=false;};
+    if(els.some(e=>(e.times||[]).some(x=>x!==''&&x!=null)))ask('¿Reemplazar los tiempos?','Se llenan todos los ciclos con tiempos de ejemplo (ficticios) y se reemplaza lo cronometrado.','Cargar ejemplo',fill,{ok:true,icon:'undo'});else fill();return;}
   if(D.westart){DS.run=Date.now();S.keep=true;render(true);S.keep=false;return;}
   if(D.wetap){weTap();if(navigator.vibrate)try{navigator.vibrate(12)}catch(_){}S.keep=true;render(true);S.keep=false;const b=document.querySelector('[data-wetap]');if(b)b.classList.add('pulse');return;}
   if(D.wepause){DS.run=null;S.keep=true;render(true);S.keep=false;return;}
@@ -1642,7 +1652,7 @@ function vSTList(){
   setHead('Speed Trial',[['Estudios','estudios'],['Speed Trial','st']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Estudios de Speed Trial</h2><p class="sub">Velocidad real de la línea contra el objetivo: OEE, pérdidas y costo</p></div>
-    <button class="btn orange" type="button" data-stnew="1">${svg('plus',18,2.2)} Nuevo estudio</button></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('st')}<button class="btn orange" type="button" data-stnew="1">${svg('plus',18,2.2)} Nuevo estudio</button></div></div>
     <div class="grid" style="margin-top:18px">
     ${ST.studies.map(st=>{const r=stC(st);return `<div class="studyrow"><button type="button" class="study" data-stopen="${st.id}">
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">ST</div>
@@ -2045,7 +2055,7 @@ function vMMList(){
   setHead('Man Machine Chart',[['Estudios','estudios'],['Man Machine Chart','mm']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Estudios de Man Machine Chart</h2><p class="sub">Recorrido del operador contra el tiempo ciclo de las máquinas</p></div>
-    <button class="btn orange" type="button" data-mmnew="1">${svg('plus',18,2.2)} Nuevo estudio</button></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('mm')}<button class="btn orange" type="button" data-mmnew="1">${svg('plus',18,2.2)} Nuevo estudio</button></div></div>
     <div class="grid" style="margin-top:18px">
     ${MM.studies.map(st=>{const T=mmTable(st.sts,st.mpp);return `<div class="studyrow"><button type="button" class="study" data-mmopen="${st.id}">
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">MM</div>
@@ -2385,7 +2395,7 @@ function vSMList(){
   setHead('SMED',[['Estudios','estudios'],['SMED','sm']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Estudios de SMED</h2><p class="sub">Cambio de modelo: separar lo interno de lo externo y reducir el tiempo de paro</p></div>
-    <button class="btn orange" type="button" data-smnew="1">${svg('plus',18,2.2)} Nuevo estudio</button></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('sm')}<button class="btn orange" type="button" data-smnew="1">${svg('plus',18,2.2)} Nuevo estudio</button></div></div>
     <div class="grid" style="margin-top:18px">
     ${SM.studies.map(st=>{const r=smCalc(st.steps,st);return `<div class="studyrow"><button type="button" class="study" data-smopen="${st.id}">
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">SM</div>
@@ -3502,11 +3512,171 @@ const TUTS=[
     {señala:'.glass',txt:'Área de oportunidad',di:'Las actividades innecesarias, de mayor a menor: ataca primero la más grande. En «Notas del analista» escribe el porqué.'},
     {señala:'.nextbox',di:'Desde aquí sigues con otro operador o ves la general de línea, que suma los conteos de todos (no promedia porcentajes).'}
    ]},
-  {id:'ds',grupo:'est',nombre:'Delay Study',pregunta:'¿Qué tan ocupados están los operadores en actividades no cíclicas, y cómo se rebalancean?'},
-  {id:'we',grupo:'est',nombre:'Work Element',pregunta:'¿Cuánto tarda cada elemento del ciclo y cómo se balancea la carga?'},
-  {id:'st',grupo:'est',nombre:'Speed Trial',pregunta:'¿A qué velocidad corre la línea contra el objetivo, y qué la frena?'},
-  {id:'mm',grupo:'est',nombre:'Man Machine Chart',pregunta:'¿Quién limita la celda: el operador o la máquina?'},
-  {id:'sm',grupo:'est',nombre:'SMED',pregunta:'¿Cuánto del cambio de modelo puede hacerse con la máquina corriendo?'},
+  {id:'ds',grupo:'est',nombre:'Delay Study',min:4,
+   pregunta:'¿Qué tan ocupado está cada operador en trabajo no cíclico, y cómo se reparte mejor la carga?',
+   cuando:'En materiales, almacén, fundición o surtido: trabajo que no se repite pieza por pieza, donde quieres saber la ocupación y simular un rebalanceo.',
+   noPara:'Operaciones cíclicas rápidas por microelementos (para eso es Work Element) ni para medir la velocidad de la línea (Speed Trial).',
+   veras:['Definir el periodo y el objetivo de piezas','Cronometrar actividades con material, racks y SNP','Ver la ocupación de cada operador','Mover una actividad para rebalancear','Leer el Yamazumi y el escenario de demanda'],
+   pasos:[
+    {ir:'ds',señala:'#view section.panel h2',di:'El Delay Study responde: ¿qué tan ocupado está cada operador en actividades no cíclicas, como surtir material? Y te deja simular cómo repartir mejor la carga.'},
+    {toca:'#view [data-dsnew]',di:'Empezamos un estudio nuevo.',tu:'Toca «Nuevo estudio».'},
+    {escribe:'input[name=titulo]',valor:'SURTIDO LÍNEA DE POLEAS',di:'El título del estudio.'},
+    {escribe:'input[name=observador]',valor:'J. PÉREZ',di:'Quién observa.'},
+    {señala:'[data-dsper="hora"]',di:'El periodo dice contra qué tiempo se mide la ocupación. Por hora son 60 minutos disponibles.'},
+    {escribe:'[data-dsg="obj"]',valor:'60',di:'El objetivo estándar: cuántas piezas por hora debe sostener cada operador. Aquí, 60.'},
+    {toca:'[data-dsv="crono"]',di:'Pasamos a cronometrar al primer operador.',tu:'Toca «Continuar a cronometraje».'},
+    {escribe:'[data-dsopname]',valor:'MATERIALISTA 1',limpiar:true,di:'Nombre o puesto del operador.'},
+    {señala:'.dscap',di:'Una sola tarjeta de captura junto al cronómetro: actividad, material, racks, SNP y número de parte. Lo de material y racks se conserva para la siguiente.'},
+    {toca:'[data-dsstart]',di:'Iniciamos el cronómetro con la primera actividad.',tu:'Toca «Iniciar cronómetro».'},
+    {escribe:'#curname',valor:'SURTIR CASCARONES',di:'Escribe qué está haciendo (o tócalo si ya lo capturaste antes).'},
+    {toca:'[data-dsstop]',di:'«Siguiente actividad» guarda esta y arranca la que sigue; «Terminar» detiene el cronómetro.',tu:'Toca «Terminar».'},
+    {señala:'.dsrow',di:'Cada actividad queda en la lista y se corrige aquí. El tiempo por pieza es tiempo ÷ (racks × SNP).'},
+    {toca:'[data-dsdel]',di:'Esta duró segundos. La quitamos para cargar un ejemplo ya cronometrado.',tu:'Toca el bote para quitar esta prueba.'},
+    {toca:'#modal [data-mok]',di:'La app siempre confirma antes de borrar.',tu:'Toca «Quitar actividad» para confirmar.'},
+    {toca:'[data-dsexample]',di:'Cuatro actividades ficticias de un materialista.',tu:'Toca «Cargar ejemplo».'},
+    {señala:'.dsrow',txt:'REGRESO VACÍO',di:'Una vuelta sin racks ni SNP es vuelta vacía: su tiempo se suma solo al traslado con piezas anterior del mismo operador.'},
+    {toca:'[data-dsv="asig"]',di:'Terminamos al operador y vemos la asignación.',tu:'Toca «Terminar MATERIALISTA 1 y ver asignación».'},
+    {señala:'.lane',txt:'SURTIR CASCARONES',di:'Su columna: ocupación en vivo contra los 60 minutos y lo que le queda libre.'},
+    {toca:'[data-dsnextop]',di:'Cronometramos al siguiente operador; el ciclo se repite.',tu:'Toca «Cronometrar siguiente operador».'},
+    {escribe:'[data-dsopname]',valor:'MATERIALISTA 2',limpiar:true,di:'Nombre del segundo operador.'},
+    {toca:'[data-dsexample]',di:'Cargamos sus actividades de ejemplo.',tu:'Toca «Cargar ejemplo».'},
+    {toca:'[data-dsv="asig"]',di:'Y regresamos a la asignación.',tu:'Toca «Terminar MATERIALISTA 2 y ver asignación».'},
+    {señala:'.lane',txt:'SURTIR POLEAS',di:'El segundo pasa de 100 %: con su carga no sostiene 60 piezas por hora. Hay que rebalancear.'},
+    {toca:'.achip',txt:'ETIQUETAR CAJAS',di:'Tocamos una actividad para seleccionarla (también se puede arrastrar).',tu:'Toca la actividad «ETIQUETAR CAJAS».'},
+    {toca:'[data-dsmove]',en:'.lane',txt:'SURTIR CASCARONES',di:'«Mover aquí» se la pasa al primer operador. Toma el objetivo de quien la recibe.',tu:'Toca «Mover aquí» en la columna del primer operador.'},
+    {señala:'.board',di:'Los dos quedan abajo de 100 %. Así se simula un rebalanceo sin volver a cronometrar.'},
+    {toca:'[data-dsv="res"]',di:'Vemos los resultados.',tu:'Toca «Ver resultados».'},
+    {señala:'.kpi',txt:'Personal requerido',di:'Carga total ÷ tiempo disponible: cuántas personas necesita en teoría este trabajo.'},
+    {señala:'.glass',txt:'Carga por operador',di:'El Yamazumi: la carga de cada operador contra la línea roja del tiempo disponible.'},
+    {toca:'[data-dspct="20"]',di:'El escenario de demanda: ¿qué pasa si la demanda sube 20 %?',tu:'Toca «+20 %».'},
+    {señala:'.kpi',txt:'arriba de 100',di:'Con 20 % más, la app te dice quién se pasa del tiempo disponible antes de que pase en piso.'}
+   ]},
+  {id:'we',grupo:'est',nombre:'Work Element',min:3,
+   pregunta:'¿Cuánto tarda cada elemento del ciclo y qué tan cargado está el operador?',
+   cuando:'En operaciones cíclicas rápidas (ensamble, inspección, subestaciones): se cronometra por microelementos varios ciclos y se promedia.',
+   noPara:'Trabajo no cíclico como surtir material (Delay Study) ni para medir la velocidad de toda la línea (Speed Trial).',
+   veras:['Elegir la base: por hora (JPH) o por tiempo ciclo','Registrar los elementos en orden','Cronometrar un ciclo con un toque por elemento','Leer promedios, ocupación y resultados'],
+   pasos:[
+    {ir:'we',señala:'#view section.panel h2',di:'El Work Element responde: ¿cuánto tarda cada elemento del ciclo y qué tan cargado está el operador? Se cronometra por elementos y se promedian varios ciclos.'},
+    {toca:'#view [data-dsnew]',di:'Empezamos un estudio nuevo.',tu:'Toca «Nuevo estudio».'},
+    {escribe:'input[name=titulo]',valor:'ENSAMBLE DE POLEA',di:'El título del estudio.'},
+    {escribe:'input[name=observador]',valor:'J. PÉREZ',di:'Quién hace el estudio.'},
+    {señala:'[data-dsper]',di:'La base de medición: por hora contra el JPH, o contra el tiempo ciclo de la línea con 1 pieza.'},
+    {escribe:'[data-dsg="obj"]',valor:'120',di:'El JPH estándar: 120 piezas por hora.'},
+    {escribe:'[data-dsg="ciclos"]',valor:'5',limpiar:true,di:'Cuántos ciclos vas a cronometrar por operador. Lo usual es 10; aquí 5 para ir rápido.'},
+    {toca:'[data-dsv="elem"]',di:'Primero se registran los elementos.',tu:'Toca «Continuar a elementos».'},
+    {señala:'[data-weq]',di:'Observa la operación y registra los elementos en orden. Los botones rápidos agregan verbos comunes; también puedes escribir.'},
+    {toca:'[data-weq="TOMAR"]',di:'Primer elemento: tomar la pieza.',tu:'Toca «+ TOMAR».'},
+    {toca:'[data-weq="COLOCAR"]',di:'Colocarla en el dispositivo.',tu:'Toca «+ COLOCAR».'},
+    {toca:'[data-weq="ATORNILLAR"]',di:'Atornillar.',tu:'Toca «+ ATORNILLAR».'},
+    {toca:'[data-weq="INSPECCIONAR"]',di:'E inspeccionar.',tu:'Toca «+ INSPECCIONAR».'},
+    {toca:'[data-dsv="crono"]',di:'Con la lista validada, a cronometrar.',tu:'Toca «Validar y cronometrar».'},
+    {toca:'[data-westart]',di:'El cronómetro arranca con el primer elemento.',tu:'Toca «Iniciar ciclo 1».'},
+    {serie:'[data-wetap]',base:'[data-wetap]',v:[1,1,1,1],nTu:4,di:'Cada toque cierra el elemento en curso y arranca el siguiente. Al cerrar el último, el cronómetro se detiene: arrancas el siguiente ciclo cuando llega la próxima pieza.',tu:'Toca el botón grande 4 veces, una por elemento.'},
+    {toca:'[data-weexample]',di:'En la demo los toques duran segundos. Cargamos tiempos de ejemplo para los 5 ciclos.',tu:'Toca «Cargar tiempos de ejemplo».'},
+    {toca:'#modal [data-mok]',di:'Confirmamos que reemplace lo cronometrado.',tu:'Toca «Cargar ejemplo» para confirmar.'},
+    {señala:'.wet',di:'La tabla N1…N5 es editable. El tiempo de cada elemento es el promedio de sus ciclos; una celda vacía no cuenta.'},
+    {toca:'[data-dsv="asig"]',di:'Pasamos a la asignación.',tu:'Toca «Terminar OPERADOR 1 y ver asignación».'},
+    {señala:'.lane',txt:'TOMAR',di:'Ocupación = suma de promedios × JPH ÷ 60 minutos. Aquí también se rebalancea igual que en el Delay Study.'},
+    {toca:'[data-dsv="res"]',di:'Vemos los resultados.',tu:'Toca «Ver resultados».'},
+    {señala:'.kpi',txt:'Ocupación promedio',di:'La ocupación del operador contra el tiempo disponible.'},
+    {señala:'.glass',txt:'Carga por operador',di:'El Yamazumi por elementos: si una barra pasa la línea roja, el operador no sostiene el JPH.'}
+   ]},
+  {id:'st',grupo:'est',nombre:'Speed Trial',min:4,
+   pregunta:'¿A qué velocidad corre realmente la línea contra el objetivo, y qué la frena?',
+   cuando:'Cuando necesitas el OEE, el JPH real, las pérdidas con su Pareto, la caída de JPH y el costo de no cumplir el plan.',
+   noPara:'Saber en qué se le va el tiempo a cada operador (Work Sampling) ni medir elementos de una operación (Work Element).',
+   veras:['Datos obligatorios y supuestos de costo','Registrar piezas con su causa de pérdida','Cargar 99 registros de ejemplo','Leer OEE, fluctuación, costo, Pareto y caída de JPH'],
+   pasos:[
+    {ir:'st',señala:'#view section.panel h2',di:'El Speed Trial responde: ¿a qué velocidad corre realmente la línea contra el objetivo, y qué la frena? Aquí viven el OEE, las pérdidas y el costo.'},
+    {toca:'#view [data-stnew]',di:'Empezamos un estudio nuevo.',tu:'Toca «Nuevo estudio».'},
+    {escribe:'input[name=parte]',valor:'00000-POL1',di:'Los campos con * son obligatorios. Número de parte…'},
+    {escribe:'input[name=proceso]',valor:'ENSAMBLE DE POLEAS',di:'…el nombre del proceso…'},
+    {escribe:'input[name=modelo]',valor:'MOD-01',di:'…el nombre del modelo…'},
+    {escribe:'input[name=costo]',valor:'250',di:'…costo unitario: con él se proyecta cuánto cuesta no cumplir el plan…'},
+    {escribe:'input[name=tcobj]',valor:'1.20',di:'…el tiempo ciclo objetivo, en minutos decimales: 1.20 = 50 piezas por hora al 100 %…'},
+    {escribe:'input[name=analista]',valor:'J. PÉREZ',di:'…analista…'},
+    {escribe:'input[name=periodo]',valor:'TURNO 1',di:'…y el periodo analizado.'},
+    {señala:'input[name=oeePlan]',di:'Supuestos de costo de tu planta: con el OEE plan, el JPH plan = (60 ÷ TC objetivo) × OEE.'},
+    {toca:'[data-stneed="info"]',di:'Pasamos al registro.',tu:'Toca «Continuar al registro».'},
+    {señala:'.clock',di:'Un registro por pieza: «Pieza terminada» guarda su tiempo y arranca la siguiente.'},
+    {toca:'[data-ststart]',di:'Iniciamos el cronómetro.',tu:'Toca «Iniciar cronómetro».'},
+    {toca:'[data-stcause="2"]',di:'Si la pieza tuvo una pérdida, marca la causa antes de cerrarla. Son las 14 pérdidas; aquí, un paro corto.',tu:'Toca la causa «2 · Paro corto».'},
+    {toca:'[data-stlap]',di:'Pieza terminada.',tu:'Toca «Pieza terminada».'},
+    {toca:'[data-stpause]',di:'Pausamos el cronómetro.',tu:'Toca «Pausar».'},
+    {toca:'[data-strdel]',di:'Esta pieza duró segundos. La quitamos para cargar 99 registros de ejemplo.',tu:'Toca el bote del registro para quitarlo.'},
+    {toca:'[data-stexample]',di:'99 piezas con sus causas: un turno de ejemplo.',tu:'Toca «Cargar ejemplo».'},
+    {toca:'[data-stneed="reg"]',di:'Vemos los resultados.',tu:'Toca «Ver resultados».'},
+    {señala:'.kpi',txt:'OEE',di:'OEE = TC objetivo × piezas OK ÷ tiempo registrado. Arriba del OEE plan, en azul.'},
+    {señala:'.kpi',txt:'JPH real',di:'Piezas OK por hora contra el JPH plan.'},
+    {señala:'.glass',txt:'Fluctuación de la línea',di:'Pieza por pieza: en rojo las que pasaron del objetivo, en verde las que no. Toca un punto para ver su detalle.'},
+    {señala:'.glass',txt:'Proyección',di:'El costo por hora, día, semana, mes y año: GAP de JPH × costo unitario. Si la línea va arriba del plan, es la ventaja.'},
+    {señala:'.glass',txt:'Resultado de pérdidas acorde a la OEE',di:'El árbol de pérdidas: disponibilidad × desempeño × calidad, con semáforo contra el OEE plan.'},
+    {señala:'.glass',txt:'Pareto de afectaciones',di:'Las pocas causas que se llevan la mayor parte del tiempo perdido (80/20). Ataca las primeras.'},
+    {señala:'.glass',txt:'Caída de JPH',di:'De 50 JPH al 100 % al JPH real: cuántas piezas por hora se lleva cada afectación. Cierra exacto.'}
+   ]},
+  {id:'mm',grupo:'est',nombre:'Man Machine Chart',min:3,
+   pregunta:'¿Quién limita la celda: el operador o la máquina?',
+   cuando:'En celdas donde un operador atiende varias máquinas (maquinados, fundición): ves su recorrido contra el tiempo ciclo de cada máquina.',
+   noPara:'Costos: aquí solo hay piezas y tiempos. El costo vive en el Speed Trial.',
+   veras:['Datos de la celda y TC objetivo','Estaciones en el orden en que camina el operador','Tabla y layout armados en automático','Leer la gráfica, la espera y los indicadores'],
+   pasos:[
+    {ir:'mm',señala:'#view section.panel h2',di:'El Man Machine responde: ¿quién limita la celda, el operador o la máquina? Compara el recorrido del operador con el tiempo ciclo de cada máquina.'},
+    {toca:'#view [data-mmnew]',di:'Empezamos un estudio nuevo.',tu:'Toca «Nuevo estudio».'},
+    {escribe:'input[name=linea]',valor:'CELDA MAQUINADO 3',di:'Línea o celda (obligatorio).'},
+    {escribe:'input[name=analista]',valor:'J. PÉREZ',di:'Analista (obligatorio).'},
+    {señala:'input[name=mpp]',di:'Metros por paso: pasos × metros = lo que camina el operador por vuelta.'},
+    {escribe:'input[name=tcobj]',valor:'1.10',di:'El TC objetivo de la línea, para comparar el JPH real y la ocupación de las máquinas.'},
+    {toca:'[data-mmneed]',di:'Pasamos a las estaciones.',tu:'Toca «Continuar a estaciones».'},
+    {señala:'[data-mmadd="maq"]',di:'Las estaciones se capturan en el orden en que camina el operador: Máquina, Estación manual, Entrada y Salida.'},
+    {toca:'[data-mmexample]',di:'Cargamos una celda de ejemplo con 8 estaciones.',tu:'Toca «Cargar ejemplo».'},
+    {señala:'.mmlist',di:'Cada máquina lleva su TC (de que cierra la puerta a que abre), su carga y descarga y los pasos hacia la siguiente.'},
+    {toca:'[data-mmv="tabla"]',di:'La app arma la tabla sola.',tu:'Toca «Revisar tabla».'},
+    {señala:'.kpi',txt:'TC más alto',di:'El recorrido arranca en la máquina con el TC más alto. Lo que corrijas en la tabla queda en naranja.'},
+    {toca:'[data-mmv="lay"]',di:'Vemos el layout.',tu:'Toca «Ver layout».'},
+    {señala:'.mmlay',di:'El layout en U, con flechas que siguen el recorrido. Arrastra una estación para moverla y entra al recorrido donde quedó.'},
+    {toca:'[data-mmv="graf"]',di:'Y la gráfica.',tu:'Toca «Ver gráfica».'},
+    {señala:'.mmverdict',di:'El veredicto en una línea: qué máquina limita la celda y cuánto espera el operador por vuelta.'},
+    {señala:'.mmgraf',di:'Negro = operador trabajando; azul punteado = máquina corriendo; diagonal = caminata. El cuadro de arriba es el ciclo del operador.'},
+    {señala:'.kpi',txt:'Ciclo real de la celda',di:'Cada cuánto sale una pieza: lo limita la máquina más cargada o el operador, el que sea mayor.'},
+    {señala:'.mmkpis .kpi',txt:'JPH real',di:'JPH real contra el JPH plan. La espera del operador no son piezas perdidas: son horas-hombre sin trabajo.'},
+    {señala:'.glass',txt:'Ocupación de máquinas',di:'Cada máquina contra el TC objetivo: en rojo la que no lo alcanza. Ahí está el cuello de botella.'}
+   ]},
+  {id:'sm',grupo:'est',nombre:'SMED',min:4,
+   pregunta:'¿Cuánto del cambio de modelo puede hacerse con la máquina corriendo?',
+   cuando:'Cuando el cambio de modelo o de herramental para la línea mucho tiempo (la pérdida «3 · Cambio de modelo» del Speed Trial).',
+   noPara:'Medir la velocidad de la línea en producción (Speed Trial).',
+   veras:['Datos del cambio y supuestos de proyección','Cronometrar pasos con botones rápidos','Clasificar cada paso: interno, externo o eliminar','Leer el paro propuesto, la meta de 10 min y lo recuperado'],
+   pasos:[
+    {ir:'sm',señala:'#view section.panel h2',di:'El SMED responde: ¿cuánto del cambio de modelo puede hacerse con la máquina corriendo? Se mide de la última pieza buena a la primera buena.'},
+    {toca:'#view [data-smnew]',di:'Empezamos un estudio nuevo.',tu:'Toca «Nuevo estudio».'},
+    {escribe:'input[name=linea]',valor:'PRENSA 400 T',di:'Línea o máquina (obligatorio).'},
+    {escribe:'input[name=analista]',valor:'J. PÉREZ',di:'Analista (obligatorio).'},
+    {escribe:'input[name=de]',valor:'MOD-A',di:'Modelo que sale…'},
+    {escribe:'input[name=a]',valor:'MOD-B',di:'…y modelo que entra.'},
+    {escribe:'input[name=tcobj]',valor:'1.20',di:'Opcional: con el TC objetivo se calculan las piezas que se dejan de hacer por cada minuto de paro.'},
+    {escribe:'input[name=cpw]',valor:'10',di:'Y con los cambios por semana, las horas recuperadas por semana, mes y año.'},
+    {toca:'[data-smneed]',di:'Pasamos al registro.',tu:'Toca «Continuar a registro».'},
+    {toca:'[data-smstart]',di:'Iniciamos el cambio: corre el cronómetro.',tu:'Toca «Iniciar cambio».'},
+    {toca:'[data-smact^="BUSCAR HERRAMIENTA"]',di:'Tocamos qué está pasando; la categoría se pone sola.',tu:'Toca «BUSCAR HERRAMIENTA».'},
+    {toca:'[data-smlap]',di:'«Terminar paso» guarda su tiempo y arranca el siguiente.',tu:'Toca «Terminar paso».'},
+    {toca:'[data-smact^="QUITAR HERRAMENTAL"]',di:'Siguiente paso: quitar el herramental.',tu:'Toca «QUITAR HERRAMENTAL».'},
+    {toca:'[data-smstop]',di:'«Terminar cambio» cierra el último paso y detiene el cronómetro.',tu:'Toca «Terminar cambio».'},
+    {señala:'.smtbl',di:'Los pasos quedan en una tabla editable: descripción, categoría y tiempo.'},
+    {toca:'[data-smsdel]',di:'Estos pasos duraron segundos. Los quitamos para cargar un cambio completo ya cronometrado.',tu:'Toca el bote del primer paso.'},
+    {toca:'[data-smsdel]',di:'El otro también.',tu:'Toca el bote del otro paso.'},
+    {toca:'[data-smexample]',di:'Un cambio de dado de ejemplo: 11 pasos, 44 minutos de paro.',tu:'Toca «Cargar ejemplo».'},
+    {toca:'[data-smv="anal"]',di:'Pasamos al análisis.',tu:'Toca «Continuar a análisis».'},
+    {señala:'.smrow',di:'Cada paso es Interno (máquina parada), Externo (se hace con la máquina corriendo) o Eliminar (no agrega valor). La app sugiere por categoría; tú decides.'},
+    {toca:'[data-smcls$="|I"]',en:'.smrow',txt:'REGRESAR DADO ANTERIOR',di:'Cambiamos una sugerencia: en esta planta el dado anterior se regresa con la prensa parada, así que es Interno.',tu:'Toca «Interno» en «REGRESAR DADO ANTERIOR».'},
+    {escribe:'[data-smtn]',en:'.smrow',txt:'AJUSTE DE ALTURA',valor:'2',di:'Tiempo mejorado: con bloques calibrados el ajuste baja de 5 a 2 minutos.'},
+    {señala:'.kpi',txt:'Paro propuesto',di:'El paro propuesto suma solo lo interno, con su tiempo mejorado.'},
+    {toca:'[data-smv="res"]',di:'Vemos los resultados.',tu:'Toca «Ver resultados».'},
+    {señala:'.kpi',txt:'Reducción del paro',di:'Cuánto se reduce el paro por cada cambio.'},
+    {señala:'.kpi',txt:'Meta SMED',di:'La meta SMED: menos de 10 minutos. La app te dice cuánto falta.'},
+    {señala:'.glass',txt:'Paro actual contra propuesto',di:'Hoy todo se hace con la máquina parada; con el análisis, lo externo sale del paro y lo eliminado desaparece.'},
+    {señala:'.smproj',txt:'Horas de paro recuperadas',di:'Y lo que vale al año: horas y piezas recuperadas con 10 cambios por semana.'}
+   ]},
   {id:'pc',grupo:'cap',nombre:'Cálculo de personal',pregunta:'¿Cuántas personas necesita cada área, mes a mes?'},
   {id:'at',grupo:'cap',nombre:'Actual Time y Eficiencia compuesta',pregunta:'¿Cuántos minutos-hombre cuesta realmente cada pieza, y cómo va la planta?'},
   {id:'df',grupo:'proc',nombre:'Diagramas de flujo',pregunta:'¿Cómo fluye el proceso y dónde están las demoras y los transportes?'}
@@ -3547,14 +3717,20 @@ function tutRestore(s){const c=structuredClone(s);
   [[S,'S'],[DS,'DS'],[ST,'ST'],[MM,'MM'],[SM,'SM'],[PC,'PC'],[AT,'AT'],[EC,'EC'],[DF,'DF']].forEach(([o,k])=>{Object.keys(o).forEach(x=>delete o[x]);Object.assign(o,c[k]);});uid=c.uid;}
 const tutPhone=()=>window.innerWidth<=700;
 const tutNorm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+// Texto de un elemento: lo visible más lo escrito en sus campos (los nombres editables viven en inputs)
+const tutText=e=>e.textContent+' '+[...e.querySelectorAll('input,textarea')].map(i=>i.value).join(' ');
 function tutSel(p,k){const s=p.toca||p.escribe||p.elige||p.señala||(p.serie&&p.serie.replace('{v}',p.v[(k||0)%p.v.length]));return s;}
 // Busca el elemento: si hay txt, el más profundo de los que contienen ese texto
-function tutQuery(sel,txt){let L=[...document.querySelectorAll(sel)].filter(e=>e.getClientRects().length&&!e.disabled);
-  if(txt){const n=tutNorm(txt);L=L.filter(e=>tutNorm(e.textContent).includes(n));L=L.filter(e=>!L.some(o=>o!==e&&e.contains(o)));}
+function tutQuery(sel,txt,en){
+  if(en){const c=tutQuery(en,txt);if(!c)return null;return [...c.querySelectorAll(sel)].find(e=>e.getClientRects().length&&!e.disabled)||null;}
+  let L=[...document.querySelectorAll(sel)].filter(e=>e.getClientRects().length&&!e.disabled);
+  if(txt){const n=tutNorm(txt);L=L.filter(e=>tutNorm(tutText(e)).includes(n));L=L.filter(e=>!L.some(o=>o!==e&&e.contains(o)));}
   return L[0]||null;}
-async function tutFind(run,sel,txt){const t0=Date.now();
-  while(Date.now()-t0<4000){tutAlive(run);const el=tutQuery(sel,txt);if(el)return el;await new Promise(r=>setTimeout(r,60));}
-  throw {tutErr:'No se encontró «'+sel+(txt?' · '+txt:'')+'». La pantalla cambió: hay que actualizar este tutorial.'};}
+// ¿El toque del usuario cae en el objetivo del paso? (con contenedor: dentro del renglón correcto)
+function tutHit(x,sel,p){const el=x.closest&&x.closest(sel);if(!el)return false;if(!p.en)return true;const c=el.closest(p.en);return !!c&&tutNorm(tutText(c)).includes(tutNorm(p.txt));}
+async function tutFind(run,sel,txt,en){const t0=Date.now();
+  while(Date.now()-t0<4000){tutAlive(run);const el=tutQuery(sel,txt,en);if(el)return el;await new Promise(r=>setTimeout(r,60));}
+  throw {tutErr:'No se encontró «'+(en?en+' › ':'')+sel+(txt?' · '+txt:'')+'». La pantalla cambió: hay que actualizar este tutorial.'};}
 function tutAlive(run){if(!TR||TR.run!==run)throw TUT_ABORT;}
 // Espera respetando pausa, velocidad y «Siguiente»
 async function tutWait(run,ms){let left=ms;
@@ -3571,15 +3747,15 @@ function tutLayer(){let L=document.getElementById('tut');if(L)return L;
   document.body.appendChild(L);return L;}
 function tutBar(){const L=tutLayer();const T=TR;if(!T)return;const n=T.t.pasos.length;const demo=T.mode==='demo';
   L.querySelector('.tutbar').innerHTML=`<span class="tutpos mono">${Math.min(T.i+1,n)} / ${n}</span>
-    ${demo?`<button type="button" class="tutb" data-tutc="pause" aria-label="${T.paused?'Seguir':'Pausar'}">${T.paused?'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'}<span>${T.paused?'Seguir':'Pausa'}</span></button>`:''}
+    ${true?`<button type="button" class="tutb" data-tutc="pause" aria-label="${T.paused?'Seguir':'Pausar'}">${T.paused?'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg>':'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'}<span>${T.paused?'Seguir':'Pausa'}</span></button>`:''}
     <button type="button" class="tutb" data-tutc="next">${svg('next',20,2.4)}<span>Siguiente</span></button>
     <button type="button" class="tutb" data-tutc="restart">${svg('undo',20,2.2)}<span>Reiniciar</span></button>
-    ${demo?`<button type="button" class="tutb" data-tutc="speed" aria-label="Velocidad">${T.speed>=2?'2×':'1×'}</button>`:''}
+    ${true?`<button type="button" class="tutb" data-tutc="speed" aria-label="Velocidad">${T.speed>=2?'2×':'1×'}</button>`:''}
     <button type="button" class="tutb" data-tutc="exit" aria-label="Salir del tutorial">${svg('plus',20,2.4).replace('<svg','<svg style="transform:rotate(45deg)"')}<span>Salir</span></button>`;}
 
 // Coloca anillo, globo y cursor siguiendo al elemento (la app vuelve a pintar la pantalla seguido)
 function tutTrack(){if(!TR)return;const L=tutLayer();const ring=L.querySelector('.tutring'),bub=L.querySelector('.tutbub');
-  let el=TR.el;if(el&&!el.isConnected&&TR.sel){el=TR.el=tutQuery(TR.sel,TR.txt);}
+  let el=TR.el;if(el&&!el.isConnected&&TR.sel){el=TR.el=tutQuery(TR.sel,TR.txt,TR.en);}
   if(el&&!ring.hidden){const r=el.getBoundingClientRect();Object.assign(ring.style,{left:r.left-6+'px',top:r.top-6+'px',width:r.width+12+'px',height:r.height+12+'px'});
     if(!tutPhone()&&!bub.hidden){const bw=bub.offsetWidth,bh=bub.offsetHeight,barH=86;let top=r.bottom+14;
       if(top+bh>innerHeight-barH)top=r.top-bh-14;if(top<8)top=Math.min(innerHeight-barH-bh,Math.max(8,r.top+12));
@@ -3589,7 +3765,7 @@ function tutSay(text,sug){const L=tutLayer();const b=L.querySelector('.tutbub');
   b.querySelector('.tutn').textContent=(TR.mode==='demo'?'DEMO':'HAZLO TÚ')+' · PASO '+Math.min(TR.i+1,n)+' DE '+n;
   b.querySelector('p').textContent=text;const s=b.querySelector('.tutsug');s.textContent=sug||'';s.hidden=!sug;
   b.classList.toggle('sheet',tutPhone());b.hidden=false;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');}
-async function tutAim(run,el,sel,txt){TR.el=el;TR.sel=sel;TR.txt=txt;
+async function tutAim(run,el,sel,txt,en){TR.el=el;TR.sel=sel;TR.txt=txt;TR.en=en;
   const top=tutPhone()?70:90,bottom=innerHeight-(tutPhone()?Math.round(innerHeight*.36)+80:110);
   let r=el.getBoundingClientRect();
   if(r.top<top||r.bottom>bottom){window.scrollBy({top:r.top-(top+Math.max(0,(bottom-top-r.height)/2)),behavior:'smooth'});await tutWait(run,420);}
@@ -3607,26 +3783,27 @@ async function tutType(run,el,val,clear){el.focus({preventScroll:true});if(clear
 function tutExpect(run,p){return new Promise((res,rej)=>{TR.expect={p,res,count:0};const iv=setInterval(()=>{if(!TR||TR.run!==run){clearInterval(iv);rej(TUT_ABORT);}},120);TR.expect.iv=iv;});}
 function tutDone(){const e=TR&&TR.expect;if(!e)return;clearInterval(e.iv);TR.expect=null;setTimeout(e.res,30);}
 document.addEventListener('click',e=>{if(!TR||TR.mode!=='tu'||!TR.expect)return;const x=e.target;if(x.closest&&x.closest('#tut'))return;
-  const ex=TR.expect,p=ex.p;const sel=p.toca||p.escribe||p.elige||p.base;const ok=sel&&x.closest&&x.closest(sel);
+  const ex=TR.expect,p=ex.p;const sel=p.toca||p.escribe||p.elige||p.base;const ok=sel&&tutHit(x,sel,p.serie?{}:p);
   if(!ok){e.preventDefault();e.stopPropagation();const b=document.querySelector('#tut .tutbub');b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');return;}
   if(p.toca)tutDone();
   if(p.serie){ex.count++;tutSay(p.tu||p.di,'Llevas '+ex.count+' de '+p.nTu);if(ex.count>=p.nTu)tutDone();}},true);
-document.addEventListener('keydown',e=>{if(!TR||TR.mode!=='tu'||!TR.expect)return;const p=TR.expect.p;if(e.key==='Enter'&&p.escribe&&e.target.closest&&e.target.closest(p.escribe))tutDone();},true);
-document.addEventListener('change',e=>{if(!TR||TR.mode!=='tu'||!TR.expect)return;const p=TR.expect.p;const s=p.escribe||p.elige;if(s&&e.target.closest&&e.target.closest(s)&&e.target.value)tutDone();},true);
+document.addEventListener('keydown',e=>{if(!TR||TR.mode!=='tu'||!TR.expect)return;const p=TR.expect.p;if(e.key==='Enter'&&p.escribe&&tutHit(e.target,p.escribe,p))tutDone();},true);
+document.addEventListener('change',e=>{if(!TR||TR.mode!=='tu'||!TR.expect)return;const p=TR.expect.p;const s=p.escribe||p.elige;if(s&&tutHit(e.target,s,p)&&e.target.value)tutDone();},true);
 
 async function tutStep(run,p){
   if(p.ir){go(p.ir);await tutWait(run,250);}
-  const sel=tutSel(p,0);const el=await tutFind(run,sel,p.txt);await tutAim(run,el,sel,p.txt);
+  const sel=tutSel(p,0);const el=await tutFind(run,sel,p.txt,p.en);await tutAim(run,el,sel,p.txt,p.en);
+  if(TR.mode==='tu'&&p.señala){tutSay(p.di);await tutWait(run,tutRead(p.di));return;} // explicar = como video: avanza solo
   if(TR.mode==='tu'){
-    const sug=p.escribe?'Escribe, por ejemplo: '+p.valor:p.elige?'Elige: '+p.valor:p.serie?'Llevas 0 de '+p.nTu:p.señala?'Toca «Siguiente» cuando lo hayas leído.':'';
+    const sug=p.escribe?'Escribe, por ejemplo: '+p.valor+' · luego Enter o «Siguiente»':p.elige?'Elige: '+p.valor:p.serie?'Llevas 0 de '+p.nTu:'';
     tutSay(p.tu||p.di,sug);if(p.escribe)el.focus({preventScroll:true});
-    if(p.serie){TR.sel=p.base;TR.el=tutQuery(p.base);}
+    if(p.serie){TR.sel=p.base;TR.en=null;TR.el=tutQuery(p.base);}
     await tutExpect(run,p);return;}
   tutSay(p.di);await tutMove(run,el,650);
   if(p.señala){await tutWait(run,tutRead(p.di));return;}
   await tutWait(run,Math.max(900,tutRead(p.di)-900));
   if(p.toca)await tutClick(run,el);
-  else if(p.escribe){await tutClick(run,el);const f=tutQuery(sel)||el;await tutType(run,f,p.valor,p.limpiar);await tutWait(run,350);}
+  else if(p.escribe){await tutClick(run,el);const f=tutQuery(sel,p.txt,p.en)||el;await tutType(run,f,p.valor,p.limpiar);await tutWait(run,350);}
   else if(p.elige){el.value=p.valor;el.dispatchEvent(new Event('change',{bubbles:true}));await tutWait(run,500);}
   else if(p.serie){for(let k=0;k<p.v.length;k++){await tutGate(run);const s=tutSel(p,k);const b=await tutFind(run,s);TR.el=b;TR.sel=s;await tutMove(run,b,280);await tutClick(run,b);}}
 }
@@ -3664,9 +3841,11 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
   else if(c==='exit')tutExit();},true);
 window.addEventListener('resize',()=>{const b=document.querySelector('#tut .tutbub');if(b)b.classList.toggle('sheet',tutPhone());});
 // Gancho para las pruebas automáticas
-window.TaktTut={start:(id,mode,speed)=>tutStart(id,mode,speed),exit:()=>tutExit(),
+window.TaktTut={start:(id,mode,speed)=>tutStart(id,mode,speed),exit:()=>tutExit(),speed:n=>{if(TR)TR.speed=n;},
   state:()=>TR?{i:TR.i,n:TR.t.pasos.length,mode:TR.mode,err:TR.err,expect:TR.expect?{...TR.expect.p}:null,count:TR.expect?TR.expect.count:0}:null,
   list:()=>TUTS.map(t=>({id:t.id,ready:tutReady(t),pasos:t.pasos||null})),
+  mark:()=>{document.querySelectorAll('[data-tutt]').forEach(e=>e.removeAttribute('data-tutt'));const p=TR&&TR.expect&&TR.expect.p;if(!p)return false;
+    const el=p.serie?tutQuery(p.base):tutQuery(p.toca||p.escribe||p.elige,p.txt,p.en);if(!el)return false;el.setAttribute('data-tutt','1');return true;},
   counts:()=>({ws:S.studies.length,ds:DS.studies.length,st:ST.studies.length,mm:MM.studies.length,sm:SM.studies.length,pc:PC.studies.length,at:AT.studies.length,df:DF.studies.length})};
 
 render();

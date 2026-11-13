@@ -215,18 +215,26 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Resumen ASME sin cambios: actividades, tiempo, distancia, % de operaciones, tabla por símbolo, tabla del proceso y diagrama. Avisos de flujo incompleto.
 - Pruebas: 10 de lógica (parts/dftest.js) + pantalla (tests/smoke/smoke_df.py: arrastre desde la barra, nube, «Viene de», mover).
 
-## Aprende (tutoriales) — MOTOR LISTO + Work Sampling (2026-11-12; Angel valida)
-- Sección propia del menú «Aprende» (debajo de Diagramas de flujo; en teléfono desde «Más»). 9 tarjetas en 3 grupos: Estudios de tiempos (6), Capacidad y eficiencia (Personal; Actual Time + Eficiencia compuesta), Procesos (Diagramas de flujo). Estado: NUEVO / VISTO / PRÓXIMAMENTE.
-- Ficha por tutorial: qué pregunta responde, úsalo cuando, no es para, lo que vas a ver; botones «Ver demo» y «Hazlo tú (guiado)».
-- **Opción B:** demo en vivo dentro de la app real. Cursor «bot» naranja, anillo sobre el elemento, globo con el texto (en teléfono, hoja abajo; el motor sube el elemento para que no quede tapado). Barra de control: Pausa/Seguir, Siguiente, Reiniciar, velocidad 1×/2×, Salir (botones ≥ 48 px). Al final: Repetir / Ahora hazlo tú / Volver a Aprende.
+## Aprende (tutoriales) — 6 ESTUDIOS LISTOS (2026-11-12)
+- Sección propia del menú «Aprende» (debajo de Diagramas de flujo; en teléfono desde «Más»). 9 tarjetas en 3 grupos: Estudios de tiempos (6, listos), Capacidad y eficiencia (Personal; Actual Time + Eficiencia compuesta) y Procesos (Diagramas de flujo); estos 3 quedan «Próximamente». Estado: NUEVO / VISTO / PRÓXIMAMENTE.
+- Ficha por tutorial: qué pregunta responde, úsalo cuando, no es para, lo que vas a ver; botones «Ver demo» y «Hazlo tú (guiado)». Botón «Ver tutorial» en la lista de cada estudio.
+- **Demo (opción B):** dentro de la app real. Cursor «bot» naranja, anillo sobre el elemento, globo con el texto (en teléfono, hoja abajo; el motor sube el elemento para que no quede tapado). Corre sola de principio a fin, como video. Barra: Pausa/Seguir, Siguiente (salta la espera), Reiniciar, 1×/2×, Salir (botones ≥ 48 px). Al final: Repetir / Ahora hazlo tú / Volver a Aprende.
 - «Repetir paso» se cambió por «Reiniciar»: los pasos cambian el estado (un toque suma una observación), así que repetir uno solo no es confiable.
-- **Hazlo tú = modo guiado** con el mismo guion: el globo dice qué tocar y espera; los toques fuera del objetivo se ignoran (el globo se sacude); en campos sugiere un valor pero acepta cualquiera (avanza con Enter o Siguiente).
+- **Hazlo tú = modo guiado** con el mismo guion. Pedido de Angel (2026-11-12): los pasos que solo explican (señala) **avanzan solos, como video**; solo se espera al usuario cuando debe actuar (tocar, escribir —Enter o Siguiente—, contar). Los toques fuera del objetivo se ignoran (el globo se sacude). En campos sugiere un valor pero acepta cualquiera.
 - **Sin historial (Angel, 2026-11-12):** al entrar se guarda una copia de todo el estado y al salir se restaura, en demo y en guiado. No hay opción de conservar el ejemplo. En demo una capa bloquea los toques del usuario.
-- Pasos como datos: `ir`, `toca`, `escribe` (letra por letra, dispara `input` → MAYÚSCULAS), `elige`, `serie` (varios toques), `señala` (solo explica; `txt` para elegir el elemento por su texto). Se ignoran elementos ocultos o deshabilitados (hallazgo: la pestaña «02 Conteo» deshabilitada tiene el mismo selector que el botón de continuar). Si un paso no encuentra su elemento en 4 s, se detiene con «La pantalla cambió».
-- Botón «Ver tutorial» en la lista de cada formato que ya tiene tutorial (hoy: Work Sampling).
-- Tutorial Work Sampling (19 pasos): estudio «BALANCEO LÍNEA DE POLEAS», operador «ENSAMBLADOR 1», 20 observaciones (4 innecesarias = 20.0 %, precisión ±17.5 %, faltan 226 para ±5 %); lee % innecesario, precisión, área de oportunidad y «¿Qué sigue?». En guiado se piden 10 toques.
-- Pruebas: parts/tuttest.js (lee los guiones directo de index.html y valida su forma) + tests/smoke/smoke_tut.py (demo a 20× y guiado en laptop, tablet y teléfono; sin historial al salir; el estudio real del usuario queda intacto).
-- Siguiente: tutorial de SMED (patrón para formatos con cronómetro: el bot registra 2 pasos en segundos y luego carga el ejemplo). El resto, idealmente tras el diseño final.
+- Pasos como datos: `ir`, `toca`, `escribe` (letra por letra, dispara `input` → MAYÚSCULAS), `elige`, `serie` (varios toques), `señala` (solo explica). `txt` elige el elemento por su texto (incluye lo escrito en campos) y `en` + `txt` toca un botón dentro de un renglón (p. ej. «Interno» en «REGRESAR DADO ANTERIOR»). Se ignoran elementos ocultos o deshabilitados. Si un paso no encuentra su elemento en 4 s, se detiene con «La pantalla cambió».
+- Patrón para formatos con cronómetro: el bot hace una prueba en vivo de segundos (iniciar, tocar, terminar), la quita y carga el ejemplo ya cronometrado. Nunca se acelera el reloj.
+- Tutoriales (datos ficticios):
+  - Work Sampling (19 pasos): 20 observaciones, 20.0 % innecesario, precisión ±17.5 % (faltan 226).
+  - Delay Study (32): 2 materialistas, objetivo 60 pzs/h; el 2 en 110 % → mover «ETIQUETAR CAJAS» → 88 % y 90 %; escenario +20 %.
+  - Work Element (24): JPH 120, 5 ciclos, 4 elementos con botones rápidos, un ciclo en vivo + tiempos de ejemplo → 89.2 %.
+  - Speed Trial (26): 7 obligatorios, una pieza en vivo con causa «2 · Paro corto», 99 registros → OEE 91.1 %, JPH 45.56; fluctuación, costo, árbol OEE, Pareto y caída de JPH.
+  - Man Machine (20): celda de 8 estaciones, TC objetivo 1.10 → celda 1.18 (Máquina 3), espera 0.55, JPH 50.85 vs 46.36.
+  - SMED (28): 2 pasos en vivo, cambio de dado de 44 min; «REGRESAR DADO ANTERIOR» a Interno y ajuste de altura 5 → 2 → paro 26.5 min (−39.8 %).
+- Agregados a la app para los tutoriales (también sirven al usuario): **«Cargar ejemplo» en Delay Study** (4 actividades por operador; el 1.º y el 2.º son distintos) y **«Cargar tiempos de ejemplo» en Work Element** (llena todos los ciclos; si ya hay tiempos, pide confirmar).
+- **Error corregido (lo encontró la prueba del tutorial):** en Asignación y balanceo (Delay Study y Work Element), tocar una actividad para seleccionarla y usar «Mover aquí» no funcionaba: al soltar, la app volvía a pintar la pantalla aunque no hubo arrastre y el toque se perdía. Ahora solo repinta si hubo arrastre (mouse y táctil verificados).
+- Pruebas: parts/tuttest.js (lee los guiones de index.html y valida su forma) + tests/smoke/smoke_tut.py (cada tutorial en demo a 20× y en guiado, con la prueba haciendo de usuario, en laptop, tablet y teléfono; sin historial al salir; el estudio real del usuario queda intacto). `SOLO=lap|tab|phone` corre un dispositivo.
+- Siguiente: tutoriales de Cálculo de personal, Actual Time + Eficiencia compuesta y Diagramas de flujo (cuando Angel lo pida; idealmente tras el diseño final). Los textos de los globos se ajustan en los datos sin tocar el motor.
 
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
@@ -249,7 +257,7 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 
 ## Hoja de ruta acordada (actualizada 2026-11-12)
 - Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo.
-- Aprende: motor + tutorial de Work Sampling listos (2026-11-12). Siguiente: validación de Angel → tutorial de SMED.
+- Aprende: motor + tutoriales de los 6 estudios listos (2026-11-12). Faltan Personal, Actual Time y Diagramas de flujo.
 - Después: guardado de estudios y exportación a PDF/Excel → pagos (suscripción, sin publicidad) → Inicio (tablero del analista) → diseño final (paleta y UX/UI) → completar tutoriales.
 - Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
 

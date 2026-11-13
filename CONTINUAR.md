@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Siguiente: **tutorial de SMED en «Aprende»** (el motor y el de Work Sampling ya están; revisa mis comentarios de la validación).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Siguiente: **lo que Angel indique** (Aprende ya tiene los 6 estudios; faltan tutoriales de Personal, Actual Time y Diagramas de flujo; hoja de ruta: guardado de estudios y exportación).
 
 ## Pasos para Claude al iniciar
 
@@ -33,11 +33,11 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
 
-## Estado al 2026-11-12 (tarde)
+## Estado al 2026-11-12 (noche)
 
-- Listos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo y **Aprende (motor de tutoriales + tutorial de Work Sampling)**. Todas las pruebas pasan (11 de cálculo + pantallas, incluida `tests/smoke/smoke_tut.py`).
+- Listos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo y **Aprende con tutoriales de los 6 estudios** (demo en vivo con bot + «Hazlo tú» guiado; las explicaciones corren solas como video y solo se espera al usuario cuando debe actuar; sin historial).
+- Agregados: «Cargar ejemplo» en Delay Study y «Cargar tiempos de ejemplo» en Work Element. Corregido: seleccionar con un toque + «Mover aquí» en Asignación y balanceo.
+- Pruebas: 11 de cálculo (incluye `tuttest`) + pantallas; `tests/smoke/smoke_tut.py` corre los 6 tutoriales en demo y guiado en 3 dispositivos (`SOLO=lap|tab|phone` para uno).
 - Menú: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración. En teléfono: Personal en la barra; Actual Time, Diagramas de flujo y Aprende desde «Más».
-- Aprende (detalle en `docs/decisiones-mvp.md`): demo en vivo con bot + modo guiado «Hazlo tú» con el mismo guion; todo en sandbox, sin historial. Pasos como datos en `TUTS` dentro de `index.html`.
-- **Siguiente:** validación de Angel del tutorial de Work Sampling → tutorial de SMED (patrón para formatos con cronómetro). Los demás tutoriales, idealmente después del diseño final.
-- Pendiente menor: `smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores; actualizarlas o quitarlas.
-- Después: guardado de estudios (y exportación PDF/Excel), pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI) y completar tutoriales.
+- Pendiente menor: `smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores (fallaban desde antes); actualizarlas o quitarlas.
+- Después: tutoriales de Personal / Actual Time / Diagramas de flujo, guardado de estudios (y exportación PDF/Excel), pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI).
