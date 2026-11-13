@@ -700,6 +700,25 @@ body.tutoring #view{padding-bottom:110px}
 #savetoast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;z-index:950;padding:12px 18px;border-radius:14px;background:#1B2430;color:#fff;font:600 14px 'IBM Plex Sans',sans-serif;box-shadow:0 12px 30px rgba(27,36,48,.3);transition:all .2s ease;pointer-events:none}
 #savetoast.show{opacity:1;transform:translate(-50%,0)}#savetoast.err{background:#B42318}
 @media (max-width:700px){#savetoast{bottom:96px}}
+/* ---- ubicación (jerarquía de planta) ---- */
+.ubicrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px}
+.ubicf{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--ink2)}
+.ubicsel{display:flex;gap:6px;align-items:center}.ubicsel select{flex:1;min-width:0;height:48px;border-radius:12px;border:1px solid var(--line);padding:0 10px;font:600 14px 'IBM Plex Sans',sans-serif;background:#fff;color:var(--ink)}
+.ubicf.want select{border-color:rgba(194,65,12,.45)}
+.ubicadd{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.ubicadd input{flex:1 1 220px;height:44px;border-radius:12px;border:1px solid var(--line);padding:0 12px;font:600 14px 'IBM Plex Sans',sans-serif}
+.ubfilter{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}.ubfilter label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--ink2);min-width:180px}
+.ubfilter select{height:44px;border-radius:12px;border:1px solid var(--line);padding:0 10px;font:600 14px 'IBM Plex Sans',sans-serif;background:#fff}
+.ubiclbl{font-weight:600;color:var(--ink2)}.ubhidden{margin:6px 2px 0}
+.studyrow[hidden]{display:none}
+.catree{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.catn{border:1px solid var(--line);border-radius:14px;padding:10px;background:rgba(255,255,255,.6)}
+.catn .catn{background:#fff}
+.cath{display:flex;gap:8px;align-items:center}.cath input{flex:1;min-width:0;height:44px;border-radius:10px;border:1px solid var(--line);padding:0 10px;font:600 14px 'IBM Plex Sans',sans-serif}
+.catlv{flex:0 0 74px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.catk{display:flex;flex-direction:column;gap:8px;margin:10px 0 0 18px;padding-left:12px;border-left:2px solid var(--line)}
+.catadd{display:flex;gap:8px;align-items:center}.catadd input{flex:1;min-width:0;height:44px;border-radius:10px;border:1px dashed var(--line);padding:0 10px;font:600 14px 'IBM Plex Sans',sans-serif;background:transparent}
+.catadd input.miss{border-color:#C2410C}
+@media (max-width:700px){.catk{margin-left:6px;padding-left:8px}.catlv{flex-basis:56px}}
 </style>
 </head>
 <body>
@@ -889,7 +908,7 @@ function vWS(){
     </div></section>`;
 }
 
-function newDraft(){S.draft={id:nid(),titulo:'',area:'',parte:'',analista:'',fecha:hoyLocal(new Date()),ops:[],conf:'95',margen:'5',estado:'Abierto'};S.view='hdr';S.opId=null;}
+function newDraft(){S.draft={id:nid(),ubic:{},titulo:'',area:'',parte:'',analista:'',fecha:hoyLocal(new Date()),ops:[],conf:'95',margen:'5',estado:'Abierto'};S.view='hdr';S.opId=null;}
 
 function opSteps(op){
   const L=[['acts','Actividades'],['count','Conteo'],['res','Resultados']];const idx=L.findIndex(x=>x[0]===S.view);const has=calcOp(op).sum>0;
@@ -955,7 +974,7 @@ function vNuevo(){
       <label>Fecha<input type="date" name="fecha" value="${esc(d.fecha)}"></label>
       <label>Nivel de confianza<select name="conf">${['90','95','99'].map(c=>`<option value="${c}" ${d.conf===c?'selected':''}>${c} %</option>`).join('')}</select></label>
       <label>Margen de error aceptado (± %)<input type="number" name="margen" min="1" max="20" step="0.5" value="${esc(d.margen)}" inputmode="decimal"></label>
-    </form>
+    </form>${ubicPicker('ws',d)}
     ${foot(`<button class="btn ghost" type="button" data-go="ws">${svg('back',18,2.2)} ${d.ops.length?'Volver a la lista':'Cancelar'}</button>`,`<button class="btn" type="button" data-wsv="hub">Continuar a operadores ${svg('next',18,2.2)}</button>`)}</section>`;
   }
   if(S.view==='hub'){
@@ -1040,8 +1059,9 @@ function vInicio(){setHead('Tablero',[['Inicio','inicio']]);
   return `<section class="glass panel empty"><span class="tag">AL FINAL</span><h2>Tablero del Analista</h2><p>Se diseña al final, cuando los formatos ya generen datos: operaciones sobre takt, capacidad teórica, eficiencia de balanceo y estudios vencidos.</p></section>`;}
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
   return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="df">${svg('df',18)} Diagramas de flujo</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
+  ${vCatalogo()}
   <section class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
-  ${[['Plantas, líneas y estaciones','Jerarquía planta → línea → estación.'],['Takt de la línea','Demanda diaria, turnos y minutos disponibles por turno.'],['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
+  ${[['Takt de la línea','Demanda diaria, turnos y minutos disponibles por turno.'],['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
 
 /* ---------- render + eventos ---------- */
 function render(keep){
@@ -1080,7 +1100,7 @@ function render(keep){
   if(window.innerWidth<=700)v.querySelectorAll('section.panel').forEach(sec=>{const row=[...sec.children].find(c=>c.classList.contains('row'));if(!row||row.children.length<2)return;const g=row.lastElementChild;if(!g.querySelector('.btn')||g.querySelector('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-pcnew],[data-atnew],[data-dfnew],[data-go="ws-nuevo"]')||g.matches('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-go="ws-nuevo"]'))return;g.classList.add('mobfoot');sec.appendChild(g);});
   requestAnimationFrame(()=>{document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');document.querySelectorAll('.vfill').forEach(f=>f.style.height=f.dataset.h+'%');});
   if(!keep)window.scrollTo({top:0});
-  if(typeof storeDecorate==='function'&&STORE.ready){storeDecorate();storeChip();}
+  if(typeof storeDecorate==='function'&&STORE.ready){storeDecorate();storeChip();ubicDecorate();}
 }
 
 let ASK=null;
@@ -1181,7 +1201,7 @@ const DS={studies:[],d:null,view:'info',sel:null,scen:{add:'',pct:''},run:null,c
 const blankCur=(p)=>({name:'',material:p?p.material:'',racks:p?p.racks:'',snp:p?p.snp:'',parte:p?p.parte:'',va:true});
 const mm=s=>{s=Math.max(0,s);const m=Math.floor(s/60);const r=s-m*60;return String(m).padStart(2,'0')+':'+r.toFixed(1).padStart(4,'0');};
 const f2=x=>(Math.round(x*100)/100).toFixed(2);
-function dsNew(kind){DS.d={kind:kind||'ds',id:nid(),titulo:'',observador:'',area:'',parte:'',ciclos:'10',fecha:hoyLocal(new Date()),periodo:'hora',disp:60,obj:'',acts:[],ops:[],assign:{},estado:'Abierto'};DS.view='info';DS.sel=null;DS.scen={add:'',pct:''};DS.run=null;DS.cur=blankCur();DS.op=null;}
+function dsNew(kind){DS.d={kind:kind||'ds',id:nid(),ubic:{},titulo:'',observador:'',area:'',parte:'',ciclos:'10',fecha:hoyLocal(new Date()),periodo:'hora',disp:60,obj:'',acts:[],ops:[],assign:{},estado:'Abierto'};DS.view='info';DS.sel=null;DS.scen={add:'',pct:''};DS.run=null;DS.cur=blankCur();DS.op=null;}
 function dsOp(){return DS.d&&DS.d.ops.find(o=>o.id===DS.op);}
 function dsSeq(d,cap){return d.acts.filter(a=>a.cap===cap);}
 function dsScenTxt(d){const a=num(DS.scen.add),p=num(DS.scen.pct);if(!a&&!p)return 'Objetivos actuales de cada operador';
@@ -1260,7 +1280,7 @@ function vDS(){
       <label>Observador<input name="observador" value="${esc(d.observador)}" placeholder="Nombre"></label>
       <label>Área de análisis<input name="area" value="${esc(d.area)}" placeholder="Ej. Ensamble de poleas"></label>
       <label>Fecha<input type="date" name="fecha" value="${esc(d.fecha)}"></label>
-    </form>
+    </form>${ubicPicker(d.kind||'ds',d)}
     <div style="margin-top:22px"><b style="font-size:17px">Periodo de análisis</b><p class="sub">¿Contra qué tiempo se mide la ocupación?</p></div>
     <div class="chips" style="margin-top:12px" role="group" aria-label="Periodo">${PERIODS.map(([k,l,m])=>`<button type="button" class="chip" data-dsper="${k}" aria-pressed="${d.periodo===k}"><span>${l}</span>${m?`<span class="mono">${m} min</span>`:''}</button>`).join('')}</div>
     <div class="form" style="margin-top:14px">
@@ -1460,7 +1480,7 @@ function weInfo(d,del){
       <label>Analista<input name="observador" value="${esc(d.observador)}" placeholder="Nombre"></label>
       <label>Área<input name="area" value="${esc(d.area)}" placeholder="Ej. Ensamble de válvula"></label>
       <label>Fecha<input type="date" name="fecha" value="${esc(d.fecha)}"></label>
-    </form>
+    </form>${ubicPicker(d.kind||'ds',d)}
     <div style="margin-top:22px"><b style="font-size:17px">¿Cómo se mide la ocupación?</b><p class="sub">Por hora con el JPH, o contra el tiempo ciclo de la línea con 1 pieza</p></div>
     <div class="chips" style="margin-top:12px" role="group" aria-label="Base de medición">${WE_BASES.map(([k,l,m])=>`<button type="button" class="chip" data-dsper="${k}" aria-pressed="${d.periodo===k}"><span>${l}</span>${m?`<span class="mono">${m} min</span>`:''}</button>`).join('')}</div>
     <div class="form" style="margin-top:14px">
@@ -1657,7 +1677,7 @@ const moneyC=x=>{const a=Math.abs(x);return a>=1e9?'$'+(x/1e9).toFixed(2)+' mil 
 // Dinero: la coma es separador de miles (25,000 = 25000), no decimal
 function moneyNum(v){const x=parseFloat(String(v??'').replace(/[^0-9.\-]/g,''));return isNaN(x)?0:x;}
 const moneyFmt=v=>{const x=moneyNum(v);return String(v??'').trim()===''?'':x.toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});};
-function stNew(){const now=new Date();ST.d={id:nid(),parte:'',proceso:'',modelo:'',costo:'',tcobj:'',analista:'',periodo:hoyLocal(now),paro:'0',oeePlan:'85',hd:'22.5',dw:'6',wm:'4',
+function stNew(){const now=new Date();ST.d={id:nid(),ubic:{},parte:'',proceso:'',modelo:'',costo:'',tcobj:'',analista:'',periodo:hoyLocal(now),paro:'0',oeePlan:'85',hd:'22.5',dw:'6',wm:'4',
   fecha:now.toLocaleString('es-MX',{dateStyle:'medium',timeStyle:'short'}),recs:[],estado:'Abierto'};ST.view='info';ST.run=null;ST.cur={cause:'',prob:'',probId:null};ST.miss=[];ST.newp=null;}
 function stC(d){return stCalc(d.recs,d.tcobj,d.paro);}
 const causeLbl=c=>c?c+'. '+ST_CAUSES[+c-1]:'—';
@@ -1867,7 +1887,7 @@ function vST(){
       <label class="${ST.miss.includes('costo')?'miss':''}">Costo unitario <span class="req" aria-hidden="true">*</span><span class="moneybox"><span class="mono">$</span><input name="costo" value="${esc(moneyFmt(d.costo))}" placeholder="0.00" inputmode="decimal" data-money="1" aria-required="true"><span class="u">MXN</span></span></label>${f('tcobj','Tiempo ciclo objetivo (min)','Ej. 1.20','inputmode="decimal"')}${f('analista','Nombre del analista','Nombre')}
       ${f('periodo','Periodo de análisis','Ej. 2026-11-10 turno 1')}
       <label>Paro programado (min)<input name="paro" value="${esc(d.paro)}" inputmode="decimal" placeholder="0"></label>
-    </form>
+    </form>${ubicPicker('st',d)}
     <div style="margin-top:22px"><b style="font-size:17px">Supuestos para la proyección de costo</b><p class="sub">Cada empresa los maneja distinto: escríbelos de acuerdo a la planta</p></div>
     <form class="form" id="sth2" style="margin-top:12px" onsubmit="return false">
 
@@ -2053,7 +2073,7 @@ const MM_ACTS=['SOPLETEO','INSPECCIÓN VISUAL','INSPECCIÓN CON CALIBRADOR','CAL
 const MM_REQ=[['linea','Línea / celda'],['analista','Analista']];
 const mmName=d=>d.linea||'Nuevo Man Machine';
 function mmSt(kind,name){return {id:nid(),name,kind,n:1,tcs:kind==='maq'?['']:[],tcplan:'',cd:kind==='maq'||kind==='man'?'0.06':'0.03',man:[],pasos:'',ov:{}};}
-function mmNew(){const now=new Date();MM.d={id:nid(),linea:'',analista:'',parte:'',fecha:hoyLocal(now),mpp:'0.7',tcobj:'',oeePlan:'85',hd:'22.5',dw:'6',wm:'4',sts:[],lay:null,estado:'Abierto'};MM.view='info';MM.run=null;MM.sel=null;MM.miss=[];MM.open=null;}
+function mmNew(){const now=new Date();MM.d={id:nid(),ubic:{},linea:'',analista:'',parte:'',fecha:hoyLocal(now),mpp:'0.7',tcobj:'',oeePlan:'85',hd:'22.5',dw:'6',wm:'4',sts:[],lay:null,estado:'Abierto'};MM.view='info';MM.run=null;MM.sel=null;MM.miss=[];MM.open=null;}
 const MM_EXAMPLE=[['ent','ENTRADA',0,1],['maq','MAQUINA 1',0.908,2],['maq','MAQUINA 2',0.715,2],['maq','MAQUINA 3',1.12,3],['maq','MAQUINA 4',1.09,4],['maq','MAQUINA 5',0.87,4],['maq','MAQUINA 6',0.974,3],['sal','SALIDA',0,2]];
 const mmKindLbl={maq:'MÁQUINA',man:'ESTACIÓN MANUAL',ent:'ENTRADA',sal:'SALIDA'};
 function mmAddSt(d,k){const cnt=d.sts.filter(s=>s.kind===k).length;return mmSt(k,k==='maq'?'MAQUINA '+(cnt+1):k==='man'?'ESTACION MANUAL '+(cnt+1):mmKindLbl[k]);}
@@ -2241,7 +2261,7 @@ function vMM(){
       <label>Fecha<input name="fecha" type="date" value="${esc(d.fecha)}"></label>
       <label>Metros por paso <span class="hint">largo de un paso del operador · pasos × metros = distancia que camina por vuelta</span><input name="mpp" value="${esc(d.mpp)}" inputmode="decimal" placeholder="0.7"></label>
       <label>TC objetivo de la línea (min) <span class="hint">para JPH objetivo y ocupación de máquinas</span><input name="tcobj" value="${esc(d.tcobj)}" inputmode="decimal" placeholder="Ej. 1.20"></label>
-    </form>
+    </form>${ubicPicker('mm',d)}
     <div style="margin-top:22px"><b style="font-size:17px">Supuestos para las proyecciones</b><p class="sub">Igual que en el Speed Trial: escríbelos de acuerdo a la planta</p></div>
     <form class="form" id="mmh2" style="margin-top:12px" onsubmit="return false">
       <label>OEE plan (%) <span class="hint">estándar 85 · JPH plan = (60 ÷ TC objetivo) × OEE plan</span><input name="oeePlan" value="${esc(d.oeePlan)}" inputmode="decimal" placeholder="85"></label>
@@ -2404,7 +2424,7 @@ const SM_ACTS=[['PREPARAR HERRAMIENTA','Preparación'],['BUSCAR HERRAMIENTA','B�
 const SM_EXAMPLE=[['BUSCAR HERRAMIENTA','Búsqueda y traslado',4.5],['TRASLADO DE DADO NUEVO','Búsqueda y traslado',6],['AFLOJAR TORNILLOS DEL DADO','Montaje y desmontaje',2.5],['QUITAR DADO','Montaje y desmontaje',3],['LIMPIEZA DE MESA','Limpieza',2],['COLOCAR DADO NUEVO','Montaje y desmontaje',3.5],['APRETAR TORNILLOS','Montaje y desmontaje',2.5],['AJUSTE DE ALTURA','Ajustes y pruebas',5],['ESPERA DE INSPECTOR','Espera',4],['PRIMERA PIEZA E INSPECCIÓN','Ajustes y pruebas',6],['REGRESAR DADO ANTERIOR','Búsqueda y traslado',5]];
 const SM_CLS={I:['Interno','máquina parada'],E:['Externo','con la máquina corriendo'],X:['Eliminar','no agrega valor']};
 const smName=d=>[d.linea,d.de&&d.a?d.de+' → '+d.a:''].filter(Boolean).join(' · ')||'Nuevo SMED';
-function smNewStudy(){const now=new Date();SM.d={id:nid(),linea:'',analista:'',de:'',a:'',personas:'1',fecha:hoyLocal(now),tcobj:'',cpw:'',wm:'4',steps:[],estado:'Abierto'};SM.view='info';SM.run=null;SM.cur={desc:'',cat:''};SM.miss=[];}
+function smNewStudy(){const now=new Date();SM.d={id:nid(),ubic:{},linea:'',analista:'',de:'',a:'',personas:'1',fecha:hoyLocal(now),tcobj:'',cpw:'',wm:'4',steps:[],estado:'Abierto'};SM.view='info';SM.run=null;SM.cur={desc:'',cat:''};SM.miss=[];}
 function vSMList(){
   setHead('SMED',[['Estudios','estudios'],['SMED','sm']]);
   return `<section class="glass panel">
@@ -2449,7 +2469,7 @@ function vSM(){
       <label>Modelo que entra<input name="a" value="${esc(d.a)}" placeholder="Ej. MOD-B"></label>
       <label>Personas en el cambio<input name="personas" value="${esc(d.personas)}" inputmode="decimal"></label>
       <label>Fecha<input name="fecha" type="date" value="${esc(d.fecha)}"></label>
-    </form>
+    </form>${ubicPicker('sm',d)}
     <div style="margin-top:22px"><b style="font-size:17px">Para las proyecciones</b><p class="sub">Opcionales: piezas y horas recuperadas por semana, mes y año</p></div>
     <form class="form" id="smh2" style="margin-top:12px" onsubmit="return false">
       <label>TC objetivo (min) <span class="hint">piezas que se dejan de hacer por cada minuto de paro</span><input name="tcobj" value="${esc(d.tcobj)}" inputmode="decimal" placeholder="Ej. 1.20"></label>
@@ -2606,7 +2626,7 @@ const pcMonthLbl=(d,i)=>PC_MONTHS[i]+' '+(2000+d.fy+(i<9?0:1));
 const nInt=v=>Math.round(v).toLocaleString('es-MX');
 const pcIntFmt=v=>{if(String(v??'').trim()==='')return '';const x=pcInt(v);return x.toLocaleString('en-US',{maximumFractionDigits:2});};
 function pcNewRow(name){return {id:nid(),nombre:name||'',parte:'',proceso:'',dias:'',hd:'',tpm:'',dom:'',oee:'85',jph:'',op:'',ld:'',sup:'',hcTpm:'',hcProy:'',hcOtros:'',vol:'',esq:''};}
-function pcNew(){PC.d={id:nid(),nombre:'',tipo:'MAQUINADO',fy:pcFY(),red:'5',months:Array(12).fill(null),estado:'Abierto',fecha:hoyLocal(new Date())};PC.view='info';PC.m=0;PC.open=null;PC.miss=[];}
+function pcNew(){PC.d={id:nid(),ubic:{},nombre:'',tipo:'MAQUINADO',fy:pcFY(),red:'5',months:Array(12).fill(null),estado:'Abierto',fecha:hoyLocal(new Date())};PC.view='info';PC.m=0;PC.open=null;PC.miss=[];}
 const PC_EXAMPLE=[
   {nombre:'LINEA 1',parte:'MOD-A',proceso:'MAQUINADO',dias:26,hd:22.5,tpm:2,dom:4,oee:70,jph:30,op:5,ld:1,sup:1,hcTpm:1,hcProy:1,hcOtros:5,vol:15000,esq:'C'},
   {nombre:'LINEA 2',parte:'MOD-B',proceso:'MAQUINADO',dias:26,hd:22.5,tpm:1,dom:4,oee:86,jph:50,op:5,ld:1,sup:1,hcTpm:3,hcProy:2,hcOtros:1,vol:20000,esq:'C'},
@@ -2708,7 +2728,7 @@ function vPC(){
     <form class="form" id="pch" style="margin-top:18px" onsubmit="return false">
       <label class="${PC.miss.includes('nombre')?'miss':''}">Nombre del área <span class="req" aria-hidden="true">*</span><input name="nombre" value="${esc(d.nombre)}" placeholder="Ej. MAQUINADO PLANTA 1" autocomplete="off"></label>
       <label>% de reducción anual (objetivo)<input name="red" value="${esc(d.red)}" inputmode="decimal" autocomplete="off"></label>
-    </form>
+    </form>${ubicPicker('pc',d)}
     <div style="margin-top:16px"><span class="mmlbl">Tipo de área</span><div class="chips">${PC_TIPOS.map(t=>`<button type="button" class="chip" data-pctipo="${t}" aria-pressed="${d.tipo===t}">${t}</button>`).join('')}</div>
       ${d.tipo==='OTRO'?`<label class="form" style="display:block;margin-top:10px;max-width:420px"><span style="display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px">¿Qué área es?</span><input id="pctipootro" data-pctipootro="1" value="${esc(d.tipoOtro||'')}" placeholder="Ej. PINTURA" autocomplete="off" style="width:100%"></label>`:''}</div>
     <div style="margin-top:16px"><span class="mmlbl">Año fiscal <span class="hint">abril a marzo</span></span><div class="chips">${fys.map(f=>`<button type="button" class="chip" data-pcfy="${f}" aria-pressed="${d.fy===f}">FY${String(f).padStart(2,'0')} · abr ${2000+f} – mar ${2000+f+1}</button>`).join('')}</div></div>`;
@@ -2873,7 +2893,7 @@ const atEmptyAf=()=>({tecnico:'',evento:'',tpm:'',proyectos:'',otros:''});
 const atNewPart=()=>({id:nid(),parte:'',st:'',lat:'',prod:''});
 function atNewMonth(){return {partes:[atNewPart()],horasTrab:'',afect:atEmptyAf(),dias:'',horasDia:'22.5',hcPlan:'',jphCommit:'',gruposCommit:'',gruposReal:'',hcRes:'',jphRes:'',sv:'',lider:'',otrosInd:'',dst:'',
   mh:{horasTrab:'',afect:atEmptyAf(),hcPlan:'',hcRes:'',sv:'',lider:'',otrosInd:''}};}
-function atNew(){AT.d={id:nid(),nombre:'',tipo:'ENSAMBLE',tipoOtro:'',mh:true,fy:pcFY(),months:Array(12).fill(null)};AT.view='info';AT.m=null;AT.area='ens';AT.cm=null;AT.miss=[];}
+function atNew(){AT.d={id:nid(),ubic:{},nombre:'',tipo:'ENSAMBLE',tipoOtro:'',mh:true,fy:pcFY(),months:Array(12).fill(null)};AT.view='info';AT.m=null;AT.area='ens';AT.cm=null;AT.miss=[];}
 const atR=(m,area)=>m?(area==='mh'?atMH(m):atMonth(m)):null;
 const atAll=(d,area)=>d.months.map(m=>atR(m,area));
 const atClone=m=>{const c=JSON.parse(JSON.stringify(m));c.partes.forEach(p=>p.id=nid());return c;};
@@ -3035,7 +3055,7 @@ function vAT(){
       <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn" type="button" data-atv="mes" data-atneed="1">Continuar a meses ${svg('next',18,2.2)}</button></div></div>
     <form class="form" id="ath" style="margin-top:18px" onsubmit="return false">
       <label class="${AT.miss.includes('nombre')?'miss':''}">Nombre del área <span class="req" aria-hidden="true">*</span><input name="nombre" value="${esc(d.nombre)}" placeholder="Ej. ENSAMBLE PLANTA 1" autocomplete="off"></label>
-    </form>
+    </form>${ubicPicker('at',d)}
     <div style="margin-top:16px"><span class="mmlbl">Tipo de área</span><div class="chips">${AT_TIPOS.map(t=>`<button type="button" class="chip" data-attipo="${t}" aria-pressed="${d.tipo===t}">${t}</button>`).join('')}</div>
       ${d.tipo==='OTRO'?`<label class="form" style="display:block;margin-top:10px;max-width:420px"><span style="display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px">¿Qué área es?</span><input data-attipootro="1" value="${esc(d.tipoOtro||'')}" placeholder="Ej. PINTURA" autocomplete="off" style="width:100%"></label>`:''}
       <p class="sub" style="margin-top:8px">${d.tipo==='ENSAMBLE'?'Tiempo por pieza: <b>ST</b> (tiempo estándar planeado). Incluye DSTR.':'Tiempo por pieza: <b>LAT</b> (Line Actual Time de Cálculo de personal).'+(atIsJPMH(d)?' Incluye JPMH.':'')}</p></div>
@@ -3164,7 +3184,7 @@ const ecFys=()=>[...new Set(AT.studies.map(s=>s.fy))].sort((a,b)=>b-a);
 function ecData(fy){const list=AT.studies.filter(s=>s.fy===fy).map(st=>{const prev=AT.studies.find(p=>p.fy===fy-1&&p.tipo===st.tipo&&String(p.nombre).trim()===String(st.nombre).trim());
     return Object.assign({st,lbl:ecLbl(st)},ecSeries(st,prev));}).filter(L=>L.months.some(Boolean));
   list.forEach((L,i)=>L.col=EC_COL[i%EC_COL.length]);return {list,plant:ecPlant(list)};}
-function ecExample(){const a={id:nid(),nombre:'ENSAMBLE PLANTA 1',tipo:'ENSAMBLE',tipoOtro:'',mh:true,fy:pcFY(),months:Array(12).fill(null)};atExample(a);
+function ecExample(){const a={id:nid(),ubic:{},nombre:'ENSAMBLE PLANTA 1',tipo:'ENSAMBLE',tipoOtro:'',mh:true,fy:pcFY(),months:Array(12).fill(null)};atExample(a);
   const b={id:nid(),nombre:'MAQUINADO PLANTA 1',tipo:'MAQUINADO',tipoOtro:'',mh:false,fy:pcFY(),months:Array(12).fill(null)};atExample(b);
   AT.studies.unshift(b);AT.studies.unshift(a);EC.fy=pcFY();}
 const ecPts=v=>v==null?'':`<small class="ecd" style="color:${v>0.0005?'#15803D':v<-0.0005?'#B42318':'var(--muted)'}">${v>0?'+':v<0?'−':''}${f1(Math.abs(v*100))} pts</small>`;
@@ -3282,7 +3302,7 @@ function dfPath(a,b,out,g){const[ra,ca]=a,[rb,cb]=b;const ax=g.cx(ca)+g.W/2,ay=g
 const DF={studies:[],d:null,view:'info',sel:null,last:null,focus:false,miss:[]};
 const DF_REQ=[['titulo','Título'],['analista','Analista']];
 const dfName=d=>d.titulo||'Nuevo diagrama';
-function dfNewStudy(){DF.d={id:nid(),titulo:'',proceso:'',area:'',analista:'',fecha:hoyLocal(new Date()),metodo:'ACTUAL',nodes:[],lay:{rows:5,cols:4,pos:{}}};DF.view='info';DF.sel=null;DF.last=null;DF.miss=[];}
+function dfNewStudy(){DF.d={id:nid(),ubic:{},titulo:'',proceso:'',area:'',analista:'',fecha:hoyLocal(new Date()),metodo:'ACTUAL',nodes:[],lay:{rows:5,cols:4,pos:{}}};DF.view='info';DF.sel=null;DF.last=null;DF.miss=[];}
 // Símbolo ASME dibujado en (x, y) = centro
 function dfShape(t,x,y,k){k=k||1;const s=v=>(v*k).toFixed(1);const X=v=>(x+v*k).toFixed(1),Y=v=>(y+v*k).toFixed(1);
   if(t==='op')return `<circle cx="${x}" cy="${y}" r="${s(19)}" class="dfs op"/>`;
@@ -3380,7 +3400,7 @@ function vDF(){
       <label>Área<input name="area" value="${esc(d.area)}" autocomplete="off"></label>
       <label class="${DF.miss.includes('analista')?'miss':''}">Analista <span class="req" aria-hidden="true">*</span><input name="analista" value="${esc(d.analista)}" autocomplete="off"></label>
       <label>Fecha<input name="fecha" type="date" value="${esc(d.fecha)}"></label>
-    </form>
+    </form>${ubicPicker('df',d)}
     <div style="margin-top:16px"><span class="mmlbl">Método</span><div class="chips">${['ACTUAL','PROPUESTO'].map(m=>`<button type="button" class="chip" data-dfmet="${m}" aria-pressed="${d.metodo===m}">${m==='ACTUAL'?'Actual (como se hace hoy)':'Propuesto (mejora)'}</button>`).join('')}</div></div>`;
   if(DF.view==='diag'){const W_=dfWarn(d);
     body=`<div class="row"><div><h2>Diagrama</h2><p class="sub">Arrastra un símbolo de la barra a la hoja (o tócalo para ponerlo debajo del último). Se abre una nube para escribir la acción y de qué paso viene. Toca un símbolo para editarlo; arrástralo para moverlo.</p></div>
@@ -3987,8 +4007,11 @@ function storeMaxId(o){let m=0;const seen=new Set();
 function storeStateOf(d,saved){if(!d||!d._uuid||!saved.has(d._uuid))return 'nuevo';return JSON.stringify(d)===saved.get(d._uuid)?'ok':'cambios';}
 // </store-pure>
 
-const STORE_SCHEMA={ws:1,ds:1,we:1,st:1,mm:1,sm:1,pc:1,at:1,df:1};  // versión actual de cada formato
+const STORE_SCHEMA={ws:2,ds:2,we:2,st:2,mm:2,sm:2,pc:2,at:2,df:2};  // versión actual de cada formato
 const STORE_MIGS={};                                                // STORE_MIGS[kind][v] = datos v → v+1
+// v1 → v2 (Fase 2, 2026-11-12): se agrega la ubicación en la jerarquía de planta; los estudios ya guardados quedan «Sin asignar».
+const storeMigUbic=d=>{d.ubic=d.ubic&&typeof d.ubic==='object'&&!Array.isArray(d.ubic)?d.ubic:{};return d;};
+['ws','ds','we','st','mm','sm','pc','at','df'].forEach(k=>{STORE_MIGS[k]=STORE_MIGS[k]||{};STORE_MIGS[k][1]=storeMigUbic;});
 const STORE_KINDS=['ws','ds','we','st','mm','sm','pc','at','df'];
 const STORE_ANALISIS=new Set(['pc','at','df']);                      // pueden guardarse a medias
 const storeBox=k=>({ws:S,ds:DS,we:DS,st:ST,mm:MM,sm:SM,pc:PC,at:AT,df:DF})[k];
@@ -4008,7 +4031,7 @@ async function storeInit(){
   try{
     const all=await storeTx(['estudios'],'readonly',tx=>storeReq(tx.objectStore('estudios').getAll()));
     const ajs=await storeTx(['ajustes'],'readonly',tx=>storeReq(tx.objectStore('ajustes').getAll()));
-    (ajs||[]).forEach(a=>{if(a.key==='stcat'&&a.value&&typeof a.value==='object')ST.cat=a.value;});
+    (ajs||[]).forEach(a=>{if(a.key==='stcat'&&a.value&&typeof a.value==='object')ST.cat=a.value;if(a.key==='catalogo'&&a.value&&Array.isArray(a.value.plantas))CAT.plantas=a.value.plantas;});
     const bad=[];
     (all||[]).sort((a,b)=>String(b.savedAt).localeCompare(String(a.savedAt))).forEach(env=>{
       if(!STORE_KINDS.includes(env.kind)){bad.push(env.uuid);return;}
@@ -4077,6 +4100,89 @@ window.addEventListener('beforeunload',e=>{if(storeUnsaved().length){e.preventDe
 // Gancho para las pruebas automáticas
 window.TaktStore={dump:k=>JSON.stringify(storeBox(k).studies.filter(d=>(k==='we')===(d.kind==='we')||!['ds','we'].includes(k))),ready:()=>STORE.ready,ok:()=>STORE.ok,err:()=>STORE.err,saved:()=>[...STORE.saved.keys()],unsaved:()=>storeUnsaved().length,uid:()=>uid,
   state:k=>{const[kk,d]=storeCurrent();return d?storeStateOf(d,STORE.saved):null;}};
+
+// ================= Jerarquía de planta: Planta → Área → Línea → Estación (Guardado Fase 2) =================
+// El catálogo vive aparte de los estudios; cada estudio guarda solo los identificadores (d.ubic = {planta, area, linea, estacion}).
+// Así, renombrar una línea no toca ningún estudio y el tablero podrá agrupar por línea.
+// El catálogo se guarda al momento en cada cambio (cada acción es completa: agregar, renombrar o quitar un nodo).
+const CAT={plantas:[]};
+const UB_LV=['planta','area','linea','estacion'];
+const UB_LBL={planta:'Planta',area:'Área',linea:'Línea',estacion:'Estación'};
+const UB_KIDS={planta:'areas',area:'lineas',linea:'estaciones'};
+// Hasta qué nivel llega el selector de cada formato, y qué nivel se pide (Angel, 2026-11-12). «Sin asignar» siempre se permite.
+const UB_DEEP={ws:4,ds:4,we:4,st:4,sm:4,mm:3,pc:2,at:2,df:3};
+const UB_REQ={ws:3,ds:3,we:3,st:3,sm:3,mm:3,pc:2,at:2,df:1};
+const UB={adding:null};            // nivel que se está agregando desde el selector
+const UBF={planta:'',area:'',linea:''};  // filtro de las listas
+// Hijos de un nodo (o las plantas si no hay padre)
+function ubKids(lv,parentId){if(lv==='planta')return CAT.plantas;const up=UB_LV[UB_LV.indexOf(lv)-1];const p=ubFind(up,parentId);return p?(p[UB_KIDS[up]]||(p[UB_KIDS[up]]=[])):[];}
+function ubFind(lv,id){if(!id)return null;const walk=(arr,l)=>{for(const n of arr||[]){if(l===lv&&n.id===id)return n;const k=UB_KIDS[l];if(k&&UB_LV.indexOf(l)<UB_LV.indexOf(lv)){const r=walk(n[k],UB_LV[UB_LV.indexOf(l)+1]);if(r)return r;}}return null;};return walk(CAT.plantas,'planta');}
+const ubOf=d=>d.ubic||(d.ubic={});
+function ubLabel(d){const u=d&&d.ubic||{};const names=UB_LV.map(l=>{const n=ubFind(l,u[l]);return n?n.nombre:null;}).filter(Boolean);return names.length?names.join(' › '):'Sin asignar';}
+function ubAllStudies(){const out=[];STORE_KINDS.forEach(k=>{if(k==='we')return;storeBox(k).studies.forEach(d=>out.push(d));});return out;}
+function ubUsed(lv,id){return ubAllStudies().filter(d=>d.ubic&&d.ubic[lv]===id).length;}
+function ubSubtreeUsed(lv,node){let n=ubUsed(lv,node.id);const k=UB_KIDS[lv];if(k)(node[k]||[]).forEach(c=>n+=ubSubtreeUsed(UB_LV[UB_LV.indexOf(lv)+1],c));return n;}
+function catSave(){if(storeTut())return;if(!STORE.ok){storeToast(STORE.err||'No se puede guardar en este navegador','err');return;}
+  storeTx(['ajustes'],'readwrite',tx=>tx.objectStore('ajustes').put({key:'catalogo',value:JSON.parse(JSON.stringify(CAT))})).catch(e=>{console.warn('[catálogo]',e);storeToast('No se pudo guardar el catálogo','err');});}
+function ubAdd(lv,parentId,nombre){const n={id:storeUUID(),nombre:String(nombre).trim().toLocaleUpperCase('es-MX')};if(UB_KIDS[lv])n[UB_KIDS[lv]]=[];ubKids(lv,parentId).push(n);catSave();return n;}
+
+// Selector de ubicación (va en la Información de cada formato)
+function ubicPicker(kind,d){const u=ubOf(d);const deep=UB_DEEP[kind]||3,req=UB_REQ[kind]||1;
+  const lvs=UB_LV.slice(0,deep);
+  const sel=(lv,i)=>{const parent=i?u[UB_LV[i-1]]:null;const off=i&&!parent;const opts=off?[]:ubKids(lv,parent);
+    return `<label class="ubicf ${i<req&&!u[lv]?'want':''}"><span>${UB_LBL[lv]}${i<req?' <span class="req" aria-hidden="true">*</span>':''}</span>
+      <span class="ubicsel"><select data-ubic="${lv}" ${off?'disabled':''}><option value="">${off?'Falta '+UB_LBL[UB_LV[i-1]].toLowerCase():'Sin asignar'}</option>${opts.map(n=>`<option value="${n.id}" ${u[lv]===n.id?'selected':''}>${esc(n.nombre)}</option>`).join('')}</select>
+      <button type="button" class="iconbtn" data-ubicnew="${lv}" ${off?'disabled':''} aria-label="Agregar ${UB_LBL[lv].toLowerCase()}" title="Agregar ${UB_LBL[lv].toLowerCase()}">${svg('plus',18,2.2)}</button></span></label>`;};
+  const adding=UB.adding&&lvs.includes(UB.adding)?`<div class="ubicadd"><input id="ubicnewin" autocomplete="off" placeholder="Nombre de la nueva ${UB_LBL[UB.adding].toLowerCase()}"><button type="button" class="btn sm" data-ubicadd="1">Agregar ${UB_LBL[UB.adding].toLowerCase()}</button><button type="button" class="btn ghost sm" data-ubiccancel="1">Cancelar</button></div>`:'';
+  return `<div class="ubic" style="margin-top:16px"><span class="mmlbl">Ubicación <span class="hint">se pide hasta ${UB_LBL[UB_LV[req-1]].toLowerCase()} · «Sin asignar» está permitido, pero así no aparecerá agrupado en el tablero</span></span>
+    <div class="ubicrow">${lvs.map(sel).join('')}</div>${adding}</div>`;}
+function ubSet(d,lv,val){const u=ubOf(d);const i=UB_LV.indexOf(lv);u[lv]=val||undefined;UB_LV.slice(i+1).forEach(l=>delete u[l]);if(!val)delete u[lv];}
+document.addEventListener('change',e=>{const s=e.target;if(!s.dataset)return;
+  if(s.dataset.ubic){const[,d]=storeCurrent();if(!d)return;ubSet(d,s.dataset.ubic,s.value);UB.adding=null;S.keep=true;render(true);S.keep=false;return;}
+  if(s.dataset.ubf){const i=UB_LV.indexOf(s.dataset.ubf);UBF[s.dataset.ubf]=s.value;UB_LV.slice(i+1).forEach(l=>{if(l in UBF)UBF[l]='';});S.keep=true;render(true);S.keep=false;return;}
+  if(s.dataset.catname){const[lv,id]=s.dataset.catname.split('|');const n=ubFind(lv,id);const v=s.value.trim().toLocaleUpperCase('es-MX');if(n&&v){n.nombre=v;catSave();storeToast('Guardado ✓');}else if(n)s.value=n.nombre;return;}});
+function ubAddFromPicker(){const[,d]=storeCurrent();const inp=document.getElementById('ubicnewin');if(!d||!inp||!inp.value.trim()||!UB.adding)return;
+  const lv=UB.adding;const i=UB_LV.indexOf(lv);const parent=i?ubOf(d)[UB_LV[i-1]]:null;if(i&&!parent)return;
+  const n=ubAdd(lv,parent,inp.value);ubSet(d,lv,n.id);UB.adding=null;storeToast(UB_LBL[lv]+' agregada al catálogo ✓');S.keep=true;render(true);S.keep=false;}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button');if(!b||b.disabled)return;const D=b.dataset;
+  if(D.ubicnew){UB.adding=D.ubicnew;S.keep=true;render(true);S.keep=false;const i=document.getElementById('ubicnewin');if(i)i.focus({preventScroll:true});return;}
+  if(D.ubiccancel){UB.adding=null;S.keep=true;render(true);S.keep=false;return;}
+  if(D.ubicadd){ubAddFromPicker();return;}
+  if(D.catadd!==undefined){const[lv,parent]=D.catadd.split('|');const inp=document.querySelector(`[data-catnew="${D.catadd}"]`);const v=inp&&inp.value.trim();
+    if(!v){if(inp){inp.focus();inp.classList.add('miss');}return;}ubAdd(lv,parent||null,v);storeToast(UB_LBL[lv]+' agregada ✓');S.keep=true;render(true);S.keep=false;
+    const ni=document.querySelector(`[data-catnew="${D.catadd}"]`);if(ni)ni.focus({preventScroll:true});return;}
+  if(D.catdel){const[lv,id]=D.catdel.split('|');const n=ubFind(lv,id);if(!n)return;const used=ubSubtreeUsed(lv,n);
+    if(used){storeToast('No se puede quitar «'+n.nombre+'»: la usan '+used+' estudio'+(used!==1?'s':'')+'. Cámbialos primero.','err');return;}
+    const k=UB_KIDS[lv];const kids=k?(n[k]||[]).length:0;
+    ask('¿Quitar '+UB_LBL[lv].toLowerCase()+' «'+n.nombre+'»?',kids?'También se quitan sus '+kids+' '+UB_LBL[UB_LV[UB_LV.indexOf(lv)+1]].toLowerCase()+(kids!==1?'s':'')+' y lo que tengan dentro. Ningún estudio las usa.':'Ningún estudio la usa.','Quitar',()=>{
+      const arr=lv==='planta'?CAT.plantas:(()=>{let found=null;const walk=(a,l)=>{(a||[]).forEach(x=>{const kk=UB_KIDS[l];if(kk&&(x[kk]||[]).some(c=>c.id===id))found=x[kk];else if(kk)walk(x[kk],UB_LV[UB_LV.indexOf(l)+1]);});};walk(CAT.plantas,'planta');return found;})();
+      if(arr){const j=arr.findIndex(x=>x.id===id);if(j>=0)arr.splice(j,1);}catSave();render(true);});return;}
+});
+document.addEventListener('keydown',e=>{if(e.key!=='Enter'||!e.target)return;
+  if(e.target.id==='ubicnewin'){e.preventDefault();ubAddFromPicker();return;}
+  if(e.target.dataset&&e.target.dataset.catnew!==undefined){e.preventDefault();const b=document.querySelector(`[data-catadd="${e.target.dataset.catnew}"]`);if(b)b.click();}});
+
+// Catálogo en Configuración
+function vCatalogo(){
+  const node=(lv,n)=>{const i=UB_LV.indexOf(lv);const k=UB_KIDS[lv];const used=ubUsed(lv,n.id);const child=UB_LV[i+1];
+    return `<div class="catn lv${i}"><div class="cath"><span class="catlv">${UB_LBL[lv]}</span><input data-catname="${lv}|${n.id}" value="${esc(n.nombre)}" aria-label="Nombre de ${UB_LBL[lv].toLowerCase()}" autocomplete="off">
+      <span class="sub" style="margin:0;white-space:nowrap">${used?used+' estudio'+(used!==1?'s':''):''}</span><button type="button" class="iconbtn" data-catdel="${lv}|${n.id}" aria-label="Quitar ${UB_LBL[lv].toLowerCase()} ${esc(n.nombre)}">${svg('trash',16)}</button></div>
+      ${k?`<div class="catk">${(n[k]||[]).map(c=>node(child,c)).join('')}${addRow(child,n.id)}</div>`:''}</div>`;};
+  const addRow=(lv,parent)=>`<div class="catadd"><input data-catnew="${lv}|${parent||''}" autocomplete="off" placeholder="Nueva ${UB_LBL[lv].toLowerCase()}"><button type="button" class="btn ghost sm" data-catadd="${lv}|${parent||''}">${svg('plus',16,2.2)} ${UB_LBL[lv]}</button></div>`;
+  return `<section class="glass panel" id="catalogo"><div class="row"><div><h2>Plantas, áreas, líneas y estaciones</h2><p class="sub">La ubicación de cada estudio. Renombrar no afecta los estudios; solo se puede quitar lo que ningún estudio usa. Se guarda al momento.</p></div></div>
+    <div class="catree">${CAT.plantas.map(p=>node('planta',p)).join('')||'<div class="slot empty" style="min-height:120px"><p>Aún no hay plantas. Agrega la primera; también puedes crearlas desde la Información de cualquier estudio.</p></div>'}${addRow('planta',null)}</div></section>`;}
+
+// Listas: ubicación de cada estudio + filtro por planta, área y línea
+function ubicDecorate(){if(storeTut())return;const rows=[...document.querySelectorAll('#view [data-sdel]')];const r=route();
+  const isList=['ws','ds','we','st','mm','sm','pc','at','df'].includes(r);if(!isList)return;
+  const panel=document.querySelector('#view section.panel');if(panel&&!panel.querySelector('.ubfilter')&&CAT.plantas.length){
+    const f=(lv,i)=>{const parent=i?UBF[UB_LV[i-1]]:null;const off=i&&!parent;const opts=off?[]:ubKids(lv,parent);
+      return `<label><span>${UB_LBL[lv]}</span><select data-ubf="${lv}" ${off?'disabled':''}><option value="">Todas</option>${opts.map(n=>`<option value="${n.id}" ${UBF[lv]===n.id?'selected':''}>${esc(n.nombre)}</option>`).join('')}</select></label>`;};
+    const head=panel.querySelector(':scope > .row');if(head)head.insertAdjacentHTML('afterend',`<div class="ubfilter">${['planta','area','linea'].map(f).join('')}</div>`);}
+  let hidden=0;rows.forEach(b=>{const[k,id]=b.dataset.sdel.split('|');const d=storeBox(k)&&storeBox(k).studies.find(x=>x.id==id);if(!d)return;const row=b.closest('.studyrow');if(!row)return;
+    const meta=row.querySelector('.meta > span');if(meta&&!meta.querySelector('.ubiclbl'))meta.insertAdjacentHTML('afterbegin',`<span class="ubiclbl">${esc(ubLabel(d))}</span> · `);
+    const u=d.ubic||{};const ok=['planta','area','linea'].every(l=>!UBF[l]||u[l]===UBF[l]);row.hidden=!ok;if(!ok)hidden++;});
+  if(hidden&&panel){const g=panel.querySelector('.grid');if(g&&!g.querySelector('.ubhidden'))g.insertAdjacentHTML('beforeend',`<p class="sub ubhidden">${hidden} estudio${hidden!==1?'s':''} oculto${hidden!==1?'s':''} por el filtro de ubicación.</p>`);}}
 
 // Arranque: primero se lee lo guardado y después se pinta la app
 storeInit().finally(()=>render());

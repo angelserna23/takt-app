@@ -84,6 +84,56 @@ with sync_playwright() as p:
     go(pg,'df');pg.locator('[data-sdel^="df|"]').first.click();pg.click('#modal [data-mok]');pg.wait_for_timeout(300)
     pg.reload();pg.wait_for_function('window.TaktStore&&TaktStore.ready()')
     check('df',pg.evaluate("JSON.parse(TaktStore.dump('df')).length")==0 and len(pg.evaluate('TaktStore.saved()'))==n0-1,'borrar lo quita del almacén')
+    # ================= Fase 2: jerarquía de planta =================
+    RL="pg.reload();pg.wait_for_function('window.TaktStore&&TaktStore.ready()')"
+    # --- migración real v1 → v2: un estudio guardado con el formato de antes (sin ubicación) ---
+    v1=json.loads(pg.evaluate("TaktStore.dump('sm')"))[0];v1.pop('ubic',None);v1['_uuid']='prueba-v1';v1['id']=999;v1['linea']='PRENSA V1'
+    pg.evaluate("""d=>new Promise((res,rej)=>{const r=indexedDB.open('takt',1);r.onsuccess=()=>{const tx=r.result.transaction(['estudios'],'readwrite');
+      tx.objectStore('estudios').put({uuid:'prueba-v1',kind:'sm',schema:1,createdAt:'2026-11-12T10:00:00Z',savedAt:'2026-11-12T10:00:00Z',data:d});tx.oncomplete=()=>{r.result.close();res(1)};tx.onerror=()=>rej(tx.error);};})""",v1)
+    exec(RL)
+    m=[x for x in json.loads(pg.evaluate("TaktStore.dump('sm')")) if x.get('_uuid')=='prueba-v1']
+    check('mig',len(m)==1 and m[0].get('ubic')=={} and m[0]['linea']=='PRENSA V1','estudio v1 se abre y queda «Sin asignar» (ubic vacía), sin perder datos')
+    sch=pg.evaluate("""()=>new Promise(res=>{const r=indexedDB.open('takt',1);r.onsuccess=()=>{const g=r.result.transaction(['estudios']).objectStore('estudios').get('prueba-v1');g.onsuccess=()=>{r.result.close();res(g.result.schema)}}})""")
+    check('mig',sch==2,f'y queda guardado ya migrado a la versión 2 (versión en almacén: {sch})')
+    # --- catálogo en Configuración ---
+    go(pg,'config')
+    pg.fill('[data-catnew="planta|"]','planta norte');pg.click('[data-catadd="planta|"]');pg.wait_for_timeout(150)
+    pid=pg.locator('[data-catname^="planta|"]').first.get_attribute('data-catname').split('|')[1]
+    pg.fill(f'[data-catnew="area|{pid}"]','ensamble');pg.press(f'[data-catnew="area|{pid}"]','Enter');pg.wait_for_timeout(150)
+    aid=pg.locator('[data-catname^="area|"]').first.get_attribute('data-catname').split('|')[1]
+    pg.fill(f'[data-catnew="linea|{aid}"]','línea 1');pg.click(f'[data-catadd="linea|{aid}"]');pg.wait_for_timeout(150)
+    check('cat',pg.locator('[data-catname^="planta|"]').first.input_value()=='PLANTA NORTE' and pg.locator('[data-catname^="linea|"]').count()==1,'agregar planta, área y línea (en MAYÚSCULAS)')
+    exec(RL);go(pg,'config')
+    check('cat',pg.locator('[data-catname^="linea|"]').count()==1 and pg.locator('[data-catname^="area|"]').first.input_value()=='ENSAMBLE','el catálogo sobrevive a la recarga')
+    # --- selector en un estudio: elegir planta y área, y crear la línea desde ahí ---
+    go(pg,'sm');en(pg,'#view [data-smnew]');pg.fill('input[name=linea]','prensa ubicada');pg.fill('input[name=analista]','jp')
+    pg.select_option('[data-ubic="planta"]',pid);pg.wait_for_timeout(120);pg.select_option('[data-ubic="area"]',aid);pg.wait_for_timeout(120)
+    en(pg,'[data-ubicnew="linea"]');pg.fill('#ubicnewin','línea 3');pg.press('#ubicnewin','Enter');pg.wait_for_timeout(200)
+    lab=pg.locator('[data-ubic="linea"] option:checked').inner_text()
+    check('ubic',lab=='LÍNEA 3','crear una línea desde el estudio la agrega al catálogo y la selecciona')
+    pg.fill('input[name=linea]','prensa ubicada')
+    en(pg,'[data-smneed]');en(pg,'[data-smexample]');en(pg,'[data-smv="anal"]');en(pg,'[data-smv="res"]');en(pg,'[data-smfinish]');pg.wait_for_timeout(300)
+    exec(RL);go(pg,'sm')
+    row=pg.locator('.studyrow').filter(has_text='PRENSA UBICADA')
+    check('ubic',row.count()==1 and 'PLANTA NORTE › ENSAMBLE › LÍNEA 3' in row.inner_text(),'la lista muestra la ubicación después de recargar')
+    # --- filtro por planta ---
+    total=pg.locator('.studyrow').count();pg.select_option('[data-ubf="planta"]',pid);pg.wait_for_timeout(150)
+    vis=pg.locator('.studyrow:not([hidden])').count()
+    check('ubic',vis==1 and total>1 and pg.locator('.ubhidden').count()==1,f'filtrar por planta deja solo los de esa planta ({vis} de {total})')
+    pg.select_option('[data-ubf="planta"]','');pg.wait_for_timeout(100)
+    # --- renombrar no ensucia estudios; quitar algo en uso no se permite ---
+    before=pg.evaluate("TaktStore.dump('sm')");go(pg,'config')
+    lid=[x.get_attribute('data-catname') for x in pg.locator('[data-catname^="linea|"]').all() if pg.locator(f'[data-catname="{x.get_attribute("data-catname")}"]').input_value()=='LÍNEA 3'][0]
+    pg.fill(f'[data-catname="{lid}"]','línea 3 norte');pg.press(f'[data-catname="{lid}"]','Tab');pg.wait_for_timeout(150)
+    go(pg,'sm');check('cat',pg.evaluate("TaktStore.dump('sm')")==before and 'LÍNEA 3 NORTE' in pg.locator('.studyrow').filter(has_text='PRENSA UBICADA').inner_text() and pg.locator('.savetag').count()==0,'renombrar cambia el nombre en la lista sin tocar los estudios')
+    go(pg,'config');pg.click(f'[data-catdel="{lid}"]');pg.wait_for_timeout(200)
+    check('cat',pg.locator(f'[data-catname="{lid}"]').count()==1 and pg.locator('#savetoast.err').count()==1,'no deja quitar una línea que usa un estudio')
+    pg.click(f'[data-catdel="planta|{pid}"]');pg.wait_for_timeout(200)
+    check('cat',pg.locator(f'[data-catname="planta|{pid}"]').count()==1,'tampoco la planta que la contiene')
+    # una línea sin estudios sí se puede quitar
+    lid1=[x.get_attribute('data-catname') for x in pg.locator('[data-catname^="linea|"]').all() if pg.locator(f'[data-catname="{x.get_attribute("data-catname")}"]').input_value()=='LÍNEA 1'][0]
+    pg.click(f'[data-catdel="{lid1}"]');pg.click('#modal [data-mok]');pg.wait_for_timeout(150);exec(RL);go(pg,'config')
+    check('cat',pg.locator(f'[data-catname="{lid1}"]').count()==0,'una línea sin estudios sí se quita (y queda quitada al recargar)')
     # ---- Puesto en lugar del nombre ----
     go(pg,'ws');en(pg,'#view [data-go="ws-nuevo"]');en(pg,'[data-wsv="hub"]');en(pg,'[data-enter]')
     check('ws',pg.locator('text=Puesto').count()>=1 and pg.locator('text=Nombre del operador').count()==0,'el campo dice «Puesto», no nombre')

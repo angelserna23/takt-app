@@ -264,8 +264,15 @@ Errores encontrados y corregidos en esta fase:
 
 Pruebas: `parts/storetest.js` (15 casos: UUID, sobre, migraciones en cadena, contador de IDs, estado; lee el bloque `<store-pure>` de index.html) y `tests/smoke/smoke_store.py` (9 formatos: guardar → recargar → datos idénticos; OEE 91.1 % al reabrir; cambios sin guardar y descartar; nuevo sin guardar no sobrevive; tutorial sin rastro; borrar; fecha local; «Puesto»). Ambas en `tests/correr_pruebas.sh`.
 
+**Fase 2 — LISTA (2026-11-12): jerarquía de planta**
+- Catálogo **Planta → Área → Línea → Estación** en Configuración (árbol: agregar, renombrar, quitar). Se guarda al momento en cada acción (cada acción es completa). Nombres en MAYÚSCULAS.
+- Los estudios guardan solo los identificadores (`d.ubic = {planta, area, linea, estacion}`, UUID): **renombrar no toca ningún estudio** (no aparecen «cambios sin guardar»). **No se puede quitar** un nodo que use algún estudio (ni sus padres); lo que nadie usa sí, con confirmación.
+- Selector de ubicación en la Información de los 9 formatos, en cascada, con «Sin asignar». Llega hasta: estación en WS, DS, WE, ST y SMED; línea en Man Machine y Diagramas; área en Personal y Actual Time. Pide (marca *): línea en estudios de tiempos, SMED y Man Machine; área en Personal y Actual Time; planta en Diagramas. Botón «+» para crear el nodo desde el estudio, sin ir a Configuración.
+- Listas: muestran la ubicación de cada estudio y filtro por planta, área y línea (aparece cuando hay plantas).
+- **Primera migración real v1 → v2** en los 9 formatos: los estudios guardados antes quedan «Sin asignar» y se reescriben ya migrados. Probado con un estudio v1 inyectado en el almacén.
+- Pendiente para cuando aplique: ligar el «Tipo de área» de Personal/Actual Time con el Área del catálogo (hoy son independientes).
+
 Siguiente:
-- **Fase 2:** catálogo Planta → Área → Línea → Estación en Configuración, selector en la Información de cada formato y filtros en las listas (con migración v1 → v2 de los estudios ya guardados: quedan «Sin asignar»).
 - **Fase 3:** avisos de almacenamiento lleno o no disponible visibles en pantalla (hoy: mensaje al guardar) y persistencia de los ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Después (otra etapa): servidor, cuentas y sincronización; exportación PDF/Excel casi al final.
 
@@ -290,7 +297,7 @@ Siguiente:
 
 ## Hoja de ruta acordada (actualizada 2026-11-12, tras el análisis de brechas)
 - Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo, Aprende (9 tutoriales).
-- **Guardado de estudios** = modelo de datos + jerarquía + guardado local sin conexión: Fase 1 lista (2026-11-12); siguen Fase 2 (jerarquía) y Fase 3. La **exportación PDF/Excel** sigue casi al final. Angel aceptó mover el guardado al frente (2026-11-12) porque el tablero, los estudios vencidos, el antes/después y los pagos dependen de datos guardados.
+- **Guardado de estudios** = modelo de datos + jerarquía + guardado local sin conexión: Fases 1 y 2 listas (2026-11-12); sigue Fase 3. La **exportación PDF/Excel** sigue casi al final. Angel aceptó mover el guardado al frente (2026-11-12) porque el tablero, los estudios vencidos, el antes/después y los pagos dependen de datos guardados.
 - Después (chat nuevo): estudios complementarios. Angel elige cuáles; algunos pueden ser problemáticos (licencias, alcance).
 - Luego: Inicio (tablero) → diseño final → pagos → exportación PDF/Excel.
 - Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.

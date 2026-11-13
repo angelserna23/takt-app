@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: **Guardado · Fase 2 (jerarquía Planta → Área → Línea → Estación)**. Lee la sección «Guardado de estudios» de `docs/decisiones-mvp.md`. Después, en otro chat, los estudios complementarios.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: **estudios complementarios** (Angel elige cuáles; ver «Análisis de brechas» en `docs/decisiones-mvp.md`). El guardado (Fases 1 y 2) ya está; la Fase 3 es menor.
 
 ## Pasos para Claude al iniciar
 
@@ -33,11 +33,13 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
 
-## Estado al 2026-11-12 (noche, guardado Fase 1)
+## Estado al 2026-11-12 (noche, guardado Fases 1 y 2)
 
-- Listos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo, Aprende (9 tutoriales) y **Guardado Fase 1** (almacén IndexedDB con sobre, versiones y migraciones; «Guardar» explícito todo o nada; SIN GUARDAR / CAMBIOS SIN GUARDAR / Descartar; aviso al salir; tutoriales sin rastro; «Puesto» en lugar de nombre).
-- Corregido: fechas en hora universal (ya son locales) y FINALIZADO en Man Machine y SMED.
-- Pruebas: `bash tests/correr_pruebas.sh` = 12 de cálculo/lógica (incluye `tuttest` y `storetest`) + guardado de los 9 formatos + 9 tutoriales en 3 dispositivos (≈ 5 min). Rutina obligatoria antes de cada commit.
-- **Regla nueva:** si cambia la forma de los datos de un formato, se sube su versión en `STORE_SCHEMA` y se agrega su migración en `STORE_MIGS` con prueba.
-- Siguiente: Guardado Fase 2 (jerarquía) y Fase 3; luego, en otro chat, estudios complementarios (Angel elige). Exportación PDF/Excel casi al final.
+- Listos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo, Aprende (9 tutoriales) y **Guardado**:
+  - Fase 1: almacén IndexedDB con sobre, versiones y migraciones; «Guardar» explícito todo o nada; SIN GUARDAR / CAMBIOS SIN GUARDAR / Descartar; aviso al salir; tutoriales sin rastro; «Puesto» en lugar de nombre; fechas locales.
+  - Fase 2: catálogo Planta → Área → Línea → Estación en Configuración; selector en los 9 formatos (con «+» para crear desde el estudio); filtros y ubicación en las listas; migración v1 → v2.
+- Pruebas: `bash tests/correr_pruebas.sh` = 12 de cálculo/lógica + guardado y jerarquía + 9 tutoriales en 3 dispositivos (≈ 5 min). Obligatoria antes de cada commit.
+- **Reglas:** si cambia la forma de los datos de un formato, se sube su versión en `STORE_SCHEMA` y se agrega su migración en `STORE_MIGS` con prueba. Los estudios guardan identificadores del catálogo, nunca nombres.
+- Fase 3 (menor, cuando convenga): avisos visibles de almacenamiento lleno o no disponible; recordar filtros y FY de Eficiencia compuesta.
+- Siguiente: estudios complementarios en un chat nuevo. Exportación PDF/Excel casi al final.
 - Pendiente menor: `smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores; actualizarlas o quitarlas.
