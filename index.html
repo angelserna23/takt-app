@@ -690,6 +690,16 @@ body.tutoring #view{padding-bottom:110px}
 @media (max-width:700px){.tutbar{left:8px;right:8px;bottom:8px;transform:none;justify-content:space-between}.tutb span{display:none}.tutb{flex:1}}
 .tutend{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(27,36,48,.28);pointer-events:auto}
 .tutend[hidden]{display:none}.tutend .mbox{max-width:520px;width:100%}
+/* ---- guardado ---- */
+.savechip{display:inline-flex;align-items:center;margin-left:10px;padding:2px 10px;border-radius:999px;font:600 12px 'IBM Plex Sans',sans-serif;vertical-align:middle}
+.savechip[hidden]{display:none}
+.savechip.ok{background:rgba(21,128,61,.10);color:#15803D}
+.savechip.nuevo,.savechip.cambios{background:rgba(194,65,12,.12);color:#9A3412}
+.tag.savetag{margin-left:6px;vertical-align:2px;background:rgba(194,65,12,.12);color:#9A3412}
+.savediscard{align-self:center;margin-right:6px}
+#savetoast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;z-index:950;padding:12px 18px;border-radius:14px;background:#1B2430;color:#fff;font:600 14px 'IBM Plex Sans',sans-serif;box-shadow:0 12px 30px rgba(27,36,48,.3);transition:all .2s ease;pointer-events:none}
+#savetoast.show{opacity:1;transform:translate(-50%,0)}#savetoast.err{background:#B42318}
+@media (max-width:700px){#savetoast{bottom:96px}}
 </style>
 </head>
 <body>
@@ -710,7 +720,7 @@ body.tutoring #view{padding-bottom:110px}
       <button class="btn ghost sm backall" id="backall" type="button" data-go="estudios" hidden aria-label="Regresar a todos los estudios"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg><span>Todos los estudios</span></button>
       <div style="flex:1 1 260px;min-width:0">
         <h1 id="title">Estudios</h1>
-        <div class="crumbs" id="crumbs"></div>
+        <div class="crumbs" id="crumbs"></div><span id="savechip" class="savechip" hidden></span>
       </div>
       <label class="field search" style="flex:0 1 280px;min-width:180px">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5F6B78" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
@@ -815,6 +825,8 @@ const TEMPLATE=['Inspección visual','Marcar','Inspección con lima','Inspecció
 const defaultActs=()=>TEMPLATE.map((n,i)=>({id:i+1,name:n.replace('*','').toUpperCase(),nec:n[0]!=='*'}));
 const S={studies:[],draft:null,view:'hdr',opId:null,keep:false};
 let uid=1000;const nid=()=>++uid;
+// Fecha de hoy en la hora local (no en hora universal: en México, después de las 6 p. m. la UTC ya es mañana)
+const hoyLocal=(d=new Date())=>{const z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());};
 const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['pc','Cálculo de personal'],['at','Actual Time'],['df','Diagramas de flujo'],['aprende','Aprende']];
 
 function route(){const h=(location.hash||'#estudios').slice(1);return h||'estudios';}
@@ -877,7 +889,7 @@ function vWS(){
     </div></section>`;
 }
 
-function newDraft(){S.draft={id:nid(),titulo:'',area:'',parte:'',analista:'',fecha:new Date().toISOString().slice(0,10),ops:[],conf:'95',margen:'5',estado:'Abierto'};S.view='hdr';S.opId=null;}
+function newDraft(){S.draft={id:nid(),titulo:'',area:'',parte:'',analista:'',fecha:hoyLocal(new Date()),ops:[],conf:'95',margen:'5',estado:'Abierto'};S.view='hdr';S.opId=null;}
 
 function opSteps(op){
   const L=[['acts','Actividades'],['count','Conteo'],['res','Resultados']];const idx=L.findIndex(x=>x[0]===S.view);const has=calcOp(op).sum>0;
@@ -961,13 +973,13 @@ function vNuevo(){
         <button type="button" class="opcard add" data-addop="1">${svg('plus',26,2)}<b>Agregar operador</b><span class="sub" style="margin:0">Se copian las actividades del anterior</span></button>
       </div>
       ${foot(`<button class="btn ghost" type="button" data-go="ws">${svg('back',18,2.2)} Lista de estudios</button>`,
-        `<button class="btn ghost" type="button" data-wsv="line" ${withObs?'':'disabled'}>General de línea${L.total.sum?' · '+pc(L.total.innec)+' innec.':''}</button><button class="btn orange" type="button" data-finish="1">Finalizar estudio</button>`)}
+        `<button class="btn ghost" type="button" data-wsv="line" ${withObs?'':'disabled'}>General de línea${L.total.sum?' · '+pc(L.total.innec)+' innec.':''}</button><button class="btn orange" type="button" data-finish="1">Guardar estudio</button>`)}
     </section>`;
   }
   if(S.view==='acts'){
     setHead(op.name,[...base,[tit,'ws-nuevo'],[op.name,'ws-nuevo']]);
     return `${opSteps(op)}<section class="glass panel view"><div class="row"><div><h2>Actividades de ${esc(op.name)}</h2><p class="sub">Valida qué vas a contar y si es necesaria o innecesaria</p></div><button class="btn danger sm" type="button" data-delop="${op.id}">${svg('trash',16,2)} Eliminar operador</button></div>
-    <label class="form" style="margin-top:16px;display:block"><span style="display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px">Nombre del operador o puesto</span><input data-oname="${op.id}" value="${esc(op.name)}" style="width:100%;max-width:420px"></label>
+    <label class="form" style="margin-top:16px;display:block"><span style="display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px">Puesto</span><input data-oname="${op.id}" value="${esc(op.name)}" style="width:100%;max-width:420px"></label>
     <div class="grid" style="margin-top:16px;gap:10px">${op.acts.map(a=>`<div class="cat ${a.nec?'':'inn'}">
       <label class="sr" for="a${a.id}">Nombre de la actividad</label><input id="a${a.id}" data-aname="${a.id}" value="${esc(a.name)}">
       <div class="seg2" role="group" aria-label="Clasificación de ${esc(a.name)}">
@@ -997,7 +1009,7 @@ function vNuevo(){
         ${nxt?`<button class="btn" type="button" data-enter="${nxt.id}">Siguiente: ${esc(nxt.name)} ${svg('next',18,2.2)}</button>`:''}
         <button class="btn ghost" type="button" data-addop="1">${svg('plus',18,2.2)} Agregar otro operador</button>
         ${withObs>1?`<button class="btn ghost" type="button" data-wsv="line">Ver general de línea</button>`:''}
-        <button class="btn orange" type="button" data-finish="1">Finalizar estudio</button>
+        <button class="btn orange" type="button" data-finish="1">Guardar estudio</button>
       </div>
       <button class="btn ghost" type="button" data-wsv="count" style="margin-top:12px;min-height:44px;font-size:14px">${svg('back',16,2.2)} Seguir contando a ${esc(op.name)}</button>
     </div></section>`;
@@ -1019,7 +1031,7 @@ function vNuevo(){
       <div class="glass" style="margin-top:16px;padding:20px;border-radius:18px"><b style="font-size:16px">Resultado %</b>
         <div class="tbl"><table><thead><tr><th>Operador</th>${L.acts.map(a=>`<th class="${a.nec?'':'hinn'}">${esc(a.name)}</th>`).join('')}<th>Innec.</th><th>Nec.</th><th>Obs.</th></tr></thead>
         <tbody>${[...L.rows,L.total].map(x=>`<tr class="${x.id==='total'?'trow':''}"><th>${esc(x.name)}</th>${L.acts.map(a=>`<td class="${a.nec?'':'hinn'}">${x.sum?pc(x.pct[a.id]):'—'}</td>`).join('')}<td style="color:var(--orange);font-weight:600">${pc(x.innec)}</td><td style="color:var(--blue);font-weight:600">${pc(x.nec)}</td><td>${x.sum}</td></tr>`).join('')}</tbody></table></div></div>
-      ${foot(`<button class="btn ghost" type="button" data-wsv="hub">${svg('back',18,2.2)} Operadores</button>`,`<button class="btn orange" type="button" data-finish="1">Finalizar estudio</button>`)}</section>`;
+      ${foot(`<button class="btn ghost" type="button" data-wsv="hub">${svg('back',18,2.2)} Operadores</button>`,`<button class="btn orange" type="button" data-finish="1">Guardar estudio</button>`)}</section>`;
   }
   S.view='hub';return vNuevo();
 }
@@ -1068,6 +1080,7 @@ function render(keep){
   if(window.innerWidth<=700)v.querySelectorAll('section.panel').forEach(sec=>{const row=[...sec.children].find(c=>c.classList.contains('row'));if(!row||row.children.length<2)return;const g=row.lastElementChild;if(!g.querySelector('.btn')||g.querySelector('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-pcnew],[data-atnew],[data-dfnew],[data-go="ws-nuevo"]')||g.matches('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-go="ws-nuevo"]'))return;g.classList.add('mobfoot');sec.appendChild(g);});
   requestAnimationFrame(()=>{document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');document.querySelectorAll('.vfill').forEach(f=>f.style.height=f.dataset.h+'%');});
   if(!keep)window.scrollTo({top:0});
+  if(typeof storeDecorate==='function'&&STORE.ready){storeDecorate();storeChip();}
 }
 
 let ASK=null;
@@ -1098,7 +1111,7 @@ document.addEventListener('click',e=>{
   if(t.dataset.delop){const o=d.ops.find(x=>x.id==t.dataset.delop);const x=calcOp(o);ask('¿Eliminar a '+o.name+'?','Se borran sus actividades y sus '+x.sum+' observaciones. No se puede deshacer.','Eliminar operador',()=>{d.ops=d.ops.filter(y=>y!==o);S.opId=null;S.view='hub';render();});return;}
   if(t.dataset.mcancel){closeAsk();return;}
   if(t.dataset.mok){const f=ASK;closeAsk();if(f)f();return;}
-  if(t.dataset.finish){d.estado='Cerrado';S.draft=null;S.opId=null;go('ws');return;}
+  if(t.dataset.finish){d.estado='Cerrado';storeSave('ws',d);S.draft=null;S.opId=null;go('ws');return;}
   const op=curOp();
   if(t.id==='addact'&&op){op.acts.push({id:nid(),name:'NUEVA ACTIVIDAD',nec:true});render();return;}
   if(t.dataset.adel&&op){const id=+t.dataset.adel;op.acts=op.acts.filter(a=>a.id!==id);delete op.counts[id];op.log=op.log.filter(l=>l!==id);render();return;}
@@ -1168,7 +1181,7 @@ const DS={studies:[],d:null,view:'info',sel:null,scen:{add:'',pct:''},run:null,c
 const blankCur=(p)=>({name:'',material:p?p.material:'',racks:p?p.racks:'',snp:p?p.snp:'',parte:p?p.parte:'',va:true});
 const mm=s=>{s=Math.max(0,s);const m=Math.floor(s/60);const r=s-m*60;return String(m).padStart(2,'0')+':'+r.toFixed(1).padStart(4,'0');};
 const f2=x=>(Math.round(x*100)/100).toFixed(2);
-function dsNew(kind){DS.d={kind:kind||'ds',id:nid(),titulo:'',observador:'',area:'',parte:'',ciclos:'10',fecha:new Date().toISOString().slice(0,10),periodo:'hora',disp:60,obj:'',acts:[],ops:[],assign:{},estado:'Abierto'};DS.view='info';DS.sel=null;DS.scen={add:'',pct:''};DS.run=null;DS.cur=blankCur();DS.op=null;}
+function dsNew(kind){DS.d={kind:kind||'ds',id:nid(),titulo:'',observador:'',area:'',parte:'',ciclos:'10',fecha:hoyLocal(new Date()),periodo:'hora',disp:60,obj:'',acts:[],ops:[],assign:{},estado:'Abierto'};DS.view='info';DS.sel=null;DS.scen={add:'',pct:''};DS.run=null;DS.cur=blankCur();DS.op=null;}
 function dsOp(){return DS.d&&DS.d.ops.find(o=>o.id===DS.op);}
 function dsSeq(d,cap){return d.acts.filter(a=>a.cap===cap);}
 function dsScenTxt(d){const a=num(DS.scen.add),p=num(DS.scen.pct);if(!a&&!p)return 'Objetivos actuales de cada operador';
@@ -1265,7 +1278,7 @@ function vDS(){
     body=`<div class="row"><div><h2>Cronometraje · ${esc(op.name)}</h2><p class="sub">Inicia, escribe o toca la actividad y presiona Siguiente actividad</p></div>
       <button class="btn" type="button" data-dsv="asig" data-need="crono" ${mine.length&&!DS.run?'':'disabled'} title="${DS.run?'Termina el cronómetro primero':''}">Terminar ${esc(op.name)} y ver asignación ${svg('next',18,2.2)}</button></div>
     <div class="form" style="margin-top:14px">
-      <label>Operador ${idx} · nombre o puesto<input data-dsopname="${op.id}" value="${esc(op.name)}"></label>
+      <label>Operador ${idx} · puesto<input data-dsopname="${op.id}" value="${esc(op.name)}"></label>
       <label>Objetivo de este operador (piezas por ${perLbl(d)})<input type="text" inputmode="decimal" data-dsopobj="${op.id}" value="${esc(op.obj??'')}" placeholder="Vacío = estándar (${esc(d.obj||0)})"></label>
     </div>
     <div class="dscap ${DS.run?'on':''}">
@@ -1303,7 +1316,7 @@ function vDS(){
         ${moveBtn('none','Quitar de su operador')}
         <div class="lanebody">${pool.map(chip).join('')||'<p class="sub">Todas las actividades están asignadas.</p>'}</div></div>
       ${d.ops.map(o=>{const x=r.rows.find(y=>y.id===o.id);const w=Math.min(x.occ,1.5)/1.5*100;return `<div class="lane ${x.occ>1?'over':''}" data-lane="${o.id}">
-        <div class="lanehead"><input data-dsopname="${o.id}" value="${esc(o.name)}" aria-label="Nombre del operador"><button type="button" class="iconbtn" data-dsopdel="${o.id}" aria-label="Quitar operador">${svg('trash',16)}</button></div>
+        <div class="lanehead"><input data-dsopname="${o.id}" value="${esc(o.name)}" aria-label="Puesto"><button type="button" class="iconbtn" data-dsopdel="${o.id}" aria-label="Quitar operador">${svg('trash',16)}</button></div>
         <div class="occ"><div class="occbar"><div style="width:${w}%;background:${x.occ>1?'var(--orange)':'var(--blue)'}"></div><span style="left:${100/1.5}%"></span></div><span class="mono" style="color:${x.occ>1?'var(--orange)':'var(--ink)'}">${pc(x.occ)}</span></div>
         <span class="sub" style="margin:0">${f2(x.load)} de ${f2(+d.disp)} min · ${x.free<0?'excede '+f2(-x.free):'libre '+f2(x.free)}</span>
         <div class="laneobj"><label>Objetivo${o.obj!=null&&String(o.obj).trim()!==''?'':` <span style="font-weight:500;color:var(--muted)">(estándar ${esc(d.obj||0)})</span>`}<input type="text" inputmode="decimal" data-dsopobj="${o.id}" value="${esc(o.obj??'')}" placeholder="—"></label><span class="sub" style="margin:0">pzs/${perLbl(d)}</span>
@@ -1340,7 +1353,7 @@ function vDS(){
       <div class="tbl"><table><thead><tr><th>Operador</th><th>Actividad</th><th>Material</th><th>Min/pza</th><th>Carga (min)</th><th>% del disponible</th></tr></thead><tbody>
       ${r.rows.map(x=>x.items.map((it,k)=>{const a=d.acts.find(z=>z.id===it.id);return `<tr class="${a.va===false?'':''}">${k===0?`<th rowspan="${x.items.length+1}">${esc(x.name)}</th>`:''}<td style="text-align:left;font-family:inherit" >${esc(dsName(a,d.acts.indexOf(a)))}</td><td style="font-family:inherit">${esc(a.material||'—')}</td><td>${f2(it.pp)}</td><td>${f2(it.load)}</td><td>${pc(r.disp?it.load/r.disp:0,1)}</td></tr>`;}).join('')+`<tr class="trow">${x.items.length?'':`<th>${esc(x.name)}</th>`}<td style="text-align:left;font-family:inherit;font-weight:600">Total</td><td></td><td></td><td style="font-weight:600">${f2(x.load)}</td><td style="font-weight:600;color:${x.occ>1?'var(--orange)':'var(--blue)'}">${pc(x.occ,1)}</td></tr>`).join('')}
       </tbody></table></div></div>
-    ${dsFoot(`<button class="btn ghost" type="button" data-dsv="asig">${svg('back',18,2.2)} Rebalancear</button>`,`<button class="btn orange" type="button" data-dsfinish="1">Finalizar estudio</button>`)}`;
+    ${dsFoot(`<button class="btn ghost" type="button" data-dsv="asig">${svg('back',18,2.2)} Rebalancear</button>`,`<button class="btn orange" type="button" data-dsfinish="1">Guardar estudio</button>`)}`;
   }
   return `${dsSteps()}<section class="glass panel ${S.keep?'':'view'}">${body}</section>`;
 }
@@ -1402,7 +1415,7 @@ document.addEventListener('click',e=>{
   if(D.dsopdel){const id=+D.dsopdel;const o=d.ops.find(x=>x.id===id);ask('¿Quitar a '+o.name+'?','Sus actividades regresan a "Sin asignar". No se borra ningún tiempo.','Quitar operador',()=>{d.ops=d.ops.filter(x=>x.id!==id);Object.keys(d.assign).forEach(k=>{if(d.assign[k]===id)d.assign[k]=null;});render(true);});return;}
   if(D.dspct){DS.scen.pct=D.dspct==='reset'?'':String(D.dspct);if(D.dspct==='reset')DS.scen.add='';S.keep=true;render(true);S.keep=false;return;}
   if(D.dsdelstudy){ask('¿Eliminar este estudio?','Se borra «'+(d.titulo||'Estudio')+'» con todas sus actividades y operadores. No se puede deshacer.','Eliminar estudio',()=>{DS.studies=DS.studies.filter(x=>x!==d);DS.d=null;DS.run=null;go(d.kind||'ds');});return;}
-  if(D.dsfinish){d.estado='Cerrado';DS.d=null;DS.run=null;go(d.kind||'ds');return;}
+  if(D.dsfinish){d.estado='Cerrado';storeSave(d.kind||'ds',d);DS.d=null;DS.run=null;go(d.kind||'ds');return;}
 });
 document.addEventListener('input',e=>{
   const el=e.target;const d=DS.d;if(!d)return;
@@ -1462,7 +1475,7 @@ function weInfo(d,del){
 
 function weOpFields(d,op){
   return `<div class="form" style="margin-top:14px">
-      <label>Operador ${d.ops.indexOf(op)+1} · nombre o puesto<input data-dsopname="${op.id}" value="${esc(op.name)}"></label>
+      <label>Operador ${d.ops.indexOf(op)+1} · puesto<input data-dsopname="${op.id}" value="${esc(op.name)}"></label>
       ${d.periodo==='ciclo'?'':`<label>JPH de este operador (piezas por hora)<input type="text" inputmode="decimal" data-dsopobj="${op.id}" value="${esc(op.obj??'')}" placeholder="Vacío = estándar (${esc(d.obj||0)})"></label>`}
     </div>`;
 }
@@ -1644,7 +1657,7 @@ const moneyC=x=>{const a=Math.abs(x);return a>=1e9?'$'+(x/1e9).toFixed(2)+' mil 
 // Dinero: la coma es separador de miles (25,000 = 25000), no decimal
 function moneyNum(v){const x=parseFloat(String(v??'').replace(/[^0-9.\-]/g,''));return isNaN(x)?0:x;}
 const moneyFmt=v=>{const x=moneyNum(v);return String(v??'').trim()===''?'':x.toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});};
-function stNew(){const now=new Date();ST.d={id:nid(),parte:'',proceso:'',modelo:'',costo:'',tcobj:'',analista:'',periodo:now.toISOString().slice(0,10),paro:'0',oeePlan:'85',hd:'22.5',dw:'6',wm:'4',
+function stNew(){const now=new Date();ST.d={id:nid(),parte:'',proceso:'',modelo:'',costo:'',tcobj:'',analista:'',periodo:hoyLocal(now),paro:'0',oeePlan:'85',hd:'22.5',dw:'6',wm:'4',
   fecha:now.toLocaleString('es-MX',{dateStyle:'medium',timeStyle:'short'}),recs:[],estado:'Abierto'};ST.view='info';ST.run=null;ST.cur={cause:'',prob:'',probId:null};ST.miss=[];ST.newp=null;}
 function stC(d){return stCalc(d.recs,d.tcobj,d.paro);}
 const causeLbl=c=>c?c+'. '+ST_CAUSES[+c-1]:'—';
@@ -1918,7 +1931,7 @@ function vST(){
     ${stOEECard(d,r)}
     ${stParetoCard(d,r)}
     ${stCascCard(d,r)}
-    ${dsFoot(`<button class="btn ghost" type="button" data-stv="reg">${svg('back',18,2.2)} Registro</button>`,`<button class="btn orange" type="button" data-stfinish="1">Finalizar estudio</button>`)}`;
+    ${dsFoot(`<button class="btn ghost" type="button" data-stv="reg">${svg('back',18,2.2)} Registro</button>`,`<button class="btn orange" type="button" data-stfinish="1">Guardar estudio</button>`)}`;
   }
   return `${stSteps()}<section class="glass panel ${S.keep?'':'view'}">${body}</section>`;
 }
@@ -1964,7 +1977,7 @@ document.addEventListener('click',e=>{
   if(D.stexample){ST_EXAMPLE.forEach(([tt,c])=>d.recs.push({id:nid(),t:tt,cause:c,prob:''}));stRe();return;}
   if(D.strdel){d.recs=d.recs.filter(x=>x.id!=D.strdel);stRe();return;}
   if(D.stdel){ask('¿Eliminar este estudio?','Se borra «'+stName(d)+'» con sus '+d.recs.length+' registros. No se puede deshacer.','Eliminar estudio',()=>{ST.studies=ST.studies.filter(x=>x!==d);ST.d=null;ST.run=null;go('st');});return;}
-  if(D.stfinish){d.estado='Cerrado';ST.d=null;ST.run=null;go('st');return;}
+  if(D.stfinish){d.estado='Cerrado';storeSave('st',d);ST.d=null;ST.run=null;go('st');return;}
 });
 document.addEventListener('input',e=>{const el=e.target;const d=ST.d;if(!d)return;
   if(el.closest&&(el.closest('#sth')||el.closest('#sth2'))){stSync();const jp=document.getElementById('jphAuto');if(jp)jp.textContent=f2(stJphSug(d.tcobj,d.oeePlan??85));if(ST.miss.length){ST.miss=ST.miss.filter(k=>!String(d[k]||'').trim());}return;}
@@ -2040,7 +2053,7 @@ const MM_ACTS=['SOPLETEO','INSPECCIÓN VISUAL','INSPECCIÓN CON CALIBRADOR','CAL
 const MM_REQ=[['linea','Línea / celda'],['analista','Analista']];
 const mmName=d=>d.linea||'Nuevo Man Machine';
 function mmSt(kind,name){return {id:nid(),name,kind,n:1,tcs:kind==='maq'?['']:[],tcplan:'',cd:kind==='maq'||kind==='man'?'0.06':'0.03',man:[],pasos:'',ov:{}};}
-function mmNew(){const now=new Date();MM.d={id:nid(),linea:'',analista:'',parte:'',fecha:now.toISOString().slice(0,10),mpp:'0.7',tcobj:'',oeePlan:'85',hd:'22.5',dw:'6',wm:'4',sts:[],lay:null,estado:'Abierto'};MM.view='info';MM.run=null;MM.sel=null;MM.miss=[];MM.open=null;}
+function mmNew(){const now=new Date();MM.d={id:nid(),linea:'',analista:'',parte:'',fecha:hoyLocal(now),mpp:'0.7',tcobj:'',oeePlan:'85',hd:'22.5',dw:'6',wm:'4',sts:[],lay:null,estado:'Abierto'};MM.view='info';MM.run=null;MM.sel=null;MM.miss=[];MM.open=null;}
 const MM_EXAMPLE=[['ent','ENTRADA',0,1],['maq','MAQUINA 1',0.908,2],['maq','MAQUINA 2',0.715,2],['maq','MAQUINA 3',1.12,3],['maq','MAQUINA 4',1.09,4],['maq','MAQUINA 5',0.87,4],['maq','MAQUINA 6',0.974,3],['sal','SALIDA',0,2]];
 const mmKindLbl={maq:'MÁQUINA',man:'ESTACIÓN MANUAL',ent:'ENTRADA',sal:'SALIDA'};
 function mmAddSt(d,k){const cnt=d.sts.filter(s=>s.kind===k).length;return mmSt(k,k==='maq'?'MAQUINA '+(cnt+1):k==='man'?'ESTACION MANUAL '+(cnt+1):mmKindLbl[k]);}
@@ -2321,7 +2334,7 @@ document.addEventListener('click',e=>{
     else if(D.mmlay==='r-'){if(L.rows>1&&!used.some(p=>p[0]===L.rows-1))L.rows--;}
     MM.sel=null;mmRe();return;}
   if(D.mmdel){ask('¿Eliminar este estudio?','Se borra «'+mmName(d)+'» con sus '+d.sts.length+' estaciones. No se puede deshacer.','Eliminar estudio',()=>{MM.studies=MM.studies.filter(x=>x!==d);MM.d=null;MM.run=null;go('mm');});return;}
-  if(D.mmfinish){if(MM.run)mmStop();if(!MM.studies.includes(d))MM.studies.unshift(d);MM.d=null;go('mm');return;}
+  if(D.mmfinish){if(MM.run)mmStop();d.estado='Cerrado';if(!MM.studies.includes(d))MM.studies.unshift(d);storeSave('mm',d);MM.d=null;go('mm');return;}
 });
 document.addEventListener('input',e=>{const el=e.target;const d=MM.d;if(!d||!el.dataset)return;const D=el.dataset;
   if(el.closest&&(el.closest('#mmh')||el.closest('#mmh2'))){mmSync();if(MM.miss.length)MM.miss=MM.miss.filter(k=>!String(d[k]||'').trim());return;}
@@ -2391,7 +2404,7 @@ const SM_ACTS=[['PREPARAR HERRAMIENTA','Preparación'],['BUSCAR HERRAMIENTA','B�
 const SM_EXAMPLE=[['BUSCAR HERRAMIENTA','Búsqueda y traslado',4.5],['TRASLADO DE DADO NUEVO','Búsqueda y traslado',6],['AFLOJAR TORNILLOS DEL DADO','Montaje y desmontaje',2.5],['QUITAR DADO','Montaje y desmontaje',3],['LIMPIEZA DE MESA','Limpieza',2],['COLOCAR DADO NUEVO','Montaje y desmontaje',3.5],['APRETAR TORNILLOS','Montaje y desmontaje',2.5],['AJUSTE DE ALTURA','Ajustes y pruebas',5],['ESPERA DE INSPECTOR','Espera',4],['PRIMERA PIEZA E INSPECCIÓN','Ajustes y pruebas',6],['REGRESAR DADO ANTERIOR','Búsqueda y traslado',5]];
 const SM_CLS={I:['Interno','máquina parada'],E:['Externo','con la máquina corriendo'],X:['Eliminar','no agrega valor']};
 const smName=d=>[d.linea,d.de&&d.a?d.de+' → '+d.a:''].filter(Boolean).join(' · ')||'Nuevo SMED';
-function smNewStudy(){const now=new Date();SM.d={id:nid(),linea:'',analista:'',de:'',a:'',personas:'1',fecha:now.toISOString().slice(0,10),tcobj:'',cpw:'',wm:'4',steps:[],estado:'Abierto'};SM.view='info';SM.run=null;SM.cur={desc:'',cat:''};SM.miss=[];}
+function smNewStudy(){const now=new Date();SM.d={id:nid(),linea:'',analista:'',de:'',a:'',personas:'1',fecha:hoyLocal(now),tcobj:'',cpw:'',wm:'4',steps:[],estado:'Abierto'};SM.view='info';SM.run=null;SM.cur={desc:'',cat:''};SM.miss=[];}
 function vSMList(){
   setHead('SMED',[['Estudios','estudios'],['SMED','sm']]);
   return `<section class="glass panel">
@@ -2526,7 +2539,7 @@ document.addEventListener('click',e=>{
   if(D.smsdel){d.steps=d.steps.filter(x=>x.id!=D.smsdel);smRe();return;}
   if(D.smcls){const[id,k]=D.smcls.split('|');const s=d.steps.find(x=>x.id==id);s.cls=k;smRe();return;}
   if(D.smdel){ask('¿Eliminar este estudio?','Se borra «'+smName(d)+'» con sus '+d.steps.length+' pasos. No se puede deshacer.','Eliminar estudio',()=>{SM.studies=SM.studies.filter(x=>x!==d);SM.d=null;SM.run=null;go('sm');});return;}
-  if(D.smfinish){if(!SM.studies.includes(d))SM.studies.unshift(d);SM.d=null;SM.run=null;go('sm');return;}
+  if(D.smfinish){d.estado='Cerrado';if(!SM.studies.includes(d))SM.studies.unshift(d);storeSave('sm',d);SM.d=null;SM.run=null;go('sm');return;}
 });
 document.addEventListener('input',e=>{const el=e.target;const d=SM.d;if(!d||!el.dataset)return;const D=el.dataset;
   if(el.closest&&(el.closest('#smh')||el.closest('#smh2'))){smSync();if(SM.miss.length)SM.miss=SM.miss.filter(k=>!String(d[k]||'').trim());return;}
@@ -2593,7 +2606,7 @@ const pcMonthLbl=(d,i)=>PC_MONTHS[i]+' '+(2000+d.fy+(i<9?0:1));
 const nInt=v=>Math.round(v).toLocaleString('es-MX');
 const pcIntFmt=v=>{if(String(v??'').trim()==='')return '';const x=pcInt(v);return x.toLocaleString('en-US',{maximumFractionDigits:2});};
 function pcNewRow(name){return {id:nid(),nombre:name||'',parte:'',proceso:'',dias:'',hd:'',tpm:'',dom:'',oee:'85',jph:'',op:'',ld:'',sup:'',hcTpm:'',hcProy:'',hcOtros:'',vol:'',esq:''};}
-function pcNew(){PC.d={id:nid(),nombre:'',tipo:'MAQUINADO',fy:pcFY(),red:'5',months:Array(12).fill(null),estado:'Abierto',fecha:new Date().toISOString().slice(0,10)};PC.view='info';PC.m=0;PC.open=null;PC.miss=[];}
+function pcNew(){PC.d={id:nid(),nombre:'',tipo:'MAQUINADO',fy:pcFY(),red:'5',months:Array(12).fill(null),estado:'Abierto',fecha:hoyLocal(new Date())};PC.view='info';PC.m=0;PC.open=null;PC.miss=[];}
 const PC_EXAMPLE=[
   {nombre:'LINEA 1',parte:'MOD-A',proceso:'MAQUINADO',dias:26,hd:22.5,tpm:2,dom:4,oee:70,jph:30,op:5,ld:1,sup:1,hcTpm:1,hcProy:1,hcOtros:5,vol:15000,esq:'C'},
   {nombre:'LINEA 2',parte:'MOD-B',proceso:'MAQUINADO',dias:26,hd:22.5,tpm:1,dom:4,oee:86,jph:50,op:5,ld:1,sup:1,hcTpm:3,hcProy:2,hcOtros:1,vol:20000,esq:'C'},
@@ -2776,7 +2789,7 @@ document.addEventListener('click',e=>{
   if(D.pcrdel){const rows=pcRowsOf();const r=rows.find(x=>x.id==D.pcrdel);ask('¿Quitar este renglón?','Se quita «'+(r.nombre||'renglón')+'» de '+PC_MONTHS[PC.m]+'. Los demás meses no cambian.','Quitar',()=>{d.months[PC.m]=rows.filter(x=>x!==r);if(!d.months[PC.m].length)d.months[PC.m]=null;PC.open=null;pcRe();});return;}
   if(D.pcesq){const[id,k]=D.pcesq.split('|');const r=pcRowsOf().find(x=>x.id==id);r.esq=k;pcRe();return;}
   if(D.pcdel){ask('¿Eliminar este cálculo?','Se borra «'+pcName(d)+'» con todos sus meses. No se puede deshacer.','Eliminar',()=>{PC.studies=PC.studies.filter(x=>x!==d);PC.d=null;go('pc');});return;}
-  if(D.pcfinish){if(!PC.studies.includes(d))PC.studies.unshift(d);PC.d=null;go('pc');return;}
+  if(D.pcfinish){if(!PC.studies.includes(d))PC.studies.unshift(d);storeSave('pc',d);PC.d=null;go('pc');return;}
 });
 document.addEventListener('input',e=>{const el=e.target;const d=PC.d;if(!d||!el.dataset)return;
   if(el.closest&&el.closest('#pch')){pcSync();if(PC.miss.length&&String(d.nombre||'').trim())PC.miss=[];return;}
@@ -3097,7 +3110,7 @@ document.addEventListener('click',e=>{
   if(D.atmh!==undefined){atSync();d.mh=D.atmh==='1';atRe();return;}
   if(D.atfy){atSync();d.fy=+D.atfy;atRe();return;}
   if(D.atarea){AT.area=D.atarea;if(D.attop){render();scrollTo({top:0});}else atRe();return;}
-  if(D.atsave){const mo=d.months[AT.m];const done=()=>{if(!AT.studies.includes(d))AT.studies.unshift(d);AT.cm=AT.m;AT.m=null;AT.view='res';AT.area='ens';render();scrollTo({top:0});};
+  if(D.atsave){const mo=d.months[AT.m];const done=()=>{if(!AT.studies.includes(d))AT.studies.unshift(d);storeSave('at',d);AT.cm=AT.m;AT.m=null;AT.view='res';AT.area='ens';render();scrollTo({top:0});};
     const faltan=[];if(!num(mo.horasTrab)||!atMonth(mo).prod)faltan.push('ensamble');if(atHasMH(d)&&(!num((mo.mh||{}).horasTrab)||!num((mo.partes[0]||{}).lat)))faltan.push('manejo de materiales');
     if(faltan.length)ask('¿Guardar '+PC_MONTHS[AT.m]+' incompleto?','Falta capturar '+faltan.join(' y ')+' (horas trabajadas, producción o LAT). Puedes guardarlo así y completarlo después.','Guardar así',done,{ok:1,icon:'list'});else done();return;}
   if(D.atm!==undefined){AT.m=+D.atm;render();scrollTo({top:0});return;}
@@ -3112,7 +3125,7 @@ document.addEventListener('click',e=>{
   if(D.atpdel){const mo=d.months[AT.m];const p=mo.partes.find(x=>x.id==D.atpdel);ask('¿Quitar esta parte?','Se quita «'+(p.parte||'parte sin nombre')+'» de '+PC_MONTHS[AT.m]+'.','Quitar',()=>{mo.partes=mo.partes.filter(x=>x!==p);atRe();});return;}
   if(D.atpc){atFromPC(d,AT.m);atRe();return;}
   if(D.atdel){ask('¿Eliminar este Actual Time?','Se borra «'+atName(d)+'» con todos sus meses. No se puede deshacer.','Eliminar',()=>{AT.studies=AT.studies.filter(x=>x!==d);AT.d=null;go('at');});return;}
-  if(D.atfinish){if(!AT.studies.includes(d))AT.studies.unshift(d);AT.d=null;go('at');return;}
+  if(D.atfinish){if(!AT.studies.includes(d))AT.studies.unshift(d);storeSave('at',d);AT.d=null;go('at');return;}
 });
 document.addEventListener('input',e=>{const el=e.target;const d=AT.d;if(!d||!el.dataset)return;
   if(el.closest&&el.closest('#ath')){atSync();if(AT.miss.length&&String(d.nombre||'').trim())AT.miss=[];return;}
@@ -3269,7 +3282,7 @@ function dfPath(a,b,out,g){const[ra,ca]=a,[rb,cb]=b;const ax=g.cx(ca)+g.W/2,ay=g
 const DF={studies:[],d:null,view:'info',sel:null,last:null,focus:false,miss:[]};
 const DF_REQ=[['titulo','Título'],['analista','Analista']];
 const dfName=d=>d.titulo||'Nuevo diagrama';
-function dfNewStudy(){DF.d={id:nid(),titulo:'',proceso:'',area:'',analista:'',fecha:new Date().toISOString().slice(0,10),metodo:'ACTUAL',nodes:[],lay:{rows:5,cols:4,pos:{}}};DF.view='info';DF.sel=null;DF.last=null;DF.miss=[];}
+function dfNewStudy(){DF.d={id:nid(),titulo:'',proceso:'',area:'',analista:'',fecha:hoyLocal(new Date()),metodo:'ACTUAL',nodes:[],lay:{rows:5,cols:4,pos:{}}};DF.view='info';DF.sel=null;DF.last=null;DF.miss=[];}
 // Símbolo ASME dibujado en (x, y) = centro
 function dfShape(t,x,y,k){k=k||1;const s=v=>(v*k).toFixed(1);const X=v=>(x+v*k).toFixed(1),Y=v=>(y+v*k).toFixed(1);
   if(t==='op')return `<circle cx="${x}" cy="${y}" r="${s(19)}" class="dfs op"/>`;
@@ -3424,7 +3437,7 @@ document.addEventListener('click',e=>{
   if(D.dftype){const n=dfGet(d,DF.sel);const was=dfIsDec(n);n.t=D.dftype;if(was&&!dfIsDec(n)){n.next=n.next??n.yes;n.yes=null;n.no=null;}else if(!was&&dfIsDec(n)){n.yes=n.next;n.next=null;}dfRe();return;}
   if(D.dfrm){const n=dfGet(d,+D.dfrm);ask('¿Quitar este símbolo?','Se quita «'+(n.desc||DF_SYM[n.t].n)+'» y las flechas que llegaban a él.','Quitar',()=>{dfRemove(d,n.id);if(DF.last===n.id)DF.last=null;DF.sel=null;closeAsk();dfRe();});return;}
   if(D.dfdel){ask('¿Eliminar este diagrama?','Se borra «'+dfName(d)+'» con sus '+d.nodes.length+' símbolos. No se puede deshacer.','Eliminar diagrama',()=>{DF.studies=DF.studies.filter(x=>x!==d);DF.d=null;closeAsk();go('df');});return;}
-  if(D.dffinish){if(!DF.studies.includes(d))DF.studies.unshift(d);DF.d=null;go('df');return;}
+  if(D.dffinish){if(!DF.studies.includes(d))DF.studies.unshift(d);storeSave('df',d);DF.d=null;go('df');return;}
 });
 document.addEventListener('input',e=>{const el=e.target;const d=DF.d;if(!d||!el.dataset)return;
   if(el.closest&&el.closest('#dfh')){dfSync();if(DF.miss.length)DF.miss=DF.miss.filter(k=>!String(d[k]||'').trim());return;}
@@ -3942,7 +3955,131 @@ window.TaktTut={start:(id,mode,speed)=>tutStart(id,mode,speed),exit:()=>tutExit(
     const el=p.serie?tutQuery(p.base):tutQuery(p.toca||p.escribe||p.elige,p.txt,p.en);if(!el)return false;el.setAttribute('data-tutt','1');return true;},
   counts:()=>({ws:S.studies.length,ds:DS.studies.length,st:ST.studies.length,mm:MM.studies.length,sm:SM.studies.length,pc:PC.studies.length,at:AT.studies.length,df:DF.studies.length})};
 
-render();
+// ================= Almacén: guardado de estudios =================
+// Patrón repositorio: los formatos NO saben dónde se guarda. Solo llaman storeSave / storeRemove.
+// Hoy el almacén guarda en el navegador (IndexedDB: funciona sin internet). Cuando llegue el servidor,
+// solo cambia el interior de este bloque y los 9 formatos no se tocan.
+// Reglas de Angel (2026-11-12): guardar es explícito y es todo o nada; los estudios se guardan completos,
+// los análisis (Personal, Actual Time, Diagramas) pueden guardarse a medias. Los tutoriales nunca guardan.
+
+// <store-pure> Funciones puras: se prueban en Node (parts/storetest.js) leyendo este bloque directo de index.html.
+// Identificador único universal: no se repite entre días, dispositivos ni usuarios (lo necesitará el servidor).
+function storeUUID(){try{if(globalThis.crypto&&crypto.randomUUID)return crypto.randomUUID();}catch(_){}
+  return 'u'+Date.now().toString(36)+Math.random().toString(36).slice(2,12);}
+// «Sobre» común para todo lo que se guarda: qué es, de qué versión de formato y cuándo; el estudio va adentro.
+function storeEnvelope(kind,d,schema,now,prev){
+  return {uuid:d._uuid,kind,schema,createdAt:prev&&prev.createdAt?prev.createdAt:now,savedAt:now,data:JSON.parse(JSON.stringify(d))};}
+// Migraciones: si un formato cambia de versión, los estudios viejos se convierten al abrirlos.
+// migs[v] convierte los datos de la versión v a la v+1. Sin migración disponible = error (nunca se adivina).
+function storeMigrate(env,schemaNow,migs){let v=env.schema||0;let data=env.data;
+  if(v>schemaNow)throw new Error('El estudio es de una versión más nueva de la app ('+v+' > '+schemaNow+').');
+  while(v<schemaNow){const f=migs&&migs[v];if(typeof f!=='function')throw new Error('Falta la migración de la versión '+v+' a la '+(v+1)+' para '+env.kind+'.');data=f(JSON.parse(JSON.stringify(data)));v++;}
+  return Object.assign({},env,{schema:v,data});}
+// Número más alto usado como identificador interno (campos «id» y llaves numéricas, como las de la asignación).
+// Al abrir la app, el contador sigue desde ahí: así lo nuevo nunca choca con lo guardado.
+function storeMaxId(o){let m=0;const seen=new Set();
+  (function walk(x){if(!x||typeof x!=='object'||seen.has(x))return;seen.add(x);
+    if(Array.isArray(x)){x.forEach(walk);return;}
+    for(const k of Object.keys(x)){if(/^\d+$/.test(k))m=Math.max(m,+k);const v=x[k];
+      if(k==='id'&&typeof v==='number'&&isFinite(v))m=Math.max(m,v);if(v&&typeof v==='object')walk(v);}})(o);
+  return m;}
+// Estado de un estudio frente a lo guardado: 'nuevo' (nunca guardado), 'cambios' (difiere) u 'ok'.
+function storeStateOf(d,saved){if(!d||!d._uuid||!saved.has(d._uuid))return 'nuevo';return JSON.stringify(d)===saved.get(d._uuid)?'ok':'cambios';}
+// </store-pure>
+
+const STORE_SCHEMA={ws:1,ds:1,we:1,st:1,mm:1,sm:1,pc:1,at:1,df:1};  // versión actual de cada formato
+const STORE_MIGS={};                                                // STORE_MIGS[kind][v] = datos v → v+1
+const STORE_KINDS=['ws','ds','we','st','mm','sm','pc','at','df'];
+const STORE_ANALISIS=new Set(['pc','at','df']);                      // pueden guardarse a medias
+const storeBox=k=>({ws:S,ds:DS,we:DS,st:ST,mm:MM,sm:SM,pc:PC,at:AT,df:DF})[k];
+const STORE={db:null,ok:false,ready:false,saved:new Map(),err:null};
+const storeTut=()=>typeof TR!=='undefined'&&!!TR;
+
+function storeOpen(){return new Promise((res,rej)=>{let rq;try{rq=indexedDB.open('takt',1);}catch(e){rej(e);return;}
+  rq.onupgradeneeded=()=>{const db=rq.result;if(!db.objectStoreNames.contains('estudios'))db.createObjectStore('estudios',{keyPath:'uuid'});if(!db.objectStoreNames.contains('ajustes'))db.createObjectStore('ajustes',{keyPath:'key'});};
+  rq.onsuccess=()=>res(rq.result);rq.onerror=()=>rej(rq.error);rq.onblocked=()=>rej(new Error('Almacén bloqueado por otra pestaña'));});}
+const storeReq=(r)=>new Promise((res,rej)=>{r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});
+function storeTx(names,mode,fn){return new Promise((res,rej)=>{const tx=STORE.db.transaction(names,mode);let out;try{out=fn(tx);}catch(e){rej(e);return;}tx.oncomplete=()=>res(out);tx.onerror=()=>rej(tx.error);tx.onabort=()=>rej(tx.error||new Error('Transacción cancelada'));});}
+
+// Al abrir la app: lee todo, migra si hace falta y llena las listas de cada formato.
+async function storeInit(){
+  try{STORE.db=await storeOpen();STORE.ok=true;}
+  catch(e){STORE.err='Este navegador no permite guardar. Lo que captures se pierde al cerrar.';console.warn('[almacén]',e);STORE.ready=true;return;}
+  try{
+    const all=await storeTx(['estudios'],'readonly',tx=>storeReq(tx.objectStore('estudios').getAll()));
+    const ajs=await storeTx(['ajustes'],'readonly',tx=>storeReq(tx.objectStore('ajustes').getAll()));
+    (ajs||[]).forEach(a=>{if(a.key==='stcat'&&a.value&&typeof a.value==='object')ST.cat=a.value;});
+    const bad=[];
+    (all||[]).sort((a,b)=>String(b.savedAt).localeCompare(String(a.savedAt))).forEach(env=>{
+      if(!STORE_KINDS.includes(env.kind)){bad.push(env.uuid);return;}
+      let e;try{e=storeMigrate(env,STORE_SCHEMA[env.kind],STORE_MIGS[env.kind]);}catch(err){bad.push(env.kind+': '+err.message);return;}
+      const d=e.data;d._uuid=e.uuid;storeBox(e.kind).studies.push(d);STORE.saved.set(e.uuid,JSON.stringify(d));
+      if(e.schema!==env.schema)storePut(e.kind,d,env);  // deja guardada la versión ya migrada
+    });
+    uid=Math.max(uid,storeMaxId({S:S.studies,DS:DS.studies,ST:ST.studies,MM:MM.studies,SM:SM.studies,PC:PC.studies,AT:AT.studies,DF:DF.studies,cat:ST.cat}));
+    if(bad.length){STORE.err='No se pudieron abrir '+bad.length+' estudio(s) guardados.';console.warn('[almacén]',bad);}
+  }catch(e){STORE.err='No se pudo leer lo guardado.';console.warn('[almacén]',e);}
+  STORE.ready=true;
+}
+async function storePut(kind,d,prevEnv){
+  const prev=prevEnv||await storeTx(['estudios'],'readonly',tx=>storeReq(tx.objectStore('estudios').get(d._uuid))).catch(()=>null);
+  const env=storeEnvelope(kind,d,STORE_SCHEMA[kind]||1,new Date().toISOString(),await prev);
+  await storeTx(['estudios','ajustes'],'readwrite',tx=>{tx.objectStore('estudios').put(env);if(kind==='st')tx.objectStore('ajustes').put({key:'stcat',value:JSON.parse(JSON.stringify(ST.cat))});});
+}
+// Guardar (lo llama el botón Guardar de cada formato). Todo o nada: se guarda el estudio completo en una transacción.
+function storeSave(kind,d){
+  if(storeTut()||!d)return;
+  if(!d._uuid)d._uuid=storeUUID();
+  const box=storeBox(kind);if(!box.studies.includes(d))box.studies.unshift(d);
+  const json=JSON.stringify(d);
+  if(!STORE.ok){storeToast(STORE.err||'No se puede guardar en este navegador','err');return;}
+  storePut(kind,d).then(()=>{STORE.saved.set(d._uuid,json);storeToast('Guardado ✓');storeChip();storeDecorate();})
+    .catch(e=>{console.warn('[almacén]',e);storeToast(/quota/i.test(String(e&&e.name||e))?'Sin espacio para guardar en este dispositivo':'No se pudo guardar. Intenta de nuevo.','err');});
+}
+function storeRemove(uuid){STORE.saved.delete(uuid);if(STORE.ok)storeTx(['estudios'],'readwrite',tx=>tx.objectStore('estudios').delete(uuid)).catch(e=>console.warn('[almacén]',e));}
+// Si un estudio guardado ya no está en ninguna lista, es que se eliminó: se borra del almacén.
+function storeReconcile(){if(storeTut()||!STORE.ready)return;const live=new Set();
+  STORE_KINDS.forEach(k=>storeBox(k).studies.forEach(d=>{if(d&&d._uuid)live.add(d._uuid);}));
+  [...STORE.saved.keys()].forEach(u=>{if(!live.has(u))storeRemove(u);});}
+// Descartar cambios sin guardar: regresa el estudio a como quedó guardado.
+function storeDiscard(d){const j=d&&d._uuid&&STORE.saved.get(d._uuid);if(!j)return;const o=JSON.parse(j);Object.keys(d).forEach(k=>delete d[k]);Object.assign(d,o);}
+
+// ¿Qué estudio está abierto en la pantalla actual? (para el indicador de guardado)
+function storeCurrent(){const r=route();
+  if(r==='ws-nuevo')return['ws',S.draft];if(r==='ds-nuevo'||r==='we-nuevo')return[(DS.d&&DS.d.kind)||'ds',DS.d];
+  if(r==='st-nuevo')return['st',ST.d];if(r==='mm-nuevo')return['mm',MM.d];if(r==='sm-nuevo')return['sm',SM.d];
+  if(r==='pc-nuevo')return['pc',PC.d];if(r==='at-nuevo')return['at',AT.d];if(r==='df-nuevo')return['df',DF.d];return[null,null];}
+function storeChip(){const el=document.getElementById('savechip');if(!el)return;const[k,d]=storeCurrent();
+  if(storeTut()||!k||!d){el.hidden=true;return;}
+  const st=storeStateOf(d,STORE.saved);const inList=storeBox(k).studies.includes(d);
+  if(st==='nuevo'&&!inList){el.hidden=true;return;}
+  el.hidden=false;el.className='savechip '+st;el.textContent=st==='ok'?'Guardado ✓':st==='cambios'?'Cambios sin guardar':'Sin guardar';}
+// Marca en las listas: SIN GUARDAR / CAMBIOS SIN GUARDAR (+ descartar cambios)
+function storeDecorate(){if(storeTut())return;document.querySelectorAll('#view [data-sdel]').forEach(b=>{
+  const[k,id]=b.dataset.sdel.split('|');const d=storeBox(k)&&storeBox(k).studies.find(x=>x.id==id);if(!d)return;
+  const row=b.closest('.studyrow');if(!row)return;row.querySelectorAll('.savetag,.savediscard').forEach(x=>x.remove());
+  const st=storeStateOf(d,STORE.saved);if(st==='ok')return;
+  const meta=row.querySelector('.meta b')||row.querySelector('b');if(!meta)return;
+  meta.insertAdjacentHTML('beforeend',`<span class="tag savetag ${st}">${st==='nuevo'?'SIN GUARDAR':'CAMBIOS SIN GUARDAR'}</span>`);
+  if(st==='cambios')b.insertAdjacentHTML('beforebegin',`<button type="button" class="btn ghost sm savediscard" data-storediscard="${k}|${d.id}" title="Regresar a como quedó guardado">Descartar cambios</button>`);});}
+function storeUnsaved(){if(storeTut())return [];const out=[];
+  STORE_KINDS.forEach(k=>storeBox(k).studies.forEach(d=>{if((k==='we')!==(d.kind==='we')&&(k==='ds'||k==='we'))return;if(storeStateOf(d,STORE.saved)!=='ok')out.push(d);}));
+  return out;}
+let storeToastT=null;
+function storeToast(msg,kind){let t=document.getElementById('savetoast');if(!t){t=document.createElement('div');t.id='savetoast';t.setAttribute('role','status');t.setAttribute('aria-live','polite');document.body.appendChild(t);}
+  t.textContent=msg;t.className=kind==='err'?'err show':'show';clearTimeout(storeToastT);storeToastT=setTimeout(()=>t.className=t.className.replace('show',''),kind==='err'?5000:1800);}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-storediscard]');if(b){e.stopPropagation();const[k,id]=b.dataset.storediscard.split('|');const d=storeBox(k).studies.find(x=>x.id==id);
+    ask('¿Descartar los cambios?','El estudio regresa a como quedó la última vez que lo guardaste.','Descartar cambios',()=>{storeDiscard(d);render();},{ok:true,icon:'undo'});return;}
+  setTimeout(()=>{storeReconcile();storeChip();},0);},true);
+let storeInT=null;document.addEventListener('input',()=>{clearTimeout(storeInT);storeInT=setTimeout(storeChip,300);});
+// Aviso al salir con algo sin guardar (el navegador muestra su propio mensaje)
+window.addEventListener('beforeunload',e=>{if(storeUnsaved().length){e.preventDefault();e.returnValue='';}});
+// Gancho para las pruebas automáticas
+window.TaktStore={dump:k=>JSON.stringify(storeBox(k).studies.filter(d=>(k==='we')===(d.kind==='we')||!['ds','we'].includes(k))),ready:()=>STORE.ready,ok:()=>STORE.ok,err:()=>STORE.err,saved:()=>[...STORE.saved.keys()],unsaved:()=>storeUnsaved().length,uid:()=>uid,
+  state:k=>{const[kk,d]=storeCurrent();return d?storeStateOf(d,STORE.saved):null;}};
+
+// Arranque: primero se lee lo guardado y después se pinta la app
+storeInit().finally(()=>render());
 })();
 </script>
 </body>

@@ -22,6 +22,7 @@ Prototipo publicado: https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f
 - Cálculo de personal (headcount): listo.
 - Actual Time + Eficiencia compuesta y Diagramas de flujo: listos.
 - Aprende (tutoriales con demo en vivo y modo guiado): los 9 listos (6 estudios, Personal, Actual Time + Eficiencia compuesta, Diagramas de flujo).
+- Guardado (Fase 1): almacén en el navegador (IndexedDB) con versiones y migraciones; «Guardar» explícito. Fase 2 (jerarquía de planta) en curso.
 
 ## Correr las pruebas
 

@@ -240,6 +240,35 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - En teléfono, si el objetivo queda en la mitad de abajo (p. ej. la nube del diagrama), el globo sube arriba para no taparlo.
 - Los tutoriales se prueban solos: `bash tests/correr_pruebas.sh` (rutina obligatoria antes de cada commit) corre los 9 en demo y guiado en 3 dispositivos y dice qué paso de qué tutorial ya no encuentra su botón. Se verificó cambiando un botón a propósito. Los textos de los globos se ajustan en los datos sin tocar el motor.
 
+## Guardado de estudios — FASE 1 LISTA (2026-11-12)
+Decisiones de Angel (2026-11-12):
+- **Guardar es explícito y todo o nada** (sin autoguardado). Los **estudios** (WS, DS, WE, ST, MM, SMED) se guardan completos con «Guardar estudio» (antes «Finalizar estudio») y quedan FINALIZADO; se pueden reabrir para seguir el análisis y volver a guardar. Los **análisis** (Cálculo de personal, Actual Time, Diagramas de flujo) se pueden guardar a medias (p. ej. «Guardar abril»).
+- Lo no guardado se marca «SIN GUARDAR» en la lista e indicador en el encabezado; al editar uno guardado: «CAMBIOS SIN GUARDAR» + «Descartar cambios». Al intentar salir con algo pendiente, el navegador avisa.
+- Sin autoguardado no hay recuperación de cronómetro: si la tablet se apaga a mitad de captura, esa captura se pierde (se quitó de la Fase 3).
+- **Sin nombre del operador:** los campos dicen «Puesto».
+- Jerarquía (Fase 2): **Planta → Área → Línea → Estación**. Exigido: estudios de tiempos, SMED y Man Machine piden línea; Cálculo de personal y Actual Time, área; Diagramas de flujo, planta. Siempre con «Sin asignar».
+
+Diseño (patrón repositorio):
+- Los formatos solo llaman `storeSave(tipo, estudio)`; nunca saben dónde se guarda. Hoy: IndexedDB del navegador (funciona sin internet). Con el servidor (Python) solo cambia el interior del almacén.
+- **Sobre** común: `uuid` (único universal), tipo, versión del formato, `createdAt`, `savedAt` y el estudio adentro (copia completa). Se guarda en una sola transacción (todo o nada).
+- **Versiones y migraciones:** `STORE_SCHEMA` (hoy 1 en los 9) y `STORE_MIGS[tipo][v]` (v → v+1). Al abrir, los estudios viejos se convierten solos; si falta una migración, avisa y no adivina. **Regla: todo cambio que altere la forma de los datos de un formato sube su versión y agrega su migración con prueba.**
+- **IDs internos sin choques:** el contador arrancaba en 1000 en cada sesión; ahora sigue desde el número más alto guardado.
+- Catálogo de problemas del Speed Trial (compartido por línea) se guarda junto con los estudios.
+- Los tutoriales nunca guardan (sandbox).
+- Al abrir la app primero se lee lo guardado y después se pinta.
+- En el enlace de claude.ai el guardado vive en el navegador de cada dispositivo (no se comparte entre dispositivos y se pierde si se borran los datos del navegador). Compartir entre dispositivos y usuarios llega con el servidor.
+
+Errores encontrados y corregidos en esta fase:
+- **Fechas en hora universal:** en México, después de las 6 p. m., los estudios quedaban fechados al día siguiente. Ahora es la fecha local (7 lugares).
+- Man Machine y SMED no marcaban FINALIZADO al guardar.
+
+Pruebas: `parts/storetest.js` (15 casos: UUID, sobre, migraciones en cadena, contador de IDs, estado; lee el bloque `<store-pure>` de index.html) y `tests/smoke/smoke_store.py` (9 formatos: guardar → recargar → datos idénticos; OEE 91.1 % al reabrir; cambios sin guardar y descartar; nuevo sin guardar no sobrevive; tutorial sin rastro; borrar; fecha local; «Puesto»). Ambas en `tests/correr_pruebas.sh`.
+
+Siguiente:
+- **Fase 2:** catálogo Planta → Área → Línea → Estación en Configuración, selector en la Información de cada formato y filtros en las listas (con migración v1 → v2 de los estudios ya guardados: quedan «Sin asignar»).
+- **Fase 3:** avisos de almacenamiento lleno o no disponible visibles en pantalla (hoy: mensaje al guardar) y persistencia de los ajustes de vista (p. ej. FY de Eficiencia compuesta).
+- Después (otra etapa): servidor, cuentas y sincronización; exportación PDF/Excel casi al final.
+
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
 
@@ -261,7 +290,7 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 
 ## Hoja de ruta acordada (actualizada 2026-11-12, tras el análisis de brechas)
 - Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo, Aprende (9 tutoriales).
-- **Siguiente (este chat): guardado de estudios** = modelo de datos + jerarquía + guardado local sin conexión. La **exportación PDF/Excel** sigue casi al final. Angel aceptó mover el guardado al frente (2026-11-12) porque el tablero, los estudios vencidos, el antes/después y los pagos dependen de datos guardados.
+- **Guardado de estudios** = modelo de datos + jerarquía + guardado local sin conexión: Fase 1 lista (2026-11-12); siguen Fase 2 (jerarquía) y Fase 3. La **exportación PDF/Excel** sigue casi al final. Angel aceptó mover el guardado al frente (2026-11-12) porque el tablero, los estudios vencidos, el antes/después y los pagos dependen de datos guardados.
 - Después (chat nuevo): estudios complementarios. Angel elige cuáles; algunos pueden ser problemáticos (licencias, alcance).
 - Luego: Inicio (tablero) → diseño final → pagos → exportación PDF/Excel.
 - Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.

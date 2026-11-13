@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: **lo que Angel indique** (Aprende ya tiene los 9 tutoriales; el guardado de estudios queda casi al final).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: **Guardado · Fase 2 (jerarquía Planta → Área → Línea → Estación)**. Lee la sección «Guardado de estudios» de `docs/decisiones-mvp.md`. Después, en otro chat, los estudios complementarios.
 
 ## Pasos para Claude al iniciar
 
@@ -33,12 +33,11 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
 
-## Estado al 2026-11-12 (noche, cierre de Aprende)
+## Estado al 2026-11-12 (noche, guardado Fase 1)
 
-- Listos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo y **Aprende con los 9 tutoriales** (demo en vivo con bot + «Hazlo tú» guiado; las explicaciones corren solas como video y solo se espera al usuario cuando debe actuar; sin historial).
-- Agregados en esta etapa: «Cargar ejemplo» en Delay Study y «Cargar tiempos de ejemplo» en Work Element; «Ver tutorial» en la lista de cada herramienta. Corregido: seleccionar con un toque + «Mover aquí» en Asignación y balanceo.
-- Pruebas: `bash tests/correr_pruebas.sh` = 11 de cálculo (incluye `tuttest`) + los 9 tutoriales en demo y guiado en 3 dispositivos, en paralelo (≈ 4.5 min). Es la rutina obligatoria antes de cada commit; se verificó que detecta un botón cambiado. Las demás pruebas de `tests/smoke/` siguen sueltas.
-- Menú: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración. En teléfono: Personal en la barra; Actual Time, Diagramas de flujo y Aprende desde «Más».
-- **Guardado de estudios y exportación PDF/Excel: en espera, casi al final de todo (Angel, 2026-11-12).**
-- Pendientes (Angel define el orden): pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI; los tutoriales se revisan solos con la rutina de pruebas), videos de marketing grabados desde las demos.
-- Pendiente menor: `smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores (fallaban desde antes); actualizarlas o quitarlas.
+- Listos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo, Aprende (9 tutoriales) y **Guardado Fase 1** (almacén IndexedDB con sobre, versiones y migraciones; «Guardar» explícito todo o nada; SIN GUARDAR / CAMBIOS SIN GUARDAR / Descartar; aviso al salir; tutoriales sin rastro; «Puesto» en lugar de nombre).
+- Corregido: fechas en hora universal (ya son locales) y FINALIZADO en Man Machine y SMED.
+- Pruebas: `bash tests/correr_pruebas.sh` = 12 de cálculo/lógica (incluye `tuttest` y `storetest`) + guardado de los 9 formatos + 9 tutoriales en 3 dispositivos (≈ 5 min). Rutina obligatoria antes de cada commit.
+- **Regla nueva:** si cambia la forma de los datos de un formato, se sube su versión en `STORE_SCHEMA` y se agrega su migración en `STORE_MIGS` con prueba.
+- Siguiente: Guardado Fase 2 (jerarquía) y Fase 3; luego, en otro chat, estudios complementarios (Angel elige). Exportación PDF/Excel casi al final.
+- Pendiente menor: `smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores; actualizarlas o quitarlas.
