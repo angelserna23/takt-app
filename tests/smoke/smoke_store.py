@@ -34,9 +34,25 @@ def make(pg,k):
         go(pg,'pc');en(pg,'#view [data-pcnew]');pg.fill('input[name=nombre]','maquinado 1');en(pg,'[data-pcneed]');en(pg,'[data-pcexample]');en(pg,'.pcbottom [data-pcv="res"]');return '[data-pcfinish]'
     if k=='at':
         go(pg,'at');en(pg,'#view [data-atnew]');pg.fill('input[name=nombre]','ensamble 1');en(pg,'[data-atneed]');en(pg,'[data-atexample]');en(pg,'.pcbottom [data-atv="res"]');return '[data-atfinish]'
+    if k=='tk':
+        go(pg,'tk');en(pg,'#view [data-tknew]');pg.fill('input[name=titulo]','balanceo guardado');pg.fill('input[name=analista]','jp')
+        pg.fill('input[name=demanda]','800');pg.fill('input[name=paros]','40')
+        check('tk',pg.locator('#tktaktv').inner_text()=='1.1','takt en vivo 1.10 (880 ÷ 800)')
+        en(pg,'[data-tkneed]')
+        check('tk',pg.locator('[data-tkimp]:not([disabled])').count()>=1,'el Work Element guardado aparece para traer')
+        en(pg,'[data-tkimp]');n_we=pg.locator('.tkst').count()
+        check('tk',n_we>=1 and pg.locator('[data-tkimp][disabled]').count()>=1,'traer el Work Element crea su estación y lo marca «Ya está»')
+        for i in range(n_we):
+            en(pg,'[data-tkstdel]')
+            if pg.locator('#modal [data-mok]').count():pg.locator('#modal [data-mok]').click();pg.wait_for_timeout(80)
+        en(pg,'[data-tkexample]');en(pg,'[data-tkv="bal"]')
+        pg.locator('[data-tksel]').filter(has_text='ATORNILLAR').click();pg.wait_for_timeout(80)
+        pg.locator('.lane').filter(has=pg.locator('input[value="EST 30"]')).locator('[data-tkmove]').click();pg.wait_for_timeout(120)
+        check('tk',pg.locator('.kpi').filter(has_text='Eficiencia').first.inner_text().find('95.3%')>=0,'mover ATORNILLAR a EST 30: eficiencia 81.5 % → 95.3 %')
+        en(pg,'[data-tkv="res"]');return '[data-tkfinish]'
     if k=='df':
         go(pg,'df');en(pg,'#view [data-dfnew]');pg.fill('input[name=titulo]','recepción');pg.fill('input[name=analista]','jp');en(pg,'[data-dfneed]');en(pg,'[data-dfexample]');en(pg,'[data-dfv="res"]');return '[data-dffinish]'
-KINDS=['ws','ds','we','st','mm','sm','pc','at','df']
+KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk']
 with sync_playwright() as p:
     b=p.chromium.launch();ctx=b.new_context(viewport={'width':1366,'height':900},timezone_id='America/Mexico_City')
     pg=ctx.new_page();pg.route('**/fonts.googleapis.com/**',lambda r:r.abort());pg.on('pageerror',lambda e:errs.append(str(e)))
@@ -60,6 +76,9 @@ with sync_playwright() as p:
     pg.reload();pg.wait_for_function('window.TaktStore&&TaktStore.ready()')
     for k in KINDS:check(k,pg.evaluate(f"TaktStore.dump('{k}')")==dumps[k],'después de recargar los datos son idénticos')
     check('base',pg.evaluate('TaktStore.uid()')>=maxid,f'el contador de IDs sigue desde el más alto ({pg.evaluate("TaktStore.uid()")} ≥ {maxid})')
+    go(pg,'tk');pg.locator('[data-tkopen]').first.click();pg.wait_for_timeout(200)
+    check('tk',pg.locator('.kpi').filter(has_text='Capacidad').first.inner_text().find('830')>=0 and pg.locator('.kpi').filter(has_text='Eficiencia').first.inner_text().find('95.3%')>=0,'al reabrir el balanceo: 830 pzs/día y 95.3 % (con el antes 81.5 %)')
+    go(pg,'config');check('tk',pg.locator('.slot').filter(has_text='Takt de la línea').count()==1,'Configuración muestra la tarjeta de takt por línea')
     # los resultados se recalculan igual: Speed Trial y Man Machine
     go(pg,'st');pg.locator('[data-stopen]').first.click();pg.wait_for_timeout(200)
     check('st',pg.locator('.kpi').filter(has_text='OEE').first.inner_text().find('91.1%')>=0,'al reabrir, OEE 91.1 %')
@@ -140,4 +159,4 @@ with sync_playwright() as p:
     b.close()
 print('errores JS:',errs or 'ninguno')
 if fails or errs:print('FALLAS:',fails);sys.exit(1)
-print('OK: guardado en los 9 formatos (guardar, recargar, cambios, descartar, borrar, tutoriales)')
+print('OK: guardado en los 10 formatos (guardar, recargar, cambios, descartar, borrar, tutoriales)')

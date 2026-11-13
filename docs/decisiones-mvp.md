@@ -1,6 +1,6 @@
 # Takt — Decisiones del MVP (Estudios de tiempos)
 
-Última actualización: 2026-11-12
+Última actualización: 2026-11-13
 
 ## Alcance (cambio importante)
 - **OEE y costo ya no son pilares/módulos aparte.** Se manejan solo dentro del **Speed Trial**. Se quitaron las secciones "OEE" y "Costo MO" del menú (laptop y teléfono). Angel definirá qué va en su lugar.
@@ -276,6 +276,24 @@ Siguiente:
 - **Fase 3:** avisos de almacenamiento lleno o no disponible visibles en pantalla (hoy: mensaje al guardar) y persistencia de los ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Después (otra etapa): servidor, cuentas y sincronización; exportación PDF/Excel casi al final.
 
+## Takt y balanceo de línea — LISTO PARA COMENTARIOS (2026-11-13; primer estudio complementario)
+Pestaña propia del menú («Takt y balanceo»; en teléfono desde «Más»). Clave `tk` en `STORE_SCHEMA`, **v1 (nace con ubicación, sin migración)**; ubicación pedida hasta **línea**; tutorial número 10 en Aprende (grupo Capacidad y eficiencia).
+Cómo lo trabaja Angel: un Work Element por estación (≈130 en su caso); el conjunto muestra el balanceo de la línea y se mueven actividades entre estaciones. Esta pestaña los junta y compara contra el takt.
+Flujo (4 pasos):
+1. **Takt:** título, analista*, fecha, ubicación (hasta línea); demanda diaria* (coma = miles), turnos (2), minutos por turno (480), paros programados por turno (comida, breaks, juntas, TPM). Takt en vivo.
+2. **Estaciones:** «Traer de Work Element» lista los WE de la línea elegida (sin línea: todos); **cada operador del WE entra como una estación** con el **promedio por pieza** de cada elemento (copia, no liga: si el WE cambia, se vuelve a traer). «Traer todos». También estaciones y elementos a mano, y ejemplo de 4 estaciones.
+3. **Balanceo:** Yamazumi por estación con la línea roja del takt; carriles por estación; arrastrar elementos (táctil: mantener presionado) o tocar → «Mover aquí»; «Agregar estación vacía» para simular; «Regresar a como se trajo». Cada elemento recuerda su estación original (`st0`).
+4. **Resultados:** takt, cuello de botella, estaciones sobre takt, capacidad teórica (pzs/h y pzs/día contra la demanda), eficiencia de balanceo (antes → simulado), personal teórico; Yamazumi y tabla (TC como se trajo / simulado / % del takt / holgura).
+Cálculos (24 pruebas automáticas, `parts/tktest.js`, leen el bloque `<tk-pure>` directo de index.html):
+- Disponible = turnos × (min por turno − paros por turno); **Takt = disponible ÷ demanda**.
+- TC de la estación = Σ tiempos de sus elementos; cuello de botella = la mayor; sobre takt = TC > takt.
+- Eficiencia de balanceo = Σ TC ÷ (estaciones × TC del cuello de botella). Capacidad = 60 ÷ TC cuello (pzs/h); pzs/día = disponible ÷ TC cuello.
+- Personal teórico = Σ TC ÷ takt; mínimo de estaciones = ⌈personal teórico⌉.
+- «Antes» = estaciones originales con `st0`; las estaciones agregadas para simular solo cuentan en el después.
+- Ejemplo ficticio (poleas): 800 pzs/día, 2 × (480 − 40) = 880 min → takt 1.10. EST 20 = 1.24 (cuello), eficiencia 81.5 %, 709.7 pzs/día (no cumple), personal 3.67 → 4. Mover ATORNILLAR (0.18) a EST 30 → 1.06 / 1.03, eficiencia 95.3 %, 830 pzs/día (cumple).
+Decisión de Claude (a confirmar): **el takt vive dentro de cada balanceo (fechado)**, no en el catálogo. Configuración muestra «Takt de la línea» = el del balanceo más reciente de cada línea. Así no se versiona el catálogo y queda historial para el antes/después.
+Pendiente de comentarios de Angel.
+
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
 
@@ -298,9 +316,10 @@ Siguiente:
 ## Hoja de ruta acordada (actualizada 2026-11-12, tras el análisis de brechas)
 - Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo, Aprende (9 tutoriales).
 - **Guardado de estudios** = modelo de datos + jerarquía + guardado local sin conexión: Fases 1 y 2 listas (2026-11-12); sigue Fase 3. La **exportación PDF/Excel** sigue casi al final. Angel aceptó mover el guardado al frente (2026-11-12) porque el tablero, los estudios vencidos, el antes/después y los pagos dependen de datos guardados.
-- Después (chat nuevo): estudios complementarios. Angel elige cuáles; algunos pueden ser problemáticos (licencias, alcance).
+- Estudios complementarios (orden acordado 2026-11-13): **1) Takt y balanceo de línea (listo para comentarios)** → 2) plan de acción + antes/después (falta decidir si habla de dinero o solo tiempos/piezas/horas-hombre) → 3) hoja de trabajo estándar (generada de WE/MM) → 4) diagrama de espagueti → 5) ergonomía NOM-036 (apoyo, no dictamen). En espera: tiempo estándar. Después: VSM, curva de aprendizaje; horarios aleatorios = mejora del Work Sampling; video = proyecto aparte.
+- Regla para cada estudio nuevo: nace con guardado (su versión en `STORE_SCHEMA`), ubicación en la jerarquía, tutorial en Aprende y sus pruebas en `smoke_store.py` y `smoke_tut.py`.
 - Luego: Inicio (tablero) → diseño final → pagos → exportación PDF/Excel.
-- Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
+- Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Takt y balanceo · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
 
 ## Análisis de brechas (2026-11-12)
 Lo que el ingeniero industrial necesita de punta a punta: medir → estándar → balancear → documentar → mejorar → demostrar el ahorro. La parte de medir y analizar está cubierta.

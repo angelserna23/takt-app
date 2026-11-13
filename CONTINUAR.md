@@ -4,13 +4,13 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: **estudios complementarios** (Angel elige cuáles; ver «Análisis de brechas» en `docs/decisiones-mvp.md`). El guardado (Fases 1 y 2) ya está; la Fase 3 es menor.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: comentarios de Angel sobre **Takt y balanceo** y después el siguiente estudio complementario (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
 
 ## Pasos para Claude al iniciar
 
 1. Clonar `angelserna23/takt-app` (rama `main`).
 2. Leer `docs/decisiones-mvp.md` completo: reglas generales, unidades, reglas de teléfono y la hoja de ruta.
-3. Instalar Chromium para Playwright (`playwright install chromium`) y correr `bash tests/correr_pruebas.sh`: cálculos + los 9 tutoriales en laptop, tablet y teléfono (≈ 5 min). Debe terminar en «TODO PASA». Durante el trabajo, `bash tests/correr_pruebas.sh rapido` corre solo los cálculos.
+3. Instalar Chromium para Playwright (`playwright install chromium`) y correr `bash tests/correr_pruebas.sh`: cálculos + guardado de los 10 formatos + los 10 tutoriales en laptop, tablet y teléfono (≈ 5 min). Debe terminar en «TODO PASA». Durante el trabajo, `bash tests/correr_pruebas.sh rapido` corre solo los cálculos.
 4. Para publicar cambios de la app: el artifact ya existe (slug `b963594a-ed0b-4bfe-9897-a3ee86914094`). Republicar `index.html` sobre ese mismo slug (pedir la versión actual con get_artifact y usarla como base_version). No crear un artifact nuevo.
 5. Al terminar el chat: seguir la rutina de cierre (abajo).
 
@@ -32,6 +32,12 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Explicar cada decisión técnica (Angel estudia Full Stack Python); ser directo y decir cuando algo sea mala idea.
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
+
+## Estado al 2026-11-13 (Takt y balanceo)
+
+- Nuevo: **Takt y balanceo de línea** (pestaña propia): takt con demanda/turnos/paros, estaciones traídas de los Work Element de la línea (cada operador = una estación), balanceo arrastrando elementos contra el takt, resultados con antes → simulado. Clave `tk` v1, ubicación hasta línea, tutorial 10, 24 pruebas de cálculo + guardado + tutorial en 3 dispositivos. Publicado en el mismo artifact.
+- Esperando comentarios de Angel. Decisión a confirmar: el takt vive en cada balanceo (fechado); Configuración muestra el más reciente por línea.
+- Siguiente complementario: plan de acción + antes/después (antes, decidir si habla de dinero).
 
 ## Estado al 2026-11-12 (noche, guardado Fases 1 y 2)
 

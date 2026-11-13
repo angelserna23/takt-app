@@ -19,7 +19,7 @@ with sync_playwright() as p:
         pg.goto(IDX+('#config' if tag=='phone' else '#estudios'))
         # Entrada: menú lateral en laptop/tablet; en teléfono desde «Más»
         (pg.locator('.atmore [data-go=aprende]') if tag=='phone' else pg.locator('.navbtn[data-go=aprende]')).click();pg.wait_for_timeout(150)
-        check(tag,pg.locator('.tutcard').count()==9,'9 tarjetas de tutorial')
+        check(tag,pg.locator('.tutcard').count()==10,'10 tarjetas de tutorial')
         check(tag,pg.locator('.tutcard.off').count()==0,'ninguna marcada como próximamente')
         if tag!='phone':check(tag,pg.locator('.navbtn[aria-current=page]').get_attribute('data-go')=='aprende','menú Aprende activo')
         tl=pg.evaluate('TaktTut.list()')

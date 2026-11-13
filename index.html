@@ -719,6 +719,23 @@ body.tutoring #view{padding-bottom:110px}
 .catadd{display:flex;gap:8px;align-items:center}.catadd input{flex:1;min-width:0;height:44px;border-radius:10px;border:1px dashed var(--line);padding:0 10px;font:600 14px 'IBM Plex Sans',sans-serif;background:transparent}
 .catadd input.miss{border-color:#C2410C}
 @media (max-width:700px){.catk{margin-left:6px;padding-left:8px}.catlv{flex-basis:56px}}
+/* Takt y balanceo */
+.tkimport{margin-top:18px;padding:18px 20px;border-radius:18px}
+.tkwe{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-top:12px}
+.tkwer{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.75);border:1px solid var(--line)}
+.tkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:12px;align-items:start}
+.tkst{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:18px;background:rgba(255,255,255,.72);border:1px solid var(--line)}
+.tksth{display:flex;align-items:center;gap:8px}
+.tksth input{flex:1;min-width:0;height:44px;border:1px solid transparent;border-radius:10px;background:transparent;font-weight:700;font-size:16px;padding:0 6px}
+.tksth input:hover,.tksth input:focus{border-color:var(--line);background:#fff}
+.tktc{font-size:18px;font-weight:600;color:var(--blue);white-space:nowrap}
+.tkels{display:flex;flex-direction:column;gap:6px}
+.tkel{display:flex;align-items:center;gap:8px}
+.tkel input{height:44px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:0 10px;font-size:15px;min-width:0}
+.tkel input:first-of-type{flex:1}
+.tkel .tkt{width:84px;flex:0 0 84px;text-align:right;font-family:'IBM Plex Mono',monospace}
+.tkst,.tkwer{min-width:0}
+@media (max-width:700px){.tkwe,.tkgrid{grid-template-columns:minmax(0,1fr)}.tkel{gap:6px}.tkel .tkt{width:62px;flex-basis:62px;padding:0 8px}.tkel .opn{width:26px;height:26px;flex-basis:26px;font-size:13px}.tkst{padding:12px}}
 </style>
 </head>
 <body>
@@ -776,6 +793,7 @@ const I = {
   at:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 1.8M9.5 3h5M12 3v2"/>',
   pc:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.9.3 5 2.6 5 5.8"/>',
   aprende:'<path d="M3 6.5c3-1.4 6-1.4 9 0v13c-3-1.4-6-1.4-9 0z"/><path d="M21 6.5c-3-1.4-6-1.4-9 0v13c3-1.4 6-1.4 9 0z"/>',
+  tk:'<path d="M5 20v-7M10 20V8M15 20v-9M20 20v-5"/><path d="M3 10.5h18" stroke-dasharray="2.2 2.2"/>',
   config:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
   lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
@@ -846,13 +864,13 @@ const S={studies:[],draft:null,view:'hdr',opId:null,keep:false};
 let uid=1000;const nid=()=>++uid;
 // Fecha de hoy en la hora local (no en hora universal: en México, después de las 6 p. m. la UTC ya es mañana)
 const hoyLocal=(d=new Date())=>{const z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());};
-const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['pc','Cálculo de personal'],['at','Actual Time'],['df','Diagramas de flujo'],['aprende','Aprende']];
+const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['tk','Takt y balanceo'],['pc','Cálculo de personal'],['at','Actual Time'],['df','Diagramas de flujo'],['aprende','Aprende']];
 
 function route(){const h=(location.hash||'#estudios').slice(1);return h||'estudios';}
 function go(h){if(location.hash==='#'+h)render();else location.hash=h;}
 window.addEventListener('hashchange',render);
 
-function sectionOf(r){if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r==='df'||r.startsWith('df-'))return 'df';if(r==='aprende'||r.startsWith('aprende-'))return 'aprende';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r==='estudios')return 'estudios';return r;}
+function sectionOf(r){if(r==='tk'||r.startsWith('tk-'))return 'tk';if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r==='df'||r.startsWith('df-'))return 'df';if(r==='aprende'||r.startsWith('aprende-'))return 'aprende';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r==='estudios')return 'estudios';return r;}
 
 function renderNav(r){
   const sec=sectionOf(r);
@@ -1058,10 +1076,10 @@ function vNuevo(){
 function vInicio(){setHead('Tablero',[['Inicio','inicio']]);
   return `<section class="glass panel empty"><span class="tag">AL FINAL</span><h2>Tablero del Analista</h2><p>Se diseña al final, cuando los formatos ya generen datos: operaciones sobre takt, capacidad teórica, eficiencia de balanceo y estudios vencidos.</p></section>`;}
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
-  return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="df">${svg('df',18)} Diagramas de flujo</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
+  return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Takt, capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="tk">${svg('tk',18)} Takt y balanceo</button><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="df">${svg('df',18)} Diagramas de flujo</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
   ${vCatalogo()}
   <section class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
-  ${[['Takt de la línea','Demanda diaria, turnos y minutos disponibles por turno.'],['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
+  ${tkConfigCard()}${[['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
 
 /* ---------- render + eventos ---------- */
 function render(keep){
@@ -1079,6 +1097,8 @@ function render(keep){
   else if(r==='st-nuevo')html=vST();
   else if(r==='mm')html=vMMList();
   else if(r==='mm-nuevo')html=vMM();
+  else if(r==='tk')html=vTKList();
+  else if(r==='tk-nuevo')html=vTK();
   else if(r==='pc')html=vPCList();
   else if(r==='pc-nuevo')html=vPC();
   else if(r==='at')html=vATList();
@@ -1097,7 +1117,7 @@ function render(keep){
   else html=vEstudios();
   const v=document.getElementById('view');v.innerHTML=`<div class="${keep?'':'view'}" style="display:flex;flex-direction:column;gap:16px">${html}</div>`;
   // Teléfono: los botones de acción del encabezado de cada pantalla bajan al final, para no regresar a buscarlos
-  if(window.innerWidth<=700)v.querySelectorAll('section.panel').forEach(sec=>{const row=[...sec.children].find(c=>c.classList.contains('row'));if(!row||row.children.length<2)return;const g=row.lastElementChild;if(!g.querySelector('.btn')||g.querySelector('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-pcnew],[data-atnew],[data-dfnew],[data-go="ws-nuevo"]')||g.matches('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-go="ws-nuevo"]'))return;g.classList.add('mobfoot');sec.appendChild(g);});
+  if(window.innerWidth<=700)v.querySelectorAll('section.panel').forEach(sec=>{const row=[...sec.children].find(c=>c.classList.contains('row'));if(!row||row.children.length<2)return;const g=row.lastElementChild;if(!g.querySelector('.btn')||g.querySelector('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-tknew],[data-pcnew],[data-atnew],[data-dfnew],[data-go="ws-nuevo"]')||g.matches('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-go="ws-nuevo"]'))return;g.classList.add('mobfoot');sec.appendChild(g);});
   requestAnimationFrame(()=>{document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');document.querySelectorAll('.vfill').forEach(f=>f.style.height=f.dataset.h+'%');});
   if(!keep)window.scrollTo({top:0});
   if(typeof storeDecorate==='function'&&STORE.ready){storeDecorate();storeChip();ubicDecorate();}
@@ -1385,11 +1405,12 @@ function dragStart(){const g=DRAG.chip.cloneNode(true);g.classList.add('dragghos
 function dragMove(x,y){const g=DRAG.ghost;g.style.left=(x-DRAG.ox)+'px';g.style.top=(y-DRAG.oy)+'px';
   const t=document.elementFromPoint(x,y);const lane=t&&t.closest('[data-lane]');document.querySelectorAll('.lane.drop').forEach(l=>{if(l!==lane)l.classList.remove('drop');});if(lane)lane.classList.add('drop');DRAG.lane=lane;}
 function dragEnd(){const d=DS.d;if(DRAG.active){DRAG_SUPPRESS=true;setTimeout(()=>DRAG_SUPPRESS=false,0);
-  if(DRAG.lane&&d){const v=DRAG.lane.dataset.lane;d.assign[DRAG.id]=v==='none'?null:+v;DS.sel=null;}
+  if(DRAG.tk){const el=DRAG.lane&&TK.d&&TK.d.els.find(x=>x.id===DRAG.id);if(el)el.st=+DRAG.lane.dataset.lane;TK.sel=null;}
+  else if(DRAG.lane&&d){const v=DRAG.lane.dataset.lane;d.assign[DRAG.id]=v==='none'?null:+v;DS.sel=null;}
   DRAG.ghost.remove();document.body.classList.remove('dragging');}
-  const moved=DRAG.active;clearTimeout(DRAG.timer);DRAG=null;if(moved&&DS.view==='asig'){S.keep=true;render(true);S.keep=false;}}   // sin arrastre no se vuelve a pintar: si no, el toque (seleccionar → Mover aquí) se pierde
-document.addEventListener('pointerdown',e=>{const c=e.target.closest('.achip');if(!c||DS.view!=='asig'||e.button>0)return;
-  const r=c.getBoundingClientRect();DRAG={id:+c.dataset.dssel,chip:c,x:e.clientX,y:e.clientY,ox:e.clientX-r.left,oy:e.clientY-r.top,touch:e.pointerType!=='mouse',active:false};
+  const moved=DRAG.active,tk=DRAG.tk;clearTimeout(DRAG.timer);DRAG=null;if(moved&&(tk?TK.view==='bal':DS.view==='asig')){S.keep=true;render(true);S.keep=false;}}   // sin arrastre no se vuelve a pintar: si no, el toque (seleccionar → Mover aquí) se pierde
+document.addEventListener('pointerdown',e=>{const c=e.target.closest('.achip');if(!c||e.button>0)return;const tk=c.classList.contains('tkchip');if(tk?TK.view!=='bal':DS.view!=='asig')return;
+  const r=c.getBoundingClientRect();DRAG={tk,id:+(tk?c.dataset.tksel:c.dataset.dssel),chip:c,x:e.clientX,y:e.clientY,ox:e.clientX-r.left,oy:e.clientY-r.top,touch:e.pointerType!=='mouse',active:false};
   if(DRAG.touch)DRAG.timer=setTimeout(()=>{if(DRAG&&!DRAG.active){dragStart();dragMove(DRAG.x,DRAG.y);}},280);});
 document.addEventListener('pointermove',e=>{if(!DRAG)return;
   if(!DRAG.active){const far=Math.hypot(e.clientX-DRAG.x,e.clientY-DRAG.y)>6;if(far){if(DRAG.touch){clearTimeout(DRAG.timer);DRAG=null;return;}dragStart();}else return;}
@@ -3498,6 +3519,220 @@ document.addEventListener('keydown',e=>{const g=e.target.closest&&e.target.close
 window.addEventListener('resize',()=>{if(DF.sel)dfPlacePop();});
 window.addEventListener('hashchange',()=>dfPopClean());
 
+// ===== TAKT Y BALANCEO DE LÍNEA · el ritmo del cliente contra el tiempo ciclo de cada estación =====
+// Así lo trabaja Angel en piso: un Work Element por estación (uno por operador); el conjunto muestra el balanceo de la línea
+// y se mueven elementos entre estaciones hasta que ninguna pase del takt. Aquí se juntan, se comparan contra el takt y se simula.
+// <tk-pure> Funciones puras: se prueban en Node (parts/tktest.js) leyendo este bloque directo de index.html.
+function tkNum(v){const x=parseFloat(String(v??'').replace(',','.'));return isNaN(x)?0:x;}
+// Demanda en piezas: la coma es separador de miles (1,200 = 1200), como en dinero.
+function tkDem(v){const x=parseFloat(String(v??'').replace(/,/g,''));return isNaN(x)?0:x;}
+// Minutos disponibles por día = turnos × (minutos por turno − paros programados por turno: comida, breaks, juntas, TPM)
+function tkDisp(d){return Math.max(0,tkNum(d.turnos)*(tkNum(d.minTurno)-tkNum(d.paros)));}
+// Takt = minutos disponibles ÷ demanda diaria (minutos por pieza)
+function tkTakt(d){const D=tkDem(d.demanda);return D>0?tkDisp(d)/D:0;}
+// Balanceo: tiempo ciclo de cada estación = Σ tiempos de sus elementos (min por pieza).
+// key = 'st' (como quedó en la simulación) o 'st0' (como se trajo de los estudios).
+function tkCalc(stations,els,o){o=o||{};const key=o.key||'st',takt=+o.takt||0,disp=+o.disp||0,dem=+o.dem||0;
+  const rows=stations.map(s=>{const items=els.filter(e=>e[key]===s.id);const tc=items.reduce((a,e)=>a+tkNum(e.t),0);
+    return {id:s.id,nombre:s.nombre,items,tc,pct:takt?tc/takt:0,over:takt>0&&tc>takt+1e-9};});
+  const n=rows.length,total=rows.reduce((a,r)=>a+r.tc,0);
+  let bott=null;rows.forEach(r=>{if(!bott||r.tc>bott.tc+1e-12)bott=r;});const max=bott?bott.tc:0;
+  const personal=takt?total/takt:0;
+  return {rows,n,total,max,bott:max>0?bott:null,
+    eff:n&&max?total/(n*max):0,          // eficiencia de balanceo = Σ TC ÷ (estaciones × TC del cuello de botella)
+    cap:max?60/max:0,                    // capacidad teórica (pzs/h): la línea no va más rápido que su cuello de botella
+    capDia:max?disp/max:0,               // piezas posibles por día con el tiempo disponible
+    cumple:max>0&&dem>0&&disp/max>=dem-1e-9,
+    over:rows.filter(r=>r.over).length,  // estaciones arriba del takt
+    personal,                            // personal teórico = Σ TC ÷ takt
+    minEst:takt?Math.ceil(personal-1e-9):0};}
+// Las estaciones «de antes» son las que se trajeron o capturaron; las agregadas en el balanceo son para simular.
+function tkBefore(st){return st.filter(s=>!s.nueva);}
+// </tk-pure>
+
+const TK={studies:[],d:null,view:'info',sel:null,miss:[]};
+// Ejemplo ficticio: ensamble de poleas, 4 estaciones (Σ 4.04 min). Con 800 pzs/día y 880 min, takt 1.10: EST 20 (1.24) no alcanza.
+const TK_EXAMPLE=[['EST 10',[['TOMAR CARCASA',0.12],['COLOCAR EN DISPOSITIVO',0.20],['INSERTAR BALERO',0.35],['INSPECCIONAR',0.25]]],
+  ['EST 20',[['TOMAR POLEA',0.10],['PRENSAR POLEA',0.42],['COLOCAR TORNILLOS',0.30],['ATORNILLAR',0.18],['AJUSTAR',0.24]]],
+  ['EST 30',[['GIRAR PIEZA',0.08],['COLOCAR TAPA',0.27],['REMACHAR',0.34],['LIMPIAR',0.16]]],
+  ['EST 40',[['PRUEBA DE GIRO',0.45],['ETIQUETAR',0.20],['EMPACAR',0.38]]]];
+const tkName=d=>d.titulo||'Nuevo balanceo';
+function tkNew(){TK.d={id:nid(),ubic:{},titulo:'',analista:'',fecha:hoyLocal(new Date()),demanda:'',turnos:'2',minTurno:'480',paros:'',estaciones:[],els:[],estado:'Abierto'};TK.view='info';TK.sel=null;TK.miss=[];}
+const tkOpts=d=>({takt:tkTakt(d),disp:tkDisp(d),dem:tkDem(d.demanda)});
+const tkNow=d=>tkCalc(d.estaciones,d.els,tkOpts(d));
+const tkAntes=d=>tkCalc(tkBefore(d.estaciones),d.els,Object.assign(tkOpts(d),{key:'st0'}));
+const tkMoved=d=>d.els.some(e=>e.st!==e.st0)||d.estaciones.some(s=>s.nueva);
+const tkPal=d=>palette(d.els.map(e=>({id:e.id,nec:true})));
+const tkStName=(d,id)=>{const s=d.estaciones.find(x=>x.id===id);return s?s.nombre:'—';};
+const tkWeKey=st=>st._uuid||('id'+st.id);
+// Work Element que se pueden traer: los de la línea elegida (si no hay línea, todos)
+function tkWeList(d){const ln=d.ubic&&d.ubic.linea;return DS.studies.filter(s=>s.kind==='we'&&s.ops.length&&s.acts.length&&(!ln||(s.ubic&&s.ubic.linea===ln)));}
+const tkHas=(d,st)=>d.estaciones.some(s=>s.src&&s.src.we===tkWeKey(st));
+// Cada operador del Work Element entra como una estación con sus elementos (copia del promedio por pieza: si el estudio cambia, se vuelve a traer)
+function tkImport(d,st){const est=st.ubic&&ubFind('estacion',st.ubic.estacion);const base=est?est.nombre:(st.titulo||'WORK ELEMENT');
+  st.ops.forEach(op=>{const items=st.acts.filter(a=>st.assign[a.id]===op.id);if(!items.length)return;
+    const sid=nid();d.estaciones.push({id:sid,nombre:st.ops.length>1?base+' · '+op.name:base,src:{we:tkWeKey(st),op:op.id,titulo:st.titulo||'',fecha:st.fecha||''}});
+    items.forEach(a=>{const t=String(+dsPerPiece(a,st.acts).toFixed(3));const id=nid();d.els.push({id,name:a.name||'ELEMENTO',t,st:sid,st0:sid});});});}
+
+function vTKList(){
+  setHead('Takt y balanceo',[['Takt y balanceo','tk']]);
+  return `<section class="glass panel">
+    <div class="row"><div><h2>Takt y balanceo de línea</h2><p class="sub">El ritmo que pide el cliente contra el tiempo ciclo de cada estación. Junta los Work Element de la línea y simula el rebalanceo.</p></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('tk')}<button class="btn orange" type="button" data-tknew="1">${svg('plus',18,2.2)} Nuevo balanceo</button></div></div>
+    <div class="grid" style="margin-top:18px">
+    ${TK.studies.map(st=>{const r=tkNow(st);const t=tkTakt(st);return `<div class="studyrow"><button type="button" class="study" data-tkopen="${st.id}">
+      <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">TK</div>
+      <div class="meta"><b>${esc(tkName(st))} <span class="tag ${st.estado==='Cerrado'?'':'on'}" style="vertical-align:2px;margin-left:6px">${st.estado==='Cerrado'?'GUARDADO':'EN PROCESO'}</span></b><span>${esc(st.fecha)} · ${esc(st.analista||'—')} · ${st.estaciones.length} estaci${st.estaciones.length!==1?'ones':'ón'} · takt ${t?fT(t.toFixed(3)):'—'} min</span></div>
+      <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:${r.over?'var(--orange)':'var(--blue)'}">${r.max?pc(r.eff,1):'—'}</span><br><span style="font-size:12px;color:var(--muted)">eficiencia de balanceo</span></div>
+      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="tk|${st.id}" data-sdeln="${esc(tkName(st))}" aria-label="Eliminar ${esc(tkName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`}).join('')}
+    ${TK.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('tk',30)}</div><b style="font-size:17px">Aún no hay balanceos</b><p>Toca <b>Nuevo balanceo</b>: calcula el takt de la línea y trae sus Work Element.</p></div>`}
+    </div></section>`;
+}
+function tkSteps(){const L=[['info','Takt'],['est','Estaciones'],['bal','Balanceo'],['res','Resultados']];const idx=L.findIndex(x=>x[0]===TK.view);
+  return `<nav class="steps" aria-label="Pasos del balanceo">${L.map(([v,l],i)=>`<button type="button" class="step ${i<idx?'done':''}" data-tkv="${v}" ${i>idx?'disabled title="Usa el botón de continuar"':''} ${i===idx?'aria-current="step"':''}><span class="n">0${i+1}</span><span class="lbl">${l}</span></button>`).join('')}</nav>`;}
+// Yamazumi por estación contra la línea del takt
+function tkYama(r,takt,d){const pal=tkPal(d);const ymax=Math.max(takt*1.15,...r.rows.map(x=>x.tc*1.08),0.1);const L=takt/ymax;
+  return `<div class="yama" role="img" aria-label="Tiempo ciclo por estación contra el takt">
+    ${takt?`<div class="ylim" style="top:calc(26px + 280px * ${1-L})"><span>takt ${fT(takt.toFixed(3))} min</span></div>`:''}
+    ${r.rows.map(x=>`<div class="ycol ${x.over?'over':''}">
+      <span class="yocc mono">${fT(x.tc.toFixed(3))}</span>
+      <div class="yb"><div class="ybar">${x.items.filter(e=>tkNum(e.t)>0).map(e=>`<div class="vfill" data-h="${tkNum(e.t)/ymax*100}" title="${esc(e.name)}: ${fT(e.t)} min" style="background:${x.over?'#E8A584':pal[e.id]}"></div>`).join('')}</div></div>
+      <span class="yname">${esc(x.nombre)}</span><span class="yfree mono" style="color:${x.over?'var(--orange)':'var(--muted)'}">${takt?(x.over?'excede '+f2(x.tc-takt):'holgura '+f2(takt-x.tc))+' min':''}</span><span class="yfree mono">${takt?pc(x.pct)+' del takt':''}</span></div>`).join('')}
+  </div>`;}
+const tkEffTxt=(a,b,moved)=>moved&&Math.abs(a.eff-b.eff)>1e-9?`<span style="color:var(--muted);font-size:20px">${pc(a.eff,1)} →</span> ${pc(b.eff,1)}`:pc(b.eff,1);
+function vTK(){
+  if(!TK.d)tkNew();const d=TK.d;const tit=tkName(d);const takt=tkTakt(d),disp=tkDisp(d);
+  setHead(tit,[['Takt y balanceo','tk'],[tit,'tk-nuevo']]);
+  const del=TK.studies.includes(d)?`<button class="btn danger sm" type="button" data-tkdel="1">${svg('trash',16,2)} Eliminar</button>`:'';
+  const miss=k=>TK.miss.includes(k)?'miss':'';
+  let body='';
+  if(TK.view==='info'){
+    body=`<div class="row"><div><h2>Takt de la línea</h2><p class="sub">El ritmo al que la línea debe sacar una pieza para cumplir la demanda</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn" type="button" data-tkv="est" data-tkneed="1">Continuar a estaciones ${svg('next',18,2.2)}</button></div></div>
+    <form class="form" id="tkh" style="margin-top:18px" onsubmit="return false">
+      <label style="grid-column:1/-1">Título<input name="titulo" value="${esc(d.titulo)}" placeholder="Ej. BALANCEO LÍNEA 3"></label>
+      <label class="${miss('analista')}">Analista <span class="req" aria-hidden="true">*</span><input name="analista" value="${esc(d.analista)}" placeholder="Nombre" aria-required="true"></label>
+      <label>Fecha<input type="date" name="fecha" value="${esc(d.fecha)}"></label>
+    </form>${ubicPicker('tk',d)}
+    <div style="margin-top:22px"><b style="font-size:17px">Demanda y tiempo disponible</b><p class="sub">Por día. Los paros programados se restan de cada turno.</p></div>
+    <form class="form" id="tkh2" style="margin-top:12px" onsubmit="return false">
+      <label class="${miss('demanda')}">Demanda (piezas por día) <span class="req" aria-hidden="true">*</span><input name="demanda" value="${esc(d.demanda)}" inputmode="decimal" placeholder="Ej. 800" aria-required="true"></label>
+      <label class="${miss('turnos')}">Turnos por día<input name="turnos" value="${esc(d.turnos)}" inputmode="decimal"></label>
+      <label class="${miss('minTurno')}">Minutos por turno<input name="minTurno" value="${esc(d.minTurno)}" inputmode="decimal"></label>
+      <label>Paros programados por turno (min) <span class="hint">comida, breaks, juntas, TPM</span><input name="paros" value="${esc(d.paros)}" inputmode="decimal" placeholder="Ej. 40"></label>
+    </form>
+    <div class="kpis" style="margin-top:16px">
+      <div class="kpi"><span>Minutos disponibles por día</span><span class="v" id="tkdisp">${fT(disp.toFixed(2))}</span><span class="sub">turnos × (min por turno − paros)</span></div>
+      <div class="kpi" id="tktakt"><span>Takt</span><span class="v" style="color:var(--blue)" id="tktaktv">${takt?fT(takt.toFixed(3)):'—'}</span><span class="sub">min por pieza · disponible ÷ demanda</span></div>
+    </div>`;
+  }
+  if(TK.view==='est'){const L=tkWeList(d);const pend=L.filter(st=>!tkHas(d,st));const ln=d.ubic&&ubFind('linea',d.ubic.linea);
+    const stCard=s=>{const items=d.els.filter(e=>e.st===s.id);const tc=items.reduce((a,e)=>a+tkNum(e.t),0);
+      return `<div class="tkst"><div class="tksth"><input data-tkstn="${s.id}" value="${esc(s.nombre)}" aria-label="Nombre de la estación" autocomplete="off">
+        <span class="mono tktc" id="tkc${s.id}">${fT(tc.toFixed(3))} min</span><button type="button" class="iconbtn" data-tkstdel="${s.id}" aria-label="Quitar estación ${esc(s.nombre)}">${svg('trash',16)}</button></div>
+        <span class="sub" style="margin:0">${s.src?'De Work Element «'+esc(s.src.titulo)+'»'+(s.src.fecha?' · '+esc(s.src.fecha):''):'Capturada a mano'}</span>
+        <div class="tkels">${items.map((e,i)=>`<div class="tkel"><span class="mono opn">${i+1}</span><input data-tken="${e.id}" value="${esc(e.name)}" aria-label="Elemento ${i+1}" autocomplete="off"><input class="tkt" data-tket="${e.id}" value="${esc(e.t)}" inputmode="decimal" aria-label="Tiempo del elemento ${i+1} (min)"><button type="button" class="iconbtn" data-tkedel="${e.id}" aria-label="Quitar elemento ${i+1}">${svg('trash',16)}</button></div>`).join('')}</div>
+        <button type="button" class="btn ghost sm" data-tkeadd="${s.id}" style="align-self:flex-start">${svg('plus',16,2.2)} Elemento</button></div>`;};
+    body=`<div class="row"><div><h2>Estaciones de la línea</h2><p class="sub">Cada estación con sus elementos y su tiempo por pieza (min). Su tiempo ciclo es la suma.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-tkv="info">${svg('back',18,2.2)} Takt</button><button class="btn" type="button" data-tkv="bal" ${d.els.length?'':'disabled'}>Continuar a balanceo ${svg('next',18,2.2)}</button></div></div>
+    <div class="glass tkimport" id="tkimport">
+      <div class="row"><div><b style="font-size:16px">Traer de Work Element</b><p class="sub" style="margin:2px 0 0">${ln?'Estudios de '+esc(ln.nombre)+'. ':'Elige la línea en «Takt» para ver solo los de esa línea. '}Cada operador del estudio entra como una estación, con el promedio de cada elemento.</p></div>
+        ${pend.length>1?`<button class="btn ghost sm" type="button" data-tkimpall="1">Traer todos (${pend.length})</button>`:''}</div>
+      ${L.length?`<div class="tkwe">${L.map(st=>{const has=tkHas(d,st);const est=st.ubic&&ubFind('estacion',st.ubic.estacion);return `<div class="tkwer"><div style="min-width:0;flex:1"><b>${esc(st.titulo||'WORK ELEMENT')}</b><span class="sub" style="margin:0;display:block">${est?esc(est.nombre)+' · ':''}${esc(st.fecha||'')} · ${st.ops.length} operador${st.ops.length!==1?'es':''} · ${st.acts.length} elementos</span></div>
+        <button class="btn sm ${has?'ghost':''}" type="button" data-tkimp="${st.id}" ${has?'disabled':''}>${has?'Ya está':'Traer'}</button></div>`;}).join('')}</div>`
+        :`<p class="sub" style="margin-top:10px">No hay Work Element ${ln?'de esta línea':'guardados'}. Guarda uno con la ubicación de la línea, o captura las estaciones a mano.</p>`}
+    </div>
+    <div class="row" style="margin-top:18px"><b style="font-size:17px">${d.estaciones.length} estaci${d.estaciones.length!==1?'ones':'ón'}</b>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${d.estaciones.length?'':`<button class="btn ghost sm" type="button" data-tkexample="1">Cargar ejemplo (4 estaciones)</button>`}<button class="btn ghost sm" type="button" data-tkstadd="1">${svg('plus',16,2.2)} Estación a mano</button></div></div>
+    <div class="tkgrid">${d.estaciones.map(stCard).join('')||'<div class="slot empty" style="min-height:140px"><p>Aún no hay estaciones. Trae los Work Element de la línea o captura a mano.</p></div>'}</div>`;
+  }
+  if(TK.view==='bal'){const r=tkNow(d),a=tkAntes(d);const sel=TK.sel;const pal=tkPal(d);const mv=tkMoved(d);
+    const chip=e=>{const moved=e.st!==e.st0;return `<button type="button" class="achip tkchip ${sel===e.id?'sel':''}" data-tksel="${e.id}" aria-pressed="${sel===e.id}">
+      <i style="background:${pal[e.id]}"></i><span class="an">${moved?`<small class="mono" style="color:var(--orange);margin-right:6px">de ${esc(tkStName(d,e.st0))}</small>`:''}${esc(e.name)}</span><span class="mono">${fT(e.t)} min</span></button>`;};
+    const moveBtn=s=>sel!=null&&(d.els.find(e=>e.id===sel)||{}).st!==s.id?`<button type="button" class="btn sm movebtn" data-tkmove="${s.id}">${svg('next',16,2.2)} Mover aquí</button>`:'';
+    body=`<div class="row"><div><h2>Balanceo</h2><p class="sub">Para rebalancear, <b>arrastra</b> un elemento a otra estación (en teléfono: mantén presionado y arrastra), o tócalo y usa <b>Mover aquí</b>.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-tkv="est">${svg('back',18,2.2)} Estaciones</button><button class="btn" type="button" data-tkv="res">Ver resultados ${svg('next',18,2.2)}</button></div></div>
+    <div class="chips" style="margin-top:12px"><span class="chip" style="cursor:default">Takt <span class="mono">${takt?fT(takt.toFixed(3)):'—'} min</span></span><span class="chip" style="cursor:default">Demanda <span class="mono">${tkDem(d.demanda).toLocaleString('es-MX')} pzs/día</span></span>${mv?`<button type="button" class="chip" data-tkreset="1">${svg('undo',16,2)} Regresar a como se trajo</button>`:''}${sel!=null?`<button type="button" class="chip" data-tksel="${sel}">Cancelar selección</button>`:''}</div>
+    <div class="kpis" style="margin-top:14px">
+      <div class="kpi"><span>Cuello de botella</span><span class="v" style="color:${r.over?'var(--orange)':'var(--blue)'}">${r.bott?fT(r.max.toFixed(3)):'—'}</span><span class="sub">${r.bott?esc(r.bott.nombre)+' · '+pc(r.bott.pct)+' del takt':'sin tiempos'}</span></div>
+      <div class="kpi"><span>Estaciones sobre takt</span><span class="v" style="color:${r.over?'var(--orange)':'var(--blue)'}">${r.over}</span><span class="sub">de ${r.n} · ${r.over?'hay que rebalancear':'todas dentro del takt'}</span></div>
+      <div class="kpi"><span>Eficiencia de balanceo</span><span class="v">${tkEffTxt(a,r,mv)}</span><span class="sub">Σ TC ÷ (estaciones × cuello de botella)</span></div>
+    </div>
+    <div class="glass" style="margin-top:16px;padding:20px;border-radius:18px"><div class="row"><b style="font-size:16px">Tiempo ciclo por estación</b><div class="legend"><span><i style="background:#DC2626;height:3px;vertical-align:3px"></i>Takt</span></div></div>${tkYama(r,takt,d)}</div>
+    <div class="board">
+      ${d.estaciones.map(s=>{const x=r.rows.find(y=>y.id===s.id);const w=Math.min(x.pct,1.5)/1.5*100;const empty=!x.items.length;return `<div class="lane ${x.over?'over':''}" data-lane="${s.id}">
+        <div class="lanehead"><input data-tkstn="${s.id}" value="${esc(s.nombre)}" aria-label="Estación">${empty?`<button type="button" class="iconbtn" data-tklanedel="${s.id}" aria-label="Quitar estación vacía">${svg('trash',16)}</button>`:''}</div>
+        <div class="occ"><div class="occbar"><div style="width:${w}%;background:${x.over?'var(--orange)':'var(--blue)'}"></div><span style="left:${100/1.5}%"></span></div><span class="mono" style="color:${x.over?'var(--orange)':'var(--ink)'}">${pc(x.pct)}</span></div>
+        <span class="sub" style="margin:0">${fT(x.tc.toFixed(3))} min${takt?' de '+fT(takt.toFixed(3))+' · '+(x.over?'excede '+f2(x.tc-takt):'holgura '+f2(takt-x.tc)):''}</span>
+        ${moveBtn(s)}
+        <div class="lanebody">${x.items.map(chip).join('')||'<p class="sub">Sin elementos.</p>'}</div></div>`;}).join('')}
+      <button type="button" class="lane addlane" data-tklaneadd="1">${svg('plus',26,2)}<b>Agregar estación vacía</b><span class="sub" style="margin:0">Para simular repartir el trabajo</span></button>
+    </div>
+    ${foot(`<button class="btn ghost" type="button" data-tkv="est">${svg('back',18,2.2)} Estaciones</button>`,`<button class="btn ghost" type="button" data-tkfinish="1">Guardar balanceo</button><button class="btn" type="button" data-tkv="res">Ver resultados ${svg('next',18,2.2)}</button>`)}`;
+  }
+  if(TK.view==='res'){const r=tkNow(d),a=tkAntes(d);const mv=tkMoved(d);const dem=tkDem(d.demanda);const pz=v=>v.toLocaleString('es-MX',{maximumFractionDigits:0});
+    body=`<div class="row"><div><h2>Resultados del balanceo</h2><p class="sub">${esc(ubLabel(d))} · demanda ${pz(dem)} pzs/día · ${fT(disp.toFixed(2))} min disponibles${mv?' · <b>con rebalanceo simulado</b>':''}</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn ghost" type="button" data-tkv="bal">${svg('back',18,2.2)} Rebalancear</button><button class="btn orange" type="button" data-tkfinish="1">Guardar balanceo</button></div></div>
+    <div class="kpis" style="margin-top:16px">
+      <div class="kpi"><span>Takt</span><span class="v" style="color:var(--blue)">${takt?fT(takt.toFixed(3)):'—'}</span><span class="sub">min por pieza para cumplir ${pz(dem)} pzs/día</span></div>
+      <div class="kpi"><span>Cuello de botella</span><span class="v" style="color:${r.over?'var(--orange)':'var(--blue)'}">${r.bott?fT(r.max.toFixed(3)):'—'}</span><span class="sub">${r.bott?esc(r.bott.nombre)+' · '+pc(r.bott.pct)+' del takt':''}${mv&&a.bott&&Math.abs(a.max-r.max)>1e-9?' · antes '+fT(a.max.toFixed(3))+' ('+esc(a.bott.nombre)+')':''}</span></div>
+      <div class="kpi"><span>Estaciones sobre takt</span><span class="v" style="color:${r.over?'var(--orange)':'#15803D'}">${r.over}</span><span class="sub">de ${r.n}${mv&&a.over!==r.over?' · antes '+a.over:''}</span></div>
+      <div class="kpi"><span>Capacidad teórica</span><span class="v">${f2(r.cap)} <span style="font-size:18px">pzs/h</span></span><span class="sub"><b style="color:${r.cumple?'#15803D':'var(--orange)'}">${pz(r.capDia)} pzs/día · ${r.cumple?'cumple la demanda':'faltan '+pz(Math.max(0,dem-r.capDia))+' pzs/día'}</b>${mv&&Math.abs(a.cap-r.cap)>1e-9?' · antes '+f2(a.cap)+' pzs/h':''}</span></div>
+      <div class="kpi"><span>Eficiencia de balanceo</span><span class="v">${tkEffTxt(a,r,mv)}</span><span class="sub">Σ TC ${fT(r.total.toFixed(3))} ÷ (${r.n} × ${fT(r.max.toFixed(3))})</span></div>
+      <div class="kpi"><span>Personal teórico</span><span class="v">${r.personal.toFixed(2)}</span><span class="sub">Σ TC ÷ takt · mínimo <b>${r.minEst}</b> estaci${r.minEst!==1?'ones':'ón'} (hoy ${r.n})</span></div>
+    </div>
+    <div class="glass" style="margin-top:16px;padding:20px;border-radius:18px"><div class="row"><b style="font-size:16px">Tiempo ciclo por estación contra el takt</b><div class="legend"><span><i style="background:#DC2626;height:3px;vertical-align:3px"></i>Takt</span><span><i style="background:#E8A584"></i>Arriba del takt</span></div></div>${tkYama(r,takt,d)}</div>
+    <div class="tbl"><table><thead><tr><th style="text-align:left">Estación</th>${mv?'<th>TC como se trajo</th>':''}<th>TC${mv?' simulado':''} (min)</th><th>% del takt</th><th>Holgura (min)</th><th>Elementos</th></tr></thead><tbody>
+      ${r.rows.map(x=>{const b=a.rows.find(y=>y.id===x.id);return `<tr><th>${esc(x.nombre)}</th>${mv?`<td>${b?fT(b.tc.toFixed(3)):'nueva'}</td>`:''}<td style="color:${x.over?'var(--orange)':'inherit'}">${fT(x.tc.toFixed(3))}</td><td>${pc(x.pct,1)}</td><td style="color:${x.over?'var(--orange)':'inherit'}">${takt?f2(takt-x.tc):'—'}</td><td>${x.items.length}</td></tr>`;}).join('')}
+      <tr class="trow"><th>Total</th>${mv?`<td><b>${fT(a.total.toFixed(3))}</b></td>`:''}<td><b>${fT(r.total.toFixed(3))}</b></td><td></td><td></td><td><b>${d.els.length}</b></td></tr></tbody></table></div>`;
+  }
+  return `${tkSteps()}<section class="glass panel ${S.keep?'':'view'}">${body}</section>`;
+}
+// ---- eventos Takt y balanceo ----
+const tkRe=()=>{S.keep=true;render(true);S.keep=false;};
+function tkSync(){['tkh','tkh2'].forEach(id=>{const f=document.getElementById(id);if(f&&TK.d)new FormData(f).forEach((v,k)=>TK.d[k]=v);});}
+function tkMiss(d){const m=[];if(!String(d.analista||'').trim())m.push('analista');if(!(tkDem(d.demanda)>0))m.push('demanda');if(!(tkNum(d.turnos)>0))m.push('turnos');if(!(tkNum(d.minTurno)>tkNum(d.paros)))m.push('minTurno');return m;}
+document.addEventListener('click',e=>{
+  if(e.target.classList&&e.target.classList.contains('mback'))return;
+  const t=e.target.closest('button');if(!t||t.disabled)return;const D=t.dataset;
+  if(D.tknew){tkNew();go('tk-nuevo');return;}
+  if(D.tkopen){TK.d=TK.studies.find(x=>x.id==D.tkopen);TK.view=TK.d.els.length?'res':'info';TK.sel=null;TK.miss=[];go('tk-nuevo');return;}
+  const d=TK.d;if(!d||!Object.keys(D).some(k=>k.startsWith('tk')))return;
+  if(D.tkv){tkSync();if(D.tkneed||(TK.view==='info'&&D.tkv!=='info')){TK.miss=tkMiss(d);if(TK.miss.length){tkRe();return;}
+      if(!d.titulo){const ln=d.ubic&&ubFind('linea',d.ubic.linea);d.titulo=ln?'BALANCEO '+ln.nombre:'BALANCEO SIN TÍTULO';}if(!TK.studies.includes(d))TK.studies.unshift(d);}
+    TK.view=D.tkv;TK.sel=null;render();return;}
+  if(D.tkimp){const st=DS.studies.find(x=>x.id==D.tkimp);if(st&&!tkHas(d,st))tkImport(d,st);tkRe();return;}
+  if(D.tkimpall){tkWeList(d).filter(st=>!tkHas(d,st)).forEach(st=>tkImport(d,st));tkRe();return;}
+  if(D.tkexample){TK_EXAMPLE.forEach(([n,els])=>{const sid=nid();d.estaciones.push({id:sid,nombre:n});els.forEach(([name,tt])=>d.els.push({id:nid(),name,t:String(tt),st:sid,st0:sid}));});tkRe();return;}
+  if(D.tkstadd){d.estaciones.push({id:nid(),nombre:'EST '+(d.estaciones.length+1)*10});tkRe();return;}
+  if(D.tkeadd){const sid=+D.tkeadd;d.els.push({id:nid(),name:'',t:'',st:sid,st0:sid});tkRe();const ins=document.querySelectorAll(`[data-tken]`);const last=[...ins].filter(i=>{const el=d.els.find(x=>x.id==i.dataset.tken);return el&&el.st===sid;}).pop();if(last)last.focus({preventScroll:true});return;}
+  if(D.tkedel){d.els=d.els.filter(x=>x.id!=D.tkedel);tkRe();return;}
+  if(D.tkstdel){const sid=+D.tkstdel;const s=d.estaciones.find(x=>x.id===sid);const n=d.els.filter(x=>x.st===sid).length;
+    const go2=()=>{d.els=d.els.filter(x=>x.st!==sid);d.els.forEach(x=>{if(x.st0===sid)x.st0=x.st;});d.estaciones=d.estaciones.filter(x=>x.id!==sid);tkRe();};
+    if(n)ask('¿Quitar «'+s.nombre+'»?','Se quitan también sus '+n+' elemento'+(n!==1?'s':'')+'.','Quitar estación',go2);else go2();return;}
+  if(D.tksel){const id=+D.tksel;TK.sel=TK.sel===id?null:id;tkRe();return;}
+  if(D.tkmove){const el=d.els.find(x=>x.id===TK.sel);if(el)el.st=+D.tkmove;TK.sel=null;tkRe();return;}
+  if(D.tklaneadd){d.estaciones.push({id:nid(),nombre:'EST NUEVA '+(d.estaciones.filter(s=>s.nueva).length+1),nueva:true});tkRe();return;}
+  if(D.tklanedel){const sid=+D.tklanedel;if(d.els.some(x=>x.st===sid))return;d.els.forEach(x=>{if(x.st0===sid)x.st0=x.st;});d.estaciones=d.estaciones.filter(x=>x.id!==sid);tkRe();return;}
+  if(D.tkreset){ask('¿Regresar a como se trajo?','Cada elemento vuelve a su estación original y se quitan las estaciones agregadas para simular.','Regresar',()=>{d.els.forEach(x=>x.st=x.st0);d.estaciones=d.estaciones.filter(s=>!s.nueva||d.els.some(x=>x.st===s.id));TK.sel=null;tkRe();},{ok:true,icon:'undo'});return;}
+  if(D.tkdel){ask('¿Eliminar este balanceo?','Se borra «'+tkName(d)+'». Los Work Element de donde vino no se tocan.','Eliminar',()=>{TK.studies=TK.studies.filter(x=>x!==d);TK.d=null;go('tk');});return;}
+  if(D.tkfinish){d.estado='Cerrado';if(!TK.studies.includes(d))TK.studies.unshift(d);storeSave('tk',d);TK.d=null;TK.sel=null;go('tk');return;}
+});
+document.addEventListener('input',e=>{const el=e.target;const d=TK.d;if(!d||!el.dataset||!route().startsWith('tk'))return;const D=el.dataset;
+  if(el.closest&&(el.closest('#tkh')||el.closest('#tkh2'))){tkSync();if(TK.miss.length)TK.miss=tkMiss(d).filter(k=>TK.miss.includes(k));
+    const set=(id,v)=>{const x=document.getElementById(id);if(x)x.textContent=v;};const t=tkTakt(d);set('tkdisp',fT(tkDisp(d).toFixed(2)));set('tktaktv',t?fT(t.toFixed(3)):'—');return;}
+  if(D.tkstn){const s=d.estaciones.find(x=>x.id==D.tkstn);if(s)s.nombre=el.value;return;}
+  if(D.tken){const x=d.els.find(y=>y.id==D.tken);if(x)x.name=el.value;return;}
+  if(D.tket){const x=d.els.find(y=>y.id==D.tket);if(!x)return;x.t=el.value;const tc=d.els.filter(y=>y.st===x.st).reduce((a,y)=>a+tkNum(y.t),0);const c=document.getElementById('tkc'+x.st);if(c)c.textContent=fT(tc.toFixed(3))+' min';return;}
+});
+// Configuración: takt vigente por línea = el del balanceo más reciente de esa línea
+function tkConfigCard(){const by=new Map();TK.studies.forEach(s=>{const ln=s.ubic&&s.ubic.linea;if(!ln)return;const p=by.get(ln);if(!p||String(s.fecha)>String(p.fecha))by.set(ln,s);});
+  const rows=[...by.values()];
+  return `<div class="slot" style="min-height:220px;padding:22px;display:flex;flex-direction:column;gap:10px"><b>Takt de la línea</b>
+    ${rows.length?rows.map(s=>{const t=tkTakt(s);return `<span class="sub" style="margin:0"><b style="color:var(--ink)">${esc(ubLabel(s))}</b> · takt <span class="mono">${t?fT(t.toFixed(3)):'—'}</span> min · ${esc(s.fecha)}</span>`;}).join('')
+      :'<p class="sub" style="line-height:1.5;margin:0">Se calcula en «Takt y balanceo» con la demanda diaria, los turnos y los paros programados. Aquí aparece el más reciente de cada línea.</p>'}
+    <button class="btn ghost sm" type="button" data-go="tk" style="align-self:flex-start">${svg('tk',16)} Abrir Takt y balanceo</button></div>`;}
+
 // ---- eliminar estudio desde la lista (todos los formatos) ----
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-sdel]');if(!t)return;e.stopPropagation();
   const[k,id]=t.dataset.sdel.split('|');const nm=t.dataset.sdeln||'este estudio';
@@ -3510,6 +3745,7 @@ document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest
     else if(k==='at'){AT.studies=AT.studies.filter(x=>x.id!=id);if(AT.d&&AT.d.id==id)AT.d=null;}
     else if(k==='pc'){PC.studies=PC.studies.filter(x=>x.id!=id);if(PC.d&&PC.d.id==id)PC.d=null;}
     else if(k==='sm'){SM.studies=SM.studies.filter(x=>x.id!=id);if(SM.d&&SM.d.id==id)SM.d=null;}
+    else if(k==='tk'){TK.studies=TK.studies.filter(x=>x.id!=id);if(TK.d&&TK.d.id==id)TK.d=null;}
     render();});},true);
 // ================= Aprende: tutoriales con demo en vivo =================
 // Los tutoriales son DATOS: cada paso dice qué elemento (selector CSS), qué acción y qué explica el globo.
@@ -3771,6 +4007,34 @@ const TUTS=[
     {señala:'.glass',txt:'Trayectoria de eficiencia',di:'Una línea por área y la planta en grueso, mes a mes.'},
     {señala:'.glass',txt:'Tendencia de piezas por hora-hombre',di:'Piezas por hora-hombre: solo tendencia de cada área contra su mes anterior; no se comparan áreas entre sí.'}
    ]},
+  {id:'tk',grupo:'cap',nombre:'Takt y balanceo',min:3,
+   pregunta:'¿Qué estación no alcanza el ritmo que pide el cliente?',
+   cuando:'Cuando ya tienes los Work Element de las estaciones de una línea y quieres ver su balanceo contra la demanda, y simular mover elementos entre estaciones.',
+   noPara:'Balancear operadores dentro de una misma operación (eso es la Asignación del Delay Study y del Work Element).',
+   veras:['Calcular el takt con demanda, turnos y paros','Traer las estaciones desde sus Work Element (o un ejemplo)','Mover un elemento de la estación que excede el takt','Leer cuello de botella, capacidad, eficiencia y personal teórico'],
+   pasos:[
+    {ir:'tk',señala:'#view section.panel h2',di:'Takt y balanceo responde: ¿qué estación no alcanza el ritmo que pide el cliente? Junta los Work Element de una línea y los compara contra el takt.'},
+    {toca:'#view [data-tknew]',di:'Empezamos un balanceo nuevo.',tu:'Toca «Nuevo balanceo».'},
+    {escribe:'input[name=titulo]',valor:'BALANCEO LÍNEA DE POLEAS',di:'Un título para reconocerlo en la lista.'},
+    {escribe:'input[name=analista]',valor:'J. PÉREZ',di:'Analista (obligatorio).'},
+    {señala:'.ubic',di:'La ubicación se pide hasta la línea: así solo aparecen los Work Element de esa línea y el tablero sabe de qué línea es el takt.'},
+    {escribe:'input[name=demanda]',valor:'800',di:'La demanda diaria: 800 piezas.'},
+    {señala:'input[name=minTurno]',di:'Dos turnos de 480 minutos vienen por omisión; cámbialos si tu línea trabaja distinto.'},
+    {escribe:'input[name=paros]',valor:'40',di:'Paros programados por turno: comida, breaks, juntas. Se restan de cada turno.'},
+    {señala:'#tktakt',di:'Takt = 2 × (480 − 40) ÷ 800 = 880 ÷ 800 = 1.10 minutos por pieza. Ninguna estación debería tardar más.'},
+    {toca:'[data-tkneed]',di:'Pasamos a las estaciones.',tu:'Toca «Continuar a estaciones».'},
+    {señala:'#tkimport',di:'Aquí aparecen los Work Element guardados de la línea: cada operador entra como una estación con el promedio de cada elemento. «Traer todos» los junta de un golpe.'},
+    {toca:'[data-tkexample]',di:'En la demo usamos un ejemplo ficticio de 4 estaciones.',tu:'Toca «Cargar ejemplo».'},
+    {señala:'.tkst',di:'Cada estación con sus elementos y tiempos por pieza; su tiempo ciclo es la suma. Todo se puede corregir.'},
+    {toca:'[data-tkv="bal"]',di:'Vamos al balanceo.',tu:'Toca «Continuar a balanceo».'},
+    {señala:'.yama',di:'La línea roja es el takt. EST 20 tarda 1.24: excede el takt y es el cuello de botella; la línea solo puede sacar 709 de las 800 piezas.'},
+    {toca:'[data-tksel]',txt:'ATORNILLAR',di:'Tomamos «Atornillar» (0.18 min) de EST 20…',tu:'Toca el elemento «ATORNILLAR».'},
+    {toca:'[data-tkmove]',en:'.lane',txt:'EST 30',di:'…y lo pasamos a EST 30, que tiene holgura. También se puede arrastrar.',tu:'Toca «Mover aquí» en EST 30.'},
+    {señala:'.kpi',txt:'Eficiencia',di:'Ninguna estación pasa del takt y la eficiencia de balanceo sube de 81.5 % a 95.3 %.'},
+    {toca:'[data-tkv="res"]',di:'Vemos los resultados.',tu:'Toca «Ver resultados».'},
+    {señala:'.kpi',txt:'Capacidad teórica',di:'Con el nuevo cuello de botella (1.06) la línea da 56.6 piezas por hora: 830 al día, ya cumple las 800.'},
+    {señala:'.kpi',txt:'Personal teórico',di:'Contenido de trabajo ÷ takt = 3.67: con 4 estaciones basta. Si el resultado diera menos estaciones de las que tienes, hay oportunidad de juntar.'}
+   ]},
   {id:'df',grupo:'proc',nombre:'Diagramas de flujo',min:3,
    pregunta:'¿Cómo fluye el proceso y dónde están las demoras y los transportes?',
    cuando:'Para documentar un proceso con símbolos ASME (operación, inspección, transporte, demora, almacenamiento) y ver qué parte agrega valor.',
@@ -3839,9 +4103,9 @@ function vAprendeFicha(id){
 
 // ---------- motor ----------
 let TR=null;let tutRunId=0;const TUT_ABORT={};
-const tutSnapNow=()=>structuredClone({S,DS,ST,MM,SM,PC,AT,EC,DF,uid});
+const tutSnapNow=()=>structuredClone({S,DS,ST,MM,SM,PC,AT,EC,DF,TK,uid});
 function tutRestore(s){const c=structuredClone(s);
-  [[S,'S'],[DS,'DS'],[ST,'ST'],[MM,'MM'],[SM,'SM'],[PC,'PC'],[AT,'AT'],[EC,'EC'],[DF,'DF']].forEach(([o,k])=>{Object.keys(o).forEach(x=>delete o[x]);Object.assign(o,c[k]);});uid=c.uid;}
+  [[S,'S'],[DS,'DS'],[ST,'ST'],[MM,'MM'],[SM,'SM'],[PC,'PC'],[AT,'AT'],[EC,'EC'],[DF,'DF'],[TK,'TK']].forEach(([o,k])=>{Object.keys(o).forEach(x=>delete o[x]);Object.assign(o,c[k]);});uid=c.uid;}
 const tutPhone=()=>window.innerWidth<=700;
 const tutNorm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 // Texto de un elemento: lo visible más lo escrito en sus campos (los nombres editables viven en inputs)
@@ -3973,7 +4237,7 @@ window.TaktTut={start:(id,mode,speed)=>tutStart(id,mode,speed),exit:()=>tutExit(
   list:()=>TUTS.map(t=>({id:t.id,ready:tutReady(t),pasos:t.pasos||null})),
   mark:()=>{document.querySelectorAll('[data-tutt]').forEach(e=>e.removeAttribute('data-tutt'));const p=TR&&TR.expect&&TR.expect.p;if(!p)return false;
     const el=p.serie?tutQuery(p.base):tutQuery(p.toca||p.escribe||p.elige,p.txt,p.en);if(!el)return false;el.setAttribute('data-tutt','1');return true;},
-  counts:()=>({ws:S.studies.length,ds:DS.studies.length,st:ST.studies.length,mm:MM.studies.length,sm:SM.studies.length,pc:PC.studies.length,at:AT.studies.length,df:DF.studies.length})};
+  counts:()=>({ws:S.studies.length,ds:DS.studies.length,st:ST.studies.length,mm:MM.studies.length,sm:SM.studies.length,pc:PC.studies.length,at:AT.studies.length,df:DF.studies.length,tk:TK.studies.length})};
 
 // ================= Almacén: guardado de estudios =================
 // Patrón repositorio: los formatos NO saben dónde se guarda. Solo llaman storeSave / storeRemove.
@@ -4007,14 +4271,15 @@ function storeMaxId(o){let m=0;const seen=new Set();
 function storeStateOf(d,saved){if(!d||!d._uuid||!saved.has(d._uuid))return 'nuevo';return JSON.stringify(d)===saved.get(d._uuid)?'ok':'cambios';}
 // </store-pure>
 
-const STORE_SCHEMA={ws:2,ds:2,we:2,st:2,mm:2,sm:2,pc:2,at:2,df:2};  // versión actual de cada formato
+const STORE_SCHEMA={ws:2,ds:2,we:2,st:2,mm:2,sm:2,pc:2,at:2,df:2,tk:1};  // versión actual de cada formato
+// tk (Takt y balanceo) nace en la v1 ya con ubicación: no necesita la migración v1 → v2 de los demás.
 const STORE_MIGS={};                                                // STORE_MIGS[kind][v] = datos v → v+1
 // v1 → v2 (Fase 2, 2026-11-12): se agrega la ubicación en la jerarquía de planta; los estudios ya guardados quedan «Sin asignar».
 const storeMigUbic=d=>{d.ubic=d.ubic&&typeof d.ubic==='object'&&!Array.isArray(d.ubic)?d.ubic:{};return d;};
 ['ws','ds','we','st','mm','sm','pc','at','df'].forEach(k=>{STORE_MIGS[k]=STORE_MIGS[k]||{};STORE_MIGS[k][1]=storeMigUbic;});
-const STORE_KINDS=['ws','ds','we','st','mm','sm','pc','at','df'];
-const STORE_ANALISIS=new Set(['pc','at','df']);                      // pueden guardarse a medias
-const storeBox=k=>({ws:S,ds:DS,we:DS,st:ST,mm:MM,sm:SM,pc:PC,at:AT,df:DF})[k];
+const STORE_KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk'];
+const STORE_ANALISIS=new Set(['pc','at','df','tk']);                      // pueden guardarse a medias
+const storeBox=k=>({ws:S,ds:DS,we:DS,st:ST,mm:MM,sm:SM,pc:PC,at:AT,df:DF,tk:TK})[k];
 const STORE={db:null,ok:false,ready:false,saved:new Map(),err:null};
 const storeTut=()=>typeof TR!=='undefined'&&!!TR;
 
@@ -4039,7 +4304,7 @@ async function storeInit(){
       const d=e.data;d._uuid=e.uuid;storeBox(e.kind).studies.push(d);STORE.saved.set(e.uuid,JSON.stringify(d));
       if(e.schema!==env.schema)storePut(e.kind,d,env);  // deja guardada la versión ya migrada
     });
-    uid=Math.max(uid,storeMaxId({S:S.studies,DS:DS.studies,ST:ST.studies,MM:MM.studies,SM:SM.studies,PC:PC.studies,AT:AT.studies,DF:DF.studies,cat:ST.cat}));
+    uid=Math.max(uid,storeMaxId({S:S.studies,DS:DS.studies,ST:ST.studies,MM:MM.studies,SM:SM.studies,PC:PC.studies,AT:AT.studies,DF:DF.studies,TK:TK.studies,cat:ST.cat}));
     if(bad.length){STORE.err='No se pudieron abrir '+bad.length+' estudio(s) guardados.';console.warn('[almacén]',bad);}
   }catch(e){STORE.err='No se pudo leer lo guardado.';console.warn('[almacén]',e);}
   STORE.ready=true;
@@ -4071,7 +4336,7 @@ function storeDiscard(d){const j=d&&d._uuid&&STORE.saved.get(d._uuid);if(!j)retu
 function storeCurrent(){const r=route();
   if(r==='ws-nuevo')return['ws',S.draft];if(r==='ds-nuevo'||r==='we-nuevo')return[(DS.d&&DS.d.kind)||'ds',DS.d];
   if(r==='st-nuevo')return['st',ST.d];if(r==='mm-nuevo')return['mm',MM.d];if(r==='sm-nuevo')return['sm',SM.d];
-  if(r==='pc-nuevo')return['pc',PC.d];if(r==='at-nuevo')return['at',AT.d];if(r==='df-nuevo')return['df',DF.d];return[null,null];}
+  if(r==='pc-nuevo')return['pc',PC.d];if(r==='tk-nuevo')return['tk',TK.d];if(r==='at-nuevo')return['at',AT.d];if(r==='df-nuevo')return['df',DF.d];return[null,null];}
 function storeChip(){const el=document.getElementById('savechip');if(!el)return;const[k,d]=storeCurrent();
   if(storeTut()||!k||!d){el.hidden=true;return;}
   const st=storeStateOf(d,STORE.saved);const inList=storeBox(k).studies.includes(d);
@@ -4110,8 +4375,8 @@ const UB_LV=['planta','area','linea','estacion'];
 const UB_LBL={planta:'Planta',area:'Área',linea:'Línea',estacion:'Estación'};
 const UB_KIDS={planta:'areas',area:'lineas',linea:'estaciones'};
 // Hasta qué nivel llega el selector de cada formato, y qué nivel se pide (Angel, 2026-11-12). «Sin asignar» siempre se permite.
-const UB_DEEP={ws:4,ds:4,we:4,st:4,sm:4,mm:3,pc:2,at:2,df:3};
-const UB_REQ={ws:3,ds:3,we:3,st:3,sm:3,mm:3,pc:2,at:2,df:1};
+const UB_DEEP={ws:4,ds:4,we:4,st:4,sm:4,mm:3,pc:2,at:2,df:3,tk:3};
+const UB_REQ={ws:3,ds:3,we:3,st:3,sm:3,mm:3,pc:2,at:2,df:1,tk:3};
 const UB={adding:null};            // nivel que se está agregando desde el selector
 const UBF={planta:'',area:'',linea:''};  // filtro de las listas
 // Hijos de un nodo (o las plantas si no hay padre)
@@ -4174,7 +4439,7 @@ function vCatalogo(){
 
 // Listas: ubicación de cada estudio + filtro por planta, área y línea
 function ubicDecorate(){if(storeTut())return;const rows=[...document.querySelectorAll('#view [data-sdel]')];const r=route();
-  const isList=['ws','ds','we','st','mm','sm','pc','at','df'].includes(r);if(!isList)return;
+  const isList=['ws','ds','we','st','mm','sm','pc','at','df','tk'].includes(r);if(!isList)return;
   const panel=document.querySelector('#view section.panel');if(panel&&!panel.querySelector('.ubfilter')&&CAT.plantas.length){
     const f=(lv,i)=>{const parent=i?UBF[UB_LV[i-1]]:null;const off=i&&!parent;const opts=off?[]:ubKids(lv,parent);
       return `<label><span>${UB_LBL[lv]}</span><select data-ubf="${lv}" ${off?'disabled':''}><option value="">Todas</option>${opts.map(n=>`<option value="${n.id}" ${UBF[lv]===n.id?'selected':''}>${esc(n.nombre)}</option>`).join('')}</select></label>`;};

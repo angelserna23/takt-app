@@ -8,8 +8,8 @@ const GROUPS=eval(m[1]),TUTS=eval(m[2]);
 let fails=0;const ok=(c,msg)=>{if(!c){fails++;console.error('FALLA:',msg);}};
 const ACTS=['toca','escribe','elige','serie','señala'];
 const ids=TUTS.map(t=>t.id);ok(new Set(ids).size===ids.length,'ids repetidos');
-// Una tarjeta por herramienta: 6 estudios + Personal + Actual Time + Diagramas de flujo
-['ws','ds','we','st','mm','sm','pc','at','df'].forEach(id=>ok(ids.includes(id),'falta la tarjeta '+id));
+// Una tarjeta por herramienta: 6 estudios + Takt y balanceo + Personal + Actual Time + Diagramas de flujo
+['ws','ds','we','st','mm','sm','tk','pc','at','df'].forEach(id=>ok(ids.includes(id),'falta la tarjeta '+id));
 TUTS.forEach(t=>{ok(GROUPS.some(g=>g[0]===t.grupo),t.id+': grupo inválido');ok(t.nombre&&t.pregunta,t.id+': sin nombre o pregunta');
   if(!t.pasos)return;
   ok(t.min>0&&t.cuando&&t.noPara&&Array.isArray(t.veras)&&t.veras.length,t.id+': ficha incompleta');
