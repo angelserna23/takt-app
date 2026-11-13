@@ -387,11 +387,13 @@ Lo que el ingeniero industrial necesita de punta a punta: medir → estándar �
 - App publicada: artifact https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f (slug b963594a-ed0b-4bfe-9897-a3ee86914094); se republica sobre el mismo slug.
 - Respaldo en el proyecto: takt-app/codigo-calculos-1.md y -2.md (cálculos y pruebas al 2026-11-11).
 
-## Pendientes
-- Tiempo estándar: en espera.
-- Qué va en el menú en lugar de OEE / Costo MO (Angel lo define).
-- Al final: mejoras extra por formato (incluye la idea grande de Angel para Work Element), paleta de colores y UX/UI.
-- Guardado de estudios y exportación a PDF/Excel: casi al final de todo, para todos los formatos (Angel, 2026-11-12).
-
-- Botón ‹ Todos los estudios junto al título en todos los formatos (solo flecha en tablet/teléfono).
-- Botón eliminar (con confirmación) en cada tarjeta de la lista de estudios, en todos los formatos.
+## Pendientes (actualizado 2026-11-13, noche)
+- **Siguiente chat: diseño** — visual y movimiento de toda la app (tablero incluido), paleta, UX/UI y mejoras extra por formato (incluye la idea grande de Angel para Work Element).
+- Guardado Fase 3: avisos de almacenamiento lleno o no disponible en pantalla y que se recuerden ajustes de vista (p. ej. FY de Eficiencia compuesta).
+- Inglés (el producto es bilingüe): hoy el botón EN dice «después»; falta traducir toda la app y los reportes.
+- Qué va en el menú en lugar de OEE / Costo MO (Angel lo define; también actualizar las instrucciones del proyecto, que aún dicen «Tiempos → OEE → Costo»).
+- Pagos.
+- Chicos que quedaron anotados: Eficiencia compuesta junta todas las plantas (solo Inicio separa); el GAP de personal del tablero no incluye manejo de materiales.
+- Al lanzar: `SEED_ON=false` y borrar el bloque `<semilla>` (la app queda en blanco).
+- Para un producto real: cuentas y datos en la nube, usuarios y roles, funcionar sin internet como app instalable, validación en piso real, pasar de un solo archivo a módulos + backend en Python, y política para nombres de operadores (datos personales).
+- Cerrados y quitados de esta lista: tiempo estándar (descartado), guardado y exportación (hechos: guardado Fases 1–2 y reportes PDF), botón ‹ Todos los estudios y eliminar desde la lista (hechos).
