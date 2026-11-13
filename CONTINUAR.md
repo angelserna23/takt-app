@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: comentarios de Angel sobre el **Diagrama de espagueti**. Después solo quedan partes de la app: tablero de Inicio, guardado Fase 3, pagos y diseño final (descartados: tiempo estándar, plan de acción/antes-después, NOM-036, VSM, video, curva de aprendizaje, horarios aleatorios). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Estudios complementarios: **todos cerrados**. Siguiente: Angel elige entre las partes de la app que quedan: tablero de Inicio, guardado Fase 3, pagos y diseño final (descartados: tiempo estándar, plan de acción/antes-después, NOM-036, VSM, video, curva de aprendizaje, horarios aleatorios). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
 
 ## Pasos para Claude al iniciar
 
@@ -37,7 +37,7 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 
 - Nuevo: sección **«Diagramas»** (Flujo de proceso + Espagueti) y el **Diagrama de espagueti** (aislado, clave `sp` v1, ubicación hasta área, tutorial 12). 16 pruebas de cálculo + guardado + tutorial en 3 dispositivos. Publicado.
 - Tutoriales: el globo de «Hazlo tú» deja pasar los toques. Pruebas: el clic forzado en SVG espera a que el objetivo deje de moverse; el guardado espera confirmación en vez de 250 ms fijos.
-- Esperando comentarios de Angel.
+- TERMINADO: Angel lo probó y lo cerró.
 
 ## Estado al 2026-11-13 (tarde: Hoja de trabajo estándar)
 
