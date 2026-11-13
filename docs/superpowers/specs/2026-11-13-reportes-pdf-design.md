@@ -14,7 +14,7 @@ Descargar cada estudio o análisis como reporte para enviarlo. **Solo lectura:**
 - En el enlace de prueba la impresión está bloqueada: se avisa en pantalla; se valida generando el PDF en las pruebas.
 
 ## Orden (uno a la vez, Angel revisa cada uno)
-1. Work Sampling (hecho; formato aprobado) → 2. Delay Study (hecho, para comentarios) → 3. Work Element → 4. Speed Trial → 5. Man Machine → 6. SMED → 7. Takt y balanceo → 8. Diagramas (Flujo de proceso, Espagueti) → 9. Cálculo de personal (reporte, no Excel).
+1. Work Sampling (hecho; formato aprobado) → 2. Delay Study (hecho) → 3. Work Element (hecho, para comentarios; probado con 60 operadores) → 4. Speed Trial → 5. Man Machine → 6. SMED → 7. Takt y balanceo → 8. Diagramas (Flujo de proceso, Espagueti) → 9. Cálculo de personal (reporte, no Excel).
 - Hoja estándar: ya imprime. Actual Time: **por confirmar con Angel**.
 
 ## Pruebas

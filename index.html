@@ -766,11 +766,12 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .rcards{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rcard{border:1px solid #D6DEE8;border-radius:8px;padding:8px 10px;break-inside:avoid}
 .rch{display:flex;justify-content:space-between;gap:6px}.rch span{font-size:9.5px;color:#5B6673}.rnums{display:flex;gap:12px;margin:4px 0}.rcard small{font-size:9.5px;color:#5B6673}.rcard ol{margin:2px 0 0;padding-left:18px}
 .rnote{color:#5B6673}
-.ryama{margin-bottom:4px}.ryplot{position:relative;display:flex;gap:10px;align-items:flex-end;border-bottom:1.5px solid #1B2430;padding:0 4px}
+.rblock{break-inside:avoid;margin-bottom:10px}.rblock .rch{margin-bottom:4px}
+.ryama{margin-bottom:12px;break-inside:avoid}.ryhead{display:flex;justify-content:space-between;margin-bottom:4px}.ryhead small{font:600 9px 'IBM Plex Mono',monospace;color:#5B6673}.ryhead .rylbl{color:#DC2626}.ryplot{position:relative;display:flex;gap:10px;align-items:flex-end;border-bottom:1.5px solid #1B2430;padding:0 4px}
 .rycol{flex:1;min-width:0;display:flex;justify-content:center;align-items:flex-end;height:100%}
 .rybar{width:min(56px,80%);display:flex;flex-direction:column-reverse}.rybar em{display:block;border-top:1px solid #fff}.rybar b{text-align:center;font:600 10.5px 'IBM Plex Mono',monospace;padding-bottom:2px}
 .rynames{display:flex;gap:10px;padding:3px 4px 0}.rynames>div{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center}
-.rynames span{font-size:10px;font-weight:600;text-align:center;line-height:1.15;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rynames small{font:9px 'IBM Plex Mono',monospace;color:#5B6673}
+.rynames span{font-size:9.5px;font-weight:600;text-align:center;line-height:1.15;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:anywhere}.rynames small{font:9px 'IBM Plex Mono',monospace;color:#5B6673}
 .rylim{position:absolute;left:0;right:0;border-top:2px solid #DC2626;z-index:1}.rylim span{position:absolute;right:0;top:-14px;font:600 9px 'IBM Plex Mono',monospace;color:#DC2626;background:#fff;padding:0 3px}
 .rtbl tbody th small{display:block;font-weight:400;color:#5B6673;font-size:9px}
 
@@ -4261,7 +4262,7 @@ const pdfBtn=(kind,id,name)=>`<button type="button" class="iconbtn rpdf" data-pd
 function repFind(kind,id){if(id==='cur')return ({ws:S.draft,ds:DS.d,we:DS.d,st:ST.d,mm:MM.d,sm:SM.d,tk:TK.d,pc:PC.d,at:AT.d,df:DF.d,sp:SP.d})[kind]||null;const box=storeBox(kind);return box&&box.studies.find(x=>x.id==id);}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-pdf]');if(!b)return;e.stopPropagation();
   const [k,id]=b.dataset.pdf.split('|');const d=repFind(k,id);if(d&&REP[k])repPrint(k,d);},true);
-window.TaktRep={build:(k,id)=>{const d=repFind(k,id);return d?!!repBuild(k,d):false;},print:(k,id)=>{const d=repFind(k,id);if(d)repPrint(k,d);},close:repClose,kinds:()=>Object.keys(REP)};
+window.TaktRep={build:(k,id)=>{const d=repFind(k,id);return d?!!repBuild(k,d):false;},print:(k,id)=>{const d=repFind(k,id);if(d)repPrint(k,d);},preview:(k,d)=>!!repBuild(k,d),close:repClose,kinds:()=>Object.keys(REP)};
 
 // ---- Work Sampling ----
 REP.ws=d=>{const ops=d.ops.filter(o=>calcOp(o).sum>0);const L=calcLine(ops);const pal=palette(L.acts);
@@ -4290,28 +4291,44 @@ REP.ws=d=>{const ops=d.ops.filter(o=>calcOp(o).sum>0);const L=calcLine(ops);cons
 
 
 // Yamazumi fijo para papel: columnas con segmentos apilados y la línea del límite (disponible / takt)
-function repYama(cols,lim,limLbl){const ymax=Math.max(lim*1.15,...cols.map(c=>c.total*1.08),1e-9);const H=190;
-  // las barras y la línea del límite comparten el mismo espacio (.ryplot): la línea cae exacta en su valor
-  return `<div class="ryama"><div class="ryplot" style="height:${H}px"><div class="rylim" style="bottom:${(lim/ymax*H).toFixed(1)}px"><span>${limLbl}</span></div>
-    ${cols.map(c=>`<div class="rycol"><div class="rybar">${c.segs.filter(g=>g.v>0).map(g=>`<em style="height:${(g.v/ymax*H).toFixed(1)}px;background:${c.over?'#E8A584':g.c}"></em>`).join('')}<b class="${c.over?'rinn':''}">${c.top}</b></div></div>`).join('')}</div>
-    <div class="rynames">${cols.map(c=>`<div><span>${esc(c.name)}</span><small class="${c.over?'rinn':''}">${c.sub}</small></div>`).join('')}</div></div>`;}
+function repYama(cols,lim,limLbl,per){per=per||10;const ymax=Math.max(lim*1.15,...cols.map(c=>c.total*1.08),1e-9);const H=170;
+  // renglones de máximo 10 barras, todos con la MISMA escala y la misma línea del límite: se comparan entre renglones
+  const rows=[];for(let k=0;k<cols.length;k+=per)rows.push(cols.slice(k,k+per));
+  return rows.map((R,ri)=>{const pad=per-R.length;const fill=rows.length>1&&pad>0?Array.from({length:pad},()=>'<div class="rycol"></div>').join(''):'';const fillN=rows.length>1&&pad>0?Array.from({length:pad},()=>'<div></div>').join(''):'';
+    return `<div class="ryama"><div class="ryhead"><small>${rows.length>1?`${ri*per+1}–${ri*per+R.length} de ${cols.length}`:''}</small><small class="rylbl">— ${limLbl}</small></div><div class="ryplot" style="height:${H}px"><div class="rylim" style="bottom:${(lim/ymax*H).toFixed(1)}px"></div>
+    ${R.map(c=>`<div class="rycol"><div class="rybar">${c.segs.filter(g=>g.v>0).map(g=>`<em style="height:${(g.v/ymax*H).toFixed(1)}px;background:${c.over?'#E8A584':g.c}"></em>`).join('')}<b class="${c.over?'rinn':''}">${c.top}</b></div></div>`).join('')}${fill}</div>
+    <div class="rynames">${R.map(c=>`<div><span>${esc(c.name)}</span><small class="${c.over?'rinn':''}">${c.sub}</small></div>`).join('')}${fillN}</div></div>`;}).join('');}
 
-// ---- Delay Study ----
-REP.ds=d=>{const r=dsCalc(d.acts,d.ops,d.assign,d.obj,d.disp,null);const pal=dsPal(d.acts);const over=r.rows.filter(x=>x.occ>1).length;const per=perLbl(d);
-  const nm=a=>dsName(a,d.acts.indexOf(a));const opName=id=>{const o=d.ops.find(x=>x.id===id);return o?o.name:'Sin asignar';};
-  const used=d.acts.filter(a=>d.ops.some(o=>o.id===d.assign[a.id]));
+// ---- Delay Study y Work Element: comparten carga, Yamazumi y detalle por operador ----
+function repCarga(d){const r=dsCalc(d.acts,d.ops,d.assign,d.obj,d.disp,null);const pal=dsPal(d.acts);const over=r.rows.filter(x=>x.occ>1).length;const per=perLbl(d);
+  const nm=a=>dsName(a,d.acts.indexOf(a));const used=d.acts.filter(a=>d.ops.some(o=>o.id===d.assign[a.id]));const many=d.ops.length>8||d.acts.length>14;
   const yama=repYama(r.rows.map(x=>({name:x.name,total:x.load,over:x.occ>1,top:pc(x.occ),sub:(x.free<0?'excede '+f2(-x.free):'libre '+f2(x.free))+' min',
     segs:x.items.map(it=>({v:it.load,c:pal[it.id]}))})),r.disp,d.periodo==='ciclo'?'tiempo ciclo '+f2(r.disp)+' min':f2(r.disp)+' min disponibles por '+per);
   const det=r.rows.map(x=>x.items.map((it,k)=>{const a=d.acts.find(z=>z.id===it.id);return `<tr>${k===0?`<th rowspan="${x.items.length+1}">${esc(x.name)}<small>obj ${f2(x.obj).replace(/\.00$/,'')} pzs/${per}</small></th>`:''}<td style="text-align:left">${esc(nm(a))}</td><td>${esc(a.material||'—')}</td><td>${f2(it.pp)}</td><td>${f2(it.load)}</td><td>${pc(r.disp?it.load/r.disp:0,1)}</td></tr>`;}).join('')
     +`<tr class="rsum">${x.items.length?'':`<th>${esc(x.name)}</th>`}<td style="text-align:left">Total</td><td></td><td></td><td>${f2(x.load)}</td><td class="${x.occ>1?'rinn':'rnec'}">${pc(x.occ,1)}</td></tr>`).join('');
+  return {r,many,html:`<section><h2>Resumen</h2>${repKpis([['Ocupación promedio',pc(r.avgOcc,1),d.ops.length+' operador'+(d.ops.length!==1?'es':''),'#1D5FA8'],['Personal requerido teórico',r.needed.toFixed(2),'carga total ÷ tiempo disponible'],['Operadores arriba de 100 %',String(over),over?'hay que rebalancear':'todos dentro del tiempo',over?'#C2410C':'#1D5FA8'],['Carga total',f2(r.total),'min por '+per]])}</section>
+    <section class="${d.ops.length>10?'rlong':''}"><h2>Carga por operador (Yamazumi)</h2>${yama}${(()=>{const seen=new Map();used.forEach(a=>{const k=String(nm(a)).trim().toUpperCase();if(!seen.has(k))seen.set(k,a);});const U=[...seen.values()];
+      return U.length>24?`<p class="rnote" style="font-size:9.5px">${U.length} ${isWE(d)?'elementos':'actividades'} distintos: cada color es uno; el detalle está en la tabla siguiente.</p>`:`<div class="rlegend">${U.map(a=>`<span><i style="background:${pal[a.id]}"></i>${esc(nm(a))}</span>`).join('')}</div>`;})()}</section>
+    <section class="${many?'rlong':''}"><h2>Detalle por operador</h2><table class="rtbl"><thead><tr><th style="text-align:left">Operador</th><th style="text-align:left">${isWE(d)?'Elemento':'Actividad'}</th><th>Material</th><th>Min/pza</th><th>Carga (min)</th><th>% del disponible</th></tr></thead><tbody>${det}</tbody></table></section>`};}
+const repMetaDS=(d,obs)=>[['Ubicación',ubLabel(d)],['Área',d.area],['No. de parte',d.parte],[obs,d.observador],['Fecha',d.fecha],[isWE(d)&&d.periodo==='ciclo'?'Base':'Periodo / objetivo',isWE(d)&&d.periodo==='ciclo'?'tiempo ciclo de la línea':f2(num(d.disp)).replace(/\.00$/,'')+' min por '+perLbl(d)+(String(d.obj||'').trim()?' · '+d.obj+' pzs':'')]];
+
+// ---- Delay Study ----
+REP.ds=d=>{const C=repCarga(d);const nm=a=>dsName(a,d.acts.indexOf(a));const opName=id=>{const o=d.ops.find(x=>x.id===id);return o?o.name:'Sin asignar';};
   const acts=d.acts.map((a,i)=>`<tr><td>${i+1}</td><td style="text-align:left">${esc(nm(a))}</td><td>${esc(a.material||'—')}</td><td>${dsPz(a)>0?num(a.racks)+' × '+num(a.snp)+' = '+dsPz(a):'vuelta vacía'}</td><td>${f2((a.secs||0)/60)}</td><td>${f2(dsPerPiece(a,d.acts))}</td><td>${esc(opName(d.assign[a.id]))}</td></tr>`).join('');
-  const body=!d.acts.length?'<p class="rnote">Este estudio todavía no tiene actividades cronometradas.</p>':`
-    <section><h2>Resumen</h2>${repKpis([['Ocupación promedio',pc(r.avgOcc,1),d.ops.length+' operador'+(d.ops.length!==1?'es':''),'#1D5FA8'],['Personal requerido teórico',r.needed.toFixed(2),'carga total ÷ tiempo disponible'],['Operadores arriba de 100 %',String(over),over?'hay que rebalancear':'todos dentro del tiempo',over?'#C2410C':'#1D5FA8'],['Carga total',f2(r.total),'min por '+per]])}</section>
-    <section><h2>Carga por operador (Yamazumi)</h2>${yama}<div class="rlegend">${used.map(a=>`<span><i style="background:${pal[a.id]}"></i>${d.acts.indexOf(a)+1}. ${esc(nm(a))}</span>`).join('')}</div></section>
-    <section class="${d.acts.length>14?'rlong':''}"><h2>Detalle por operador</h2><table class="rtbl"><thead><tr><th style="text-align:left">Operador</th><th style="text-align:left">Actividad</th><th>Material</th><th>Min/pza</th><th>Carga (min)</th><th>% del disponible</th></tr></thead><tbody>${det}</tbody></table></section>
-    <section class="${d.acts.length>14?'rlong':''}"><h2>Actividades cronometradas</h2><table class="rtbl"><thead><tr><th>#</th><th style="text-align:left">Actividad</th><th>Material</th><th>Piezas (racks × SNP)</th><th>Tiempo (min)</th><th>Min/pza</th><th>Operador</th></tr></thead><tbody>${acts}</tbody></table>
-      <p class="rnote" style="font-size:9.5px">Las vueltas vacías no traen piezas, pero su tiempo cuenta: se reparte entre las piezas del traslado al que pertenecen.</p></section>`;
-  return {tipo:'Delay Study',titulo:d.titulo||'Delay Study',meta:[['Ubicación',ubLabel(d)],['Área',d.area],['No. de parte',d.parte],['Observador',d.observador],['Fecha',d.fecha],['Periodo / objetivo',f2(num(d.disp)).replace(/\.00$/,'')+' min por '+per+(String(d.obj||'').trim()?' · '+d.obj+' pzs':'')]],body};};
+  const body=!d.acts.length?'<p class="rnote">Este estudio todavía no tiene actividades cronometradas.</p>':C.html+`
+    <section class="${C.many?'rlong':''}"><h2>Actividades cronometradas</h2><p class="rnote" style="font-size:9.5px;margin:0 0 6px">Las vueltas vacías no traen piezas, pero su tiempo cuenta: se reparte entre las piezas del traslado al que pertenecen.</p><table class="rtbl"><thead><tr><th>#</th><th style="text-align:left">Actividad</th><th>Material</th><th>Piezas (racks × SNP)</th><th>Tiempo (min)</th><th>Min/pza</th><th>Operador</th></tr></thead><tbody>${acts}</tbody></table></section>`;
+  return {tipo:'Delay Study',titulo:d.titulo||'Delay Study',meta:repMetaDS(d,'Observador'),body};};
+
+// ---- Work Element ----
+REP.we=d=>{const C=repCarga(d);const n=weN(d);const opName=id=>{const o=d.ops.find(x=>x.id===id);return o?o.name:'Sin asignar';};
+  const vals=e=>(e.times||[]).slice(0,n).filter(t=>t!==''&&t!=null&&!isNaN(parseFloat(String(t).replace(',','.')))).map(num);
+  const crono=d.ops.map(op=>{const els=dsSeq(d,op.id);if(!els.length)return '';const tot=els.reduce((s,e)=>s+weAvg(e.times),0);
+    return `<div class="rblock"><div class="rch"><b>${esc(op.name)}</b><span>${weComplete(els,n)} de ${n} ciclos completos · ciclo promedio ${f2(tot)} min</span></div>
+    <table class="rtbl"><thead><tr><th>#</th><th style="text-align:left">Elemento</th><th>Ciclos</th><th>Promedio (min)</th><th>Mín</th><th>Máx</th><th>Rango</th><th>Asignado a</th></tr></thead><tbody>
+    ${els.map((e,i)=>{const v=vals(e);const mn=v.length?Math.min(...v):0,mx=v.length?Math.max(...v):0;return `<tr><td>${i+1}</td><td style="text-align:left">${esc(e.name)}</td><td>${v.length}</td><td><b>${f2(weAvg(e.times))}</b></td><td>${v.length?f2(mn):'—'}</td><td>${v.length?f2(mx):'—'}</td><td>${v.length?f2(mx-mn):'—'}</td><td>${esc(opName(d.assign[e.id]))}</td></tr>`;}).join('')}
+    <tr class="rsum"><td></td><td style="text-align:left">Total del ciclo</td><td></td><td>${f2(tot)}</td><td></td><td></td><td></td><td></td></tr></tbody></table></div>`;}).join('');
+  const body=!d.acts.length?'<p class="rnote">Este estudio todavía no tiene elementos cronometrados.</p>':C.html+`<section class="rlong"><h2>Cronometraje por operador</h2><p class="rnote" style="font-size:9.5px;margin:0 0 6px">Promedio = media de los ciclos capturados de cada elemento (las celdas vacías no cuentan). Rango = máximo − mínimo.</p>${crono}</section>`;
+  return {tipo:'Work Element',titulo:d.titulo||'Work Element',meta:repMetaDS(d,'Analista'),body};};
 
 // ---- eliminar estudio desde la lista (todos los formatos) ----
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-sdel]');if(!t)return;e.stopPropagation();
