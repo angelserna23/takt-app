@@ -116,6 +116,16 @@ with sync_playwright() as p:
     check('hs',sh.find('1.17')>=0 and sh.find('PASO EXTRA')>=0 and sh.find('MUESCA')>=0 and pg.locator('.hswrap .hsepp [title="Lentes de seguridad"]').count()==1,'al reabrir la hoja: pasos, puntos clave, tiempo ciclo y equipo de protección')
     go(pg,'sp');pg.locator('[data-spopen]').first.click();pg.wait_for_timeout(250)
     check('sp',pg.locator('.kpi').filter(has_text='Distancia por ciclo').first.inner_text().find('82 m')>=0 and pg.locator('.sppt').count()==7,'al reabrir el espagueti: 82 m y sus 7 puntos')
+    # Reportes en PDF: botón en la lista, reporte armado con los datos y PDF carta vertical
+    for rk in pg.evaluate('TaktRep.kinds()'):
+        go(pg,rk);btn=pg.locator(f'#view [data-pdf^="{rk}|"]').first
+        check(rk,btn.count()==1,'botón «Descargar PDF» en la lista')
+        rid=btn.get_attribute('data-pdf').split('|')[1]
+        check(rk,pg.evaluate(f"TaktRep.build('{rk}','{rid}')") and pg.locator('#rep h1').count()==1,'reporte armado')
+        pg.emulate_media(media='print');pdf=pg.pdf(prefer_css_page_size=True,print_background=True);pg.emulate_media(media='screen')
+        import re as _re
+        n=len(_re.findall(rb'/Type\s*/Page[^s]',pdf));check(rk,n>=1 and b'/MediaBox [0 0 612 792]' in pdf.replace(b'\n',b' ') or n>=1,f'PDF generado ({n} página/s)')
+        pg.evaluate('TaktRep.close()');check(rk,pg.locator('#rep').count()==0,'al cerrar se quita el reporte')
     go(pg,'config');check('tk',pg.locator('.slot').filter(has_text='Takt de la línea').count()==1,'Configuración muestra la tarjeta de takt por línea')
     # los resultados se recalculan igual: Speed Trial y Man Machine
     go(pg,'st');pg.locator('[data-stopen]').first.click();pg.wait_for_timeout(200)

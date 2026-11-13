@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Estudios complementarios: **todos cerrados**. Siguiente: Angel elige entre las partes de la app que quedan: tablero de Inicio, guardado Fase 3, pagos y diseño final (descartados: tiempo estándar, plan de acción/antes-después, NOM-036, VSM, video, curva de aprendizaje, horarios aleatorios). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Estudios complementarios: **todos cerrados**. En curso: **reportes en PDF**, un módulo a la vez (Work Sampling listo para comentarios; ver `docs/superpowers/specs/2026-11-13-reportes-pdf-design.md`). Después, partes de la app: tablero de Inicio, guardado Fase 3, pagos y diseño final (descartados: tiempo estándar, plan de acción/antes-después, NOM-036, VSM, video, curva de aprendizaje, horarios aleatorios). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
 
 ## Pasos para Claude al iniciar
 

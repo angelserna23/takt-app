@@ -738,6 +738,34 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .tkel .tkt{width:84px;flex:0 0 84px;text-align:right;font-family:'IBM Plex Mono',monospace}
 .tkst,.tkwer{min-width:0}
 @media (max-width:700px){.tkwe,.tkgrid{grid-template-columns:minmax(0,1fr)}.tkel{gap:6px}.tkel .tkt{width:62px;flex-basis:62px;padding:0 8px}.tkel .opn{width:26px;height:26px;flex-basis:26px;font-size:13px}.tkst{padding:12px}}
+/* Reportes en PDF (#rep solo existe mientras se imprime) */
+.iconbtn.rpdf{flex:0 0 52px;width:52px;height:52px;color:var(--blue);border-color:rgba(29,95,168,.25)}.iconbtn.rpdf:hover{background:rgba(29,95,168,.08)}
+#rep{display:none}
+@media print{
+  body.rep-on{background:#fff!important}
+  body.rep-on>*:not(#rep){display:none!important}
+  body.rep-on #rep{display:block;page:rep}
+}
+.rep{font:12px/1.4 'Inter',system-ui,sans-serif;color:#1B2430;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.rep h1{font-size:22px;margin:4px 0 8px;line-height:1.15}.rep h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#1D5FA8;margin:0 0 8px;padding-bottom:4px;border-bottom:1.5px solid #D6DEE8}
+.rep section{margin-top:16px;break-inside:avoid}.rep section.rlong{break-inside:auto}.rep h2{break-after:avoid}
+.rhead{padding-bottom:10px;border-bottom:3px solid #1B2430}.rbrand{display:flex;justify-content:space-between;align-items:baseline}
+.rbrand span{font:800 15px 'Inter',sans-serif;letter-spacing:.18em;color:#C2410C}.rbrand small{font:600 11px 'IBM Plex Mono',monospace;color:#5B6673;letter-spacing:.06em;text-transform:uppercase}
+.rmeta{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 16px;margin:0}.rmeta dt{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:#5B6673}.rmeta dd{margin:0;font-weight:600}
+.rgen{margin:8px 0 0;font-size:9.5px;color:#5B6673}
+.rkpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.rkpis>div{border:1px solid #D6DEE8;border-radius:8px;padding:8px 10px;display:flex;flex-direction:column}
+.rkpis span{font-size:10px;color:#5B6673;font-weight:600}.rkpis b{font:600 20px 'IBM Plex Mono',monospace}.rkpis small{font-size:9.5px;color:#5B6673}
+.rbars>div{display:grid;grid-template-columns:150px 1fr 60px;gap:8px;align-items:center;margin:3px 0}.rbars span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rbars i{display:block;height:10px;background:#EEF2F6;border-radius:5px;overflow:hidden}.rbars em{display:block;height:100%}.rbars b{font:600 11px 'IBM Plex Mono',monospace;text-align:right}
+.rstacks>div{display:grid;grid-template-columns:150px 1fr;gap:8px;align-items:center;margin:4px 0}.rstacks span{font-weight:600;display:flex;flex-direction:column;line-height:1.15}.rstacks small{font-weight:400;color:#5B6673;font-size:9.5px}
+.rstacks .rtotrow span{color:#1D5FA8}.rstack{display:flex;height:18px;border-radius:4px;overflow:hidden;background:#EEF2F6}.rstack em{font:600 9px 'IBM Plex Mono',monospace;display:flex;align-items:center;justify-content:center;font-style:normal}
+.rlegend{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px;font-size:10px}.rlegend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.rtbl{width:100%;border-collapse:collapse;font-size:10.5px;margin-bottom:10px;break-inside:auto}.rtbl th,.rtbl td{border-bottom:1px solid #E3E8EF;padding:4px 5px;text-align:center}.rtbl tr{break-inside:avoid}
+.rtbl thead th{font-size:9.5px;text-transform:uppercase;color:#5B6673;border-bottom:1.5px solid #B9C4D1}.rtbl tbody th{text-align:left;font-weight:600}
+.rtbl .rsum th,.rtbl .rsum td{font-weight:700}.rtbl .rtot{background:#F3F6FA;font-weight:600}.rinn{color:#C2410C}.rnec{color:#1D5FA8}
+.rcards{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rcard{border:1px solid #D6DEE8;border-radius:8px;padding:8px 10px;break-inside:avoid}
+.rch{display:flex;justify-content:space-between;gap:6px}.rch span{font-size:9.5px;color:#5B6673}.rnums{display:flex;gap:12px;margin:4px 0}.rcard small{font-size:9.5px;color:#5B6673}.rcard ol{margin:2px 0 0;padding-left:18px}
+.rnote{color:#5B6673}
 /* Diagrama de espagueti */
 .spopts{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}.spopts>div{display:flex;flex-direction:column;gap:6px}
 .spwrap{margin-top:14px;overflow:auto;border-radius:18px;background:#fff;border:1px solid var(--line);padding:10px;-webkit-overflow-scrolling:touch}
@@ -814,7 +842,9 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .hssheet.pr .hsseq table{font-size:11.5px}.hssheet.pr .hsseq td{padding:4px}.hssheet.pr .hsfl2{border:1px solid #1B2430;border-radius:4px;padding:6px}
 .hssheet.pr .hsbody{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}.hssheet.pr .hsfoot{grid-template-columns:1.2fr 1fr 1fr}.hssheet.pr .hskpis{grid-template-columns:repeat(4,1fr)}.hssheet.pr .hsmeta{grid-template-columns:repeat(4,auto)}
 .hssheet.pr .hsseq td:last-child,.hssheet.pr .hsseq th:last-child{display:table-cell}.hssheet.pr .hsfirm{grid-column:auto}.hssheet.pr .hskp{font-size:10.5px}
-@page{size:letter landscape;margin:0.3in}
+@page{size:letter portrait}
+@page hoja{size:letter landscape;margin:0.3in}
+.hsprint{page:hoja}
 @media print{
   /* al imprimir solo existe la hoja: lo demás sale del documento y los contenedores no ocupan espacio */
   html:has(.hsprint),body:has(.hsprint){background:#fff!important;height:auto!important;min-height:0!important;overflow:visible!important}
@@ -891,6 +921,7 @@ const I = {
   next:'<path d="M9 6l6 6-6 6"/>',
   trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
   undo:'<path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>',
+  pdf:'<path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5"/><path d="M12 11v6M9.5 14.5 12 17l2.5-2.5"/>',
   print:'<path d="M7 8V3h10v5M7 17H4.5A1.5 1.5 0 0 1 3 15.5v-6A1.5 1.5 0 0 1 4.5 8h15A1.5 1.5 0 0 1 21 9.5v6a1.5 1.5 0 0 1-1.5 1.5H17"/><path d="M7 13h10v8H7z"/>',
   hs:'<path d="M6 3h9l4 4v14H6z"/><circle cx="10" cy="10" r="1.6"/><path d="M10 11.6v2.2"/><rect x="8.6" y="14.6" width="2.8" height="2.8"/><path d="M13.5 10h3M13.5 16h3"/>',
   list:'<path d="M8 6h12M8 12h12M8 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/>',
@@ -1013,7 +1044,7 @@ function vWS(){
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">WS</div>
       <div class="meta"><b>${esc(st.titulo)} <span class="tag ${st.estado==='Cerrado'?'':'on'}" style="vertical-align:2px;margin-left:6px">${st.estado==='Cerrado'?'FINALIZADO':'EN PROCESO'}</span></b><span>${esc(st.area||'—')} · No. parte ${esc(st.parte||'—')} · ${esc(st.fecha)} · ${esc(st.analista||'—')} · ${st.ops.length} operador${st.ops.length!==1?'es':''}</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:var(--orange)">${L.total.sum?pc(L.total.innec):'—'}</span><br><span style="font-size:12px;color:var(--muted)">innecesario línea · ${L.total.sum} obs.</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="ws|${st.id}" data-sdeln="${esc(st.titulo)}" aria-label="Eliminar estudio ${esc(st.titulo)}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn('ws',st.id,st.titulo||'Work Sampling')}<button type="button" class="iconbtn sdel" data-sdel="ws|${st.id}" data-sdeln="${esc(st.titulo)}" aria-label="Eliminar estudio ${esc(st.titulo)}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
     ${S.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('list',30)}</div><b style="font-size:17px">Aún no hay estudios</b><p>Toca <b>Nuevo estudio</b> para crear el primero.</p></div>`}
     </div></section>`;
 }
@@ -1092,7 +1123,7 @@ function vNuevo(){
     const L=calcLine(d.ops);const withObs=d.ops.filter(o=>calcOp(o).sum>0).length;
     return `<section class="glass panel view">
       <div class="row"><div><h2>${esc(tit)}</h2><p class="sub">${esc(d.area||'—')} · No. parte ${esc(d.parte||'—')} · ${esc(d.fecha)} · ${esc(d.analista||'—')} · ${d.conf}% confianza, ±${esc(d.margen)}%</p></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-wsv="hdr">Editar información</button><button class="btn danger" type="button" data-delstudy="1">${svg('trash',18,2)} Eliminar estudio</button></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-pdf="ws|cur" ${L.total.sum?'':'disabled'}>${svg('pdf',18,2)} Descargar PDF</button><button class="btn ghost" type="button" data-wsv="hdr">Editar información</button><button class="btn danger" type="button" data-delstudy="1">${svg('trash',18,2)} Eliminar estudio</button></div></div>
       <div style="margin-top:22px"><b style="font-size:17px">Operadores</b><p class="sub">Toca un operador para validar sus actividades y empezar a contar</p></div>
       <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr));margin-top:12px">
       ${d.ops.map((o,i)=>{const x=calcOp(o);const s=STATUS[o.status];return `<button type="button" class="opcard" data-enter="${o.id}">
@@ -4195,6 +4226,59 @@ document.addEventListener('input',e=>{const el=e.target;const d=SP.d;if(!d||!el.
 });
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.spname){SP.sel=null;spRe();}
   if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('g[data-sppt]')){e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}});
+
+// ===== REPORTES EN PDF · formato común (carta vertical, varias páginas) =====
+// Opción A (Angel, 2026-11-13): «Descargar PDF» abre la impresión del navegador con «Guardar como PDF».
+// El reporte se arma en #rep (fuera de #view); al imprimir solo existe #rep. Solo lectura: todo se trabaja en la app.
+const REP={};   // REP[kind] = d => ({tipo, titulo, meta:[[etiqueta, valor]], body})
+const repEsc=s=>String(s).replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\n/g,' ');
+function repKpis(L){return `<div class="rkpis">${L.map(([l,v,s,c])=>`<div><span>${l}</span><b style="${c?'color:'+c:''}">${v}</b>${s?`<small>${s}</small>`:''}</div>`).join('')}</div>`;}
+function repBars(L,col){const mx=Math.max(...L.map(x=>x[1]),1e-9);return `<div class="rbars">${L.map(([n,v,t,c])=>`<div><span>${esc(n)}</span><i><em style="width:${(v/mx*100).toFixed(1)}%;background:${c||col}"></em></i><b>${t}</b></div>`).join('')}</div>`;}
+function repDoc(kind,d){const R=REP[kind](d);const hoy=new Date().toLocaleString('es-MX',{dateStyle:'medium',timeStyle:'short'});
+  return {R,css:`@page rep{size:letter portrait;margin:13mm 12mm 15mm;@bottom-left{content:"Takt · ${repEsc(R.tipo)} · ${repEsc(R.titulo)}";font:9px 'Inter',sans-serif;color:#5B6673}@bottom-right{content:"Página " counter(page) " de " counter(pages);font:9px 'Inter',sans-serif;color:#5B6673}}`,
+    html:`<header class="rhead"><div class="rbrand"><span>TAKT</span><small>Reporte · ${esc(R.tipo)}</small></div><h1>${esc(R.titulo)}</h1>
+      <dl class="rmeta">${R.meta.map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v||'—')}</dd></div>`).join('')}</dl><p class="rgen">Generado el ${esc(hoy)} · solo lectura: los datos se trabajan en la app</p></header>${R.body}`};}
+let REP_FIRED=false;
+window.addEventListener('afterprint',()=>{REP_FIRED=true;repClose();});
+function repBuild(kind,d){repClose();const {R,css,html}=repDoc(kind,d);
+  const st=document.createElement('style');st.id='repstyle';st.textContent=css;document.head.appendChild(st);
+  const el=document.createElement('div');el.id='rep';el.className='rep';el.innerHTML=html;document.body.appendChild(el);document.body.classList.add('rep-on');
+  document.title=R.tipo+' · '+R.titulo;return el;}
+function repClose(){const a=document.getElementById('rep'),b=document.getElementById('repstyle');if(a)a.remove();if(b)b.remove();document.body.classList.remove('rep-on');document.title=REP_TITLE;}
+const REP_TITLE=document.title;
+function repPrint(kind,d){repBuild(kind,d);REP_FIRED=false;try{window.print();}catch(_){}
+  // si la impresión está bloqueada (enlace de prueba) no hay «afterprint»: se avisa y se quita el reporte
+  setTimeout(()=>{if(!REP_FIRED){repClose();ask('Descargar PDF','Si no se abrió la ventana de impresión: en el enlace de prueba está bloqueada; en la app publicada se abre con «Guardar como PDF».','Entendido',()=>{},{ok:true,icon:'print'});}},700);}
+const pdfBtn=(kind,id,name)=>`<button type="button" class="iconbtn rpdf" data-pdf="${kind}|${id}" aria-label="Descargar PDF de ${esc(name)}" title="Descargar PDF">${svg('pdf',18,2)}</button>`;
+function repFind(kind,id){if(id==='cur')return kind==='ws'?S.draft:null;const box=storeBox(kind);return box&&box.studies.find(x=>x.id==id);}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-pdf]');if(!b)return;e.stopPropagation();
+  const [k,id]=b.dataset.pdf.split('|');const d=repFind(k,id);if(d&&REP[k])repPrint(k,d);},true);
+window.TaktRep={build:(k,id)=>{const d=repFind(k,id);return d?!!repBuild(k,d):false;},close:repClose,kinds:()=>Object.keys(REP)};
+
+// ---- Work Sampling ----
+REP.ws=d=>{const ops=d.ops.filter(o=>calcOp(o).sum>0);const L=calcLine(ops);const pal=palette(L.acts);
+  const tg=(parseFloat(d.margen)||5)/100;const P=precisionWS(L.total.innec,L.total.sum,d.conf,tg);
+  const txt=c=>LIGHT.has(c)?'#1B2430':'#fff';
+  const stack=x=>`<div class="rstack">${L.acts.filter(a=>x.pct[a.id]>0).map(a=>`<em style="width:${(x.pct[a.id]*100).toFixed(2)}%;background:${pal[a.id]};color:${txt(pal[a.id])}">${x.pct[a.id]>=0.06?pc(x.pct[a.id]):''}</em>`).join('')}</div>`;
+  const chunk=(A,n)=>A.reduce((r,x,i)=>(i%n?r[r.length-1].push(x):r.push([x]),r),[]);
+  const cols=ops.length>1?[...L.rows,L.total]:L.rows;   // con un operador, el total repetiría lo mismo
+  const tables=chunk(cols,6).map(C=>`<table class="rtbl"><thead><tr><th style="text-align:left">Actividad</th><th>Tipo</th>${C.map(x=>`<th>${esc(x.name)}</th>`).join('')}</tr></thead><tbody>
+    ${L.acts.map(a=>`<tr><th>${esc(a.name)}</th><td class="${a.nec?'rnec':'rinn'}">${a.nec?'Nec.':'Innec.'}</td>${C.map(x=>`<td class="${x.id==='total'?'rtot':''}">${x.sum?pc(x.pct[a.id],1):'—'}</td>`).join('')}</tr>`).join('')}
+    <tr class="rsum"><th>Innecesario</th><td></td>${C.map(x=>`<td class="rinn">${pc(x.innec,1)}</td>`).join('')}</tr>
+    <tr class="rsum"><th>Necesario</th><td></td>${C.map(x=>`<td class="rnec">${pc(x.nec,1)}</td>`).join('')}</tr>
+    <tr><th>Observaciones</th><td></td>${C.map(x=>`<td>${x.sum}</td>`).join('')}</tr></tbody></table>`).join('');
+  const opCard=o=>{const x=calcOp(o);const opp=o.acts.filter(a=>!a.nec&&x.pct[a.id]>0).sort((a,b)=>x.pct[b.id]-x.pct[a.id]).slice(0,4);
+    return `<div class="rcard"><div class="rch"><b>${esc(o.name)}</b><span>${x.sum} obs. · ${fmtT(o.start)}–${fmtT(o.end)}</span></div>
+      <div class="rnums"><span class="rinn">Innecesario <b>${pc(x.innec,1)}</b></span><span class="rnec">Necesario <b>${pc(x.nec,1)}</b></span></div>
+      ${opp.length?`<small>Mayor oportunidad:</small><ol>${opp.map(a=>`<li>${esc(a.name)} <b>${pc(x.pct[a.id],1)}</b></li>`).join('')}</ol>`:'<small>Sin actividades innecesarias registradas.</small>'}</div>`;};
+  const body=!ops.length?'<p class="rnote">Este estudio todavía no tiene observaciones.</p>':`
+    <section><h2>Resumen de la línea</h2>${repKpis([['Necesario',pc(L.total.nec,1),'aporta valor','#1D5FA8'],['Innecesario',pc(L.total.innec,1),'oportunidad de mejora','#C2410C'],['Observaciones',String(L.total.sum),ops.length+' operador'+(ops.length!==1?'es':'')],['Precisión',P.e!=null?'±'+(P.e*100).toFixed(1)+'%':'—',d.conf+'% confianza · '+(P.ok?'cumple ±'+d.margen+'%':'faltan '+P.falta+' obs. para ±'+d.margen+'%'),P.ok?'#1D5FA8':'']])}</section>
+    ${ops.length>1?`<section><h2>¿Quién pesa más en lo innecesario?</h2>${repBars([...L.rows].sort((a,b)=>b.innec-a.innec).map(x=>[x.name,x.innec,pc(x.innec,1)]),'#C2410C')}</section>`:''}
+    <section><h2>Distribución de actividades</h2><div class="rstacks">${cols.map(x=>`<div class="${x.id==='total'?'rtotrow':''}"><span>${esc(x.name)}<small>${x.sum} obs.</small></span>${stack(x)}</div>`).join('')}</div>
+      <div class="rlegend">${L.acts.map(a=>`<span><i style="background:${pal[a.id]}"></i>${esc(a.name)}</span>`).join('')}</div></section>
+    <section class="${L.acts.length>22||cols.length>6?'rlong':''}"><h2>Resultado por actividad (%)</h2>${tables}</section>
+    <section class="${ops.length>6?'rlong':''}"><h2>Detalle por operador</h2><div class="rcards">${ops.map(opCard).join('')}</div></section>`;
+  return {tipo:'Work Sampling',titulo:d.titulo||'Work Sampling',meta:[['Ubicación',ubLabel(d)],['Área',d.area],['No. de parte',d.parte],['Analista',d.analista],['Fecha',d.fecha],['Confianza / margen',d.conf+'% · ±'+d.margen+'%']],body};};
 
 // ---- eliminar estudio desde la lista (todos los formatos) ----
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-sdel]');if(!t)return;e.stopPropagation();

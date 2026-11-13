@@ -276,6 +276,11 @@ Siguiente:
 - **Fase 3:** avisos de almacenamiento lleno o no disponible visibles en pantalla (hoy: mensaje al guardar) y persistencia de los ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Después (otra etapa): servidor, cuentas y sincronización; exportación PDF/Excel casi al final.
 
+## Reportes en PDF — EN CURSO (2026-11-13)
+Diseño: `docs/superpowers/specs/2026-11-13-reportes-pdf-design.md`. Opción A: «Descargar PDF» = impresión del navegador → «Guardar como PDF». **Solo PDF, nunca Excel** (Angel: se trabaja en la app; lo exportado es para leer y enviar). Formato común carta vertical con encabezado, secciones y pie «Página x de y». Un módulo a la vez.
+- Work Sampling: listo para comentarios (resumen de línea con precisión, quién pesa más en lo innecesario, distribución, tabla por actividad, detalle por operador; sin columna de total cuando hay un solo operador).
+- Siguen: Delay Study, Work Element, Speed Trial, Man Machine, SMED, Takt y balanceo, Diagramas, Cálculo de personal. Actual Time: por confirmar.
+
 ## Diagrama de espagueti + sección «Diagramas» — TERMINADO (2026-11-13)
 Diseño: `docs/superpowers/specs/2026-11-13-diagrama-espagueti-design.md`.
 - Menú: «Diagramas de flujo» → **«Diagramas»**, con dos tarjetas: Flujo de proceso (igual que antes) y Espagueti. Comparten la entrada, no los datos.
