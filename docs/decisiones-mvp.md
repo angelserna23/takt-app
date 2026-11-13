@@ -238,7 +238,7 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - **Error corregido (lo encontró la prueba del tutorial):** en Asignación y balanceo (Delay Study y Work Element), tocar una actividad para seleccionarla y usar «Mover aquí» no funcionaba: al soltar, la app volvía a pintar la pantalla aunque no hubo arrastre y el toque se perdía. Ahora solo repinta si hubo arrastre (mouse y táctil verificados).
 - Pruebas: parts/tuttest.js (lee los guiones de index.html y valida su forma) + tests/smoke/smoke_tut.py (cada tutorial en demo a 20× y en guiado, con la prueba haciendo de usuario, en laptop, tablet y teléfono; sin historial al salir; el estudio real del usuario queda intacto). `SOLO=lap|tab|phone` corre un dispositivo.
 - En teléfono, si el objetivo queda en la mitad de abajo (p. ej. la nube del diagrama), el globo sube arriba para no taparlo.
-- Cuando cambie una pantalla (sobre todo con el diseño final), correr `tests/smoke/smoke_tut.py`: dice qué paso de qué tutorial ya no encuentra su botón. Los textos de los globos se ajustan en los datos sin tocar el motor.
+- Los tutoriales se prueban solos: `bash tests/correr_pruebas.sh` (rutina obligatoria antes de cada commit) corre los 9 en demo y guiado en 3 dispositivos y dice qué paso de qué tutorial ya no encuentra su botón. Se verificó cambiando un botón a propósito. Los textos de los globos se ajustan en los datos sin tocar el motor.
 
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
@@ -263,7 +263,7 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo.
 - Aprende: los 9 tutoriales listos (2026-11-12).
 - **Guardado de estudios y exportación PDF/Excel: en espera, casi al final de todo (Angel, 2026-11-12).**
-- Pendientes (Angel define el orden): pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI; después, revisar tutoriales con smoke_tut.py), videos de marketing desde las demos. El guardado va casi al final.
+- Pendientes (Angel define el orden): pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI; los tutoriales se revisan solos con la rutina de pruebas), videos de marketing desde las demos. El guardado va casi al final.
 - Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
 
 ## Dónde vive el código

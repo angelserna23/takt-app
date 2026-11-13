@@ -4,13 +4,13 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre las pruebas para confirmar que todo pasa. Siguiente: **lo que Angel indique** (Aprende ya tiene los 9 tutoriales; el guardado de estudios queda casi al final).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: **lo que Angel indique** (Aprende ya tiene los 9 tutoriales; el guardado de estudios queda casi al final).
 
 ## Pasos para Claude al iniciar
 
 1. Clonar `angelserna23/takt-app` (rama `main`).
 2. Leer `docs/decisiones-mvp.md` completo: reglas generales, unidades, reglas de teléfono y la hoja de ruta.
-3. Correr `for t in test dstest wetest sttest mmtest smtest pctest attest ectest dftest tuttest; do node parts/$t.js; done`: todas deben decir OK.
+3. Instalar Chromium para Playwright (`playwright install chromium`) y correr `bash tests/correr_pruebas.sh`: cálculos + los 9 tutoriales en laptop, tablet y teléfono (≈ 5 min). Debe terminar en «TODO PASA». Durante el trabajo, `bash tests/correr_pruebas.sh rapido` corre solo los cálculos.
 4. Para publicar cambios de la app: el artifact ya existe (slug `b963594a-ed0b-4bfe-9897-a3ee86914094`). Republicar `index.html` sobre ese mismo slug (pedir la versión actual con get_artifact y usarla como base_version). No crear un artifact nuevo.
 5. Al terminar el chat: seguir la rutina de cierre (abajo).
 
@@ -18,13 +18,13 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 Cuando Angel diga que por hoy terminamos, Claude hace, en este orden:
 
-1. Correr todas las pruebas. Si algo falla, avisar y **no** subir.
+1. Correr `bash tests/correr_pruebas.sh` (incluye los tutoriales). Si algo falla, avisar y **no** subir.
 2. Actualizar `docs/decisiones-mvp.md` y la sección "Estado" de este archivo con lo hecho en el día.
 3. `git status` y revisar la lista; agregar solo lo que corresponde (nunca `git add .` a ciegas). Los Excel de Angel y los temporales quedan fuera por `.gitignore`.
 4. `git commit` con mensaje descriptivo (p. ej. `Actual Time: cálculo validado + 8 pruebas`).
 5. `git push` a `main` y confirmar a Angel el número de commit. Sin push, el trabajo se pierde al cerrar el chat.
 
-Además: commit + push intermedio cada vez que se cierre algo importante (cálculo validado, pantalla lista), por si el chat se corta.
+Además: commit + push intermedio cada vez que se cierre algo importante (cálculo validado, pantalla lista), por si el chat se corta. **Cualquier cambio de pantalla se prueba con `bash tests/correr_pruebas.sh` completo antes de subir**: si un tutorial deja de encontrar su botón, se corrige el guion (o la pantalla) en el mismo cambio, no después.
 
 ## Forma de trabajo acordada
 
@@ -37,8 +37,8 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 
 - Listos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo y **Aprende con los 9 tutoriales** (demo en vivo con bot + «Hazlo tú» guiado; las explicaciones corren solas como video y solo se espera al usuario cuando debe actuar; sin historial).
 - Agregados en esta etapa: «Cargar ejemplo» en Delay Study y «Cargar tiempos de ejemplo» en Work Element; «Ver tutorial» en la lista de cada herramienta. Corregido: seleccionar con un toque + «Mover aquí» en Asignación y balanceo.
-- Pruebas: 11 de cálculo (incluye `tuttest`) + pantallas; `tests/smoke/smoke_tut.py` corre los 9 tutoriales en demo y guiado en 3 dispositivos (`SOLO=lap|tab|phone` para uno). Correrla siempre que cambie una pantalla.
+- Pruebas: `bash tests/correr_pruebas.sh` = 11 de cálculo (incluye `tuttest`) + los 9 tutoriales en demo y guiado en 3 dispositivos, en paralelo (≈ 4.5 min). Es la rutina obligatoria antes de cada commit; se verificó que detecta un botón cambiado. Las demás pruebas de `tests/smoke/` siguen sueltas.
 - Menú: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración. En teléfono: Personal en la barra; Actual Time, Diagramas de flujo y Aprende desde «Más».
 - **Guardado de estudios y exportación PDF/Excel: en espera, casi al final de todo (Angel, 2026-11-12).**
-- Pendientes (Angel define el orden): pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI; después, revisar tutoriales con `smoke_tut.py`), videos de marketing grabados desde las demos.
+- Pendientes (Angel define el orden): pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI; los tutoriales se revisan solos con la rutina de pruebas), videos de marketing grabados desde las demos.
 - Pendiente menor: `smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores (fallaban desde antes); actualizarlas o quitarlas.

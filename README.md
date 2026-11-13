@@ -26,9 +26,11 @@ Prototipo publicado: https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f
 ## Correr las pruebas
 
 ```bash
-for t in test dstest wetest sttest mmtest smtest pctest attest ectest dftest tuttest; do node parts/$t.js; done
-# Pantallas (requiere: pip install playwright && playwright install chromium)
-python3 tests/smoke/smoke_pc.py
+bash tests/correr_pruebas.sh          # todo: cálculos + los 9 tutoriales en laptop, tablet y teléfono (≈ 5 min)
+bash tests/correr_pruebas.sh rapido   # solo cálculos
+# Requiere: pip install playwright && playwright install chromium
 ```
+
+Se corre completo antes de cada commit. Si cambia una pantalla y un tutorial ya no encuentra su botón, dice cuál paso de cuál tutorial.
 
 Regla: si un cálculo cambia en `index.html`, se actualiza también su `parts/*calc.js` y su prueba.
