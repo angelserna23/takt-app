@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: comentarios de Angel sobre **Takt y balanceo** y después el siguiente estudio complementario (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: **plan de acción + antes/después** (primero decidir si habla de dinero o solo tiempos/piezas/horas-hombre); después el resto de los estudios complementarios (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
 
 ## Pasos para Claude al iniciar
 
@@ -36,7 +36,7 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 ## Estado al 2026-11-13 (Takt y balanceo)
 
 - Nuevo: **Takt y balanceo de línea** (pestaña propia): takt con demanda/turnos/paros, estaciones traídas de los Work Element de la línea (cada operador = una estación), balanceo arrastrando elementos contra el takt, resultados con antes → simulado. Clave `tk` v1, ubicación hasta línea, tutorial 10, 24 pruebas de cálculo + guardado + tutorial en 3 dispositivos. Publicado en el mismo artifact.
-- Angel lo está probando; esperar sus comentarios. Confirmado: el takt vive en cada balanceo (fechado); Configuración muestra el más reciente por línea.
+- TERMINADO (Angel lo probó y lo cerró). Confirmado: el takt vive en cada balanceo (fechado); Configuración muestra el más reciente por línea.
 - Siguiente complementario: plan de acción + antes/después (antes, decidir si habla de dinero).
 
 ## Estado al 2026-11-12 (noche, guardado Fases 1 y 2)

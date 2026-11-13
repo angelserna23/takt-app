@@ -19,7 +19,7 @@ Prototipo publicado: https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f
 ## Formatos
 
 - Estudios de tiempos: Work Sampling, Delay Study, Work Element, Speed Trial, Man Machine Chart, SMED (todos listos).
-- Takt y balanceo de línea: takt + estaciones traídas de los Work Element + balanceo contra el takt (listo para comentarios).
+- Takt y balanceo de línea: takt + estaciones traídas de los Work Element + balanceo contra el takt: listo.
 - Cálculo de personal (headcount): listo.
 - Actual Time + Eficiencia compuesta y Diagramas de flujo: listos.
 - Aprende (tutoriales con demo en vivo y modo guiado): los 10 listos (6 estudios, Takt y balanceo, Personal, Actual Time + Eficiencia compuesta, Diagramas de flujo).

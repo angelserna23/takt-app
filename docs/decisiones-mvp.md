@@ -276,7 +276,7 @@ Siguiente:
 - **Fase 3:** avisos de almacenamiento lleno o no disponible visibles en pantalla (hoy: mensaje al guardar) y persistencia de los ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Después (otra etapa): servidor, cuentas y sincronización; exportación PDF/Excel casi al final.
 
-## Takt y balanceo de línea — LISTO PARA COMENTARIOS (2026-11-13; primer estudio complementario)
+## Takt y balanceo de línea — TERMINADO (2026-11-13; primer estudio complementario)
 Pestaña propia del menú («Takt y balanceo»; en teléfono desde «Más»). Clave `tk` en `STORE_SCHEMA`, **v1 (nace con ubicación, sin migración)**; ubicación pedida hasta **línea**; tutorial número 10 en Aprende (grupo Capacidad y eficiencia).
 Cómo lo trabaja Angel: un Work Element por estación (≈130 en su caso); el conjunto muestra el balanceo de la línea y se mueven actividades entre estaciones. Esta pestaña los junta y compara contra el takt.
 Flujo (4 pasos):
@@ -292,7 +292,8 @@ Cálculos (24 pruebas automáticas, `parts/tktest.js`, leen el bloque `<tk-pure>
 - «Antes» = estaciones originales con `st0`; las estaciones agregadas para simular solo cuentan en el después.
 - Ejemplo ficticio (poleas): 800 pzs/día, 2 × (480 − 40) = 880 min → takt 1.10. EST 20 = 1.24 (cuello), eficiencia 81.5 %, 709.7 pzs/día (no cumple), personal 3.67 → 4. Mover ATORNILLAR (0.18) a EST 30 → 1.06 / 1.03, eficiencia 95.3 %, 830 pzs/día (cumple).
 Decisión confirmada por Angel (2026-11-13): **el takt vive dentro de cada balanceo (fechado)**, no en el catálogo. Configuración muestra «Takt de la línea» = el del balanceo más reciente de cada línea. Así no se versiona el catálogo y queda historial para el antes/después.
-Angel lo está probando; pendientes sus comentarios.
+Angel lo probó y lo dio por terminado (2026-11-13): «muy práctico; normalmente se hace en Excel y a mano».
+Para afinar en piso (no bloquea): botón «Actualizar desde el Work Element» (hoy se quita la estación y se vuelve a traer); probar con muchas estaciones (~130 WE) en tablet.
 
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
@@ -316,7 +317,7 @@ Angel lo está probando; pendientes sus comentarios.
 ## Hoja de ruta acordada (actualizada 2026-11-12, tras el análisis de brechas)
 - Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo, Aprende (9 tutoriales).
 - **Guardado de estudios** = modelo de datos + jerarquía + guardado local sin conexión: Fases 1 y 2 listas (2026-11-12); sigue Fase 3. La **exportación PDF/Excel** sigue casi al final. Angel aceptó mover el guardado al frente (2026-11-12) porque el tablero, los estudios vencidos, el antes/después y los pagos dependen de datos guardados.
-- Estudios complementarios (orden acordado 2026-11-13): **1) Takt y balanceo de línea (listo para comentarios)** → 2) plan de acción + antes/después (falta decidir si habla de dinero o solo tiempos/piezas/horas-hombre) → 3) hoja de trabajo estándar (generada de WE/MM) → 4) diagrama de espagueti → 5) ergonomía NOM-036 (apoyo, no dictamen). En espera: tiempo estándar. Después: VSM, curva de aprendizaje; horarios aleatorios = mejora del Work Sampling; video = proyecto aparte.
+- Estudios complementarios (orden acordado 2026-11-13): **1) Takt y balanceo de línea (terminado)** → 2) plan de acción + antes/después (falta decidir si habla de dinero o solo tiempos/piezas/horas-hombre) → 3) hoja de trabajo estándar (generada de WE/MM) → 4) diagrama de espagueti → 5) ergonomía NOM-036 (apoyo, no dictamen). En espera: tiempo estándar. Después: VSM, curva de aprendizaje; horarios aleatorios = mejora del Work Sampling; video = proyecto aparte.
 - Regla para cada estudio nuevo: nace con guardado (su versión en `STORE_SCHEMA`), ubicación en la jerarquía, tutorial en Aprende y sus pruebas en `smoke_store.py` y `smoke_tut.py`.
 - Luego: Inicio (tablero) → diseño final → pagos → exportación PDF/Excel.
 - Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Takt y balanceo · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
