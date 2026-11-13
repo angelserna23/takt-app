@@ -1255,7 +1255,7 @@ let ASK=null;
 function ask(title,text,okLabel,fn,o){o=o||{};ASK=fn;const m=document.getElementById('modal');
   m.innerHTML=`<div class="mback" data-mcancel="1"></div><div class="mbox glass" role="alertdialog" aria-modal="true" aria-labelledby="mt" aria-describedby="md">
   <div class="micon" aria-hidden="true"${o.ok?' style="background:rgba(194,65,12,.12);color:var(--orange)"':''}>${svg(o.icon||'trash',26,2)}</div><h2 id="mt">${esc(title)}</h2><p id="md">${esc(text)}</p>
-  <div class="row" style="margin-top:20px;justify-content:flex-end"><button class="btn ghost" type="button" data-mcancel="1">Cancelar</button><button class="btn ${o.ok?'orange':'danger solid'}" type="button" data-mok="1">${esc(okLabel)}</button></div></div>`;
+  <div class="row" style="margin-top:20px;justify-content:flex-end">${o.solo?'':'<button class="btn ghost" type="button" data-mcancel="1">Cancelar</button>'}<button class="btn ${o.ok?'orange':'danger solid'}" type="button" data-mok="1">${esc(okLabel)}</button></div></div>`;
   m.hidden=false;m.querySelector('[data-mcancel].btn').focus();}
 function closeAsk(){ASK=null;const m=document.getElementById('modal');m.hidden=true;m.innerHTML='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ASK)closeAsk();});
@@ -4248,12 +4248,12 @@ function repClose(){const a=document.getElementById('rep'),b=document.getElement
 const REP_TITLE=document.title;
 function repPrint(kind,d){repBuild(kind,d);REP_FIRED=false;try{window.print();}catch(_){}
   // si la impresión está bloqueada (enlace de prueba) no hay «afterprint»: se avisa y se quita el reporte
-  setTimeout(()=>{if(!REP_FIRED){repClose();ask('Descargar PDF','Si no se abrió la ventana de impresión: en el enlace de prueba está bloqueada; en la app publicada se abre con «Guardar como PDF».','Entendido',()=>{},{ok:true,icon:'print'});}},700);}
+  setTimeout(()=>{if(!REP_FIRED){repClose();ask('Descargar PDF','Si no se abrió la ventana de impresión: en el enlace de prueba está bloqueada; en la app publicada se abre con «Guardar como PDF».','Entendido',()=>{},{ok:true,icon:'print',solo:true});}},700);}
 const pdfBtn=(kind,id,name)=>`<button type="button" class="iconbtn rpdf" data-pdf="${kind}|${id}" aria-label="Descargar PDF de ${esc(name)}" title="Descargar PDF">${svg('pdf',18,2)}</button>`;
 function repFind(kind,id){if(id==='cur')return kind==='ws'?S.draft:null;const box=storeBox(kind);return box&&box.studies.find(x=>x.id==id);}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-pdf]');if(!b)return;e.stopPropagation();
   const [k,id]=b.dataset.pdf.split('|');const d=repFind(k,id);if(d&&REP[k])repPrint(k,d);},true);
-window.TaktRep={build:(k,id)=>{const d=repFind(k,id);return d?!!repBuild(k,d):false;},close:repClose,kinds:()=>Object.keys(REP)};
+window.TaktRep={build:(k,id)=>{const d=repFind(k,id);return d?!!repBuild(k,d):false;},print:(k,id)=>{const d=repFind(k,id);if(d)repPrint(k,d);},close:repClose,kinds:()=>Object.keys(REP)};
 
 // ---- Work Sampling ----
 REP.ws=d=>{const ops=d.ops.filter(o=>calcOp(o).sum>0);const L=calcLine(ops);const pal=palette(L.acts);
