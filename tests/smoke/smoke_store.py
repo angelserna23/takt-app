@@ -63,9 +63,25 @@ def make(pg,k):
         import re as _re
         check('hs',len(_re.findall(rb'/Type\s*/Page[^s]',pdf))==1,'al imprimir: carta horizontal en 1 página')
         return '[data-hsfinish]'
+    if k=='sp':
+        go(pg,'diag');check('sp',pg.locator('#view .fmt[data-go="sp"]').count()==1 and pg.locator('#view .fmt[data-go="df"]').count()==1,'«Diagramas» muestra Flujo de proceso y Espagueti')
+        en(pg,'#view .fmt[data-go="sp"]');en(pg,'#view [data-spnew]');pg.fill('input[name=titulo]','espagueti guardado');pg.fill('input[name=analista]','jp')
+        pg.fill('input[name=ciclos]','50');pg.fill('input[name=turnos]','2');pg.fill('input[name=vel]','60')
+        en(pg,'[data-spneed]');en(pg,'[data-spexample]')
+        pg.locator('[data-spcell]').first.click(force=True);pg.wait_for_timeout(100);pg.fill('[data-spname]','punto extra');pg.press('[data-spname]','Enter');pg.wait_for_timeout(100)
+        check('sp',pg.locator('[data-sppt]').count()==7,'tocar un cuadro libre agrega un punto con nombre')
+        en(pg,'[data-spv="ruta"]:not([disabled])')
+        for k in [1,2,3,4,3,5,6,4,3,2,1]:pg.locator(f'[data-spk="{k}"]').click(force=True);pg.wait_for_timeout(40)
+        check('sp',pg.locator('#sptot').inner_text()=='82 m','recorrido del ejemplo: 82 m por ciclo')
+        en(pg,'[data-spundo]');check('sp',pg.locator('#sptot').inner_text()=='72 m','deshacer quita el último trayecto (72 m)')
+        pg.locator('[data-spk="1"]').click(force=True);pg.wait_for_timeout(60)
+        en(pg,'[data-spv="res"]:not([disabled])')
+        t=pg.locator('#view').inner_text()
+        check('sp',t.find('EST 20 ↔ RACK A')>=0 and t.find('3 veces')>=0 and t.find('4.1 km')>=0 and t.find('8.2 km')>=0 and t.find('1.37 min')>=0,'resultados: trayecto más repetido ×3, 4.1 km/turno, 8.2 km/día, 1.37 min')
+        return '[data-spfinish]'
     if k=='df':
         go(pg,'df');en(pg,'#view [data-dfnew]');pg.fill('input[name=titulo]','recepción');pg.fill('input[name=analista]','jp');en(pg,'[data-dfneed]');en(pg,'[data-dfexample]');en(pg,'[data-dfv="res"]');return '[data-dffinish]'
-KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk','hs']
+KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk','hs','sp']
 with sync_playwright() as p:
     b=p.chromium.launch();ctx=b.new_context(viewport={'width':1366,'height':900},timezone_id='America/Mexico_City')
     pg=ctx.new_page();pg.route('**/fonts.googleapis.com/**',lambda r:r.abort());pg.on('pageerror',lambda e:errs.append(str(e)))
@@ -77,7 +93,11 @@ with sync_playwright() as p:
         btn=make(pg,k)
         check(k,pg.locator('#savechip').inner_text()=='Sin guardar','antes de guardar: indicador «Sin guardar»')
         check(k,pg.evaluate('TaktStore.unsaved()')>=1,'cuenta como pendiente (aviso al salir)')
-        en(pg,btn);pg.wait_for_timeout(250)
+        en(pg,btn)
+        # espera a que el guardado esté confirmado (con carga, 250 ms fijos a veces no alcanzaban)
+        try:pg.wait_for_function(f"TaktStore.saved().length>={KINDS.index(k)+1}",timeout=5000)
+        except Exception:pass
+        pg.wait_for_timeout(100)
         dumps[k]=pg.evaluate(f"TaktStore.dump('{k}')")
         check(k,len(pg.evaluate('TaktStore.saved()'))==KINDS.index(k)+1,'quedó guardado')
     check('base',pg.evaluate('TaktStore.unsaved()')==0,'nada pendiente después de guardar todo')
@@ -94,6 +114,8 @@ with sync_playwright() as p:
     go(pg,'hs');pg.locator('[data-hsopen]').first.click();pg.wait_for_timeout(250)
     sh=pg.locator('.hssheet').first.inner_text()
     check('hs',sh.find('1.17')>=0 and sh.find('PASO EXTRA')>=0 and sh.find('MUESCA')>=0 and pg.locator('.hswrap .hsepp [title="Lentes de seguridad"]').count()==1,'al reabrir la hoja: pasos, puntos clave, tiempo ciclo y equipo de protección')
+    go(pg,'sp');pg.locator('[data-spopen]').first.click();pg.wait_for_timeout(250)
+    check('sp',pg.locator('.kpi').filter(has_text='Distancia por ciclo').first.inner_text().find('82 m')>=0 and pg.locator('.sppt').count()==7,'al reabrir el espagueti: 82 m y sus 7 puntos')
     go(pg,'config');check('tk',pg.locator('.slot').filter(has_text='Takt de la línea').count()==1,'Configuración muestra la tarjeta de takt por línea')
     # los resultados se recalculan igual: Speed Trial y Man Machine
     go(pg,'st');pg.locator('[data-stopen]').first.click();pg.wait_for_timeout(200)
@@ -175,4 +197,4 @@ with sync_playwright() as p:
     b.close()
 print('errores JS:',errs or 'ninguno')
 if fails or errs:print('FALLAS:',fails);sys.exit(1)
-print('OK: guardado en los 11 formatos (guardar, recargar, cambios, descartar, borrar, tutoriales)')
+print('OK: guardado en los 12 formatos (guardar, recargar, cambios, descartar, borrar, tutoriales)')

@@ -4,6 +4,13 @@ import pathlib as _pl, sys
 IDX='file://'+str(_pl.Path(__file__).resolve().parents[2]/'index.html')
 from playwright.sync_api import sync_playwright
 fails=[];errs=[]
+def quieto(L):
+    # el tutorial desplaza la pantalla hacia el objetivo; el clic forzado (SVG) no espera a que termine
+    prev=None
+    for _ in range(25):
+        b=L.bounding_box()
+        if b and prev and abs(b['x']-prev['x'])<0.5 and abs(b['y']-prev['y'])<0.5:return
+        prev=b;L.page.wait_for_timeout(60)
 def check(tag,cond,msg):
     print(tag,('OK ' if cond else 'FALLA ')+msg)
     if not cond:fails.append(tag+' '+msg)
@@ -19,7 +26,7 @@ with sync_playwright() as p:
         pg.goto(IDX+('#config' if tag=='phone' else '#estudios'))
         # Entrada: menú lateral en laptop/tablet; en teléfono desde «Más»
         (pg.locator('.atmore [data-go=aprende]') if tag=='phone' else pg.locator('.navbtn[data-go=aprende]')).click();pg.wait_for_timeout(150)
-        check(tag,pg.locator('.tutcard').count()==11,'11 tarjetas de tutorial')
+        check(tag,pg.locator('.tutcard').count()==12,'12 tarjetas de tutorial')
         check(tag,pg.locator('.tutcard.off').count()==0,'ninguna marcada como próximamente')
         if tag!='phone':check(tag,pg.locator('.navbtn[aria-current=page]').get_attribute('data-go')=='aprende','menú Aprende activo')
         tl=pg.evaluate('TaktTut.list()')
@@ -55,13 +62,19 @@ with sync_playwright() as p:
                     pg.mouse.click(5,h-5 if tag!='phone' else 200);pg.wait_for_timeout(120)
                     check(tag,pg.evaluate("TaktTut.state().i")==2,'guiado: toque fuera del objetivo no avanza')
                 if 'toca' in e:
-                    pg.evaluate('TaktTut.mark()');L=pg.locator('[data-tutt]');L.click(force=L.evaluate('e=>e instanceof SVGElement'))
+                    pg.evaluate('TaktTut.mark()');L=pg.locator('[data-tutt]');svgel=L.evaluate('e=>e instanceof SVGElement')
+                    if svgel:quieto(L)
+                    L.click(force=svgel)
                 elif 'escribe' in e:
                     # espera a que el campo esté estable (la nube de Diagramas de flujo se abre después del toque) y lo vuelve a ubicar
                     pg.evaluate('TaktTut.mark()');pg.wait_for_timeout(150);pg.evaluate('TaktTut.mark()');f=pg.locator('[data-tutt]');f.fill('');f.type(e['valor']);f.press('Enter')
                 elif 'serie' in e:
                     for k in range(e['nTu']):
-                        pg.evaluate('TaktTut.mark()');pg.locator('[data-tutt]').click();pg.wait_for_timeout(60)
+                        # cada toque solo cuando el paso ya está esperando (si llega en la transición entre pasos, se pierde)
+                        pg.wait_for_function("TaktTut.state()&&TaktTut.state().expect",timeout=4000)
+                        pg.evaluate('TaktTut.mark()');L=pg.locator('[data-tutt]');svgel=L.evaluate('e=>e instanceof SVGElement')
+                        if svgel:quieto(L)
+                        L.click(force=svgel);pg.wait_for_timeout(120)
                 else:pg.click('#tut [data-tutc="next"]')
                 try:pg.wait_for_function(f"(TaktTut.state()&&TaktTut.state().i>{i})||document.body.dataset.tut==='fin'",timeout=8000)
                 except Exception:

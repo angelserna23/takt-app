@@ -675,6 +675,8 @@ body.tutoring #view{padding-bottom:110px}
 .tutcur.tutping span::after{animation:tutping .45s ease-out}
 @keyframes tutping{0%{transform:scale(.5);opacity:1}100%{transform:scale(1.9);opacity:0}}
 .tutbub{position:fixed;width:min(360px,calc(100vw - 24px));padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.97);border:1px solid rgba(194,65,12,.35);box-shadow:0 18px 44px rgba(27,36,48,.22);pointer-events:auto;transition:left .28s ease,top .28s ease}
+/* en «Hazlo tú» el globo solo informa: los toques lo atraviesan (si no, tapa el objetivo mientras se reacomoda) */
+body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .tutbub p{margin:6px 0 0;font-size:15px;line-height:1.45;color:var(--ink)}
 .tutbub .tutn{font-size:11px;font-weight:600;letter-spacing:.06em;color:#C2410C}
 .tutbub .tutsug{display:block;margin-top:8px;font-size:13px;font-weight:600;color:var(--blue)}.tutbub .tutsug[hidden]{display:none}
@@ -736,6 +738,24 @@ body.tutoring #view{padding-bottom:110px}
 .tkel .tkt{width:84px;flex:0 0 84px;text-align:right;font-family:'IBM Plex Mono',monospace}
 .tkst,.tkwer{min-width:0}
 @media (max-width:700px){.tkwe,.tkgrid{grid-template-columns:minmax(0,1fr)}.tkel{gap:6px}.tkel .tkt{width:62px;flex-basis:62px;padding:0 8px}.tkel .opn{width:26px;height:26px;flex-basis:26px;font-size:13px}.tkst{padding:12px}}
+/* Diagrama de espagueti */
+.spopts{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}.spopts>div{display:flex;flex-direction:column;gap:6px}
+.spwrap{margin-top:14px;overflow:auto;border-radius:18px;background:#fff;border:1px solid var(--line);padding:10px;-webkit-overflow-scrolling:touch}
+.spsvg{display:block;width:100%;height:auto;touch-action:manipulation}
+.spgrid line{stroke:#E7ECF2;stroke-width:1}
+.spcell{fill:transparent;cursor:pointer}.spcell:hover{fill:rgba(29,95,168,.08)}
+.sppt rect{fill:#fff;stroke:#1B2430;stroke-width:2}.sppt .spi{font:700 13px 'IBM Plex Mono',monospace;fill:#1B2430;pointer-events:none}
+.sppt .spl{font:600 11px 'Inter',system-ui,sans-serif;fill:#1B2430;paint-order:stroke;stroke:#fff;stroke-width:3px;pointer-events:none}
+.sppt[data-sppt]{cursor:pointer}.sppt[data-sppt]:hover rect{fill:#EAF1FA}
+.sppt.on rect{fill:#1D5FA8;stroke:#1D5FA8}.sppt.on .spi{fill:#fff}
+.sppt.last rect{stroke:#C2410C;stroke-width:3.5}
+.spn text{font:700 12px 'IBM Plex Mono',monospace}
+.spsvg.anim .spleg{stroke-dasharray:1;stroke-dashoffset:1;animation:hsdraw .5s ease forwards;animation-delay:calc(var(--i) * 90ms)}
+@media (prefers-reduced-motion:reduce){.spsvg.anim .spleg{animation:none;stroke-dashoffset:0}}
+.spedit{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;padding:10px;border-radius:14px;background:#EAF1FA}
+.spedit input{flex:1;min-width:160px;height:44px;border:1px solid var(--line);border-radius:10px;padding:0 10px;font-size:15px;background:#fff}
+.splegs{margin:14px 0 0;padding-left:28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:4px 18px;font-size:14px}
+.splegs li{padding:4px 0;border-bottom:1px solid var(--line)}.splegs li span:first-child{font-weight:600}.splegs li{display:list-item}.splegs li .mono{float:right;color:var(--muted)}
 /* Hoja de trabajo estándar */
 .hseppsel{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
 .hsepb{display:flex;align-items:center;gap:10px;min-height:56px;padding:8px 12px;border-radius:14px;border:1.5px solid var(--line);background:rgba(255,255,255,.75);color:var(--ink2);font-weight:600;font-size:14px;text-align:left;cursor:pointer}
@@ -857,6 +877,8 @@ const I = {
   oee:'<path d="M3 12h4l3-8 4 16 3-8h4"/>',
   costo:'<circle cx="12" cy="12" r="9"/><path d="M15 9.2a3 3 0 0 0-3-1.6c-1.7 0-3 .9-3 2.2 0 3 6 1.6 6 4.6 0 1.3-1.3 2.2-3 2.2a3 3 0 0 1-3-1.6"/><path d="M12 5.6v2M12 16.4v2"/>',
   df:'<rect x="8" y="2.5" width="8" height="5" rx="1.5"/><path d="M12 7.5v3M12 10.5l4 3-4 3-4-3z"/><path d="M12 16.5v2.5"/><rect x="8" y="19" width="8" height="3" rx="1.5"/>',
+  diag:'<rect x="8" y="2.5" width="8" height="5" rx="1.5"/><path d="M12 7.5v3M12 10.5l4 3-4 3-4-3z"/><path d="M12 16.5v2.5"/><rect x="8" y="19" width="8" height="3" rx="1.5"/>',
+  sp:'<rect x="3" y="3" width="4" height="4" rx="1"/><rect x="17" y="3" width="4" height="4" rx="1"/><rect x="10" y="17" width="4" height="4" rx="1"/><path d="M7 5h4c3 0 3 6 0 6H8c-3 0-3 6 2 6M17 5h-2c-2 0-1 7 1 8 2 1 1 4-2 4"/>',
   chart:'<path d="M4 20V4M4 20h16"/><path d="M7 15l4-5 3 3 5-6"/>',
   at:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.6 1.8M9.5 3h5M12 3v2"/>',
   pc:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.9.3 5 2.6 5 5.8"/>',
@@ -934,13 +956,13 @@ const S={studies:[],draft:null,view:'hdr',opId:null,keep:false};
 let uid=1000;const nid=()=>++uid;
 // Fecha de hoy en la hora local (no en hora universal: en México, después de las 6 p. m. la UTC ya es mañana)
 const hoyLocal=(d=new Date())=>{const z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());};
-const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['tk','Takt y balanceo'],['hs','Hoja estándar'],['pc','Cálculo de personal'],['at','Actual Time'],['df','Diagramas de flujo'],['aprende','Aprende']];
+const NAV=[['inicio','Inicio'],['estudios','Estudios de tiempos'],['tk','Takt y balanceo'],['hs','Hoja estándar'],['pc','Cálculo de personal'],['at','Actual Time'],['diag','Diagramas'],['aprende','Aprende']];
 
 function route(){const h=(location.hash||'#estudios').slice(1);return h||'estudios';}
 function go(h){if(location.hash==='#'+h)render();else location.hash=h;}
 window.addEventListener('hashchange',render);
 
-function sectionOf(r){if(r==='tk'||r.startsWith('tk-'))return 'tk';if(r==='hs'||r.startsWith('hs-'))return 'hs';if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r==='df'||r.startsWith('df-'))return 'df';if(r==='aprende'||r.startsWith('aprende-'))return 'aprende';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r==='estudios')return 'estudios';return r;}
+function sectionOf(r){if(r==='tk'||r.startsWith('tk-'))return 'tk';if(r==='hs'||r.startsWith('hs-'))return 'hs';if(r.startsWith('pc'))return 'pc';if(r==='at'||r.startsWith('at-'))return 'at';if(r==='diag'||r==='df'||r.startsWith('df-')||r==='sp'||r.startsWith('sp-'))return 'diag';if(r==='aprende'||r.startsWith('aprende-'))return 'aprende';if(r.startsWith('ws')||r.startsWith('ds')||r.startsWith('we')||r.startsWith('st')||r.startsWith('mm')||r.startsWith('sm')||r==='estudios')return 'estudios';return r;}
 
 function renderNav(r){
   const sec=sectionOf(r);
@@ -1146,7 +1168,7 @@ function vNuevo(){
 function vInicio(){setHead('Tablero',[['Inicio','inicio']]);
   return `<section class="glass panel empty"><span class="tag">AL FINAL</span><h2>Tablero del Analista</h2><p>Se diseña al final, cuando los formatos ya generen datos: operaciones sobre takt, capacidad teórica, eficiencia de balanceo y estudios vencidos.</p></section>`;}
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
-  return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Takt, capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="tk">${svg('tk',18)} Takt y balanceo</button><button class="btn ghost" type="button" data-go="hs">${svg('hs',18)} Hoja estándar</button><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="df">${svg('df',18)} Diagramas de flujo</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
+  return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Takt, capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="tk">${svg('tk',18)} Takt y balanceo</button><button class="btn ghost" type="button" data-go="hs">${svg('hs',18)} Hoja estándar</button><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="diag">${svg('diag',18)} Diagramas</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
   ${vCatalogo()}
   <section class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
   ${tkConfigCard()}${[['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
@@ -1176,6 +1198,9 @@ function render(keep){
   else if(r==='at')html=vATList();
   else if(r==='at-nuevo')html=vAT();
   else if(r==='at-planta')html=vEC();
+  else if(r==='diag')html=vDiag();
+  else if(r==='sp')html=vSPList();
+  else if(r==='sp-nuevo')html=vSP();
   else if(r==='df')html=vDFList();
   else if(r==='df-nuevo')html=vDF();
   else if(r==='sm')html=vSMList();
@@ -1189,7 +1214,7 @@ function render(keep){
   else html=vEstudios();
   const v=document.getElementById('view');v.innerHTML=`<div class="${keep?'':'view'}" style="display:flex;flex-direction:column;gap:16px">${html}</div>`;
   // Teléfono: los botones de acción del encabezado de cada pantalla bajan al final, para no regresar a buscarlos
-  if(window.innerWidth<=700)v.querySelectorAll('section.panel').forEach(sec=>{const row=[...sec.children].find(c=>c.classList.contains('row'));if(!row||row.children.length<2)return;const g=row.lastElementChild;if(!g.querySelector('.btn')||g.querySelector('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-tknew],[data-hsnew],[data-pcnew],[data-atnew],[data-dfnew],[data-go="ws-nuevo"]')||g.matches('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-go="ws-nuevo"]'))return;g.classList.add('mobfoot');sec.appendChild(g);});
+  if(window.innerWidth<=700)v.querySelectorAll('section.panel').forEach(sec=>{const row=[...sec.children].find(c=>c.classList.contains('row'));if(!row||row.children.length<2)return;const g=row.lastElementChild;if(!g.querySelector('.btn')||g.querySelector('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-tknew],[data-hsnew],[data-spnew],[data-pcnew],[data-atnew],[data-dfnew],[data-go="ws-nuevo"]')||g.matches('[data-mmnew],[data-stnew],[data-dsnew],[data-smnew],[data-go="ws-nuevo"]'))return;g.classList.add('mobfoot');sec.appendChild(g);});
   requestAnimationFrame(()=>{document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');document.querySelectorAll('.vfill').forEach(f=>f.style.height=f.dataset.h+'%');});
   if(!keep)window.scrollTo({top:0});
   if(typeof storeDecorate==='function'&&STORE.ready){storeDecorate();storeChip();ubicDecorate();}
@@ -3443,7 +3468,7 @@ function dfAutoCell(d){const prev=dfDefPrev(d);if(prev){const c=dfSlot(d,prev[0]
   if(!d.nodes.length)return [0,0];const ps=Object.values(d.lay.pos);return [Math.max(...ps.map(p=>p[0]))+1,0];}
 // ---- lista ----
 function vDFList(){
-  setHead('Diagramas de flujo',[['Diagramas de flujo','df']]);
+  setHead('Flujo de proceso',[['Diagramas','diag'],['Flujo de proceso','df']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Diagramas de flujo de proceso</h2><p class="sub">Símbolos ASME: operación, inspección, transporte, demora, almacenamiento y decisiones</p></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('df')}<button class="btn orange" type="button" data-dfnew="1">${svg('plus',18,2.2)} Nuevo diagrama</button></div></div>
@@ -3483,7 +3508,7 @@ function dfPlacePop(){const pop=document.querySelector('.dflay #dfpop');dfPopCle
 // ---- vista principal ----
 function vDF(){
   if(!DF.d)dfNewStudy();const d=DF.d;const tit=dfName(d);
-  setHead(tit,[['Diagramas de flujo','df'],[tit,'df-nuevo']]);
+  setHead(tit,[['Diagramas','diag'],['Flujo de proceso','df'],[tit,'df-nuevo']]);
   const del=DF.studies.includes(d)?`<button class="btn danger sm" type="button" data-dfdel="1">${svg('trash',16,2)} Eliminar</button>`:'';
   let body='';
   if(DF.view==='info')body=`<div class="row"><div><h2>Información</h2><p class="sub">Datos del proceso que se va a diagramar</p></div><div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn" type="button" data-dfv="diag" data-dfneed="1">Continuar al diagrama ${svg('next',18,2.2)}</button></div></div>
@@ -3993,6 +4018,184 @@ document.addEventListener('input',e=>{const el=e.target;const d=HS.d;if(!d||!el.
   if(D.hskx){d.pasos.forEach(p=>(p.kp||[]).forEach(k=>{if(k.id==D.hskx)k.txt=el.value;}));return;}
 });
 
+// ===== DIAGRAMA DE ESPAGUETI · por dónde camina el operador (o viaja el material) y cuántos metros =====
+// Módulo AISLADO: puntos y recorrido se capturan aquí. Vive en la sección «Diagramas» junto con Flujo de proceso.
+// <sp-pure> Funciones puras: se prueban en Node (parts/sptest.js) leyendo este bloque directo de index.html.
+function spNum(v){const x=parseFloat(String(v??'').replace(',','.'));return isNaN(x)?0:x;}
+// Distancia de un trayecto en cuadros: en escuadra (por pasillos, |Δx|+|Δy|) o en línea recta
+function spLeg(a,b,modo){const dx=Math.abs(a.x-b.x),dy=Math.abs(a.y-b.y);return modo==='rec'?Math.hypot(dx,dy):dx+dy;}
+const spPairKey=(a,b)=>a<b?a+'-'+b:b+'-'+a;
+// Resultados del recorrido (metros = cuadros × escala). Toques seguidos al mismo punto no cuentan como viaje.
+function spCalc(d){const esc=spNum(d.escala)||0;const P={};(d.pts||[]).forEach(p=>P[p.id]=p);
+  const R=(d.ruta||[]).filter(id=>P[id]);const legs=[];
+  for(let i=1;i<R.length;i++){if(R[i]===R[i-1])continue;const a=P[R[i-1]],b=P[R[i]];legs.push({a:a.id,b:b.id,d:spLeg(a,b,d.modo)*esc});}
+  const total=legs.reduce((s,l)=>s+l.d,0);
+  const pairs=[];const pk={};legs.forEach(l=>{const k=spPairKey(l.a,l.b);if(!pk[k]){pk[k]={a:Math.min(l.a,l.b),b:Math.max(l.a,l.b),n:0,d:l.d,t:0};pairs.push(pk[k]);}pk[k].n++;pk[k].t+=l.d;});
+  let top=null;pairs.forEach(p=>{if(!top||p.n>top.n||(p.n===top.n&&p.t>top.t))top=p;});
+  const visits={};let seq=[];R.forEach((id,i)=>{if(i&&id===R[i-1])return;seq.push(id);});seq.forEach(id=>visits[id]=(visits[id]||0)+1);
+  let topPt=null;Object.keys(visits).forEach(id=>{if(topPt===null||visits[id]>visits[topPt])topPt=+id;});
+  const ciclos=spNum(d.ciclos),turnos=spNum(d.turnos),vel=spNum(d.vel);
+  const porTurno=ciclos>0?total*ciclos:0,porDia=porTurno&&turnos>0?porTurno*turnos:0;
+  return {legs,total,viajes:legs.length,pairs,top:top&&top.n>0?top:null,visits,topPt:legs.length?topPt:null,porTurno,porDia,
+    tCiclo:vel>0?total/vel:0,tTurno:vel>0&&porTurno?porTurno/vel:0};}
+// </sp-pure>
+
+const SP={studies:[],d:null,view:'info',sel:null,miss:[]};
+const SP_CELL=40;
+// Ejemplo ficticio: surtido de una línea. Recorrido de 82 m por ciclo (en escuadra, 1 m por cuadro).
+const SP_EX_PTS=[['ALMACÉN',2,2],['EST 10',8,6],['EST 20',14,6],['RACK A',20,2],['INSPECCIÓN',14,11],['EMPAQUE',20,11]];
+const SP_EX_RUTA=[1,2,3,4,3,5,6,4,3,2,1];   // posiciones (1 = ALMACÉN … 6 = EMPAQUE)
+const spName=d=>d.titulo||'Nuevo espagueti';
+const spCol=d=>d.sujeto==='MATERIAL'?'#1D5FA8':'#C2410C';
+const spM=v=>v>=1000?(v/1000).toLocaleString('es-MX',{maximumFractionDigits:2})+' km':(+v.toFixed(1)).toLocaleString('es-MX')+' m';
+function spNew(){SP.d={id:nid(),ubic:{},titulo:'',analista:'',fecha:hoyLocal(new Date()),metodo:'ACTUAL',sujeto:'OPERADOR',escala:'1',modo:'esc',cols:'24',rows:'14',ciclos:'',turnos:'',vel:'',pts:[],ruta:[],estado:'Abierto'};SP.view='info';SP.sel=null;SP.miss=[];}
+const spDim=d=>({c:Math.min(60,Math.max(6,Math.round(spNum(d.cols))||24)),r:Math.min(40,Math.max(6,Math.round(spNum(d.rows))||14))});
+const spPt=(d,id)=>d.pts.find(p=>p.id===id);
+
+// Sección «Diagramas»: entrada única para Flujo de proceso y Espagueti (comparten la puerta, no los datos)
+function vDiag(){
+  setHead('Diagramas',[['Diagramas','diag']]);
+  const C=[['df','Flujo de proceso','Los pasos del proceso con símbolos ASME: operación, inspección, transporte, demora, almacenamiento y decisiones.',DF.studies.length],
+    ['sp','Espagueti','Por dónde camina el operador o viaja el material sobre el layout del área, y cuántos metros por ciclo, turno y día.',SP.studies.length]];
+  return `<section class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))" aria-label="Tipos de diagrama">
+    ${C.map(([id,n,ds,k])=>`<button type="button" class="fmt" data-go="${id}"><span class="t"><b>${n}</b><span class="tag" style="background:var(--blue);color:#fff">${k} guardado${k!==1?'s':''}</span></span><span class="d">${ds}</span></button>`).join('')}
+  </section>`;
+}
+function vSPList(){
+  setHead('Espagueti',[['Diagramas','diag'],['Espagueti','sp']]);
+  return `<section class="glass panel">
+    <div class="row"><div><h2>Diagramas de espagueti</h2><p class="sub">El recorrido real sobre el layout del área y sus metros</p></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('sp')}<button class="btn orange" type="button" data-spnew="1">${svg('plus',18,2.2)} Nuevo espagueti</button></div></div>
+    <div class="grid" style="margin-top:18px">
+    ${SP.studies.map(st=>{const r=spCalc(st);return `<div class="studyrow"><button type="button" class="study" data-spopen="${st.id}">
+      <div class="logo" style="background:rgba(194,65,12,.1);color:var(--orange)" aria-hidden="true">SP</div>
+      <div class="meta"><b>${esc(spName(st))} <span class="tag ${st.metodo==='PROPUESTO'?'on':''}" style="vertical-align:2px;margin-left:6px">${st.metodo}</span></b><span>${esc(ubLabel(st))} · ${esc(st.fecha)} · ${st.sujeto==='MATERIAL'?'material':'operador'} · ${r.viajes} viaje${r.viajes!==1?'s':''}</span></div>
+      <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:var(--blue)">${r.viajes?spM(r.total):'—'}</span><br><span style="font-size:12px;color:var(--muted)">por ciclo</span></div>
+      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="sp|${st.id}" data-sdeln="${esc(spName(st))}" aria-label="Eliminar ${esc(spName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`}).join('')}
+    ${SP.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('sp',30)}</div><b style="font-size:17px">Aún no hay diagramas de espagueti</b><p>Toca <b>Nuevo espagueti</b>: pon los puntos del área y traza el recorrido tocándolos en orden.</p></div>`}
+    </div></section>`;
+}
+function spSteps(){const L=[['info','Información'],['lay','Layout'],['ruta','Recorrido'],['res','Resultados']];const idx=L.findIndex(x=>x[0]===SP.view);
+  return `<nav class="steps" aria-label="Pasos del diagrama">${L.map(([v,l],i)=>`<button type="button" class="step ${i<idx?'done':''}" data-spv="${v}" ${i>idx?'disabled title="Usa el botón de continuar"':''} ${i===idx?'aria-current="step"':''}><span class="n">0${i+1}</span><span class="lbl">${l}</span></button>`).join('')}</nav>`;}
+// El diagrama: cuadrícula, trayectos (más gruesos si se repiten) y puntos. modo: 'lay' (colocar), 'ruta' (trazar), 'res' (ver)
+function spSvg(d,modo){const {c,r}=spDim(d);const S=SP_CELL,W=c*S,H=r*S;const R=spCalc(d);const col=spCol(d);const P={};d.pts.forEach(p=>P[p.id]=p);
+  const cx=p=>p.x*S+S/2,cy=p=>p.y*S+S/2;const used={};d.pts.forEach(p=>used[p.x+','+p.y]=1);
+  const cells=modo==='lay'?Array.from({length:c*r},(_,i)=>{const x=i%c,y=Math.floor(i/c);return used[x+','+y]?'':`<rect x="${x*S}" y="${y*S}" width="${S}" height="${S}" class="spcell" data-spcell="${x},${y}"/>`;}).join(''):'';
+  const grid=Array.from({length:c+1},(_,i)=>`<line x1="${i*S}" y1="0" x2="${i*S}" y2="${H}"/>`).join('')+Array.from({length:r+1},(_,i)=>`<line x1="0" y1="${i*S}" x2="${W}" y2="${i*S}"/>`).join('');
+  const paths=R.pairs.map((p,i)=>{const a=P[p.a],b=P[p.b];const w=3+(p.n-1)*3;const dd=d.modo==='rec'?`M${cx(a)},${cy(a)} L${cx(b)},${cy(b)}`:`M${cx(a)},${cy(a)} H${cx(b)} V${cy(b)}`;
+    const mx=d.modo==='rec'?(cx(a)+cx(b))/2:(cx(a)+cx(b))/2,my=d.modo==='rec'?(cy(a)+cy(b))/2:cy(a);
+    return `<path d="${dd}" class="spleg" style="--i:${i}" stroke="${col}" stroke-width="${w}" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".78" pathLength="1"/>${p.n>1?`<g class="spn"><rect x="${mx-15}" y="${my-11}" width="30" height="22" rx="11" fill="#fff" stroke="${col}"/><text x="${mx}" y="${my+4.5}" text-anchor="middle" fill="${col}">×${p.n}</text></g>`:''}`;}).join('');
+  const last=d.ruta.length?d.ruta[d.ruta.length-1]:null;
+  const pts=d.pts.map((p,i)=>{const on=SP.sel===p.id,isLast=modo==='ruta'&&last===p.id;const v=R.visits[p.id]||0;
+    return `<g class="sppt ${on?'on':''} ${isLast?'last':''}" ${modo==='res'?'':`data-sppt="${p.id}" data-spk="${i+1}" tabindex="0" role="button"`} aria-label="${esc(p.n||'Punto')}${v?', '+v+' visita'+(v!==1?'s':''):''}">
+      <rect x="${p.x*S+3}" y="${p.y*S+3}" width="${S-6}" height="${S-6}" rx="9"/><text x="${cx(p)}" y="${cy(p)+4}" text-anchor="middle" class="spi">${i+1}</text>
+      <text x="${cx(p)}" y="${p.y*S+S+13}" text-anchor="middle" class="spl">${esc(String(p.n||'').slice(0,16))}</text></g>`;}).join('');
+  return `<svg class="spsvg ${modo==='res'?'anim':''}" viewBox="-2 -2 ${W+4} ${H+20}" style="min-width:${Math.min(W,860)}px" role="img" aria-label="Diagrama de espagueti: ${d.pts.length} puntos, ${R.viajes} viajes">
+    <g class="spgrid">${grid}</g>${cells}${paths}${pts}</svg>`;}
+
+function vSP(){
+  if(!SP.d)spNew();const d=SP.d;const tit=spName(d);const R=spCalc(d);
+  setHead(tit,[['Diagramas','diag'],['Espagueti','sp'],[tit,'sp-nuevo']]);
+  const del=SP.studies.includes(d)?`<button class="btn danger sm" type="button" data-spdel="1">${svg('trash',16,2)} Eliminar</button>`:'';
+  const miss=k=>SP.miss.includes(k)?'miss':'';
+  const chips=(k,L)=>`<div class="chips">${L.map(([v,l])=>`<button type="button" class="chip" data-spset="${k}" data-spval="${v}" aria-pressed="${d[k]===v}">${l}</button>`).join('')}</div>`;
+  let body='';
+  if(SP.view==='info'){
+    body=`<div class="row"><div><h2>Información</h2><p class="sub">Qué se sigue, la escala del área y, si quieres, ciclos y velocidad para llevarlo a turno y día</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn" type="button" data-spv="lay" data-spneed="1">Continuar a layout ${svg('next',18,2.2)}</button></div></div>
+    <form class="form" id="sph" style="margin-top:18px" onsubmit="return false">
+      <label style="grid-column:1/-1">Título<input name="titulo" value="${esc(d.titulo)}" placeholder="Ej. RECORRIDO DE SURTIDO LÍNEA 3"></label>
+      <label class="${miss('analista')}">Analista <span class="req" aria-hidden="true">*</span><input name="analista" value="${esc(d.analista)}" placeholder="Nombre" aria-required="true"></label>
+      <label>Fecha<input type="date" name="fecha" value="${esc(d.fecha)}"></label>
+    </form>${ubicPicker('sp',d)}
+    <div class="spopts">
+      <div><span class="mmlbl">Método</span>${chips('metodo',[['ACTUAL','Actual'],['PROPUESTO','Propuesto']])}</div>
+      <div><span class="mmlbl">Qué se sigue</span>${chips('sujeto',[['OPERADOR','Operador'],['MATERIAL','Material']])}</div>
+      <div><span class="mmlbl">Distancia</span>${chips('modo',[['esc','En escuadra (pasillos)'],['rec','En línea recta']])}</div>
+    </div>
+    <form class="form" id="sph2" style="margin-top:14px" onsubmit="return false">
+      <label class="${miss('escala')}">Metros por cuadro <span class="req" aria-hidden="true">*</span><input name="escala" value="${esc(d.escala)}" inputmode="decimal"></label>
+      <label>Ancho del área (cuadros)<input name="cols" value="${esc(d.cols)}" inputmode="numeric"></label>
+      <label>Largo del área (cuadros)<input name="rows" value="${esc(d.rows)}" inputmode="numeric"></label>
+      <label>Ciclos por turno <span class="hint">opcional</span><input name="ciclos" value="${esc(d.ciclos)}" inputmode="decimal" placeholder="Ej. 50"></label>
+      <label>Turnos por día <span class="hint">opcional</span><input name="turnos" value="${esc(d.turnos)}" inputmode="decimal" placeholder="Ej. 2"></label>
+      <label>Velocidad de caminata (m/min) <span class="hint">opcional, medida en piso</span><input name="vel" value="${esc(d.vel)}" inputmode="decimal" placeholder="Ej. 60"></label>
+    </form>`;
+  }
+  if(SP.view==='lay'){const s=SP.sel!=null&&spPt(d,SP.sel);
+    body=`<div class="row"><div><h2>Layout del área</h2><p class="sub">${s?`<b>${esc(s.n||'Punto')}</b> seleccionado: escribe su nombre, o toca un cuadro libre para moverlo.`:'Toca un cuadro libre para poner un punto (estación, rack, contenedor, máquina…).'}</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-spv="info">${svg('back',18,2.2)} Información</button><button class="btn" type="button" data-spv="ruta" ${d.pts.length>1?'':'disabled'}>Trazar recorrido ${svg('next',18,2.2)}</button></div></div>
+    ${s?`<div class="spedit"><span class="mono opn">${d.pts.indexOf(s)+1}</span><input data-spname="${s.id}" value="${esc(s.n)}" placeholder="Nombre del punto" aria-label="Nombre del punto" autocomplete="off"><button type="button" class="btn ghost sm" data-spdone="1">Listo</button><button type="button" class="btn danger sm" data-spptdel="${s.id}">${svg('trash',16,2)} Quitar</button></div>`:''}
+    ${d.pts.length?'':`<div style="margin-top:12px"><button class="btn ghost sm" type="button" data-spexample="1">Cargar ejemplo (6 puntos)</button></div>`}
+    <div class="spwrap">${spSvg(d,'lay')}</div>`;
+  }
+  if(SP.view==='ruta'){const P={};d.pts.forEach(p=>P[p.id]=p);
+    body=`<div class="row"><div><h2>Recorrido</h2><p class="sub">Toca los puntos en el orden en que ${d.sujeto==='MATERIAL'?'viaja el material':'camina el operador'}. Si un trayecto se repite, la línea se engruesa.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-spv="lay">${svg('back',18,2.2)} Layout</button><button class="btn" type="button" data-spv="res" ${R.viajes?'':'disabled'}>Ver resultados ${svg('next',18,2.2)}</button></div></div>
+    <div class="chips" style="margin-top:12px"><span class="chip" style="cursor:default">Por ciclo <span class="mono" id="sptot">${spM(R.total)}</span></span><span class="chip" style="cursor:default">Viajes <span class="mono">${R.viajes}</span></span>
+      <button type="button" class="chip" data-spundo="1" ${d.ruta.length?'':'disabled'}>${svg('undo',16,2)} Deshacer</button><button type="button" class="chip" data-spclear="1" ${d.ruta.length?'':'disabled'}>Borrar recorrido</button></div>
+    <div class="spwrap">${spSvg(d,'ruta')}</div>
+    <ol class="splegs">${R.legs.map(l=>`<li><span>${esc(P[l.a].n)} → ${esc(P[l.b].n)}</span><span class="mono">${spM(l.d)}</span></li>`).join('')||'<li class="sub">Aún no hay trayectos: toca el punto donde empieza.</li>'}</ol>`;
+  }
+  if(SP.view==='res'){const P={};d.pts.forEach(p=>P[p.id]=p);const nm=id=>P[id]?P[id].n:'—';
+    body=`<div class="row"><div><h2>Resultados</h2><p class="sub">${esc(ubLabel(d))} · ${d.metodo==='PROPUESTO'?'método propuesto':'método actual'} · ${d.sujeto==='MATERIAL'?'material':'operador'} · distancia ${d.modo==='rec'?'en línea recta':'en escuadra'} · ${fT(d.escala)} m por cuadro</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn ghost" type="button" data-spv="ruta">${svg('back',18,2.2)} Recorrido</button><button class="btn orange" type="button" data-spfinish="1">Guardar diagrama</button></div></div>
+    <div class="kpis" style="margin-top:16px">
+      <div class="kpi"><span>Distancia por ciclo</span><span class="v" style="color:var(--blue)">${spM(R.total)}</span><span class="sub">${R.viajes} viaje${R.viajes!==1?'s':''}</span></div>
+      <div class="kpi"><span>Trayecto más repetido</span><span class="v" style="font-size:24px">${R.top?esc(nm(R.top.a))+' ↔ '+esc(nm(R.top.b)):'—'}</span><span class="sub">${R.top?R.top.n+(R.top.n!==1?' veces':' vez')+' · '+spM(R.top.t)+' ('+pc(R.total?R.top.t/R.total:0)+' del ciclo)':''}</span></div>
+      <div class="kpi"><span>Punto más visitado</span><span class="v" style="font-size:24px">${R.topPt!=null?esc(nm(R.topPt)):'—'}</span><span class="sub">${R.topPt!=null?R.visits[R.topPt]+' visita'+(R.visits[R.topPt]!==1?'s':'')+' por ciclo':''}</span></div>
+      <div class="kpi"><span>Por turno / por día</span><span class="v" style="font-size:24px">${R.porTurno?spM(R.porTurno):'—'}${R.porDia?' / '+spM(R.porDia):''}</span><span class="sub">${R.porTurno?fT(d.ciclos)+' ciclos por turno'+(R.porDia?' × '+fT(d.turnos)+' turnos':''):'captura ciclos por turno en Información'}</span></div>
+      <div class="kpi"><span>Tiempo caminando</span><span class="v" style="font-size:24px">${R.tCiclo?f2(R.tCiclo)+' min':'—'}</span><span class="sub">${R.tCiclo?'por ciclo'+(R.tTurno?' · '+f2(R.tTurno)+' min por turno':'')+' · a '+fT(d.vel)+' m/min':'captura la velocidad medida en Información'}</span></div>
+    </div>
+    <div class="spwrap" style="margin-top:16px">${spSvg(d,'res')}</div>
+    <div class="tbl"><table><thead><tr><th style="text-align:left">Trayecto</th><th>Veces</th><th>m cada vez</th><th>m por ciclo</th><th>% del ciclo</th></tr></thead><tbody>
+      ${[...R.pairs].sort((x,y)=>y.t-x.t).map(p=>`<tr><th>${esc(nm(p.a))} ↔ ${esc(nm(p.b))}</th><td>${p.n}</td><td>${fT(p.d.toFixed(2))}</td><td>${fT(p.t.toFixed(2))}</td><td>${pc(R.total?p.t/R.total:0,1)}</td></tr>`).join('')}
+      <tr class="trow"><th>Total</th><td><b>${R.viajes}</b></td><td></td><td><b>${fT(R.total.toFixed(2))}</b></td><td></td></tr></tbody></table></div>`;
+  }
+  return `${spSteps()}<section class="glass panel ${S.keep?'':'view'}">${body}</section>`;
+}
+// ---- eventos Espagueti ----
+const spRe=()=>{S.keep=true;render(true);S.keep=false;};
+function spSync(){['sph','sph2'].forEach(id=>{const f=document.getElementById(id);if(f&&SP.d)new FormData(f).forEach((v,k)=>SP.d[k]=v);});}
+function spMiss(d){const m=[];if(!String(d.analista||'').trim())m.push('analista');if(!(spNum(d.escala)>0))m.push('escala');return m;}
+// Si el área se achica, los puntos que quedaron fuera se acomodan en la orilla
+function spClamp(d){const {c,r}=spDim(d);d.pts.forEach(p=>{p.x=Math.min(p.x,c-1);p.y=Math.min(p.y,r-1);});}
+document.addEventListener('click',e=>{
+  if(e.target.classList&&e.target.classList.contains('mback'))return;
+  const d=SP.d;
+  // toques en el diagrama (SVG)
+  const g=e.target.closest&&e.target.closest('[data-sppt],[data-spcell]');
+  if(g&&d&&route()==='sp-nuevo'){
+    if(g.dataset.sppt){const id=+g.dataset.sppt;
+      if(SP.view==='lay'){SP.sel=SP.sel===id?null:id;spRe();if(SP.sel){const x=document.querySelector('[data-spname]');if(x)x.focus({preventScroll:true});}return;}
+      if(SP.view==='ruta'){if(d.ruta[d.ruta.length-1]!==id)d.ruta.push(id);spRe();return;}}
+    if(g.dataset.spcell&&SP.view==='lay'){const [x,y]=g.dataset.spcell.split(',').map(Number);
+      if(SP.sel!=null){const p=spPt(d,SP.sel);if(p){p.x=x;p.y=y;}SP.sel=null;spRe();return;}
+      const id=nid();d.pts.push({id,n:'PUNTO '+(d.pts.length+1),x,y});SP.sel=id;spRe();const n=document.querySelector('[data-spname]');if(n){n.focus({preventScroll:true});n.select();}return;}
+    return;}
+  const t=e.target.closest('button');if(!t||t.disabled)return;const D=t.dataset;
+  if(D.spnew){spNew();go('sp-nuevo');return;}
+  if(D.spopen){SP.d=SP.studies.find(x=>x.id==D.spopen);SP.view=SP.d.ruta.length>1?'res':'info';SP.sel=null;SP.miss=[];go('sp-nuevo');return;}
+  if(!d||!Object.keys(D).some(k=>k.startsWith('sp')))return;
+  if(D.spv){spSync();if(SP.view==='info'&&D.spv!=='info'){SP.miss=spMiss(d);if(SP.miss.length){spRe();return;}spClamp(d);if(!d.titulo)d.titulo='ESPAGUETI SIN TÍTULO';if(!SP.studies.includes(d))SP.studies.unshift(d);}
+    SP.view=D.spv;SP.sel=null;render();return;}
+  if(D.spset){spSync();d[D.spset]=D.spval;spRe();return;}
+  if(D.spexample){d.cols='24';d.rows='14';SP_EX_PTS.forEach(([n,x,y])=>d.pts.push({id:nid(),n,x,y}));SP.sel=null;spRe();return;}
+  if(D.spdone){SP.sel=null;spRe();return;}
+  if(D.spptdel){const id=+D.spptdel;const n=d.ruta.filter(x=>x===id).length;const go2=()=>{d.pts=d.pts.filter(p=>p.id!==id);d.ruta=d.ruta.filter(x=>x!==id);SP.sel=null;spRe();};
+    if(n)ask('¿Quitar el punto?','Está en el recorrido '+n+(n!==1?' veces':' vez')+'; esos trayectos se quitan también.','Quitar punto',go2);else go2();return;}
+  if(D.spundo){d.ruta.pop();spRe();return;}
+  if(D.spclear){ask('¿Borrar el recorrido?','Se quitan todos los trayectos; los puntos del layout se quedan.','Borrar recorrido',()=>{d.ruta=[];spRe();});return;}
+  if(D.spdel){ask('¿Eliminar este diagrama?','Se borra «'+spName(d)+'».','Eliminar',()=>{SP.studies=SP.studies.filter(x=>x!==d);SP.d=null;go('sp');});return;}
+  if(D.spfinish){if(!SP.studies.includes(d))SP.studies.unshift(d);storeSave('sp',d);SP.d=null;go('sp');return;}
+});
+document.addEventListener('input',e=>{const el=e.target;const d=SP.d;if(!d||!el.dataset||route()!=='sp-nuevo')return;
+  if(el.closest&&(el.closest('#sph')||el.closest('#sph2'))){spSync();if(SP.miss.length)SP.miss=spMiss(d).filter(k=>SP.miss.includes(k));return;}
+  if(el.dataset.spname){const p=spPt(d,+el.dataset.spname);if(p){p.n=el.value;const lb=document.querySelector(`[data-sppt="${p.id}"] .spl`);if(lb)lb.textContent=String(el.value).slice(0,16);}return;}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.dataset&&e.target.dataset.spname){SP.sel=null;spRe();}
+  if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('g[data-sppt]')){e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}});
+
 // ---- eliminar estudio desde la lista (todos los formatos) ----
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-sdel]');if(!t)return;e.stopPropagation();
   const[k,id]=t.dataset.sdel.split('|');const nm=t.dataset.sdeln||'este estudio';
@@ -4007,6 +4210,7 @@ document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest
     else if(k==='sm'){SM.studies=SM.studies.filter(x=>x.id!=id);if(SM.d&&SM.d.id==id)SM.d=null;}
     else if(k==='tk'){TK.studies=TK.studies.filter(x=>x.id!=id);if(TK.d&&TK.d.id==id)TK.d=null;}
     else if(k==='hs'){HS.studies=HS.studies.filter(x=>x.id!=id);if(HS.d&&HS.d.id==id)HS.d=null;}
+    else if(k==='sp'){SP.studies=SP.studies.filter(x=>x.id!=id);if(SP.d&&SP.d.id==id)SP.d=null;}
     render();});},true);
 // ================= Aprende: tutoriales con demo en vivo =================
 // Los tutoriales son DATOS: cada paso dice qué elemento (selector CSS), qué acción y qué explica el globo.
@@ -4322,6 +4526,34 @@ const TUTS=[
     {señala:'.hsfoot',di:'Abajo: equipo de protección, resumen por símbolo y las firmas de elaboró, revisó y aprobó.'},
     {señala:'[data-hsprint]',di:'«Imprimir» la acomoda en carta horizontal, en una sola página, con alto contraste para pegarla en la estación.'}
    ]},
+  {id:'sp',grupo:'proc',nombre:'Diagrama de espagueti',min:3,
+   pregunta:'¿Cuánto camina el operador (o viaja el material) y por dónde?',
+   cuando:'Para ver el desperdicio de movimiento en un área: idas y vueltas, cruces y caminatas largas por material, con sus metros por ciclo, turno y día.',
+   noPara:'Medir el tiempo de ciclo de una celda con máquinas (eso es el Man Machine) ni los pasos del proceso (eso es el Flujo de proceso).',
+   veras:['Escala, ciclos y velocidad medida','Poner los puntos del área en la cuadrícula','Trazar el recorrido tocando los puntos en orden','Leer metros, trayecto más repetido y tiempo caminando'],
+   pasos:[
+    {ir:'diag',señala:'#view .fmt',txt:'Espagueti',di:'«Diagramas» reúne el Flujo de proceso y el Espagueti. Cada uno guarda lo suyo por separado.'},
+    {toca:'#view [data-go="sp"]',di:'Entramos a Espagueti.',tu:'Toca «Espagueti».'},
+    {toca:'#view [data-spnew]',di:'Empezamos un diagrama nuevo.',tu:'Toca «Nuevo espagueti».'},
+    {escribe:'input[name=titulo]',valor:'RECORRIDO DE SURTIDO',di:'Un título para reconocerlo.'},
+    {escribe:'input[name=analista]',valor:'J. PÉREZ',di:'Analista (obligatorio).'},
+    {señala:'.spopts',di:'Método actual o propuesto, si sigues al operador o al material, y cómo se mide: en escuadra (por pasillos) o en línea recta.'},
+    {señala:'input[name=escala]',di:'La escala: 1 cuadro = 1 metro. Ajústala a tu área.'},
+    {escribe:'input[name=ciclos]',valor:'50',di:'Opcional: 50 ciclos por turno, para llevar los metros a turno y día.'},
+    {escribe:'input[name=turnos]',valor:'2',di:'Dos turnos por día.'},
+    {escribe:'input[name=vel]',valor:'60',di:'Opcional: la velocidad de caminata que tú mediste en piso (aquí 60 m/min). La app no usa valores estándar.'},
+    {toca:'[data-spneed]',di:'Pasamos al layout.',tu:'Toca «Continuar a layout».'},
+    {señala:'.spwrap',di:'Tocas un cuadro libre y aparece un punto; le pones nombre. Si tocas un punto y luego otro cuadro, se mueve.'},
+    {toca:'[data-spexample]',di:'En la demo cargamos 6 puntos de ejemplo: almacén, dos estaciones, un rack, inspección y empaque.',tu:'Toca «Cargar ejemplo».'},
+    {toca:'[data-spv="ruta"]',di:'Ahora trazamos el recorrido.',tu:'Toca «Trazar recorrido».'},
+    {serie:'[data-spk="{v}"]',base:'[data-sppt]:not(.last)',v:[1,2,3,4,3,5,6,4,3,2,1],nTu:4,di:'Tocamos los puntos en el orden en que camina: almacén, EST 10, EST 20, rack, EST 20, inspección, empaque, rack, EST 20, EST 10, almacén.',tu:'Toca 4 puntos, en el orden que quieras (tocar dos veces seguidas el mismo no es un viaje).'},
+    {señala:'.spwrap',di:'Las líneas siguen los pasillos. EST 20 ↔ RACK A se recorre 3 veces: por eso es la más gruesa.'},
+    {toca:'[data-spv="res"]',di:'Vemos los resultados.',tu:'Toca «Ver resultados».'},
+    {señala:'.kpi',txt:'Distancia por ciclo',di:'En la demo: 82 m por ciclo en 10 viajes.'},
+    {señala:'.kpi',txt:'Trayecto más repetido',di:'El trayecto que más pesa: ahí está la primera oportunidad, por ejemplo acercar el rack a la estación.'},
+    {señala:'.kpi',txt:'Por turno',di:'Con 50 ciclos por turno y 2 turnos: 4.1 km por turno y 8.2 km al día.'},
+    {señala:'.kpi',txt:'Tiempo caminando',di:'A la velocidad que mediste, 1.37 min por ciclo se van caminando.'}
+   ]},
   {id:'df',grupo:'proc',nombre:'Diagramas de flujo',min:3,
    pregunta:'¿Cómo fluye el proceso y dónde están las demoras y los transportes?',
    cuando:'Para documentar un proceso con símbolos ASME (operación, inspección, transporte, demora, almacenamiento) y ver qué parte agrega valor.',
@@ -4390,9 +4622,9 @@ function vAprendeFicha(id){
 
 // ---------- motor ----------
 let TR=null;let tutRunId=0;const TUT_ABORT={};
-const tutSnapNow=()=>structuredClone({S,DS,ST,MM,SM,PC,AT,EC,DF,TK,HS,uid});
+const tutSnapNow=()=>structuredClone({S,DS,ST,MM,SM,PC,AT,EC,DF,TK,HS,SP,uid});
 function tutRestore(s){const c=structuredClone(s);
-  [[S,'S'],[DS,'DS'],[ST,'ST'],[MM,'MM'],[SM,'SM'],[PC,'PC'],[AT,'AT'],[EC,'EC'],[DF,'DF'],[TK,'TK'],[HS,'HS']].forEach(([o,k])=>{Object.keys(o).forEach(x=>delete o[x]);Object.assign(o,c[k]);});uid=c.uid;}
+  [[S,'S'],[DS,'DS'],[ST,'ST'],[MM,'MM'],[SM,'SM'],[PC,'PC'],[AT,'AT'],[EC,'EC'],[DF,'DF'],[TK,'TK'],[HS,'HS'],[SP,'SP']].forEach(([o,k])=>{Object.keys(o).forEach(x=>delete o[x]);Object.assign(o,c[k]);});uid=c.uid;}
 const tutPhone=()=>window.innerWidth<=700;
 const tutNorm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 // Texto de un elemento: lo visible más lo escrito en sus campos (los nombres editables viven en inputs)
@@ -4524,7 +4756,7 @@ window.TaktTut={start:(id,mode,speed)=>tutStart(id,mode,speed),exit:()=>tutExit(
   list:()=>TUTS.map(t=>({id:t.id,ready:tutReady(t),pasos:t.pasos||null})),
   mark:()=>{document.querySelectorAll('[data-tutt]').forEach(e=>e.removeAttribute('data-tutt'));const p=TR&&TR.expect&&TR.expect.p;if(!p)return false;
     const el=p.serie?tutQuery(p.base):tutQuery(p.toca||p.escribe||p.elige,p.txt,p.en);if(!el)return false;el.setAttribute('data-tutt','1');return true;},
-  counts:()=>({ws:S.studies.length,ds:DS.studies.length,st:ST.studies.length,mm:MM.studies.length,sm:SM.studies.length,pc:PC.studies.length,at:AT.studies.length,df:DF.studies.length,tk:TK.studies.length,hs:HS.studies.length})};
+  counts:()=>({ws:S.studies.length,ds:DS.studies.length,st:ST.studies.length,mm:MM.studies.length,sm:SM.studies.length,pc:PC.studies.length,at:AT.studies.length,df:DF.studies.length,tk:TK.studies.length,hs:HS.studies.length,sp:SP.studies.length})};
 
 // ================= Almacén: guardado de estudios =================
 // Patrón repositorio: los formatos NO saben dónde se guarda. Solo llaman storeSave / storeRemove.
@@ -4558,16 +4790,17 @@ function storeMaxId(o){let m=0;const seen=new Set();
 function storeStateOf(d,saved){if(!d||!d._uuid||!saved.has(d._uuid))return 'nuevo';return JSON.stringify(d)===saved.get(d._uuid)?'ok':'cambios';}
 // </store-pure>
 
-const STORE_SCHEMA={ws:2,ds:2,we:2,st:2,mm:2,sm:2,pc:2,at:2,df:2,tk:1,hs:1};  // versión actual de cada formato
+const STORE_SCHEMA={ws:2,ds:2,we:2,st:2,mm:2,sm:2,pc:2,at:2,df:2,tk:1,hs:1,sp:1};  // versión actual de cada formato
+// sp (Espagueti) también nace en la v1 con ubicación (hasta área).
 // hs (Hoja estándar) también nace en la v1 con ubicación (hasta estación).
 // tk (Takt y balanceo) nace en la v1 ya con ubicación: no necesita la migración v1 → v2 de los demás.
 const STORE_MIGS={};                                                // STORE_MIGS[kind][v] = datos v → v+1
 // v1 → v2 (Fase 2, 2026-11-12): se agrega la ubicación en la jerarquía de planta; los estudios ya guardados quedan «Sin asignar».
 const storeMigUbic=d=>{d.ubic=d.ubic&&typeof d.ubic==='object'&&!Array.isArray(d.ubic)?d.ubic:{};return d;};
 ['ws','ds','we','st','mm','sm','pc','at','df'].forEach(k=>{STORE_MIGS[k]=STORE_MIGS[k]||{};STORE_MIGS[k][1]=storeMigUbic;});
-const STORE_KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk','hs'];
-const STORE_ANALISIS=new Set(['pc','at','df','tk','hs']);                      // pueden guardarse a medias
-const storeBox=k=>({ws:S,ds:DS,we:DS,st:ST,mm:MM,sm:SM,pc:PC,at:AT,df:DF,tk:TK,hs:HS})[k];
+const STORE_KINDS=['ws','ds','we','st','mm','sm','pc','at','df','tk','hs','sp'];
+const STORE_ANALISIS=new Set(['pc','at','df','tk','hs','sp']);                      // pueden guardarse a medias
+const storeBox=k=>({ws:S,ds:DS,we:DS,st:ST,mm:MM,sm:SM,pc:PC,at:AT,df:DF,tk:TK,hs:HS,sp:SP})[k];
 const STORE={db:null,ok:false,ready:false,saved:new Map(),err:null};
 const storeTut=()=>typeof TR!=='undefined'&&!!TR;
 
@@ -4592,7 +4825,7 @@ async function storeInit(){
       const d=e.data;d._uuid=e.uuid;storeBox(e.kind).studies.push(d);STORE.saved.set(e.uuid,JSON.stringify(d));
       if(e.schema!==env.schema)storePut(e.kind,d,env);  // deja guardada la versión ya migrada
     });
-    uid=Math.max(uid,storeMaxId({S:S.studies,DS:DS.studies,ST:ST.studies,MM:MM.studies,SM:SM.studies,PC:PC.studies,AT:AT.studies,DF:DF.studies,TK:TK.studies,HS:HS.studies,cat:ST.cat}));
+    uid=Math.max(uid,storeMaxId({S:S.studies,DS:DS.studies,ST:ST.studies,MM:MM.studies,SM:SM.studies,PC:PC.studies,AT:AT.studies,DF:DF.studies,TK:TK.studies,HS:HS.studies,SP:SP.studies,cat:ST.cat}));
     if(bad.length){STORE.err='No se pudieron abrir '+bad.length+' estudio(s) guardados.';console.warn('[almacén]',bad);}
   }catch(e){STORE.err='No se pudo leer lo guardado.';console.warn('[almacén]',e);}
   STORE.ready=true;
@@ -4624,7 +4857,7 @@ function storeDiscard(d){const j=d&&d._uuid&&STORE.saved.get(d._uuid);if(!j)retu
 function storeCurrent(){const r=route();
   if(r==='ws-nuevo')return['ws',S.draft];if(r==='ds-nuevo'||r==='we-nuevo')return[(DS.d&&DS.d.kind)||'ds',DS.d];
   if(r==='st-nuevo')return['st',ST.d];if(r==='mm-nuevo')return['mm',MM.d];if(r==='sm-nuevo')return['sm',SM.d];
-  if(r==='pc-nuevo')return['pc',PC.d];if(r==='tk-nuevo')return['tk',TK.d];if(r==='hs-nuevo')return['hs',HS.d];if(r==='at-nuevo')return['at',AT.d];if(r==='df-nuevo')return['df',DF.d];return[null,null];}
+  if(r==='pc-nuevo')return['pc',PC.d];if(r==='tk-nuevo')return['tk',TK.d];if(r==='hs-nuevo')return['hs',HS.d];if(r==='sp-nuevo')return['sp',SP.d];if(r==='at-nuevo')return['at',AT.d];if(r==='df-nuevo')return['df',DF.d];return[null,null];}
 function storeChip(){const el=document.getElementById('savechip');if(!el)return;const[k,d]=storeCurrent();
   if(storeTut()||!k||!d){el.hidden=true;return;}
   const st=storeStateOf(d,STORE.saved);const inList=storeBox(k).studies.includes(d);
@@ -4663,8 +4896,8 @@ const UB_LV=['planta','area','linea','estacion'];
 const UB_LBL={planta:'Planta',area:'Área',linea:'Línea',estacion:'Estación'};
 const UB_KIDS={planta:'areas',area:'lineas',linea:'estaciones'};
 // Hasta qué nivel llega el selector de cada formato, y qué nivel se pide (Angel, 2026-11-12). «Sin asignar» siempre se permite.
-const UB_DEEP={ws:4,ds:4,we:4,st:4,sm:4,mm:3,pc:2,at:2,df:3,tk:3,hs:4};
-const UB_REQ={ws:3,ds:3,we:3,st:3,sm:3,mm:3,pc:2,at:2,df:1,tk:3,hs:4};
+const UB_DEEP={ws:4,ds:4,we:4,st:4,sm:4,mm:3,pc:2,at:2,df:3,tk:3,hs:4,sp:3};
+const UB_REQ={ws:3,ds:3,we:3,st:3,sm:3,mm:3,pc:2,at:2,df:1,tk:3,hs:4,sp:2};
 const UB={adding:null};            // nivel que se está agregando desde el selector
 const UBF={planta:'',area:'',linea:''};  // filtro de las listas
 // Hijos de un nodo (o las plantas si no hay padre)
@@ -4727,7 +4960,7 @@ function vCatalogo(){
 
 // Listas: ubicación de cada estudio + filtro por planta, área y línea
 function ubicDecorate(){if(storeTut())return;const rows=[...document.querySelectorAll('#view [data-sdel]')];const r=route();
-  const isList=['ws','ds','we','st','mm','sm','pc','at','df','tk','hs'].includes(r);if(!isList)return;
+  const isList=['ws','ds','we','st','mm','sm','pc','at','df','tk','hs','sp'].includes(r);if(!isList)return;
   const panel=document.querySelector('#view section.panel');if(panel&&!panel.querySelector('.ubfilter')&&CAT.plantas.length){
     const f=(lv,i)=>{const parent=i?UBF[UB_LV[i-1]]:null;const off=i&&!parent;const opts=off?[]:ubKids(lv,parent);
       return `<label><span>${UB_LBL[lv]}</span><select data-ubf="${lv}" ${off?'disabled':''}><option value="">Todas</option>${opts.map(n=>`<option value="${n.id}" ${UBF[lv]===n.id?'selected':''}>${esc(n.nombre)}</option>`).join('')}</select></label>`;};

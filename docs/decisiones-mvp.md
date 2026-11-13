@@ -276,6 +276,18 @@ Siguiente:
 - **Fase 3:** avisos de almacenamiento lleno o no disponible visibles en pantalla (hoy: mensaje al guardar) y persistencia de los ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Después (otra etapa): servidor, cuentas y sincronización; exportación PDF/Excel casi al final.
 
+## Diagrama de espagueti + sección «Diagramas» — LISTO PARA COMENTARIOS (2026-11-13)
+Diseño: `docs/superpowers/specs/2026-11-13-diagrama-espagueti-design.md`.
+- Menú: «Diagramas de flujo» → **«Diagramas»**, con dos tarjetas: Flujo de proceso (igual que antes) y Espagueti. Comparten la entrada, no los datos.
+- Módulo **aislado**, clave `sp` v1 con ubicación hasta **área** (línea opcional); tutorial 12 (grupo Procesos).
+- 01 Información: título, analista*, fecha, ubicación, método Actual/Propuesto, Operador/Material, distancia en escuadra (por omisión) o en línea recta, metros por cuadro*, tamaño del área (24 × 14), ciclos por turno, turnos y velocidad de caminata (opcionales; sin valores estándar).
+- 02 Layout: tocar un cuadro libre pone un punto con nombre; tocar un punto lo selecciona (renombrar, quitar o mover tocando otro cuadro).
+- 03 Recorrido: tocar los puntos en orden; deshacer; borrar. Tocar dos veces seguidas el mismo punto no es un viaje.
+- 04 Resultados: diagrama (trayectos repetidos más gruesos y con ×n), distancia por ciclo, viajes, trayecto y punto más repetidos, por turno / por día, tiempo caminando; tabla de trayectos.
+Cálculos (16 pruebas, `parts/sptest.js`): ejemplo ficticio de 6 puntos → 82 m por ciclo en 10 viajes; EST 20 ↔ RACK A ×3 = 30 m (37 %); 4.1 km por turno (50 ciclos), 8.2 km al día (2 turnos); a 60 m/min, 1.37 min por ciclo.
+Corrección general de tutoriales: en «Hazlo tú» el globo ya no intercepta toques (tapaba el objetivo mientras se reacomodaba).
+Pendiente de comentarios de Angel.
+
 ## Hoja de trabajo estándar — TERMINADO (2026-11-13; segundo estudio complementario)
 Diseño: `docs/superpowers/specs/2026-11-13-hoja-trabajo-estandar-design.md` · plan: `docs/superpowers/plans/2026-11-13-hoja-trabajo-estandar.md`.
 Módulo **aislado** (se captura todo aquí; takt a mano). Entrada propia del menú «Hoja estándar» (teléfono: «Más»). Clave `hs` v1 con ubicación hasta **estación**; tutorial 11 (grupo Procesos).
