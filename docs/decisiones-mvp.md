@@ -276,7 +276,7 @@ Siguiente:
 - **Fase 3:** avisos de almacenamiento lleno o no disponible visibles en pantalla (hoy: mensaje al guardar) y persistencia de los ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Después (otra etapa): servidor, cuentas y sincronización; exportación PDF/Excel casi al final.
 
-## Hoja de trabajo estándar — LISTA PARA COMENTARIOS (2026-11-13; segundo estudio complementario)
+## Hoja de trabajo estándar — TERMINADO (2026-11-13; segundo estudio complementario)
 Diseño: `docs/superpowers/specs/2026-11-13-hoja-trabajo-estandar-design.md` · plan: `docs/superpowers/plans/2026-11-13-hoja-trabajo-estandar.md`.
 Módulo **aislado** (se captura todo aquí; takt a mano). Entrada propia del menú «Hoja estándar» (teléfono: «Más»). Clave `hs` v1 con ubicación hasta **estación**; tutorial 11 (grupo Procesos).
 - 01 Encabezado: operación*, no. de parte / modelo, revisión (A), fecha, operadores, takt (opcional), elaboró*, revisó, aprobó; equipo de protección con íconos propios (lentes, guantes, auditiva, casco, zapato, careta, mascarilla, mandil).
@@ -284,7 +284,7 @@ Módulo **aislado** (se captura todo aquí; takt a mano). Entrada propia del men
 - 03 Hoja: encabezado, KPIs (takt, TC, % del takt con holgura, pasos), secuencia con puntos clave, **flujo del proceso dibujado solo** (serpentina de 9 por columna en pantalla, 12 en papel, animado en tablet), equipo de protección, resumen por símbolo y firmas.
 - Impresión: carta horizontal en **una página**; copia de papel aparte (no depende del ancho de pantalla) que se escala sola; aviso con más de 18 pasos. En el enlace de prueba la impresión está bloqueada (se avisa); se valida generando el PDF en las pruebas (8 y 28 pasos → 1 página).
 Cálculos (15 pruebas, `parts/hstest.js`): TC = Σ tiempos; % del takt y holgura; resumen por símbolo (cantidad y minutos); puntos clave por tipo (vacíos no cuentan); takt vacío sin divisiones entre cero.
-Pendiente de comentarios de Angel.
+Angel la probó y la cerró (2026-11-13): «quedó perfecto, muy intuitivo». Confirmó que el bloqueo de impresión en el enlace de prueba está bien (funcionará en la app publicada).
 
 ## Takt y balanceo de línea — TERMINADO (2026-11-13; primer estudio complementario)
 Pestaña propia del menú («Takt y balanceo»; en teléfono desde «Más»). Clave `tk` en `STORE_SCHEMA`, **v1 (nace con ubicación, sin migración)**; ubicación pedida hasta **línea**; tutorial número 10 en Aprende (grupo Capacidad y eficiencia).
@@ -327,7 +327,7 @@ Para afinar en piso (no bloquea): botón «Actualizar desde el Work Element» (h
 ## Hoja de ruta acordada (actualizada 2026-11-12, tras el análisis de brechas)
 - Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo, Aprende (9 tutoriales).
 - **Guardado de estudios** = modelo de datos + jerarquía + guardado local sin conexión: Fases 1 y 2 listas (2026-11-12); sigue Fase 3. La **exportación PDF/Excel** sigue casi al final. Angel aceptó mover el guardado al frente (2026-11-12) porque el tablero, los estudios vencidos, el antes/después y los pagos dependen de datos guardados.
-- Estudios complementarios (orden acordado 2026-11-13): **1) Takt y balanceo de línea (terminado)** → **2) hoja de trabajo estándar (lista para comentarios)** → al terminarla, Angel elige el siguiente entre: plan de acción + antes/después (falta decidir si habla de dinero o solo tiempos/piezas/horas-hombre) · diagrama de espagueti · ergonomía NOM-036 (apoyo, no dictamen). **Tiempo estándar: DESCARTADO por completo** (2026-11-13; los estándares los da el cliente y no queremos riesgo legal). Después: VSM, curva de aprendizaje; horarios aleatorios = mejora del Work Sampling; video = proyecto aparte.
+- Estudios complementarios (orden acordado 2026-11-13): **1) Takt y balanceo de línea (terminado)** → **2) hoja de trabajo estándar (terminado)** → al terminarla, Angel elige el siguiente entre: plan de acción + antes/después (falta decidir si habla de dinero o solo tiempos/piezas/horas-hombre) · diagrama de espagueti · ergonomía NOM-036 (apoyo, no dictamen). **Tiempo estándar: DESCARTADO por completo** (2026-11-13; los estándares los da el cliente y no queremos riesgo legal). Después: VSM, curva de aprendizaje; horarios aleatorios = mejora del Work Sampling; video = proyecto aparte.
 - **Regla de aislamiento (Angel, 2026-11-13): todos los módulos son aislados —se capturan desde cero, no traen ni ligan datos de otros—. La única excepción es Takt y balanceo (trae los Work Element de la línea porque lo necesita). Aplica a los que vienen y a los futuros.**
 - Regla para cada estudio nuevo: nace con guardado (su versión en `STORE_SCHEMA`), ubicación en la jerarquía, tutorial en Aprende y sus pruebas en `smoke_store.py` y `smoke_tut.py`.
 - Luego: Inicio (tablero) → diseño final → pagos → exportación PDF/Excel.

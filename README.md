@@ -20,7 +20,7 @@ Prototipo publicado: https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f
 
 - Estudios de tiempos: Work Sampling, Delay Study, Work Element, Speed Trial, Man Machine Chart, SMED (todos listos).
 - Takt y balanceo de línea: takt + estaciones traídas de los Work Element + balanceo contra el takt: listo.
-- Hoja de trabajo estándar: secuencia con símbolos ASME y puntos clave, flujo automático, impresión en una página (lista para comentarios).
+- Hoja de trabajo estándar: secuencia con símbolos ASME y puntos clave, flujo automático, impresión en una página: lista.
 - Cálculo de personal (headcount): listo.
 - Actual Time + Eficiencia compuesta y Diagramas de flujo: listos.
 - Aprende (tutoriales con demo en vivo y modo guiado): los 11 listos (6 estudios, Takt y balanceo, Hoja estándar, Personal, Actual Time + Eficiencia compuesta, Diagramas de flujo).

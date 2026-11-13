@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: comentarios de Angel sobre la **Hoja de trabajo estándar**; al cerrarla, revisar con él cuál sigue. Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: Angel elige el próximo estudio complementario (plan de acción + antes/después, espagueti o ergonomía NOM-036). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
 
 ## Pasos para Claude al iniciar
 
@@ -38,7 +38,7 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Nuevo: **Hoja de trabajo estándar** (módulo aislado, clave `hs` v1, ubicación hasta estación, tutorial 11): encabezado + EPP, secuencia con símbolos ASME y puntos clave, hoja con flujo dibujado solo; impresión carta horizontal en una página. 15 pruebas de cálculo + guardado + PDF + tutorial en 3 dispositivos. Publicado.
 - Regla nueva de Angel: todos los módulos aislados; única excepción Takt y balanceo.
 - Prueba de tutoriales: en «escribe» espera 150 ms y vuelve a ubicar el campo (con más carga, el texto de Diagramas de flujo caía en la nube anterior).
-- Esperando comentarios de Angel.
+- TERMINADO: Angel la probó y la cerró.
 
 ## Estado al 2026-11-13 (Takt y balanceo)
 
