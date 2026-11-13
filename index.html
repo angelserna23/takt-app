@@ -766,6 +766,14 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .rcards{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rcard{border:1px solid #D6DEE8;border-radius:8px;padding:8px 10px;break-inside:avoid}
 .rch{display:flex;justify-content:space-between;gap:6px}.rch span{font-size:9.5px;color:#5B6673}.rnums{display:flex;gap:12px;margin:4px 0}.rcard small{font-size:9.5px;color:#5B6673}.rcard ol{margin:2px 0 0;padding-left:18px}
 .rnote{color:#5B6673}
+.ryama{margin-bottom:4px}.ryplot{position:relative;display:flex;gap:10px;align-items:flex-end;border-bottom:1.5px solid #1B2430;padding:0 4px}
+.rycol{flex:1;min-width:0;display:flex;justify-content:center;align-items:flex-end;height:100%}
+.rybar{width:min(56px,80%);display:flex;flex-direction:column-reverse}.rybar em{display:block;border-top:1px solid #fff}.rybar b{text-align:center;font:600 10.5px 'IBM Plex Mono',monospace;padding-bottom:2px}
+.rynames{display:flex;gap:10px;padding:3px 4px 0}.rynames>div{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center}
+.rynames span{font-size:10px;font-weight:600;text-align:center;line-height:1.15;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rynames small{font:9px 'IBM Plex Mono',monospace;color:#5B6673}
+.rylim{position:absolute;left:0;right:0;border-top:2px solid #DC2626;z-index:1}.rylim span{position:absolute;right:0;top:-14px;font:600 9px 'IBM Plex Mono',monospace;color:#DC2626;background:#fff;padding:0 3px}
+.rtbl tbody th small{display:block;font-weight:400;color:#5B6673;font-size:9px}
+
 /* Diagrama de espagueti */
 .spopts{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}.spopts>div{display:flex;flex-direction:column;gap:6px}
 .spwrap{margin-top:14px;overflow:auto;border-radius:18px;background:#fff;border:1px solid var(--line);padding:10px;-webkit-overflow-scrolling:touch}
@@ -1369,7 +1377,7 @@ function vDSList(kind){
       <div class="logo" style="background:rgba(194,65,12,.1);color:var(--orange)" aria-hidden="true">${WEk?'WE':'DS'}</div>
       <div class="meta"><b>${esc(st.titulo)} <span class="tag ${st.estado==='Cerrado'?'':'on'}" style="vertical-align:2px;margin-left:6px">${st.estado==='Cerrado'?'FINALIZADO':'EN PROCESO'}</span></b><span>${esc(st.area||'—')} · ${esc(st.fecha)} · ${esc(st.observador||'—')} · ${st.acts.length} ${WEk?'elementos':'actividades'} · ${st.ops.length} operador${st.ops.length!==1?'es':''}</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:var(--blue)">${st.ops.length?pc(r.avgOcc):'—'}</span><br><span style="font-size:12px;color:var(--muted)">ocupación promedio</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="ds|${st.id}" data-sdeln="${esc(st.titulo)}" aria-label="Eliminar estudio ${esc(st.titulo)}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn(st.kind==='we'?'we':'ds',st.id,st.titulo||'Estudio')}<button type="button" class="iconbtn sdel" data-sdel="ds|${st.id}" data-sdeln="${esc(st.titulo)}" aria-label="Eliminar estudio ${esc(st.titulo)}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
     ${list.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('list',30)}</div><b style="font-size:17px">Aún no hay estudios</b><p>Toca <b>Nuevo estudio</b> para crear el primero.</p></div>`}
     </div></section>`;
 }
@@ -1498,7 +1506,7 @@ function vDS(){
   if(DS.view==='res'){
     const r=dsCalc(d.acts,d.ops,d.assign,d.obj,d.disp,DS.scen);const pal=dsPal(d.acts);const over=r.rows.filter(x=>x.occ>1).length;
     const unl=d.acts.filter(a=>dsUnlinked(a,d.acts)).length;
-    body=`<div class="row"><div><h2>Resultados</h2><p class="sub">Yamazumi: carga de cada operador contra el tiempo disponible por ${perLbl(d)}</p></div>${del}</div>
+    body=`<div class="row"><div><h2>Resultados</h2><p class="sub">Yamazumi: carga de cada operador contra el tiempo disponible por ${perLbl(d)}</p></div><div style="display:flex;gap:10px;flex-wrap:wrap">${REP[d.kind]?`<button class="btn ghost" type="button" data-pdf="${d.kind}|cur">${svg('pdf',18,2)} Descargar PDF</button>`:''}${del}</div></div>
     <div class="scen">
       <div><b>Escenario de demanda</b><p class="sub" style="margin:2px 0 0">${dsScenTxt(d)}</p></div>
       <div class="scenin">
@@ -4250,7 +4258,7 @@ function repPrint(kind,d){repBuild(kind,d);REP_FIRED=false;try{window.print();}c
   // si la impresión está bloqueada (enlace de prueba) no hay «afterprint»: se avisa y se quita el reporte
   setTimeout(()=>{if(!REP_FIRED){repClose();ask('Descargar PDF','Si no se abrió la ventana de impresión: en el enlace de prueba está bloqueada; en la app publicada se abre con «Guardar como PDF».','Entendido',()=>{},{ok:true,icon:'print',solo:true});}},700);}
 const pdfBtn=(kind,id,name)=>`<button type="button" class="iconbtn rpdf" data-pdf="${kind}|${id}" aria-label="Descargar PDF de ${esc(name)}" title="Descargar PDF">${svg('pdf',18,2)}</button>`;
-function repFind(kind,id){if(id==='cur')return kind==='ws'?S.draft:null;const box=storeBox(kind);return box&&box.studies.find(x=>x.id==id);}
+function repFind(kind,id){if(id==='cur')return ({ws:S.draft,ds:DS.d,we:DS.d,st:ST.d,mm:MM.d,sm:SM.d,tk:TK.d,pc:PC.d,at:AT.d,df:DF.d,sp:SP.d})[kind]||null;const box=storeBox(kind);return box&&box.studies.find(x=>x.id==id);}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-pdf]');if(!b)return;e.stopPropagation();
   const [k,id]=b.dataset.pdf.split('|');const d=repFind(k,id);if(d&&REP[k])repPrint(k,d);},true);
 window.TaktRep={build:(k,id)=>{const d=repFind(k,id);return d?!!repBuild(k,d):false;},print:(k,id)=>{const d=repFind(k,id);if(d)repPrint(k,d);},close:repClose,kinds:()=>Object.keys(REP)};
@@ -4279,6 +4287,31 @@ REP.ws=d=>{const ops=d.ops.filter(o=>calcOp(o).sum>0);const L=calcLine(ops);cons
     <section class="${L.acts.length>22||cols.length>6?'rlong':''}"><h2>Resultado por actividad (%)</h2>${tables}</section>
     <section class="${ops.length>6?'rlong':''}"><h2>Detalle por operador</h2><div class="rcards">${ops.map(opCard).join('')}</div></section>`;
   return {tipo:'Work Sampling',titulo:d.titulo||'Work Sampling',meta:[['Ubicación',ubLabel(d)],['Área',d.area],['No. de parte',d.parte],['Analista',d.analista],['Fecha',d.fecha],['Confianza / margen',d.conf+'% · ±'+d.margen+'%']],body};};
+
+
+// Yamazumi fijo para papel: columnas con segmentos apilados y la línea del límite (disponible / takt)
+function repYama(cols,lim,limLbl){const ymax=Math.max(lim*1.15,...cols.map(c=>c.total*1.08),1e-9);const H=190;
+  // las barras y la línea del límite comparten el mismo espacio (.ryplot): la línea cae exacta en su valor
+  return `<div class="ryama"><div class="ryplot" style="height:${H}px"><div class="rylim" style="bottom:${(lim/ymax*H).toFixed(1)}px"><span>${limLbl}</span></div>
+    ${cols.map(c=>`<div class="rycol"><div class="rybar">${c.segs.filter(g=>g.v>0).map(g=>`<em style="height:${(g.v/ymax*H).toFixed(1)}px;background:${c.over?'#E8A584':g.c}"></em>`).join('')}<b class="${c.over?'rinn':''}">${c.top}</b></div></div>`).join('')}</div>
+    <div class="rynames">${cols.map(c=>`<div><span>${esc(c.name)}</span><small class="${c.over?'rinn':''}">${c.sub}</small></div>`).join('')}</div></div>`;}
+
+// ---- Delay Study ----
+REP.ds=d=>{const r=dsCalc(d.acts,d.ops,d.assign,d.obj,d.disp,null);const pal=dsPal(d.acts);const over=r.rows.filter(x=>x.occ>1).length;const per=perLbl(d);
+  const nm=a=>dsName(a,d.acts.indexOf(a));const opName=id=>{const o=d.ops.find(x=>x.id===id);return o?o.name:'Sin asignar';};
+  const used=d.acts.filter(a=>d.ops.some(o=>o.id===d.assign[a.id]));
+  const yama=repYama(r.rows.map(x=>({name:x.name,total:x.load,over:x.occ>1,top:pc(x.occ),sub:(x.free<0?'excede '+f2(-x.free):'libre '+f2(x.free))+' min',
+    segs:x.items.map(it=>({v:it.load,c:pal[it.id]}))})),r.disp,d.periodo==='ciclo'?'tiempo ciclo '+f2(r.disp)+' min':f2(r.disp)+' min disponibles por '+per);
+  const det=r.rows.map(x=>x.items.map((it,k)=>{const a=d.acts.find(z=>z.id===it.id);return `<tr>${k===0?`<th rowspan="${x.items.length+1}">${esc(x.name)}<small>obj ${f2(x.obj).replace(/\.00$/,'')} pzs/${per}</small></th>`:''}<td style="text-align:left">${esc(nm(a))}</td><td>${esc(a.material||'—')}</td><td>${f2(it.pp)}</td><td>${f2(it.load)}</td><td>${pc(r.disp?it.load/r.disp:0,1)}</td></tr>`;}).join('')
+    +`<tr class="rsum">${x.items.length?'':`<th>${esc(x.name)}</th>`}<td style="text-align:left">Total</td><td></td><td></td><td>${f2(x.load)}</td><td class="${x.occ>1?'rinn':'rnec'}">${pc(x.occ,1)}</td></tr>`).join('');
+  const acts=d.acts.map((a,i)=>`<tr><td>${i+1}</td><td style="text-align:left">${esc(nm(a))}</td><td>${esc(a.material||'—')}</td><td>${dsPz(a)>0?num(a.racks)+' × '+num(a.snp)+' = '+dsPz(a):'vuelta vacía'}</td><td>${f2((a.secs||0)/60)}</td><td>${f2(dsPerPiece(a,d.acts))}</td><td>${esc(opName(d.assign[a.id]))}</td></tr>`).join('');
+  const body=!d.acts.length?'<p class="rnote">Este estudio todavía no tiene actividades cronometradas.</p>':`
+    <section><h2>Resumen</h2>${repKpis([['Ocupación promedio',pc(r.avgOcc,1),d.ops.length+' operador'+(d.ops.length!==1?'es':''),'#1D5FA8'],['Personal requerido teórico',r.needed.toFixed(2),'carga total ÷ tiempo disponible'],['Operadores arriba de 100 %',String(over),over?'hay que rebalancear':'todos dentro del tiempo',over?'#C2410C':'#1D5FA8'],['Carga total',f2(r.total),'min por '+per]])}</section>
+    <section><h2>Carga por operador (Yamazumi)</h2>${yama}<div class="rlegend">${used.map(a=>`<span><i style="background:${pal[a.id]}"></i>${d.acts.indexOf(a)+1}. ${esc(nm(a))}</span>`).join('')}</div></section>
+    <section class="${d.acts.length>14?'rlong':''}"><h2>Detalle por operador</h2><table class="rtbl"><thead><tr><th style="text-align:left">Operador</th><th style="text-align:left">Actividad</th><th>Material</th><th>Min/pza</th><th>Carga (min)</th><th>% del disponible</th></tr></thead><tbody>${det}</tbody></table></section>
+    <section class="${d.acts.length>14?'rlong':''}"><h2>Actividades cronometradas</h2><table class="rtbl"><thead><tr><th>#</th><th style="text-align:left">Actividad</th><th>Material</th><th>Piezas (racks × SNP)</th><th>Tiempo (min)</th><th>Min/pza</th><th>Operador</th></tr></thead><tbody>${acts}</tbody></table>
+      <p class="rnote" style="font-size:9.5px">Las vueltas vacías no traen piezas, pero su tiempo cuenta: se reparte entre las piezas del traslado al que pertenecen.</p></section>`;
+  return {tipo:'Delay Study',titulo:d.titulo||'Delay Study',meta:[['Ubicación',ubLabel(d)],['Área',d.area],['No. de parte',d.parte],['Observador',d.observador],['Fecha',d.fecha],['Periodo / objetivo',f2(num(d.disp)).replace(/\.00$/,'')+' min por '+per+(String(d.obj||'').trim()?' · '+d.obj+' pzs':'')]],body};};
 
 // ---- eliminar estudio desde la lista (todos los formatos) ----
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-sdel]');if(!t)return;e.stopPropagation();

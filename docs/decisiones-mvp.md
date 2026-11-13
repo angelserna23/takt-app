@@ -279,7 +279,8 @@ Siguiente:
 ## Reportes en PDF — EN CURSO (2026-11-13)
 Diseño: `docs/superpowers/specs/2026-11-13-reportes-pdf-design.md`. Opción A: «Descargar PDF» = impresión del navegador → «Guardar como PDF». **Solo PDF, nunca Excel** (Angel: se trabaja en la app; lo exportado es para leer y enviar). Formato común carta vertical con encabezado, secciones y pie «Página x de y». Un módulo a la vez.
 - Work Sampling: listo para comentarios (resumen de línea con precisión, quién pesa más en lo innecesario, distribución, tabla por actividad, detalle por operador; sin columna de total cuando hay un solo operador).
-- Siguen: Delay Study, Work Element, Speed Trial, Man Machine, SMED, Takt y balanceo, Diagramas, Cálculo de personal. Actual Time: por confirmar.
+- Formato común aprobado por Angel (2026-11-13). Delay Study: listo para comentarios (resumen, Yamazumi fijo para papel con la línea del disponible exacta, detalle por operador, actividades cronometradas con racks × SNP y vueltas vacías).
+- Siguen: Work Element, Speed Trial, Man Machine, SMED, Takt y balanceo, Diagramas, Cálculo de personal. Actual Time: por confirmar.
 
 ## Diagrama de espagueti + sección «Diagramas» — TERMINADO (2026-11-13)
 Diseño: `docs/superpowers/specs/2026-11-13-diagrama-espagueti-design.md`.
