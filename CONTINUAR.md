@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: **plan de acción + antes/después** (primero decidir si habla de dinero o solo tiempos/piezas/horas-hombre); después el resto de los estudios complementarios (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Siguiente: **hoja de trabajo estándar** (elegida por Angel). Al terminarla, revisar con él cuál sigue. Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
 
 ## Pasos para Claude al iniciar
 
