@@ -52,12 +52,44 @@ def kpis(pg):
     v=pg.locator('#view').inner_text()
     check('kpis',pg.locator('[data-inkpis-vacio]').count()==1 and 'NaN' not in v and 'Infinity' not in v,'«Sin asignar» (sin Actual Time ni personal) invita a capturar, sin NaN')
 
+ORDEN=['ws','ds','we','st','mm','sm','tk','hs','df','sp','pc','at']
+RUTA={'ws':'ws-nuevo','ds':'ds-nuevo','we':'we-nuevo','st':'st-nuevo','mm':'mm-nuevo','sm':'sm-nuevo','tk':'tk-nuevo','hs':'hs-nuevo','df':'df-nuevo','sp':'sp-nuevo','pc':'pc-nuevo','at':'at-nuevo'}
+def norte(pg):go(pg,'inicio');pg.click('[data-inplanta="sem-pn"]');pg.wait_for_timeout(200)
+def renglones(pg):
+    norte(pg)
+    rows=pg.eval_on_selector_all('[data-inrow]','e=>e.map(x=>x.dataset.inrow)')
+    check('inicio',rows==ORDEN,f'PLANTA NORTE: 12 renglones en orden ({rows})')
+    for k in ORDEN:
+        norte(pg);c=pg.locator(f'[data-inrow="{k}"] [data-inopen]').first;kid=c.get_attribute('data-inopen').split('|')[1]
+        big=c.locator('[data-inbig]').inner_text().strip()
+        c.click();pg.wait_for_timeout(250)
+        r=pg.evaluate('location.hash.slice(1)');d=pg.evaluate(f"TaktRep.data('{k}')")
+        check('inicio',r==RUTA[k] and d and str(d['id'])==kid,f'{k}: tocar la tarjeta abre ese estudio ({r})')
+        if k=='st':
+            oee=pg.locator('#view .kpi').filter(has_text='OEE').first.locator('.v').inner_text().strip()
+            check('inicio',big==oee,f'st: el OEE de la tarjeta ({big}) es el de sus resultados ({oee})')
+    norte(pg);n0=pg.locator('[data-inopen]').count()
+    pg.click('[data-inlinea="sem-pn-l1"]');pg.wait_for_timeout(200)
+    ln=pg.eval_on_selector_all('[data-inopen]','e=>e.map(x=>x.dataset.inln)')
+    check('inicio',0<len(ln)<n0 and all(x=='sem-pn-l1' for x in ln),f'filtro LÍNEA 1: {len(ln)} de {n0} tarjetas, todas de esa línea')
+    go(pg,'inicio');pg.click('[data-inplanta=""]');pg.wait_for_timeout(200)
+    check('inicio',pg.locator('[data-inopen]').count()==2,'«Sin asignar» muestra los 2 estudios sin planta')
+    norte(pg)
+    who=pg.eval_on_selector_all('[data-inwho]','e=>e.map(x=>+x.dataset.n)')
+    an=pg.eval_on_selector_all('[data-inopen]','e=>e.filter(x=>x.dataset.inan).length')
+    check('inicio',len(who)==5 and sum(who)==an,f'«Quién lo hizo»: 5 analistas, {sum(who)} estudios = {an} tarjetas con analista')
+    pg.evaluate('TaktInicio.setMax(3)');norte(pg)
+    we=pg.locator('[data-inrow="we"]');tot=pg.evaluate("JSON.parse(TaktStore.dump('we')).filter(d=>d.ubic&&d.ubic.planta==='sem-pn').length")
+    check('inicio',we.locator('[data-inopen]').count()==3 and f'Ver todos ({tot})' in we.inner_text(),f'renglón con más del máximo: pinta 3 y «Ver todos ({tot})»')
+    pg.evaluate('TaktInicio.setMax(12)')
+
 with sync_playwright() as p:
     b=p.chromium.launch()
     pg=b.new_page(viewport={'width':1366,'height':900});pg.on('pageerror',lambda e:errs.append(str(e)))
     pg.goto(IDX);pg.wait_for_function('window.TaktStore&&TaktStore.ready()')
     semilla(pg)
     kpis(pg)
+    renglones(pg)
     auto(b)
     b.close()
 check('js',not errs,'sin errores de JavaScript '+(str(errs[:3]) if errs else ''))

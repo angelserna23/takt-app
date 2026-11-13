@@ -795,6 +795,20 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .inpers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}.inpers b{display:block;font-size:30px;font-weight:600}
 .inocc{display:flex;gap:14px;align-items:center;margin-top:4px}.inocc b{display:block;font-size:22px;font-weight:600;line-height:1.1}.inocc small{display:block;margin-bottom:4px}
 .inring{width:86px;height:86px;flex:none}.inringb{fill:none;stroke:#E7ECF2;stroke-width:8}.inringv{fill:none;stroke-width:8;stroke-linecap:round;stroke-dasharray:var(--v) 100;transform:rotate(-90deg);transform-origin:32px 32px}.inring text{font:700 14px 'IBM Plex Mono',monospace;fill:var(--ink)}
+.inest{margin-top:16px}.inrow{margin-top:18px}.inrh{display:flex;align-items:center;gap:10px;margin-bottom:8px}.inrh>b{font-size:16px}
+.inbadge{font:700 11px 'IBM Plex Mono',monospace;padding:4px 7px;border-radius:8px;background:rgba(29,95,168,.12);color:var(--blue)}.inn{font-size:13px;color:var(--muted)}
+.inra{margin-left:auto;display:flex;gap:6px;align-items:center}.inra .iconbtn{width:44px;height:44px}
+.intrack{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.incard{flex:0 0 268px;scroll-snap-align:start;text-align:left;display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:18px;border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.66);box-shadow:0 8px 22px rgba(27,36,48,.07);cursor:pointer;font:inherit;color:inherit;min-height:176px;transition:transform .15s,box-shadow .15s}
+.incard:hover,.incard:focus-visible{transform:translateY(-2px);box-shadow:0 12px 28px rgba(27,36,48,.12);outline:none}
+.inct{display:flex;flex-direction:column;min-width:0}.inct b{font-size:14px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.inct small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.incv{display:flex;align-items:center;gap:12px}.incv .inring{width:58px;height:58px}.incv .inring text{display:none}.incv b{display:block;font-size:26px;font-weight:600;line-height:1.05}.incv small{font-size:11.5px;color:var(--muted)}
+.incs{font-size:12px;color:var(--ink2);line-height:1.35}.incf{margin-top:auto;display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:7px}
+.inwho{margin-top:22px}.inh{font-size:16px}.inwhol{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:10px}
+.inwc{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.85)}
+.inav{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:700 13px 'IBM Plex Mono',monospace;background:var(--blue);color:#fff}
+.inwc>span:last-child{display:flex;flex-direction:column;min-width:0}.inwc small{font-size:12px;color:var(--muted)}.inwk{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.inwk i{font:600 11px 'IBM Plex Mono',monospace;font-style:normal;padding:2px 6px;border-radius:6px;background:#E7ECF2}
+@media (max-width:700px){.incard{flex-basis:78vw}.inra .iconbtn{display:none}}
 @media (max-width:1100px){.inkpis{grid-template-columns:1fr 1fr}}
 @media (max-width:700px){.inkpis{grid-template-columns:1fr}.inkpi.big>b{font-size:38px}}.rep .rsvg.rpad{padding-right:9%}.rtbl.rnw tbody th{white-space:nowrap}.rtbl.rsm td,.rtbl.rsm th{padding:2.5px 5px}
 .rybar b{position:relative;z-index:2;background:#fff;border-radius:3px}.rep .rtbl svg{vertical-align:middle}
@@ -1248,7 +1262,7 @@ function inWho(items){const M=new Map();items.forEach(({kind,d})=>{const name=in
 // ===== TABLERO DE INICIO =====
 // Planta de un estudio: la de su ubicación si sigue en el catálogo; si no, '' («Sin asignar»)
 function inPlantOf(d){const p=d&&d.ubic&&d.ubic.planta;return p&&ubFind('planta',p)?p:'';}
-const IN={planta:null,linea:''};
+const IN={planta:null,linea:'',max:12};
 // Indicadores de la planta: solo de lo mensual por área (Actual Time y Cálculo de personal); nunca se promedian estudios.
 // Año fiscal más reciente con datos de la planta; mes = último capturado. null si la planta no tiene ninguno de los dos.
 function inKpis(planta){
@@ -1289,15 +1303,73 @@ function inKpiBand(planta){const K=inKpis(planta);
   </div>`;}
 // anillo de porcentaje (se dibuja al aparecer)
 function inRing(g,col,txt){const v=Math.max(0,Math.min(1,g||0));return `<svg class="inring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" class="inringb"/><circle cx="32" cy="32" r="26" class="inringv" stroke="${col}" pathLength="100" style="--v:${(v*100).toFixed(1)}"/><text x="32" y="37" text-anchor="middle">${txt!=null?txt:Math.round((g||0)*100)+'%'}</text></svg>`;}
+// ---- estudios: un renglón por tipo, cada tarjeta con el resultado principal de su tipo ----
+const IN_ORDER=['ws','ds','we','st','mm','sm','tk','hs','df','sp','pc','at'];
+const IN_LBL={ws:'Work Sampling',ds:'Delay Study',we:'Work Element',st:'Speed Trial',mm:'Man Machine',sm:'SMED',tk:'Takt y balanceo',hs:'Hoja estándar',df:'Flujo de proceso',sp:'Espagueti',pc:'Cálculo de personal',at:'Actual Time'};
+const IN_ABBR={ws:'WS',ds:'DS',we:'WE',st:'ST',mm:'MM',sm:'SM',tk:'TK',hs:'HS',df:'DF',sp:'SP',pc:'PC',at:'AT'};
+const IN_OPEN={ws:'open',ds:'dsopen',we:'dsopen',st:'stopen',mm:'mmopen',sm:'smopen',tk:'tkopen',hs:'hsopen',df:'dfopen',sp:'spopen',pc:'pcopen',at:'atopen'};
+const IN_NAME={ws:d=>d.titulo||'Work Sampling',ds:d=>d.titulo||'Delay Study',we:d=>d.titulo||'Work Element',st:d=>stName(d),mm:d=>mmName(d),sm:d=>smName(d),tk:d=>tkName(d),hs:d=>hsName(d),df:d=>dfName(d),sp:d=>spName(d),pc:d=>pcName(d),at:d=>atName(d)};
+const inNo=(lbl)=>({big:'—',lbl,sub:'todavía sin datos',g:null});
+const inLast=months=>months.map((m,i)=>m?i:-1).filter(i=>i>=0).pop();
+// Resultado principal: las mismas funciones de la pantalla del estudio y de su reporte
+const IN_HEAD={
+  ws:d=>{const ops=(d.ops||[]).filter(o=>calcOp(o).sum>0);if(!ops.length)return inNo('% innecesario');const L=calcLine(ops);
+    return {big:pc(L.total.innec,1),lbl:'% innecesario',sub:'necesario '+pc(L.total.nec,1)+' · '+L.total.sum+' obs.',g:L.total.innec,bad:true};},
+  ds:d=>{if(!d.acts.length||!d.ops.length)return inNo('ocupación promedio');const r=dsCalc(d.acts,d.ops,d.assign,d.obj,d.disp,null);const o=r.rows.filter(x=>x.occ>1).length;
+    return {big:pc(r.avgOcc,1),lbl:'ocupación promedio',sub:o?o+' arriba de 100 %':'todos dentro del tiempo',g:r.avgOcc};},
+  we:d=>{if(!d.acts.length||!d.ops.length)return inNo('ocupación promedio');const r=dsCalc(d.acts,d.ops,d.assign,d.obj,d.disp,null);
+    return {big:pc(r.avgOcc,1),lbl:'ocupación promedio',sub:d.ops.length+' operador'+(d.ops.length!==1?'es':'')+' · '+weN(d)+' ciclos',g:r.avgOcc};},
+  st:d=>{const r=stC(d);if(!r.N)return inNo('OEE');const plan=d.oeePlan??85;const K=stCost(r.jphReal,d.tcobj,plan,moneyNum(d.costo),d.hd??22.5,d.dw??6,d.wm??4);
+    return {big:pc(r.oee,1),lbl:'OEE',sub:'JPH '+f2(r.jphReal)+' vs plan '+f2(K.jphPlan)+(moneyNum(d.costo)&&K.gap>0?' · '+moneyC(K.month)+'/mes':''),g:r.oee};},
+  mm:d=>{if(!d.sts.length)return inNo('ciclo de la celda');const T=mmTable(d.sts,d.mpp);const G=mmChart(T.rows);
+    return {big:fT(G.C)+' min',lbl:'ciclo de la celda',sub:'espera '+fT(G.wait)+' · limita '+(G.lim?G.lim.name:'el operador'),g:G.occ};},
+  sm:d=>{if(!d.steps.length)return inNo('paro propuesto');const r=smCalc(d.steps,d);
+    return {big:fT(r.prop)+' min',lbl:'paro propuesto',sub:fT(r.actual)+' → '+fT(r.prop)+' · −'+pc(r.pct,1),g:r.pct};},
+  tk:d=>{if(!d.estaciones.length)return inNo('eficiencia de balanceo');const r=tkNow(d);const t=tkTakt(d);
+    return {big:pc(r.eff,1),lbl:'eficiencia de balanceo',sub:r.over+' sobre takt · takt '+(t?fT(t.toFixed(3)):'—'),g:r.eff};},
+  hs:d=>{if(!(d.pasos||[]).length)return inNo('tiempo ciclo');const c=hsCalc(d);
+    return {big:fT(c.tc.toFixed(3))+' min',lbl:'tiempo ciclo',sub:d.pasos.length+' pasos'+(c.takt?' · '+pc(c.tc/c.takt)+' del takt':''),g:c.takt?c.tc/c.takt:null};},
+  df:d=>{if(!d.nodes.length)return inNo('actividades');const S_=dfSummary(d);
+    return {big:String(S_.act),lbl:'actividades',sub:fT(S_.tiempo)+' min · '+fT(S_.dist)+' m',g:S_.pctOp};},
+  sp:d=>{const R=spCalc(d);if(!R.viajes)return inNo('por ciclo');return {big:spM(R.total),lbl:'por ciclo',sub:R.viajes+' viaje'+(R.viajes!==1?'s':''),g:null};},
+  pc:d=>{const i=inLast(d.months.map(r=>r&&r.length?r:null));if(i==null)return inNo('% de ocupación');const M=pcMonth(d.months[i],d.red);
+    return {big:pc(M.occ,1),lbl:'% de ocupación · '+PC_MONTHS[i],sub:'HC '+M.hcVol+' volumen vs '+M.hcEsq+' esquema',g:M.occ};},
+  at:d=>{const R=atAll(d,'ens');const i=inLast(R.map(r=>r&&r.prod?r:null));if(i==null)return inNo('Actual Time');const r=R[i];
+    return {big:f2(r.atReal),lbl:'Actual Time · '+PC_MONTHS[i],sub:'meta '+f2(r.target)+' · eficiencia '+pc(r.efic,1),g:r.efic,over:r.target&&r.atReal>r.target};}};
+function inHead(kind,d){try{return IN_HEAD[kind](d);}catch(e){console.warn('[inicio]',kind,e);return inNo('');}}
+// ubicación sin la planta (ya está arriba): área › línea › estación
+function inUbic(d){const u=d.ubic||{};return ['area','linea','estacion'].map(l=>{const n=ubFind(l,u[l]);return n?n.nombre:null;}).filter(Boolean).join(' › ')||'Sin ubicación';}
+function inCard(kind,d,i){const h=inHead(kind,d);const f=inDate(d);const who=inWhoOf(d);const col=h.over?'#DC2626':h.bad?'#C2410C':'#1D5FA8';
+  return `<button type="button" class="incard" data-${IN_OPEN[kind]}="${d.id}" data-inopen="${kind}|${d.id}" data-inln="${esc(d.ubic&&d.ubic.linea||'')}" data-inan="${esc(who)}" style="--i:${i}">
+    <span class="inct"><b>${esc(IN_NAME[kind](d))}</b><small>${esc(inUbic(d))}</small></span>
+    <span class="incv">${h.g!=null?inRing(h.g,col,''):''}<span><b class="mono" data-inbig="1" style="color:${col}">${esc(h.big)}</b><small>${esc(h.lbl)}</small></span></span>
+    <small class="incs">${esc(h.sub)}</small>
+    <span class="incf"><span>${esc(who||'—')}</span><span class="mono">${f?esc(f):kind==='at'||kind==='pc'?'FY'+String(d.fy).padStart(2,'0'):''}</span></span></button>`;}
+function inRows(items){return inGroups(items,IN_ORDER).map(g=>`<div class="inrow" data-inrow="${g.kind}">
+    <div class="inrh"><span class="inbadge">${IN_ABBR[g.kind]}</span><b>${IN_LBL[g.kind]}</b><span class="mono inn">${g.n}</span>
+      <span class="inra"><button type="button" class="iconbtn" data-inmove="-1" aria-label="Anteriores">${svg('back',18,2.2)}</button><button type="button" class="iconbtn" data-inmove="1" aria-label="Siguientes">${svg('next',18,2.2)}</button>
+      <button type="button" class="btn ghost sm" data-go="${g.kind}">Ver todos (${g.n})</button></span></div>
+    <div class="intrack" tabindex="0" aria-label="${IN_LBL[g.kind]}">${g.items.slice(0,IN.max).map((x,i)=>inCard(x.kind,x.d,i)).join('')}</div></div>`).join('');}
+function inItems(){const out=[];IN_ORDER.forEach(k=>{const box=storeBox(k);box.studies.forEach(d=>{if((k==='we')!==(d.kind==='we')&&(k==='ds'||k==='we'))return;if(k==='ds'&&d.kind&&d.kind!=='ds')return;out.push({kind:k,d});});});return out;}
+function inWhoBlock(items){const W=inWho(items);if(!W.length)return '';
+  return `<div class="inwho"><b class="inh">Quién lo hizo</b><div class="inwhol">${W.map(w=>`<div class="inwc" data-inwho="${esc(w.name)}" data-n="${w.n}"><span class="inav">${esc(w.name.replace(/[^A-ZÁÉÍÓÚÑ ]/g,'').split(' ').filter(Boolean).map(x=>x[0]).join('').slice(0,2))}</span>
+    <span><b>${esc(w.name)}</b><small>${w.n} estudio${w.n!==1?'s':''} · último ${esc(w.last||'—')}</small><span class="inwk">${Object.entries(w.kinds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<i>${IN_ABBR[k]} ${n}</i>`).join('')}</span></span></div>`).join('')}</div></div>`;}
 function vInicio(){const PL=inPlantas();
   if(IN.planta==null||!PL.some(p=>p.id===IN.planta))IN.planta=PL.length?PL[0].id:'';
   const pl=PL.find(p=>p.id===IN.planta);setHead('Tablero',[['Inicio','inicio']]);
   if(!PL.length)return `<section class="glass panel empty"><h2>Tablero</h2><p>Todavía no hay estudios guardados. Cuando guardes el primero, aquí verás la planta, sus indicadores y todo lo que se ha analizado.</p></section>`;
   return `<section class="glass panel inpanel ${S.keep?'':'view'}"><div class="row"><div><h2>${esc(pl?pl.nombre:'Tablero')}</h2><p class="sub">Todo lo que se ha analizado en la planta</p></div>
     ${PL.length>1?`<div class="chips" role="group" aria-label="Planta">${PL.map(p=>`<button type="button" class="chip" data-inplanta="${esc(p.id)}" aria-pressed="${p.id===IN.planta}">${esc(p.nombre)} <span class="mono" style="opacity:.6">${p.n}</span></button>`).join('')}</div>`:''}</div>
-    ${inKpiBand(IN.planta)}</section>`;}
-document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-inplanta]');if(!b)return;IN.planta=b.dataset.inplanta;IN.linea='';S.keep=true;render(true);S.keep=false;});
-window.TaktInicio={kpis:inKpis};
+    ${inKpiBand(IN.planta)}</section>
+    ${(()=>{const ids=CAT.plantas.map(p=>p.id);const all=inFilter(inItems(),IN.planta,'',ids);const lns=[...new Set(all.map(x=>x.d.ubic&&x.d.ubic.linea).filter(Boolean))].map(id=>({id,n:ubFind('linea',id)})).filter(x=>x.n);
+      if(IN.linea&&!lns.some(x=>x.id===IN.linea))IN.linea='';const items=inFilter(all,IN.planta,IN.linea,ids);
+      return `<section class="glass panel inest"><div class="row"><div><h2>Estudios y análisis</h2><p class="sub">${items.length} en ${IN.linea?esc(ubFind('linea',IN.linea).nombre):'toda la planta'} · lo más reciente primero · toca una tarjeta para abrirla</p></div>
+        ${lns.length>1?`<div class="chips" role="group" aria-label="Línea"><button type="button" class="chip sm" data-inlinea="" aria-pressed="${!IN.linea}">Todas</button>${lns.map(x=>`<button type="button" class="chip sm" data-inlinea="${esc(x.id)}" aria-pressed="${IN.linea===x.id}">${esc(x.n.nombre)}</button>`).join('')}</div>`:''}</div>
+        ${inRows(items)}${inWhoBlock(items)}</section>`;})()}`;}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-inplanta],[data-inlinea],[data-inmove]');if(!b)return;
+  if(b.dataset.inmove){const tr=b.closest('.inrow').querySelector('.intrack');const c=tr.querySelector('.incard');tr.scrollBy({left:(+b.dataset.inmove)*((c?c.offsetWidth:260)+14),behavior:'smooth'});return;}
+  if(b.dataset.inplanta!==undefined){IN.planta=b.dataset.inplanta;IN.linea='';}else IN.linea=b.dataset.inlinea;S.keep=true;render(true);S.keep=false;});
+window.TaktInicio={kpis:inKpis,head:(k,id)=>{const d=storeBox(k).studies.find(x=>x.id==id);return d?inHead(k,d):null;},setMax:n=>{IN.max=n;}};
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
   return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Takt, capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="tk">${svg('tk',18)} Takt y balanceo</button><button class="btn ghost" type="button" data-go="hs">${svg('hs',18)} Hoja estándar</button><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="diag">${svg('diag',18)} Diagramas</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
   ${vCatalogo()}
