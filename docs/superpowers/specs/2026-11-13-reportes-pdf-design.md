@@ -14,8 +14,8 @@ Descargar cada estudio o análisis como reporte para enviarlo. **Solo lectura:**
 - En el enlace de prueba la impresión está bloqueada: se avisa en pantalla; se valida generando el PDF en las pruebas.
 
 ## Orden (uno a la vez, Angel revisa cada uno)
-1. Work Sampling (hecho; formato aprobado) → 2. Delay Study (hecho) → 3. Work Element (hecho, para comentarios; probado con 60 operadores) → 4. Speed Trial → 5. Man Machine → 6. SMED → 7. Takt y balanceo → 8. Diagramas (Flujo de proceso, Espagueti) → 9. Cálculo de personal (reporte, no Excel).
-- Hoja estándar: ya imprime. Actual Time: **por confirmar con Angel**.
+1. Work Sampling (hecho; formato aprobado) → 2. Delay Study (hecho) → 3. Work Element (hecho; probado con 60 operadores) → 4 a 9: Speed Trial, Man Machine, SMED, Takt y balanceo, Diagramas (Flujo de proceso, Espagueti) y Cálculo de personal (reporte, no Excel). Del 4 en adelante Angel pidió generarlos todos juntos y revisarlos él (2026-11-13).
+- Hoja estándar: ya imprime. Actual Time: generado para que Angel decida si se queda.
 
 ## Pruebas
 `smoke_store.py`: por cada tipo con reporte — botón en la lista, reporte armado con los datos, PDF generado, el reporte se quita al cerrar.

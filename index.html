@@ -774,6 +774,13 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .rynames span{font-size:9.5px;font-weight:600;text-align:center;line-height:1.15;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:anywhere}.rynames small{font:9px 'IBM Plex Mono',monospace;color:#5B6673}
 .rylim{position:absolute;left:0;right:0;border-top:2px solid #DC2626;z-index:1}.rylim span{position:absolute;right:0;top:-14px;font:600 9px 'IBM Plex Mono',monospace;color:#DC2626;background:#fff;padding:0 3px}
 .rtbl tbody th small{display:block;font-weight:400;color:#5B6673;font-size:9px}
+/* gráficas de la app dentro del reporte: tamaño de hoja, sin animación, nada escondido */
+.rep .rsvg{margin:4px 0 6px}.rep .rsvg svg{width:100%!important;min-width:0!important;max-height:225mm;height:auto;display:block}
+.rep .rsvg.rbox{border:1px solid #D6DEE8;border-radius:8px;padding:6px;background:#fff}
+.rep .rsvg *{animation:none!important;transition:none!important}.rep .rsvg .pbar,.rep .rsvg .cbar,.rep .rsvg .stpt{opacity:1!important}
+.rep .rsvg .lpath,.rep .rsvg .pline,.rep .rsvg .spleg{stroke-dasharray:none!important;stroke-dashoffset:0!important}
+.rep .mmcell,.rep .mmplus{display:none}.rep .rsvg.rpad{padding-right:9%}.rtbl.rnw tbody th{white-space:nowrap}.rtbl.rsm td,.rtbl.rsm th{padding:2.5px 5px}
+.rybar b{position:relative;z-index:2;background:#fff;border-radius:3px}.rep .rtbl svg{vertical-align:middle}
 
 /* Diagrama de espagueti */
 .spopts{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}.spopts>div{display:flex;flex-direction:column;gap:6px}
@@ -1850,7 +1857,7 @@ function vSTList(){
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">ST</div>
       <div class="meta"><b>${esc(stName(st))} <span class="tag ${st.estado==='Cerrado'?'':'on'}" style="vertical-align:2px;margin-left:6px">${st.estado==='Cerrado'?'FINALIZADO':'EN PROCESO'}</span></b><span>No. parte ${esc(st.parte||'—')} · ${esc(st.periodo)} · ${esc(st.analista||'—')} · ${r.N} piezas</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:var(--blue)">${r.N?pc(r.oee,1):'—'}</span><br><span style="font-size:12px;color:var(--muted)">OEE</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="st|${st.id}" data-sdeln="${esc(stName(st))}" aria-label="Eliminar estudio ${esc(stName(st))}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn('st',st.id,stName(st))}<button type="button" class="iconbtn sdel" data-sdel="st|${st.id}" data-sdeln="${esc(stName(st))}" aria-label="Eliminar estudio ${esc(stName(st))}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
     ${ST.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('list',30)}</div><b style="font-size:17px">Aún no hay estudios</b><p>Toca <b>Nuevo estudio</b> para crear el primero.</p></div>`}
     </div></section>`;
 }
@@ -2096,7 +2103,7 @@ function vST(){
   if(ST.view==='res'){
     const lines=[['Tiempo productivo (TC objetivo × piezas OK)',r.va,'var(--blue)']].concat(Object.entries(r.loss).filter(([k,v])=>v>0).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[causeLbl(k),v,stIsDef(k)?'#9A3412':'var(--orange)']));
     const mx=Math.max(...lines.map(l=>l[1]),Math.abs(r.gain),0.0001);
-    body=`<div class="row"><div><h2>Resultados</h2><p class="sub">OEE y balance de tiempo. Estadísticas, costo, OEE, Pareto y caída de JPH.</p></div>${del}</div>
+    body=`<div class="row"><div><h2>Resultados</h2><p class="sub">OEE y balance de tiempo. Estadísticas, costo, OEE, Pareto y caída de JPH.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap">${pdfBig('st')}${del}</div></div>
     <div class="kpis" style="margin-top:16px">
       <div class="kpi"><span>OEE</span><span class="v" style="color:${r.oee>=0.85?'var(--blue)':'var(--orange)'}">${pc(r.oee,1)}</span><span class="sub">${r.oee>1?'<b style="color:#9A3412">Más de 100 %: el TC objetivo es mayor que lo real. Revisa el objetivo o las muestras.</b>':'TC objetivo × piezas OK ÷ tiempo registrado'}</span></div>
       <div class="kpi"><span>JPH real</span><span class="v">${f2(r.jphReal)}</span><span class="sub">plan ${f2(stJphSug(d.tcobj,d.oeePlan??85))} (OEE ${esc(d.oeePlan??85)} %) · máx. ${f2(r.jphObj)} (100 %)</span></div>
@@ -2253,7 +2260,7 @@ function vMMList(){
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">MM</div>
       <div class="meta"><b>${esc(mmName(st))} <span class="tag ${st.estado==='Cerrado'?'':'on'}" style="vertical-align:2px;margin-left:6px">${st.estado==='Cerrado'?'FINALIZADO':'EN PROCESO'}</span></b><span>${esc(st.fecha)} · ${esc(st.analista||'—')} · ${T.rows.length} estaciones</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:var(--blue)">${f2(T.tcMax)}</span><br><span style="font-size:12px;color:var(--muted)">TC más alto</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="mm|${st.id}" data-sdeln="${esc(mmName(st))}" aria-label="Eliminar estudio ${esc(mmName(st))}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn('mm',st.id,mmName(st))}<button type="button" class="iconbtn sdel" data-sdel="mm|${st.id}" data-sdeln="${esc(mmName(st))}" aria-label="Eliminar estudio ${esc(mmName(st))}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
     ${MM.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('list',30)}</div><b style="font-size:17px">Aún no hay estudios</b><p>Toca <b>Nuevo estudio</b> para crear el primero.</p></div>`}
     </div></section>`;
 }
@@ -2380,7 +2387,7 @@ function vMMGraf(d){
   const verdict=lim?`La celda la limita <b>${esc(lim.name)}</b>: necesita ${fT(lim.need)} min por vuelta (${fT(lim.man)} manual + ${fT(lim.tc)} de máquina) y el operador regresa en ${fT(G.top)}. <b>El operador espera ${fT(G.wait)} min por vuelta</b> (${pc(G.wait/G.C)} de su tiempo).`
     :`La celda la limita <b>el operador</b>: su vuelta (${fT(G.top)} min) es más larga que lo que necesita cualquier máquina, así que <b>no espera</b>; son las máquinas las que lo esperan a él.`;
   return `<div class="row"><div><h2>Gráfica hombre-máquina</h2><p class="sub">Recorrido del operador contra el tiempo ciclo de las máquinas, desde la máquina con el TC más alto</p></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-mmv="lay">${svg('back',18,2.2)} Layout</button><button class="btn orange" type="button" data-mmfinish="1">Guardar estudio</button></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${pdfBig('mm')}<button class="btn ghost" type="button" data-mmv="lay">${svg('back',18,2.2)} Layout</button><button class="btn orange" type="button" data-mmfinish="1">Guardar estudio</button></div></div>
     <div class="kpis" style="margin-top:16px">
       <div class="kpi"><span>Ciclo del operador</span><span class="v">${fT(G.top)}</span><span class="sub">manual ${fT(G.manT)} + durante ${fT(G.durT)} + caminata ${fT(G.walkT)} (${T.pasos} pasos × 0.01)</span></div>
       <div class="kpi"><span>Ciclo real de la celda</span><span class="v" style="color:var(--blue)">${fT(G.C)}</span><span class="sub">lo limita ${lim?esc(lim.name):'el operador'} · ${f2(G.jph)} piezas por hora</span></div>
@@ -2593,7 +2600,7 @@ function vSMList(){
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">SM</div>
       <div class="meta"><b>${esc(smName(st))} <span class="tag ${st.estado==='Cerrado'?'':'on'}" style="vertical-align:2px;margin-left:6px">${st.estado==='Cerrado'?'FINALIZADO':'EN PROCESO'}</span></b><span>${esc(st.fecha)} · ${esc(st.analista||'—')} · ${st.steps.length} pasos</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:var(--blue)">${st.steps.length?fT(r.actual)+' → '+fT(r.prop):'—'}</span><br><span style="font-size:12px;color:var(--muted)">min de paro</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="sm|${st.id}" data-sdeln="${esc(smName(st))}" aria-label="Eliminar estudio ${esc(smName(st))}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn('sm',st.id,smName(st))}<button type="button" class="iconbtn sdel" data-sdel="sm|${st.id}" data-sdeln="${esc(smName(st))}" aria-label="Eliminar estudio ${esc(smName(st))}" title="Eliminar estudio">${svg('trash',18,2)}</button></div>`}).join('')}
     ${SM.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('list',30)}</div><b style="font-size:17px">Aún no hay estudios</b><p>Toca <b>Nuevo estudio</b> para crear el primero.</p></div>`}
     </div></section>`;
 }
@@ -2671,7 +2678,7 @@ function vSM(){
   if(SM.view==='res'){
     const hrs=v=>v.toLocaleString('es-MX',{maximumFractionDigits:1})+' h';const pz=v=>v.toLocaleString('es-MX',{maximumFractionDigits:0});
     body=`<div class="row"><div><h2>Resultados del SMED</h2><p class="sub">${esc(d.de||'—')} → ${esc(d.a||'—')} · ${esc(d.personas)} persona${num(d.personas)!==1?'s':''} en el cambio</p></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn ghost" type="button" data-smv="anal">${svg('back',18,2.2)} Análisis</button><button class="btn orange" type="button" data-smfinish="1">Guardar estudio</button></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${pdfBig('sm')}${del}<button class="btn ghost" type="button" data-smv="anal">${svg('back',18,2.2)} Análisis</button><button class="btn orange" type="button" data-smfinish="1">Guardar estudio</button></div></div>
     <div class="kpis" style="margin-top:16px">
       <div class="kpi"><span>Paro propuesto</span><span class="v" style="color:var(--blue)">${fT(r.prop)} <span style="font-size:18px">min</span></span><span class="sub">hoy: <b>${fT(r.actual)} min</b> por cambio</span></div>
       <div class="kpi"><span>Reducción del paro</span><span class="v" style="color:#15803D">−${pc(r.pct,1)}</span><span class="sub">${fT(r.red)} min menos por cambio</span></div>
@@ -2800,7 +2807,7 @@ function vPCList(){
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">HC</div>
       <div class="meta"><b>${esc(pcName(st))} <span class="tag" style="vertical-align:2px;margin-left:6px">${esc(pcTipo(st))}</span></b><span>${mm.filter(x=>x&&x.n).length} de 12 meses capturados${last?' · '+last[0].n+' renglones en '+PC_MONTHS[last[1]]:''}</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:var(--blue)">${last?last[0].hcVol+' / '+last[0].hcEsq:'—'}</span><br><span style="font-size:12px;color:var(--muted)">HC volumen / esquema${last?' · '+PC_MONTHS[last[1]]:''}</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="pc|${st.id}" data-sdeln="${esc(pcName(st))}" aria-label="Eliminar ${esc(pcName(st))}" title="Eliminar cálculo">${svg('trash',18,2)}</button></div>`;}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn('pc',st.id,pcName(st))}<button type="button" class="iconbtn sdel" data-sdel="pc|${st.id}" data-sdeln="${esc(pcName(st))}" aria-label="Eliminar ${esc(pcName(st))}" title="Eliminar cálculo">${svg('trash',18,2)}</button></div>`;}).join('')}
     ${PC.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('pc',30)}</div><b style="font-size:17px">Aún no hay cálculos</b><p>Crea uno por área: ensamble, maquinado, fundición…</p></div>`}
     </div></section>`;
 }
@@ -2905,7 +2912,7 @@ function vPC(){
   }
   if(PC.view==='res'){const MM=d.months.map(r=>r&&r.length?pcMonth(r,d.red):null);const has=MM.some(Boolean);
     body=`<div class="row"><div><h2>Resumen anual · FY${String(d.fy).padStart(2,'0')}</h2><p class="sub">${esc(d.nombre)} · ${esc(pcTipo(d))} · ${MM.filter(Boolean).length} de 12 meses capturados</p></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn ghost" type="button" data-pcv="mes">${svg('back',18,2.2)} Meses</button><button class="btn orange" type="button" data-pcfinish="1">Guardar cálculo</button></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${pdfBig('pc')}${del}<button class="btn ghost" type="button" data-pcv="mes">${svg('back',18,2.2)} Meses</button><button class="btn orange" type="button" data-pcfinish="1">Guardar cálculo</button></div></div>
     ${!has?`<div class="slot empty" style="min-height:160px;margin-top:16px"><p>Captura al menos un mes para ver el resumen.</p></div>`:(()=>{const ok=MM.map((m,i)=>[m,i]).filter(([m])=>m);const avg=k=>ok.reduce((a,[m])=>a+m[k],0)/ok.length;const[lm,li]=ok[ok.length-1];return `
     <div class="kpis pck8" style="margin-top:16px">
       <div class="kpi"><span>% de ocupación promedio</span><span class="v" style="color:var(--blue)">${pc(avg('occ'),1)}</span><span class="sub">${ok.length} mes${ok.length!==1?'es':''} capturado${ok.length!==1?'s':''}</span></div>
@@ -3100,7 +3107,7 @@ function vATList(){
       <div class="logo" style="background:rgba(194,65,12,.12);color:var(--orange)" aria-hidden="true">AT</div>
       <div class="meta"><b>${esc(atName(st))} <span class="tag" style="vertical-align:2px;margin-left:6px">${esc(atTipo(st))}${atHasMH(st)?' + MH':''}</span></b><span>${R.filter(x=>x&&x.prod).length} de 12 meses capturados</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:${last&&last[0].target&&last[0].atReal>last[0].target?'#B42318':'var(--blue)'}">${last?f2(last[0].atReal):'—'}</span><br><span style="font-size:12px;color:var(--muted)">${last?'Actual Time · '+PC_MONTHS[last[1]]+(last[0].target?' · meta '+f2(last[0].target):''):'Actual Time'}</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="at|${st.id}" data-sdeln="${esc(atName(st))}" aria-label="Eliminar ${esc(atName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`;}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn('at',st.id,atName(st))}<button type="button" class="iconbtn sdel" data-sdel="at|${st.id}" data-sdeln="${esc(atName(st))}" aria-label="Eliminar ${esc(atName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`;}).join('')}
     ${AT.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('at',30)}</div><b style="font-size:17px">Aún no hay Actual Time</b><p>Crea uno por área: ensamble (con manejo de materiales), maquinado, fundición…</p></div>`}
     </div></section>`;
 }
@@ -3243,7 +3250,7 @@ function vAT(){
   }
   if(AT.view==='res'){const area=AT.area;const R=atAll(d,area);const ok=R.map((r,i)=>[r,i]).filter(([r])=>r&&r.prod);const tl=area==='mh'?'LAT':atTimeLbl(d.tipo);
     body=`<div class="row"><div><h2>Resumen anual · FY${String(d.fy).padStart(2,'0')}</h2><p class="sub">${esc(d.nombre)} · ${esc(atTipo(d))}${atHasMH(d)?' · '+atAreaLbl(area).toLowerCase():''} · ${ok.length} de 12 meses capturados</p></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">${atAreaSeg(d)}${del}<button class="btn ghost" type="button" data-atv="mes">${svg('back',18,2.2)} Meses</button><button class="btn orange" type="button" data-atfinish="1">Guardar</button></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">${atAreaSeg(d)}${pdfBig('at')}${del}<button class="btn ghost" type="button" data-atv="mes">${svg('back',18,2.2)} Meses</button><button class="btn orange" type="button" data-atfinish="1">Guardar</button></div></div>
     ${!ok.length?`<div class="slot empty" style="min-height:160px;margin-top:16px"><p>Captura al menos un mes para ver el resumen.</p></div>`:(()=>{
       const sum=k=>ok.reduce((a,[r])=>a+r[k],0);const atY=sum('prod')?sum('trab')*60/sum('prod'):0;const effY=sum('trab')?sum('horasReq')/sum('trab'):0;
       const tgt=ok.filter(([r])=>r.target);const tgtY=tgt.length?tgt.reduce((a,[r])=>a+r.target*r.prod,0)/tgt.reduce((a,[r])=>a+r.prod,0):0;
@@ -3517,7 +3524,7 @@ function vDFList(){
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">DF</div>
       <div class="meta"><b>${esc(dfName(st))} <span class="tag ${st.metodo==='PROPUESTO'?'on':''}" style="vertical-align:2px;margin-left:6px">${st.metodo==='PROPUESTO'?'PROPUESTO':'ACTUAL'}</span></b><span>${esc(st.fecha)} · ${esc(st.analista||'—')} · ${st.nodes.length} símbolos</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:var(--blue)">${S_.act?fT(S_.tiempo):'—'}</span><br><span style="font-size:12px;color:var(--muted)">min · ${fT(S_.dist)} m</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="df|${st.id}" data-sdeln="${esc(dfName(st))}" aria-label="Eliminar ${esc(dfName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`;}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn('df',st.id,dfName(st))}<button type="button" class="iconbtn sdel" data-sdel="df|${st.id}" data-sdeln="${esc(dfName(st))}" aria-label="Eliminar ${esc(dfName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`;}).join('')}
     ${DF.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${dfIcon('op',40)}</div><b style="font-size:17px">Aún no hay diagramas</b><p>Toca <b>Nuevo diagrama</b> para crear el primero.</p></div>`}
     </div></section>`;}
 function dfSteps(){const L=[['info','Información'],['diag','Diagrama'],['res','Resumen']];const idx=L.findIndex(x=>x[0]===DF.view);
@@ -3569,7 +3576,7 @@ function vDF(){
     <div class="mmlay dflay">${dfSvg(d)}${dfPop(d)}</div>`;}
   if(DF.view==='res'){const S_=dfSummary(d);const ord=dfOrder(d);const no={};ord.forEach((n,i)=>no[n.id]=i+1);const W_=dfWarn(d);
     body=`<div class="row"><div><h2>Resumen ASME</h2><p class="sub">${esc(d.titulo)} · método ${d.metodo.toLowerCase()} · ${esc(d.fecha)}</p></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn ghost" type="button" data-dfv="diag">${svg('back',18,2.2)} Diagrama</button><button class="btn orange" type="button" data-dffinish="1">Guardar</button></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${pdfBig('df')}${del}<button class="btn ghost" type="button" data-dfv="diag">${svg('back',18,2.2)} Diagrama</button><button class="btn orange" type="button" data-dffinish="1">Guardar</button></div></div>
     ${W_.length?`<div class="mmaddbar" style="margin-top:14px"><span><b>${W_.length} aviso${W_.length>1?'s':''}:</b> ${W_.map(([id,t])=>`paso ${no[id]} (${esc(DF_SYM[dfGet(d,id).t].n.toLowerCase())}) ${t}`).join(' · ')}</span><button class="btn sm" type="button" data-dfv="diag">Corregir</button></div>`:''}
     <div class="kpis" style="margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
       <div class="kpi"><span>Actividades</span><span class="v">${S_.act}</span><span class="sub">${S_.dec} decisi${S_.dec===1?'ón':'ones'} · sin contar inicio/fin</span></div>
@@ -3721,7 +3728,7 @@ function vTKList(){
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">TK</div>
       <div class="meta"><b>${esc(tkName(st))} <span class="tag ${st.estado==='Cerrado'?'':'on'}" style="vertical-align:2px;margin-left:6px">${st.estado==='Cerrado'?'GUARDADO':'EN PROCESO'}</span></b><span>${esc(st.fecha)} · ${esc(st.analista||'—')} · ${st.estaciones.length} estaci${st.estaciones.length!==1?'ones':'ón'} · takt ${t?fT(t.toFixed(3)):'—'} min</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:${r.over?'var(--orange)':'var(--blue)'}">${r.max?pc(r.eff,1):'—'}</span><br><span style="font-size:12px;color:var(--muted)">eficiencia de balanceo</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="tk|${st.id}" data-sdeln="${esc(tkName(st))}" aria-label="Eliminar ${esc(tkName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn('tk',st.id,tkName(st))}<button type="button" class="iconbtn sdel" data-sdel="tk|${st.id}" data-sdeln="${esc(tkName(st))}" aria-label="Eliminar ${esc(tkName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`}).join('')}
     ${TK.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('tk',30)}</div><b style="font-size:17px">Aún no hay balanceos</b><p>Toca <b>Nuevo balanceo</b>: calcula el takt de la línea y trae sus Work Element.</p></div>`}
     </div></section>`;
 }
@@ -3809,7 +3816,7 @@ function vTK(){
   }
   if(TK.view==='res'){const r=tkNow(d),a=tkAntes(d);const mv=tkMoved(d);const dem=tkDem(d.demanda);const pz=v=>v.toLocaleString('es-MX',{maximumFractionDigits:0});
     body=`<div class="row"><div><h2>Resultados del balanceo</h2><p class="sub">${esc(ubLabel(d))} · demanda ${pz(dem)} pzs/día · ${fT(disp.toFixed(2))} min disponibles${mv?' · <b>con rebalanceo simulado</b>':''}</p></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn ghost" type="button" data-tkv="bal">${svg('back',18,2.2)} Rebalancear</button><button class="btn orange" type="button" data-tkfinish="1">Guardar balanceo</button></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${pdfBig('tk')}${del}<button class="btn ghost" type="button" data-tkv="bal">${svg('back',18,2.2)} Rebalancear</button><button class="btn orange" type="button" data-tkfinish="1">Guardar balanceo</button></div></div>
     <div class="kpis" style="margin-top:16px">
       <div class="kpi"><span>Takt</span><span class="v" style="color:var(--blue)">${takt?fT(takt.toFixed(3)):'—'}</span><span class="sub">min por pieza para cumplir ${pz(dem)} pzs/día</span></div>
       <div class="kpi"><span>Cuello de botella</span><span class="v" style="color:${r.over?'var(--orange)':'var(--blue)'}">${r.bott?fT(r.max.toFixed(3)):'—'}</span><span class="sub">${r.bott?esc(r.bott.nombre)+' · '+pc(r.bott.pct)+' del takt':''}${mv&&a.bott&&Math.abs(a.max-r.max)>1e-9?' · antes '+fT(a.max.toFixed(3))+' ('+esc(a.bott.nombre)+')':''}</span></div>
@@ -4111,7 +4118,7 @@ function vSPList(){
       <div class="logo" style="background:rgba(194,65,12,.1);color:var(--orange)" aria-hidden="true">SP</div>
       <div class="meta"><b>${esc(spName(st))} <span class="tag ${st.metodo==='PROPUESTO'?'on':''}" style="vertical-align:2px;margin-left:6px">${st.metodo}</span></b><span>${esc(ubLabel(st))} · ${esc(st.fecha)} · ${st.sujeto==='MATERIAL'?'material':'operador'} · ${r.viajes} viaje${r.viajes!==1?'s':''}</span></div>
       <div style="text-align:right"><span class="mono" style="font-size:22px;font-weight:600;color:var(--blue)">${r.viajes?spM(r.total):'—'}</span><br><span style="font-size:12px;color:var(--muted)">por ciclo</span></div>
-      ${svg('next',20,2)}</button><button type="button" class="iconbtn sdel" data-sdel="sp|${st.id}" data-sdeln="${esc(spName(st))}" aria-label="Eliminar ${esc(spName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`}).join('')}
+      ${svg('next',20,2)}</button>${pdfBtn('sp',st.id,spName(st))}<button type="button" class="iconbtn sdel" data-sdel="sp|${st.id}" data-sdeln="${esc(spName(st))}" aria-label="Eliminar ${esc(spName(st))}" title="Eliminar">${svg('trash',18,2)}</button></div>`}).join('')}
     ${SP.studies.length?'':`<div class="slot empty" style="min-height:260px"><div style="color:var(--ink2)">${svg('sp',30)}</div><b style="font-size:17px">Aún no hay diagramas de espagueti</b><p>Toca <b>Nuevo espagueti</b>: pon los puntos del área y traza el recorrido tocándolos en orden.</p></div>`}
     </div></section>`;
 }
@@ -4179,7 +4186,7 @@ function vSP(){
   }
   if(SP.view==='res'){const P={};d.pts.forEach(p=>P[p.id]=p);const nm=id=>P[id]?P[id].n:'—';
     body=`<div class="row"><div><h2>Resultados</h2><p class="sub">${esc(ubLabel(d))} · ${d.metodo==='PROPUESTO'?'método propuesto':'método actual'} · ${d.sujeto==='MATERIAL'?'material':'operador'} · distancia ${d.modo==='rec'?'en línea recta':'en escuadra'} · ${fT(d.escala)} m por cuadro</p></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">${del}<button class="btn ghost" type="button" data-spv="ruta">${svg('back',18,2.2)} Recorrido</button><button class="btn orange" type="button" data-spfinish="1">Guardar diagrama</button></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${pdfBig('sp')}${del}<button class="btn ghost" type="button" data-spv="ruta">${svg('back',18,2.2)} Recorrido</button><button class="btn orange" type="button" data-spfinish="1">Guardar diagrama</button></div></div>
     <div class="kpis" style="margin-top:16px">
       <div class="kpi"><span>Distancia por ciclo</span><span class="v" style="color:var(--blue)">${spM(R.total)}</span><span class="sub">${R.viajes} viaje${R.viajes!==1?'s':''}</span></div>
       <div class="kpi"><span>Trayecto más repetido</span><span class="v" style="font-size:24px">${R.top?esc(nm(R.top.a))+' ↔ '+esc(nm(R.top.b)):'—'}</span><span class="sub">${R.top?R.top.n+(R.top.n!==1?' veces':' vez')+' · '+spM(R.top.t)+' ('+pc(R.total?R.top.t/R.total:0)+' del ciclo)':''}</span></div>
@@ -4258,6 +4265,7 @@ const REP_TITLE=document.title;
 function repPrint(kind,d){repBuild(kind,d);REP_FIRED=false;try{window.print();}catch(_){}
   // si la impresión está bloqueada (enlace de prueba) no hay «afterprint»: se avisa y se quita el reporte
   setTimeout(()=>{if(!REP_FIRED){repClose();ask('Descargar PDF','Si no se abrió la ventana de impresión: en el enlace de prueba está bloqueada; en la app publicada se abre con «Guardar como PDF».','Entendido',()=>{},{ok:true,icon:'print',solo:true});}},700);}
+const pdfBig=k=>`<button class="btn ghost" type="button" data-pdf="${k}|cur">${svg('pdf',18,2)} Descargar PDF</button>`;
 const pdfBtn=(kind,id,name)=>`<button type="button" class="iconbtn rpdf" data-pdf="${kind}|${id}" aria-label="Descargar PDF de ${esc(name)}" title="Descargar PDF">${svg('pdf',18,2)}</button>`;
 function repFind(kind,id){if(id==='cur')return ({ws:S.draft,ds:DS.d,we:DS.d,st:ST.d,mm:MM.d,sm:SM.d,tk:TK.d,pc:PC.d,at:AT.d,df:DF.d,sp:SP.d})[kind]||null;const box=storeBox(kind);return box&&box.studies.find(x=>x.id==id);}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-pdf]');if(!b)return;e.stopPropagation();
@@ -4291,7 +4299,7 @@ REP.ws=d=>{const ops=d.ops.filter(o=>calcOp(o).sum>0);const L=calcLine(ops);cons
 
 
 // Yamazumi fijo para papel: columnas con segmentos apilados y la línea del límite (disponible / takt)
-function repYama(cols,lim,limLbl,per){per=per||10;const ymax=Math.max(lim*1.15,...cols.map(c=>c.total*1.08),1e-9);const H=170;
+function repYama(cols,lim,limLbl,per,fix){per=per||10;const ymax=fix||Math.max(lim*1.15,...cols.map(c=>c.total*1.08),1e-9);const H=170;
   // renglones de máximo 10 barras, todos con la MISMA escala y la misma línea del límite: se comparan entre renglones
   const rows=[];for(let k=0;k<cols.length;k+=per)rows.push(cols.slice(k,k+per));
   return rows.map((R,ri)=>{const pad=per-R.length;const fill=rows.length>1&&pad>0?Array.from({length:pad},()=>'<div class="rycol"></div>').join(''):'';const fillN=rows.length>1&&pad>0?Array.from({length:pad},()=>'<div></div>').join(''):'';
@@ -4329,6 +4337,183 @@ REP.we=d=>{const C=repCarga(d);const n=weN(d);const opName=id=>{const o=d.ops.fi
     <tr class="rsum"><td></td><td style="text-align:left">Total del ciclo</td><td></td><td>${f2(tot)}</td><td></td><td></td><td></td><td></td></tr></tbody></table></div>`;}).join('');
   const body=!d.acts.length?'<p class="rnote">Este estudio todavía no tiene elementos cronometrados.</p>':C.html+`<section class="rlong"><h2>Cronometraje por operador</h2><p class="rnote" style="font-size:9.5px;margin:0 0 6px">Promedio = media de los ciclos capturados de cada elemento (las celdas vacías no cuentan). Rango = máximo − mínimo.</p>${crono}</section>`;
   return {tipo:'Work Element',titulo:d.titulo||'Work Element',meta:repMetaDS(d,'Analista'),body};};
+
+// ---- utilidades para los reportes que reusan las gráficas SVG de la app ----
+// Toma la gráfica (<svg role="img">) de una tarjeta de la app, sin animación y con ids propios (los marcadores no chocan con la app)
+function repSvg(html,cls){const m=String(html||'').match(/<svg[^>]*role="img"[\s\S]*?<\/svg>/);if(!m)return '';
+  const s=m[0].replace(/id="([^"]+)"/g,'id="rp-$1"').replace(/url\(#([^)]+)\)/g,'url(#rp-$1)');
+  return `<div class="stchart parchart rsvg ${cls||''}">${s}</div>`;}
+const repLeg=L=>`<div class="rlegend">${L.map(([n,c,line])=>`<span><i style="${line?`background:transparent;border-top:2px ${line} ${c};height:0;border-radius:0;vertical-align:3px`:'background:'+c}"></i>${esc(n)}</span>`).join('')}</div>`;
+const repProj=(rows,cols)=>`<table class="rtbl"><thead><tr><th style="text-align:left"></th>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.map(([l,v,col])=>`<tr><th>${l}</th>${v.map(x=>`<td style="${col?'color:'+col+';':''}font-weight:600">${x}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+// leyenda de elementos agrupada por nombre (con más de 24 distintos se omite: el detalle está en la tabla)
+function repLegNames(items,nameOf,colOf,what){const seen=new Map();items.forEach(a=>{const k=String(nameOf(a)).trim().toUpperCase();if(!seen.has(k))seen.set(k,a);});const U=[...seen.values()];
+  return U.length>24?`<p class="rnote" style="font-size:9.5px">${U.length} ${what} distintos: cada color es uno; el detalle está en la tabla siguiente.</p>`:repLeg(U.map(a=>[nameOf(a),colOf(a)]));}
+const repNo=(t)=>`<p class="rnote">${t}</p>`;
+// algunas gráficas de la app marcan lo seleccionado en pantalla: en el reporte va limpio
+function repClean(st,keys,fn){const old={};keys.forEach(k=>{old[k]=st[k];st[k]=null;});try{return fn();}finally{keys.forEach(k=>st[k]=old[k]);}}
+
+// ---- Speed Trial ----
+REP.st=d=>{const r=stC(d);const To=num(d.tcobj);const plan=d.oeePlan??85;const meta=[['Ubicación',ubLabel(d)],['No. de parte',d.parte],['Proceso / modelo',[d.proceso,d.modelo].filter(Boolean).join(' · ')],['Analista',d.analista],['Periodo',d.periodo],['TC objetivo',To?f2(To)+' min':'']];
+  if(!r.N)return {tipo:'Speed Trial',titulo:stName(d),meta,body:repNo('Este estudio todavía no tiene piezas registradas.')};
+  const o=stOEE(r);const k=stLineStats(r,d.tcobj,plan);const K=stCost(r.jphReal,d.tcobj,plan,moneyNum(d.costo),d.hd??22.5,d.dw??6,d.wm??4);const P=stPareto(d.recs,d.tcobj,stCat(d));
+  const goal=num(plan)/100;const okOEE=o.oee>=goal;const D=o.disp||1;
+  const lvl=(l,v,cls)=>`<tr class="${cls||''}"><th>${l}</th><td>${f2(v)}</td><td>${pc(v/D,1)}</td></tr>`;
+  const lossRows=ks=>ks.filter(x=>Math.abs(x[1])>1e-9).map(([l,v])=>`<tr><td style="text-align:left;padding-left:18px">${esc(l)}</td><td>${f2(v)}</td><td>${pc(v/D,1)}</td></tr>`).join('');
+  const L=(ks)=>ks.map(c=>[c+'. '+ST_CAUSES[+c-1],r.loss[c]||0]);
+  const oeeTbl=`<table class="rtbl"><thead><tr><th style="text-align:left">Nivel / pérdida</th><th>Minutos</th><th>% del disponible</th></tr></thead><tbody>
+    ${lvl('Tiempo disponible (registrado + paro planeado)',o.disp,'rsum')}${lossRows([['Paro planeado',o.paro]])}
+    ${lvl('Tiempo laborable',o.lab,'rsum')}${lossRows(L(ST_AV))}
+    ${lvl('Tiempo trabajado · disponibilidad '+pc(o.A,1),o.trab,'rsum')}${lossRows(L(ST_SP).concat(r.gain<0?[['Ganancia: piezas más rápidas que el objetivo',r.gain]]:[]))}
+    ${lvl('Tiempo neto (piezas NG + OK) · desempeño '+pc(o.P,1),o.neto,'rsum')}${lossRows(L(ST_Q))}
+    ${lvl('Tiempo de piezas OK · calidad '+pc(o.Q,1),o.ok,'rsum')}</tbody></table>`;
+  const stats=[['Capacidad','JPH objetivo (100 % OEE)',k.jph100,'60 ÷ TC objetivo'],['Capacidad','JPH plan (OEE '+plan+' %)',k.jphPlan,'(60 ÷ TC objetivo) × OEE plan'],['Capacidad','Piezas posibles en el tiempo registrado',k.possible,'tiempo total ÷ TC objetivo'],
+    ['Real','JPH real (piezas OK)',k.jphReal,'piezas OK ÷ horas registradas'],['Real','JPH máximo (pieza más rápida)',k.jphMax,'60 ÷ T.T mínimo'],['Real','JPH mínimo (pieza más lenta)',k.jphMin,'60 ÷ T.T máximo'],
+    ['Pérdida','Minutos de pérdida por afectaciones',k.lossMin,'causas 1 a 14'],['Pérdida','Piezas perdidas por afectaciones',k.lostPz,'minutos de pérdida ÷ TC objetivo'],['Pérdida','JPH perdido',k.jphLost,'piezas perdidas ÷ horas registradas'],
+    ['Afectación','JPH con afectación (WA)',k.jphTT,'60 ÷ promedio T.T WA'],['Afectación','JPH sin afectación (WOA)',k.jphWOA,'60 ÷ promedio T.T WOA'],['Afectación','Promedio T.T con afectación (WA)',k.promTT,'tiempo ÷ muestras'],['Afectación','Promedio T.T sin afectación (WOA)',k.promWA,'(tiempo − pérdidas) ÷ muestras']];
+  const loss=K.gap>0;const cs=v=>(loss?'':'+')+money(Math.abs(v));
+  const recs=d.recs.filter(x=>num(x.t)>0);
+  const body=`<section><h2>Resumen</h2>${repKpis([['OEE',pc(r.oee,1),(okOEE?'cumple':'no cumple')+' el objetivo de '+plan+' %',okOEE?'#1D5FA8':'#C2410C'],['JPH real',f2(r.jphReal),'plan '+f2(k.jphPlan)+' · 100 % = '+f2(k.jph100)],['TC real (promedio)',f2(r.tcReal),'objetivo '+f2(To)+' min · '+r.N+' piezas'],['Piezas OK / NG',r.ok+' / '+r.def,f2(r.T)+' min registrados',r.def?'#C2410C':'']])}</section>
+    <section><h2>Fluctuación de la línea, pieza por pieza</h2>${repSvg(stLine(d,r))}${repLeg([['Arriba del objetivo','#DC2626'],['En o abajo del objetivo','#15803D'],['TC objetivo '+f2(To),'#1B2430','dashed'],['TC real '+f2(r.tcReal),'#1D5FA8','dotted']])}<p class="rnote" style="font-size:9.5px">Los puntos con borde oscuro tienen una falla registrada. ${recs.filter(x=>num(x.t)>To).length} de ${recs.length} piezas por encima del objetivo.</p></section>
+    <section><h2>Pérdidas acorde a la OEE</h2>${repKpis([['Disponibilidad',pc(o.A,1),'trabajado ÷ laborable'],['Desempeño',pc(o.P,1),'neto ÷ trabajado'],['Calidad',pc(o.Q,1),'piezas OK ÷ (NG + OK)'],['OEE',pc(o.oee,1),'A × D × C · objetivo '+plan+' %',okOEE?'#1D5FA8':'#C2410C']])}<div style="height:8px"></div>${oeeTbl}</section>
+    <section><h2>Estadísticas de la línea</h2><table class="rtbl"><thead><tr><th style="text-align:left">Grupo</th><th style="text-align:left">Indicador</th><th>Valor</th><th style="text-align:left">Cómo se calcula</th></tr></thead><tbody>${stats.map(x=>`<tr><td style="text-align:left;color:#5B6673">${x[0]}</td><th>${x[1]}</th><td><b>${f2(x[2])}</b></td><td style="text-align:left;color:#5B6673">${x[3]}</td></tr>`).join('')}</tbody></table><p class="rnote" style="font-size:9.5px">WA = con afectación · WOA = sin afectación.</p></section>
+    ${moneyNum(d.costo)?`<section><h2>${loss?'Proyección del costo por incumplimiento de JPH':'Proyección de la ventaja contra el JPH plan'}</h2>${repKpis([['GAP de JPH',(loss?'−':'+')+f2(Math.abs(K.gap)),'plan '+f2(K.jphPlan)+' · real '+f2(K.jphReal),loss?'#C2410C':'#1D5FA8'],['Por hora',cs(K.hour),'GAP × costo unitario '+money(moneyNum(d.costo))],['Mensual',cs(K.month),'',loss?'#C2410C':'#1D5FA8'],['Anual',cs(K.year),'12 meses',loss?'#C2410C':'#1D5FA8']])}
+      <div style="height:6px"></div>${repProj([['Proyección',[K.hour,K.day,K.week,K.month,K.year].map(cs),loss?'#C2410C':'#1D5FA8']],['Hora','Día','Semana','Mes','Año'])}<p class="rnote" style="font-size:9.5px">Supone el mismo GAP todas las horas: ${esc(d.hd??22.5)} h/día · ${esc(d.dw??6)} días/semana · ${esc(d.wm??4)} semanas/mes · 12 meses.</p></section>`:''}
+    ${P.items.length?`<section><h2>Pareto de afectaciones</h2><p class="rnote" style="font-size:9.5px;margin:0 0 4px">Solo piezas que excedieron el TC objetivo (o defectivas) · ${f2(P.total)} min = ${f2(P.lostPz)} piezas perdidas. Renglones en negritas: los pocos vitales (hasta el 80 %).</p>${repSvg(stParetoCard(d,r))}${repLeg([['Minutos perdidos','#3E7BC4'],['% acumulado','#DC2626'],['80 %','#1B2430','dashed']])}
+      <table class="rtbl"><thead><tr><th>#</th><th style="text-align:left">Afectación</th><th>6M</th><th>Veces</th><th>Min</th><th>%</th><th>Acumulado</th><th>Piezas perdidas</th></tr></thead><tbody>
+      ${P.items.map(x=>`<tr style="${x.acc-x.pct<0.8?'font-weight:700':''}"><td>${x.pos}</td><td style="text-align:left">${esc(x.label)}${x.otros?` (${x.otros} problemas)`:''}</td><td>${esc(x.m6||'—')}</td><td>${x.rep}</td><td>${f2(x.min)}</td><td>${pc(x.pct,1)}</td><td class="rinn">${pc(x.acc,1)}</td><td>${f2(x.lostPz)}</td></tr>`).join('')}
+      <tr class="rsum"><td></td><td style="text-align:left">Total</td><td></td><td>${P.items.reduce((s,x)=>s+x.rep,0)}</td><td>${f2(P.total)}</td><td>100 %</td><td></td><td>${f2(P.lostPz)}</td></tr></tbody></table></section>`:''}
+    ${stCascade(d.recs,d.tcobj,stCat(d))?`<section><h2>Caída de JPH</h2><p class="rnote" style="font-size:9.5px;margin:0 0 4px">Del JPH al 100 % al JPH real: cada barra roja es una posición del Pareto; la verde, lo que se ganó con piezas más rápidas que el objetivo.</p>${repSvg(stCascCard(d,r),'casc')}${repLeg([['Pérdida','#DC2626'],['Ganancia','#15803D'],['JPH plan '+f2(k.jphPlan),'#C2410C','dashed']])}</section>`:''}
+    <section class="rlong"><h2>Anexo · registro pieza por pieza</h2><table class="rtbl rsm"><thead><tr><th>No.</th><th>Tiempo (min)</th><th>GAP vs TC</th><th style="text-align:left">Pérdida</th><th style="text-align:left">Estación · problema</th><th>6M</th><th style="text-align:left">Comentario</th><th>Resultado</th></tr></thead><tbody>
+      ${recs.map((x,i)=>{const t=num(x.t),g=t-To;const p=stProb(d,x.probId);return `<tr><td>${i+1}</td><td>${f2(t)}</td><td class="${g>0?'rinn':'rnec'}">${g>0?'+':''}${f2(g)}</td><td style="text-align:left">${x.cause?esc(causeLbl(x.cause)):'—'}</td><td style="text-align:left">${p?esc(probLbl(p)):'—'}</td><td>${esc((p||{}).m6||'—')}</td><td style="text-align:left">${esc(x.prob||'')}</td><td>${stIsDef(x.cause)?'<b class="rinn">NG</b>':'OK'}</td></tr>`;}).join('')}</tbody></table></section>`;
+  return {tipo:'Speed Trial',titulo:stName(d),meta,body};};
+
+// ---- Man Machine Chart ----
+REP.mm=d=>{const meta=[['Ubicación',ubLabel(d)],['Línea / celda',d.linea],['No. de parte',d.parte],['Analista',d.analista],['Fecha',d.fecha],['TC objetivo',num(d.tcobj)?fT(num(d.tcobj))+' min':'']];
+  if(!d.sts.length)return {tipo:'Man Machine Chart',titulo:mmName(d),meta,body:repNo('Este estudio todavía no tiene estaciones.')};
+  const T=mmTable(d.sts,d.mpp);const G=mmChart(T.rows);const lim=G.lim;const K=mmKpis(G,T.rows,d);const lose=K.gap>1e-9;
+  const sup=`${esc(d.hd)} h/día · ${esc(d.dw)} días/semana · ${esc(d.wm)} semanas/mes`;const n1=v=>v.toLocaleString('es-MX',{maximumFractionDigits:1});
+  const verdict=lim?`La celda la limita <b>${esc(lim.name)}</b>: necesita ${fT(lim.need)} min por vuelta (${fT(lim.man)} manual + ${fT(lim.tc)} de máquina) y el operador regresa en ${fT(G.top)}. El operador espera <b>${fT(G.wait)} min por vuelta</b> (${pc(G.wait/G.C)} de su tiempo).`
+    :`La celda la limita <b>el operador</b>: su vuelta (${fT(G.top)} min) es más larga que lo que necesita cualquier máquina, así que no espera; son las máquinas las que lo esperan a él.`;
+  const body=`<section><h2>Resumen</h2>${repKpis([['Ciclo del operador',fT(G.top),'manual '+fT(G.manT)+' + durante '+fT(G.durT)+' + caminata '+fT(G.walkT)],['Ciclo real de la celda',fT(G.C),'lo limita '+(lim?lim.name:'el operador')+' · '+f2(G.jph)+' pzs/h','#1D5FA8'],['Espera del operador',fT(G.wait),'por vuelta · ocupación '+pc(G.occ),G.wait>1e-6?'#C2410C':''],['Recorrido',f2(T.metros)+' m',T.pasos+' pasos por vuelta']])}<p style="margin:8px 0 0;font-size:11px">${verdict}</p></section>
+    <section><h2>Gráfica hombre-máquina</h2>${repSvg(mmChartSvg(d,G))}${repLeg([['Operación manual','#1B2430'],['Ciclo de máquina','#1D5FA8','dashed'],['Caminata (pasos × 0.01 min)','#8A96A3','solid']])}</section>
+    <section><h2>Tiempos por estación en la vuelta</h2><table class="rtbl"><thead><tr><th>Proceso</th><th style="text-align:left">Estación</th><th>Tipo</th><th>TC máquina</th><th>Manual</th><th>Durante el ciclo</th><th>Pasos</th><th>Llega</th><th>Máquina libre</th><th>Necesita por vuelta</th><th>Ocio</th><th>Utilización</th></tr></thead><tbody>
+      ${G.rows.map((x,i)=>{const t=T.rows[i];return `<tr style="${lim&&x===lim?'font-weight:700':''}"><td>${i+1}</td><td style="text-align:left">${esc(x.name)}${t.n>1?' ×'+t.n:''}</td><td>${mmKindLbl[t.s.kind]}</td><td>${x.maq?fT(x.tc):'—'}</td><td>${fT(x.man)}</td><td>${x.dur?fT(x.dur):'—'}</td><td>${t.pasos}</td><td>${fT(x.arr)}</td><td>${x.maq?fT(x.mEnd):'—'}</td><td>${x.maq?fT(x.need):'—'}</td><td>${x.maq?fT(x.idle):'—'}</td><td>${x.maq?pc(x.util):'—'}</td></tr>`;}).join('')}
+      <tr class="rsum"><td></td><td style="text-align:left">Vuelta del operador</td><td></td><td></td><td>${fT(G.manT)}</td><td>${fT(G.durT)}</td><td>${T.pasos}</td><td colspan="5" style="text-align:left">ciclo ${fT(G.top)} min · celda ${fT(G.C)} min</td></tr></tbody></table>
+      ${G.rows.some(x=>x.durOver)?`<p class="rnote rinn" style="font-size:9.5px">Ojo: en ${G.rows.filter(x=>x.durOver).map(x=>esc(x.name)).join(', ')} la operación manual «durante el ciclo» dura más que el TC de la máquina.</p>`:''}</section>
+    ${K.To?`<section><h2>Indicadores contra el TC objetivo</h2>${repKpis([['JPH real vs plan',f2(K.jphReal),'plan '+f2(K.jphPlan)+' (OEE '+f2(K.oee*100).replace('.00','')+' %) · 100 % = '+f2(K.jph100)],[lose?'Piezas perdidas por hora':'Piezas arriba del plan',(lose?'−':'+')+f2(Math.abs(K.gap)),lose?'la celda sale más lenta que el plan':'la celda alcanza el plan',lose?'#C2410C':'#15803D'],['Operador sin trabajo',pc(K.waitFrac,1),f2(K.waitFrac*60)+' min de cada hora',K.waitFrac>1e-6?'#C2410C':''],['Ocupación de máquinas',pc(K.occAvg,1),'TC promedio '+fT(K.tcAvg)+' ÷ '+fT(K.To)+(K.over.length?' · '+K.over.length+' arriba del objetivo':''),'#1D5FA8']])}
+      ${lose||K.waitFrac>1e-6?`<div style="height:8px"></div>${repProj([].concat(lose?[['Piezas perdidas',[K.pz.hour,K.pz.day,K.pz.week,K.pz.month,K.pz.year].map(n1),'#C2410C']]:[],K.waitFrac>1e-6?[['Horas-hombre sin trabajo',[K.hh.hour,K.hh.day,K.hh.week,K.hh.month,K.hh.year].map(v=>n1(v)+' h'),'#C2410C']]:[]),['Hora','Día','Semana','Mes','Año'])}<p class="rnote" style="font-size:9.5px">Proyección con ${sup}.</p>`:''}
+      ${K.maqs.length?`<div class="rblock"><h3 style="font-size:11px;margin:8px 0 2px">Ocupación de máquinas contra el TC objetivo</h3>${repSvg(mmOccSvg(K))}${repLeg([['Dentro del objetivo','#3E7BC4'],['Arriba del objetivo','#DC2626'],['Objetivo','#C2410C','dashed'],['Promedio','#1B2430','dotted']])}</div>`:''}</section>`:''}
+    <section><h2>Layout del recorrido</h2>${repClean(MM,['sel','addAt'],()=>repSvg(mmLayoutSvg(d,true),'rbox'))}<p class="rnote" style="font-size:9.5px">Los números en las flechas son los pasos entre estaciones; el número de cada caja es su orden en la vuelta.</p></section>`;
+  return {tipo:'Man Machine Chart',titulo:mmName(d),meta,body};};
+
+// ---- SMED ----
+REP.sm=d=>{const meta=[['Ubicación',ubLabel(d)],['Línea / máquina',d.linea],['Cambio',[d.de,d.a].every(Boolean)?d.de+' → '+d.a:''],['Personas en el cambio',d.personas],['Analista',d.analista],['Fecha',d.fecha]];
+  if(!d.steps.length)return {tipo:'SMED',titulo:smName(d),meta,body:repNo('Este estudio todavía no tiene pasos registrados.')};
+  const r=smCalc(d.steps,d);const hrs=v=>v.toLocaleString('es-MX',{maximumFractionDigits:1})+' h';const pz=v=>v.toLocaleString('es-MX',{maximumFractionDigits:0});
+  const proj=[].concat(r.hrs?[['Horas de paro recuperadas',[fT(r.red)+' min',hrs(r.hrs.week),hrs(r.hrs.month),hrs(r.hrs.year)],'#15803D']]:[],r.pz?[['Piezas recuperadas',[f2(r.pz.cambio),pz(r.pz.week),pz(r.pz.month),pz(r.pz.year)],'#15803D']]:[]);
+  const body=`<section><h2>Resumen</h2>${repKpis([['Paro actual',fT(r.actual)+' min',d.steps.length+' pasos'],['Paro propuesto',fT(r.prop)+' min','solo lo interno · externo '+fT(r.E)+' · eliminado '+fT(r.X),'#1D5FA8'],['Reducción','−'+pc(r.pct,1),fT(r.red)+' min menos por cambio','#15803D'],['Meta SMED (menos de 10 min)',r.meta?'Cumple':fT(r.prop-10)+' min',r.meta?'paro de un solo dígito':'de paro interno faltan por reducir',r.meta?'#15803D':'#C2410C']])}</section>
+    <section><h2>Paro actual contra propuesto</h2>${repSvg(smBars(r),'rpad')}${repLeg([['Interno (máquina parada)','#1D5FA8'],['Externo (sale del paro)','#9DB9DA'],['Eliminado','#E8B4A0']])}</section>
+    ${proj.length?`<section><h2>Lo que se recupera</h2>${repProj(proj,['Por cambio','Semana','Mes','Año'])}<p class="rnote" style="font-size:9.5px">${fT(r.red)} min × ${esc(d.cpw)} cambios por semana × ${esc(d.wm)} semanas por mes${r.pz?' · piezas = minutos ÷ TC objetivo '+fT(num(d.tcobj)):''}.</p></section>`:''}
+    <section><h2>¿En qué se va el tiempo del cambio?</h2>${repSvg(smCatSvg(r),'rpad')}</section>
+    <section class="${d.steps.length>25?'rlong':''}"><h2>Pasos del cambio</h2><table class="rtbl"><thead><tr><th>No.</th><th style="text-align:left">Paso</th><th style="text-align:left">Categoría</th><th>Actual (min)</th><th>Clasificación</th><th>Propuesto (min)</th></tr></thead><tbody>
+      ${d.steps.map((s,i)=>{const c=smCls(s);return `<tr><td>${i+1}</td><td style="text-align:left">${esc(s.desc)}</td><td style="text-align:left">${esc(s.cat)}</td><td>${fT(num(s.t))}</td><td class="${c==='I'?'rnec':c==='X'?'rinn':''}">${SM_CLS[c][0]}</td><td>${c==='X'?'—':fT(smNew(s))+(c==='E'?' (fuera del paro)':'')}</td></tr>`;}).join('')}
+      <tr class="rsum"><td></td><td style="text-align:left">Total de paro</td><td></td><td>${fT(r.actual)}</td><td></td><td>${fT(r.prop)}</td></tr></tbody></table>
+      <p class="rnote" style="font-size:9.5px">Interno = necesita la máquina parada · Externo = se hace antes o después con la máquina corriendo · Eliminar = no agrega valor.</p></section>`;
+  return {tipo:'SMED',titulo:smName(d),meta,body};};
+
+// ---- Takt y balanceo ----
+REP.tk=d=>{const takt=tkTakt(d),disp=tkDisp(d),dem=tkDem(d.demanda);const pz=v=>v.toLocaleString('es-MX',{maximumFractionDigits:0});
+  const meta=[['Ubicación',ubLabel(d)],['Analista',d.analista],['Fecha',d.fecha],['Demanda',dem?pz(dem)+' pzs/día':''],['Turnos',d.turnos],['Takt',takt?fT(takt.toFixed(3))+' min/pza':'']];
+  if(!d.estaciones.length)return {tipo:'Takt y balanceo',titulo:tkName(d),meta,body:repNo('Este balanceo todavía no tiene estaciones.')};
+  const r=tkNow(d),a=tkAntes(d),mv=tkMoved(d);const pal=tkPal(d);
+  const col=R=>R.rows.map(x=>({name:x.nombre,total:x.tc,over:x.over,top:fT(x.tc.toFixed(3)),sub:takt?(x.over?'excede ':'holgura ')+f2(Math.abs(takt-x.tc))+' min':'',segs:x.items.map(e=>({v:tkNum(e.t),c:pal[e.id]}))}));
+  const ymax=Math.max(takt*1.15,...r.rows.map(x=>x.tc*1.08),...a.rows.map(x=>x.tc*1.08),0.1);const lbl='takt '+fT(takt.toFixed(3))+' min';
+  const many=r.n>10||d.els.length>40;
+  const body=`<section><h2>Takt de la línea</h2>${repKpis([['Demanda del cliente',pz(dem),'piezas por día'],['Tiempo disponible',fT(disp.toFixed(2))+' min',`${esc(d.turnos)} turno${num(d.turnos)!==1?'s':''} × (${esc(d.minTurno)} − ${esc(d.paros||'0')} de paros)`],['Takt',takt?fT(takt.toFixed(3)):'—','min por pieza = disponible ÷ demanda','#1D5FA8'],['Personal teórico',r.personal.toFixed(2),'Σ TC ÷ takt · mínimo '+r.minEst+' estaciones']])}</section>
+    <section><h2>Resultado del balanceo${mv?' (con rebalanceo simulado)':''}</h2>${repKpis([['Cuello de botella',r.bott?fT(r.max.toFixed(3)):'—',r.bott?r.bott.nombre+' · '+pc(r.bott.pct)+' del takt'+(mv&&a.bott&&Math.abs(a.max-r.max)>1e-9?' · antes '+fT(a.max.toFixed(3)):''):'',r.over?'#C2410C':'#1D5FA8'],['Estaciones sobre takt',String(r.over),'de '+r.n+(mv&&a.over!==r.over?' · antes '+a.over:''),r.over?'#C2410C':'#15803D'],['Capacidad teórica',f2(r.cap)+' pzs/h',pz(r.capDia)+' pzs/día · '+(r.cumple?'cumple la demanda':'faltan '+pz(Math.max(0,dem-r.capDia))+' pzs/día'),r.cumple?'#15803D':'#C2410C'],['Eficiencia de balanceo',(mv&&Math.abs(a.eff-r.eff)>1e-9?pc(a.eff,1)+' → ':'')+pc(r.eff,1),'Σ TC '+fT(r.total.toFixed(3))+' ÷ ('+r.n+' × '+fT(r.max.toFixed(3))+')']])}</section>
+    ${mv?`<section class="${many?'rlong':''}"><h2>Antes · como se trajo de los estudios</h2>${repYama(col(a),takt,lbl,10,ymax)}</section>`:''}
+    <section class="${many?'rlong':''}"><h2>${mv?'Después · rebalanceo simulado':'Tiempo ciclo por estación contra el takt'}</h2>${repYama(col(r),takt,lbl,10,ymax)}${repLegNames(d.els,e=>e.name,e=>pal[e.id],'elementos')}</section>
+    <section><h2>Estaciones</h2><table class="rtbl"><thead><tr><th style="text-align:left">Estación</th>${mv?'<th>TC como se trajo</th>':''}<th>TC${mv?' simulado':''} (min)</th><th>% del takt</th><th>Holgura (min)</th><th>Elementos</th></tr></thead><tbody>
+      ${r.rows.map(x=>{const b=a.rows.find(y=>y.id===x.id);return `<tr><th>${esc(x.nombre)}</th>${mv?`<td>${b?fT(b.tc.toFixed(3)):'nueva'}</td>`:''}<td class="${x.over?'rinn':''}">${fT(x.tc.toFixed(3))}</td><td>${pc(x.pct,1)}</td><td class="${x.over?'rinn':''}">${takt?f2(takt-x.tc):'—'}</td><td>${x.items.length}</td></tr>`;}).join('')}
+      <tr class="rsum"><th>Total</th>${mv?`<td>${fT(a.total.toFixed(3))}</td>`:''}<td>${fT(r.total.toFixed(3))}</td><td></td><td></td><td>${d.els.length}</td></tr></tbody></table></section>
+    <section class="rlong"><h2>Elementos por estación</h2>${mv?'<p class="rnote" style="font-size:9.5px;margin:0 0 6px">«Venía de»: estación donde estaba el elemento antes del rebalanceo simulado.</p>':''}<table class="rtbl"><thead><tr><th style="text-align:left">Estación</th><th style="text-align:left">Elemento</th><th>Min/pza</th>${mv?'<th style="text-align:left">Venía de</th>':''}</tr></thead><tbody>
+      ${r.rows.map(x=>x.items.map((e,k)=>`<tr>${k===0?`<th rowspan="${x.items.length}">${esc(x.nombre)}<small>TC ${fT(x.tc.toFixed(3))} min</small></th>`:''}<td style="text-align:left">${esc(e.name)}</td><td>${fT(e.t)}</td>${mv?`<td style="text-align:left" class="${e.st!==e.st0?'rinn':''}">${e.st!==e.st0?esc(tkStName(d,e.st0)):'—'}</td>`:''}</tr>`).join('')).join('')}</tbody></table></section>`;
+  return {tipo:'Takt y balanceo',titulo:tkName(d),meta,body};};
+
+// ---- Diagrama de flujo de proceso ----
+REP.df=d=>{const meta=[['Ubicación',ubLabel(d)],['Proceso',d.proceso],['Área',d.area],['Analista',d.analista],['Fecha',d.fecha],['Método',d.metodo==='PROPUESTO'?'Propuesto':'Actual']];
+  if(!d.nodes.length)return {tipo:'Flujo de proceso',titulo:dfName(d),meta,body:repNo('Este diagrama todavía no tiene símbolos.')};
+  const S_=dfSummary(d);const ord=dfOrder(d);const no={};ord.forEach((n,i)=>no[n.id]=i+1);const W_=dfWarn(d);
+  const body=`<section><h2>Resumen ASME</h2>${repKpis([['Actividades',String(S_.act),S_.dec+' decisi'+(S_.dec===1?'ón':'ones')+' · sin contar inicio/fin'],['Tiempo total',fT(S_.tiempo)+' min',''],['Distancia recorrida',fT(S_.dist)+' m','en transportes'],['Operaciones',pc(S_.pctOp,0),'de las actividades · '+pc(S_.pctOpT,0)+' del tiempo','#1D5FA8']])}
+      ${W_.length?`<p class="rnote rinn" style="font-size:9.5px;margin-top:6px"><b>${W_.length} aviso${W_.length>1?'s':''}:</b> ${W_.map(([id,t])=>`paso ${no[id]} (${esc(DF_SYM[dfGet(d,id).t].n.toLowerCase())}) ${t}`).join(' · ')}</p>`:''}
+      <div style="height:8px"></div><table class="rtbl"><thead><tr><th style="text-align:left">Símbolo</th><th>Cantidad</th><th>Tiempo (min)</th><th>Distancia (m)</th><th>% del tiempo</th></tr></thead><tbody>
+      ${S_.rows.map(x=>`<tr><th>${dfIcon(x.t,22)} ${DF_SYM[x.t].n}</th><td>${x.n}</td><td>${fT(x.tiempo)}</td><td>${x.t==='tra'?fT(x.dist):'—'}</td><td>${S_.tiempo?pc(x.tiempo/S_.tiempo,0):'—'}</td></tr>`).join('')}
+      <tr class="rsum"><th>Total</th><td>${S_.act}</td><td>${fT(S_.tiempo)}</td><td>${fT(S_.dist)}</td><td>100 %</td></tr></tbody></table></section>
+    <section class="rlong"><h2>Tabla del proceso</h2><table class="rtbl"><thead><tr><th>#</th><th style="text-align:left">Símbolo</th><th style="text-align:left">Acción</th><th style="text-align:left">Responsable</th><th>Tiempo (min)</th><th>Distancia (m)</th><th>Sigue</th></tr></thead><tbody>
+      ${ord.map(n=>`<tr><td>${no[n.id]}</td><td style="text-align:left;white-space:nowrap">${dfIcon(n.t,22)} ${DF_SYM[n.t].n}</td><td style="text-align:left">${esc(n.desc)||'—'}</td><td style="text-align:left">${esc(n.resp)||''}</td><td>${num(n.tiempo)?fT(num(n.tiempo)):''}</td><td>${n.t==='tra'&&num(n.dist)?fT(num(n.dist)):''}</td>
+        <td>${dfIsDec(n)?`SÍ → ${n.yes!=null?no[n.yes]:'—'} · NO → ${n.no!=null?no[n.no]:'—'}`:n.next!=null?'→ '+no[n.next]:n.t==='ini'&&dfIncoming(d,n.id).length?'fin':'—'}</td></tr>`).join('')}</tbody></table></section>
+    <section><h2>Diagrama</h2>${repSvg(dfSvg(d,{ro:true}),'rbox')}</section>`;
+  return {tipo:'Flujo de proceso',titulo:dfName(d),meta,body};};
+
+// ---- Diagrama de espagueti ----
+REP.sp=d=>{const meta=[['Ubicación',ubLabel(d)],['Método',d.metodo==='PROPUESTO'?'Propuesto':'Actual'],['Qué se sigue',d.sujeto==='MATERIAL'?'Material':'Operador'],['Analista',d.analista],['Fecha',d.fecha],['Escala',fT(d.escala)+' m por cuadro · '+(d.modo==='rec'?'línea recta':'en escuadra')]];
+  if(!d.pts.length)return {tipo:'Espagueti',titulo:spName(d),meta,body:repNo('Este diagrama todavía no tiene puntos.')};
+  const R=spCalc(d);const P={};d.pts.forEach(p=>P[p.id]=p);const nm=id=>P[id]?P[id].n||'Punto':'—';const idx={};d.pts.forEach((p,i)=>idx[p.id]=i+1);
+  const body=`<section><h2>Resumen</h2>${repKpis([['Distancia por ciclo',spM(R.total),R.viajes+' viaje'+(R.viajes!==1?'s':''),'#1D5FA8'],['Por turno',R.porTurno?spM(R.porTurno):'—',R.porTurno?fT(d.ciclos)+' ciclos por turno'+(R.porDia?' · por día '+spM(R.porDia)+' ('+fT(d.turnos)+' turnos)':''):'sin ciclos por turno capturados'],['Tiempo caminando',R.tCiclo?f2(R.tCiclo)+' min':'—',R.tCiclo?'por ciclo'+(R.tTurno?' · '+f2(R.tTurno)+' min por turno':'')+' · a '+fT(d.vel)+' m/min':'sin velocidad capturada'],['Trayecto más repetido',R.top?R.top.n+(R.top.n!==1?' veces':' vez'):'—',R.top?nm(R.top.a)+' ↔ '+nm(R.top.b)+' · '+spM(R.top.t)+' ('+pc(R.total?R.top.t/R.total:0)+' del ciclo)':'']])}
+      ${R.topPt!=null?`<p style="margin:6px 0 0;font-size:11px">Punto más visitado: <b>${esc(nm(R.topPt))}</b>, ${R.visits[R.topPt]} visita${R.visits[R.topPt]!==1?'s':''} por ciclo.</p>`:''}</section>
+    <section><h2>Diagrama</h2>${repClean(SP,['sel'],()=>repSvg(spSvg(d,'res'),'rbox'))}<p class="rnote" style="font-size:9.5px">Las líneas más gruesas se recorren más veces (×n). El número de cada cuadro es el punto en la tabla de puntos.</p></section>
+    ${R.pairs.length?`<section><h2>Trayectos</h2><table class="rtbl"><thead><tr><th style="text-align:left">Trayecto</th><th>Veces</th><th>m cada vez</th><th>m por ciclo</th><th>% del ciclo</th></tr></thead><tbody>
+      ${[...R.pairs].sort((x,y)=>y.t-x.t).map(p=>`<tr><th>${esc(nm(p.a))} ↔ ${esc(nm(p.b))}</th><td>${p.n}</td><td>${fT(p.d.toFixed(2))}</td><td>${fT(p.t.toFixed(2))}</td><td>${pc(R.total?p.t/R.total:0,1)}</td></tr>`).join('')}
+      <tr class="rsum"><th>Total</th><td>${R.viajes}</td><td></td><td>${fT(R.total.toFixed(2))}</td><td></td></tr></tbody></table></section>`:''}
+    <section class="${R.legs.length>30?'rlong':''}"><h2>Puntos y recorrido</h2><table class="rtbl"><thead><tr><th>#</th><th style="text-align:left">Punto</th><th>Visitas por ciclo</th></tr></thead><tbody>${d.pts.map((p,i)=>`<tr><td>${i+1}</td><td style="text-align:left">${esc(p.n||'Punto')}</td><td>${R.visits[p.id]||0}</td></tr>`).join('')}</tbody></table>
+      ${R.legs.length?`<table class="rtbl"><thead><tr><th>Viaje</th><th style="text-align:left">De</th><th style="text-align:left">A</th><th>Metros</th></tr></thead><tbody>${R.legs.map((l,i)=>`<tr><td>${i+1}</td><td style="text-align:left">${idx[l.a]}. ${esc(nm(l.a))}</td><td style="text-align:left">${idx[l.b]}. ${esc(nm(l.b))}</td><td>${fT(l.d.toFixed(2))}</td></tr>`).join('')}</tbody></table>`:''}</section>`;
+  return {tipo:'Espagueti',titulo:spName(d),meta,body};};
+
+// ---- Cálculo de personal (reporte, no Excel: se trabaja en la app) ----
+function repPcNames(d){const names=[];d.months.forEach(rows=>(rows||[]).forEach((r,k)=>{const nm=String(r.nombre||'RENGLÓN '+(k+1)).trim();if(!names.includes(nm))names.push(nm);}));return names;}
+REP.pc=d=>{const meta=[['Ubicación',ubLabel(d)],['Nombre',d.nombre],['Tipo',pcTipo(d)],['Año fiscal','FY'+String(d.fy).padStart(2,'0')+' (abril a marzo)'],['Reducción anual',d.red+' %'],['Fecha',d.fecha]];
+  const MM=d.months.map(r=>r&&r.length?pcMonth(r,d.red):null);const ok=MM.map((m,i)=>[m,i]).filter(([m])=>m);
+  if(!ok.length)return {tipo:'Cálculo de personal',titulo:pcName(d),meta,body:repNo('Todavía no hay meses capturados.')};
+  const avg=k=>ok.reduce((a,[m])=>a+m[k],0)/ok.length;const[lm,li]=ok[ok.length-1];const mes=PC_MONTHS[li];
+  const names=repPcNames(d);const trLeg=repLeg(names.map((n,s)=>[n,PC_COL[s%PC_COL.length]]));
+  const det=ok.map(([m,i])=>`<div class="rblock"><div class="rch"><b>${pcMonthLbl(d,i)}</b><span>${m.n} renglón${m.n!==1?'es':''} · HC volumen ${m.hcVol} · esquema ${m.hcEsq} · meta ${m.hcRed}</span></div>
+      <table class="rtbl rnw"><thead><tr><th style="text-align:left">Línea</th><th style="text-align:left">Parte / proceso</th><th>Esq.</th><th>JPH</th><th>OEE</th><th>Volumen</th><th>H disp.</th><th>H req.</th><th>Ocupación</th><th>LAT</th><th>Actual Time</th><th>HC vol.</th><th>HC esq.</th><th>Meta</th></tr></thead><tbody>
+      ${m.rows.map((x,k)=>`<tr><th>${esc(x.r.nombre||'RENGLÓN '+(k+1))}</th><td style="text-align:left">${esc([x.r.parte,x.r.proceso].filter(Boolean).join(' · ')||'—')}</td><td>${esc(x.r.esq||'—')}</td><td>${f2(x.jph)}</td><td>${f2(x.oee).replace(/\.00$/,'')}%</td><td>${nInt(pcInt(x.r.vol))}</td><td>${nInt(x.hDisp)}</td><td>${nInt(x.hReq)}</td><td class="${x.occ>1?'rinn':''}">${pc(x.occ,1)}</td><td>${fT(x.lat)}</td><td>${fT(x.at)}</td><td><b>${x.hcVol}</b></td><td>${x.hcEsq}</td><td>${x.hcRed}</td></tr>`).join('')}</tbody></table></div>`).join('');
+  const body=`<section><h2>Resumen anual</h2>${repKpis([['% de ocupación promedio',pc(avg('occ'),1),ok.length+' de 12 meses','#1D5FA8'],['LAT promedio',fT(avg('lat')),'min-hombre por pieza'],['Actual Time promedio',fT(avg('at')),'LAT ÷ ocupación'],['Piezas por persona',nInt(avg('pzPer')),'promedio: volumen ÷ plantilla'],
+      ['Meta de reducción · '+mes,'−'+lm.reducir,'de '+lm.hcEsq+' a '+lm.hcRed+' personas ('+d.red+' % anual)','#15803D'],['Afectación · '+mes,pc(lm.afecPct,1),lm.afec+' de '+lm.hcEsq+': supervisores, TPM, proyectos y otros',lm.afecPct>0.35?'#C2410C':''],['Arriba del volumen · '+mes,(lm.sobre>0?'+':'')+lm.sobre,lm.sobre>0?'esquema '+lm.hcEsq+' vs '+lm.hcVol+' del volumen':lm.sobre<0?'faltan '+(-lm.sobre)+' personas':'la plantilla coincide',lm.sobre?'#C2410C':'#15803D'],['Holgura de capacidad · '+mes,pc(lm.holg,1),(lm.gap>0?'+':'')+nInt(lm.gap)+' piezas',lm.holg<0?'#C2410C':'#15803D']])}</section>
+    <section><h2>Headcount por mes</h2>${repSvg(pcBars(d))}${repLeg([['Según volumen','#1D5FA8'],['Según esquema','#A7B0BA'],['Meta −'+d.red+' %','#15803D','dashed']])}</section>
+    <section><h2>% de ocupación por mes</h2>${repSvg(pcOccBars(d))}<p class="rnote" style="font-size:9.5px">Horas requeridas ÷ horas disponibles · en rojo arriba del 100 % (falta capacidad).</p></section>
+    <section><h2>Personal que agrega valor vs afectación</h2>${repSvg(pcStack(d))}${repLeg([['Agrega valor (operadores + líderes)','#1D5FA8'],['Afectación (en rojo arriba de 35 %)','#F0B49A']])}</section>
+    <section><h2>Trazabilidad por línea · Actual Time</h2>${repSvg(pcTrace(d,'at'))}${trLeg}</section>
+    <section><h2>Trazabilidad por línea · % de ocupación</h2>${repSvg(pcTrace(d,'occ'))}${trLeg}</section>
+    <section><h2>Resumen por mes</h2><table class="rtbl rnw"><thead><tr><th style="text-align:left">Mes</th><th>Renglones</th><th>HC volumen</th><th>HC esquema</th><th>Meta</th><th>Reducir</th><th>Ocupación</th><th>LAT</th><th>Actual Time</th><th>Afectación</th><th>Volumen</th><th>Capacidad</th><th>GAP</th></tr></thead><tbody>
+      ${ok.map(([m,i])=>`<tr><th>${pcMonthLbl(d,i)}</th><td>${m.n}</td><td><b>${m.hcVol}</b></td><td>${m.hcEsq}</td><td class="rnec">${m.hcRed}</td><td>−${m.reducir}</td><td class="${m.occ>1?'rinn':''}">${pc(m.occ,1)}</td><td>${fT(m.lat)}</td><td>${fT(m.at)}</td><td>${pc(m.afecPct,1)}</td><td>${nInt(m.vol)}</td><td>${nInt(m.cap)}</td><td class="${m.gap<0?'rinn':''}">${m.gap>0?'+':''}${nInt(m.gap)}</td></tr>`).join('')}</tbody></table></section>
+    <section class="rlong"><h2>Detalle por mes y línea</h2>${det}</section>`;
+  return {tipo:'Cálculo de personal',titulo:pcName(d),meta,body};};
+
+// ---- Actual Time ----
+REP.at=d=>{const meta=[['Ubicación',ubLabel(d)],['Nombre',d.nombre],['Tipo',atTipo(d)+(atHasMH(d)?' + manejo de materiales':'')],['Año fiscal','FY'+String(d.fy).padStart(2,'0')+' (abril a marzo)']];
+  const areas=atHasMH(d)?['ens','mh']:['ens'];const AF='#C2410C',SA='#E9A47F',TG='#1D5FA8';
+  const chart=(area,o)=>`<div class="rblock"><h3 style="font-size:11px;margin:10px 0 2px">${o.title}${o.sub?` <span style="font-weight:400;color:#5B6673">· ${o.sub}</span>`:''}</h3>${repSvg(atChart(d,area,o))}${repLeg(o.bars.map(b=>[b[0],b[1]]).concat((o.lines||[]).map(l=>[l[0],l[1],l[3]?'dashed':'solid'])))}</div>`;
+  const parts=areas.map(area=>{const R=atAll(d,area);const ok=R.map((r,i)=>[r,i]).filter(([r])=>r&&r.prod);const tl=area==='mh'?'LAT':atTimeLbl(d.tipo);const pre=areas.length>1?atAreaLbl(area)+' · ':'';
+    if(!ok.length)return `<section><h2>${pre}Resumen anual</h2>${repNo('Todavía no hay meses capturados.')}</section>`;
+    const sum=k=>ok.reduce((a,[r])=>a+r[k],0);const atY=sum('prod')?sum('trab')*60/sum('prod'):0;const effY=sum('trab')?sum('horasReq')/sum('trab'):0;
+    const tgt=ok.filter(([r])=>r.target);const tgtY=tgt.length?tgt.reduce((a,[r])=>a+r.target*r.prod,0)/tgt.reduce((a,[r])=>a+r.prod,0):0;const[lm,li]=ok[ok.length-1];const mes=PC_MONTHS[li];
+    const ext=atIsDSTR(d)?['DSTR · '+mes,f2(lm.dstrReal),'objetivo '+f2(lm.dstrObj),lm.dstrObj&&lm.dstrReal>lm.dstrObj?'#C2410C':'#15803D']:atIsJPMH(d)?['JPMH · '+mes,f2(lm.jpmh),'compromiso '+f2(lm.jpmhCommit),lm.jpmh<lm.jpmhCommit?'#C2410C':'#15803D']:['Forecast · '+mes,f2(lm.forecast),'(60 ÷ JPH real) × HC ÷ grupos'];
+    return `<section><h2>${pre}Resumen anual</h2>${repKpis([['Actual Time del año',f2(atY),'Σ horas trabajadas × 60 ÷ Σ producción',tgtY&&atY>tgtY?'#C2410C':'#15803D'],['Meta del año',f2(tgtY),'TARGET ponderado por producción'],['Eficiencia del año',pc(effY,1),'Σ horas requeridas ÷ Σ trabajadas','#1D5FA8'],['Producción del año',nInt(sum('prod')),ok.length+' mes'+(ok.length!==1?'es':'')],
+        ['Actual Time · '+mes,f2(lm.atReal),'meta '+f2(lm.target)+' · sin afectación '+f2(lm.atSA),lm.target&&lm.atReal>lm.target?'#C2410C':'#15803D'],['GAP de personal · '+mes,(lm.gap>0?'+':'')+f1(lm.gap),'operadores '+f1(lm.res2)+' vs requeridos '+f1(lm.hcReq),lm.gap?'#C2410C':'#15803D'],[(lm.dif<0?'Ausentismo':'Arriba del plan')+' · '+mes,(lm.dif<0?'−':'+')+f1(Math.abs(lm.dif)),'HC trabajado '+f1(lm.hcTrab)+' vs plan '+f1(lm.hcPlan),'#C2410C'],ext])}</section>
+      <section class="rlong"><h2>${pre}Gráficas del año</h2>
+        ${chart(area,{title:'Actual Time',sub:'min-hombre por pieza · abajo es mejor',bars:[['Con afectación',AF,r=>r.atReal],['Sin afectación',SA,r=>r.atSA]],lines:[['Meta (TARGET)',TG,r=>r.target,1]]})}
+        ${chart(area,{title:'Eficiencia',sub:'horas requeridas ÷ trabajadas · arriba es mejor',bars:[['Eficiencia',AF,r=>r.efic*100],['Sin afectación',SA,r=>r.eficSA*100]],lines:[['Compromiso 100 %',TG,()=>100,1]],fmt:v=>f1(v)+'%',ax:v=>Math.round(v)+'%',min:100})}
+        ${chart(area,{title:'Horas trabajadas vs requeridas',bars:[['Trabajadas','#A7B0BA',r=>r.trab],['Requeridas','#1D5FA8',r=>r.horasReq]],fmt:v=>nInt(v),labels:false})}
+        ${area==='ens'?chart(area,{title:'Producción mensual',sub:'piezas',bars:[['Producción','#3E7BC4',r=>r.prod]],fmt:v=>nInt(v)}):''}
+        ${area==='ens'?chart(area,{title:'JPH real vs comprometido',bars:[['JPH real','#1D5FA8',(r,m)=>num(m.jphRes)]],lines:[['JPH comprometido','#C2410C',(r,m)=>num(m.jphCommit),1]],fmt:v=>f1(v)}):''}
+        ${atIsDSTR(d)?chart(area,{title:'DSTR',sub:'Actual Time ÷ tiempo estándar de diseño · abajo es mejor',bars:[['Real (con afectación)',AF,r=>r.dstrReal],['Real (sin afectación)',SA,r=>r.dstrRealSA]],lines:[['Objetivo',TG,r=>r.dstrObj,1]]}):''}
+        ${atIsJPMH(d)?chart(area,{title:'JPMH',sub:'piezas por hora-hombre de un grupo · arriba es mejor',bars:[['JPMH real','#1D5FA8',r=>r.jpmh]],lines:[['Compromiso','#C2410C',r=>r.jpmhCommit,1]]}):''}</section>
+      <section><h2>${pre}Cascada de headcount · ${atMonthLbl(d,li)}</h2><p class="rnote" style="font-size:9.5px;margin:0 0 4px">Del plan al HC requerido, en personas equivalentes (último mes capturado).</p>${repSvg(atCasc(lm))}</section>
+      <section><h2>${pre}Resumen por mes</h2><table class="rtbl rnw"><thead><tr><th style="text-align:left">Mes</th><th>Producción</th><th>Horas req.</th><th>Horas trab.</th><th>${tl} pond.</th><th>Eficiencia</th><th>Sin afect.</th><th>Actual Time</th><th>Sin afect.</th><th>Meta</th><th>HC trab.</th><th>Operadores</th><th>HC req.</th><th>GAP</th>${atIsDSTR(d)?'<th>DSTR</th><th>Obj.</th>':''}${atIsJPMH(d)?'<th>JPMH</th><th>Compr.</th>':''}</tr></thead><tbody>
+        ${ok.map(([r,i])=>`<tr><th>${atMonthLbl(d,i)}</th><td>${nInt(r.prod)}</td><td>${nInt(r.horasReq)}</td><td>${nInt(r.trab)}</td><td>${f2(r.st)}</td><td>${pc(r.efic,1)}</td><td>${pc(r.eficSA,1)}</td><td class="${r.target&&r.atReal>r.target?'rinn':'rnec'}"><b>${f2(r.atReal)}</b></td><td>${f2(r.atSA)}</td><td>${f2(r.target)}</td><td>${f1(r.hcTrab)}</td><td>${f1(r.res2)}</td><td>${f1(r.hcReq)}</td><td class="${r.gap?'rinn':''}">${r.gap>0?'+':''}${f1(r.gap)}</td>${atIsDSTR(d)?`<td>${f2(r.dstrReal)}</td><td>${f2(r.dstrObj)}</td>`:''}${atIsJPMH(d)?`<td>${f2(r.jpmh)}</td><td>${f2(r.jpmhCommit)}</td>`:''}</tr>`).join('')}</tbody></table></section>`;}).join('');
+  return {tipo:'Actual Time',titulo:atName(d),meta,body:parts};};
 
 // ---- eliminar estudio desde la lista (todos los formatos) ----
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-sdel]');if(!t)return;e.stopPropagation();

@@ -276,13 +276,22 @@ Siguiente:
 - **Fase 3:** avisos de almacenamiento lleno o no disponible visibles en pantalla (hoy: mensaje al guardar) y persistencia de los ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Después (otra etapa): servidor, cuentas y sincronización; exportación PDF/Excel casi al final.
 
-## Reportes en PDF — EN CURSO (2026-11-13)
+## Reportes en PDF — TODOS GENERADOS, EN REVISIÓN DE ANGEL (2026-11-13)
 Diseño: `docs/superpowers/specs/2026-11-13-reportes-pdf-design.md`. Opción A: «Descargar PDF» = impresión del navegador → «Guardar como PDF». **Solo PDF, nunca Excel** (Angel: se trabaja en la app; lo exportado es para leer y enviar). Formato común carta vertical con encabezado, secciones y pie «Página x de y». Un módulo a la vez.
 - Work Sampling: listo para comentarios (resumen de línea con precisión, quién pesa más en lo innecesario, distribución, tabla por actividad, detalle por operador; sin columna de total cuando hay un solo operador).
 - Formato común aprobado por Angel (2026-11-13). Delay Study: listo para comentarios (resumen, Yamazumi fijo para papel con la línea del disponible exacta, detalle por operador, actividades cronometradas con racks × SNP y vueltas vacías).
 - Gráficas de barras en reportes: renglones de máximo 10 barras con la misma escala y la misma línea (Angel: puede haber estudios de 60 personas). Leyenda agrupada por nombre; con más de 24, se omite con nota.
 - Work Element: listo para comentarios (lo común con Delay Study + cronometraje por operador: ciclos, promedio, mín, máx, rango). Probado con 60 operadores ficticios (23 páginas).
-- Siguen: Speed Trial, Man Machine, SMED, Takt y balanceo, Diagramas, Cálculo de personal. Actual Time: por confirmar.
+- Angel pidió generar todos los demás de una vez y revisarlos él (2026-11-13). Hechos, en revisión:
+  - Speed Trial: resumen, fluctuación pieza por pieza, pérdidas acorde a la OEE (tabla por nivel con A × D × C), estadísticas de la línea, proyección de costo (solo si hay costo unitario), Pareto, caída de JPH y anexo con el registro pieza por pieza.
+  - Man Machine: resumen con el veredicto (qué limita la celda), gráfica hombre-máquina, tiempos por estación en la vuelta, indicadores contra el TC objetivo (proyección de piezas y horas-hombre, ocupación de máquinas) y layout del recorrido.
+  - SMED: resumen, paro actual contra propuesto, lo que se recupera (horas y piezas por cambio, semana, mes, año), tiempo por categoría y pasos con su clasificación.
+  - Takt y balanceo: cálculo del takt, resultado del balanceo; si hubo rebalanceo, Yamazumi de antes y de después con la misma escala; estaciones y elementos por estación («venía de»).
+  - Flujo de proceso: resumen ASME, tabla del proceso y el diagrama. Espagueti: resumen, diagrama, trayectos, puntos y la secuencia de viajes.
+  - Cálculo de personal (reporte, no Excel): resumen anual, headcount, ocupación, valor vs afectación, trazabilidad por línea (Actual Time y % de ocupación), resumen por mes y detalle por mes y línea.
+  - Actual Time: se incluyó para que Angel decida si se queda. Por área (ensamble y manejo de materiales): resumen anual, gráficas del año, cascada de headcount del último mes y resumen por mes.
+- Técnica: los reportes nuevos reusan las gráficas SVG de la app (`repSvg`): sin animación, ancho de hoja, alto máximo de una página e ids propios para que los marcadores de flecha no choquen con la pantalla. La etiqueta de cada barra del Yamazumi lleva fondo blanco para que la línea del límite no la tape.
+- Botón «Descargar PDF» en cada lista y en la pantalla de resultados de todos los formatos. Hoja estándar ya imprimía por su cuenta.
 
 ## Diagrama de espagueti + sección «Diagramas» — TERMINADO (2026-11-13)
 Diseño: `docs/superpowers/specs/2026-11-13-diagrama-espagueti-design.md`.

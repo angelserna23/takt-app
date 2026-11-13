@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Estudios complementarios: **todos cerrados**. En curso: **reportes en PDF**, un módulo a la vez (Work Sampling listo para comentarios; ver `docs/superpowers/specs/2026-11-13-reportes-pdf-design.md`). Después, partes de la app: tablero de Inicio, guardado Fase 3, pagos y diseño final (descartados: tiempo estándar, plan de acción/antes-después, NOM-036, VSM, video, curva de aprendizaje, horarios aleatorios). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Estudios complementarios: **todos cerrados**. Reportes en PDF: **todos generados** (11 formatos), en revisión de Angel; falta su visto bueno y decidir si Actual Time se queda (ver `docs/superpowers/specs/2026-11-13-reportes-pdf-design.md`). Después, partes de la app: tablero de Inicio, guardado Fase 3, pagos y diseño final (descartados: tiempo estándar, plan de acción/antes-después, NOM-036, VSM, video, curva de aprendizaje, horarios aleatorios). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
 
 ## Pasos para Claude al iniciar
 
@@ -32,6 +32,11 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Explicar cada decisión técnica (Angel estudia Full Stack Python); ser directo y decir cuando algo sea mala idea.
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
+
+## Estado al 2026-11-13 (noche: reportes en PDF)
+
+- Reportes en PDF de los 11 formatos (Work Sampling, Delay Study, Work Element, Speed Trial, Man Machine, SMED, Takt y balanceo, Flujo de proceso, Espagueti, Cálculo de personal, Actual Time), con botón en la lista y en resultados. Formato común aprobado; WS, DS y WE con visto bueno; el resto, en revisión de Angel. Probado: los 11 generan PDF en `smoke_store.py`; reportes vacíos no truenan; WE con 60 operadores.
+- Pendiente: comentarios de Angel sobre los reportes nuevos y si Actual Time lleva reporte.
 
 ## Estado al 2026-11-13 (tarde: Diagrama de espagueti)
 
