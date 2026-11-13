@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Estudios complementarios: **todos cerrados**. Reportes en PDF: **terminados y aprobados** (11 formatos, incluido Actual Time). Tablero de Inicio hecho (en revisión de Angel; la app trae un historial ficticio mientras está en pruebas). Después: guardado Fase 3, pagos y diseño final (descartados: tiempo estándar, plan de acción/antes-después, NOM-036, VSM, video, curva de aprendizaje, horarios aleatorios). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Estudios complementarios: **todos cerrados**. Reportes en PDF: **terminados y aprobados** (11 formatos, incluido Actual Time). Tablero de Inicio aprobado (la app trae un historial ficticio mientras está en pruebas). Siguiente: **chat de diseño** (visual y movimiento). Después: guardado Fase 3 y pagos (descartados: tiempo estándar, plan de acción/antes-después, NOM-036, VSM, video, curva de aprendizaje, horarios aleatorios). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
 
 ## Pasos para Claude al iniciar
 
@@ -36,7 +36,7 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 ## Estado al 2026-11-13 (noche: tablero de Inicio)
 
 - Nuevo: **tablero de Inicio** por planta (indicadores de planta, los 12 tipos de estudio en renglones con su resultado, quién lo hizo, animación) y **historial ficticio** (47 estudios, `tools/semilla.py`) que se carga solo una vez. Pruebas: `parts/intest.js` (17) y `tests/smoke/smoke_inicio.py` (semilla, indicadores, renglones, animación, tablet y teléfono). Publicado.
-- Pendiente: comentarios de Angel sobre el diseño del tablero. Al lanzar: `SEED_ON=false` y borrar el bloque `<semilla>`.
+- Angel lo aprobó; además se agregaron líneas contra el takt, cobertura y actividad por mes. **Siguiente chat: diseño** (visual y movimiento de toda la app, incluido el tablero). Al lanzar: `SEED_ON=false` y borrar el bloque `<semilla>`.
 
 ## Estado al 2026-11-13 (noche: reportes en PDF)
 

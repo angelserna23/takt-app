@@ -22,6 +22,9 @@ Inicio es la foto de **una planta**: cómo va (indicadores generales) y todo lo 
 - No se captura nada en Inicio y no se guarda ningún resumen: los números se calculan al abrir, con las mismas funciones de la app y de los reportes (una sola versión de cada resultado).
 - Sin dinero fuera de lo que ya trae el Speed Trial.
 
+## Agregado el mismo día (Angel)
+- Líneas contra el takt (balanceo más reciente por línea), cobertura (hoja estándar por estación, estudios por línea) y actividad por mes (12 meses).
+
 ## Resultado principal por tipo (tarjeta)
 | Tipo | Número grande | Debajo |
 |---|---|---|

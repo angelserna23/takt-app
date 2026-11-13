@@ -3,7 +3,7 @@ const fs=require('fs'),path=require('path');
 const html=fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8');
 const m=html.match(/\/\/ <in-pure>[^\n]*\n([\s\S]*?)\/\/ <\/in-pure>/);
 if(!m){console.error('FALLA: no se encontró el bloque <in-pure> en index.html');process.exit(1);}
-const {inDate,inWhoOf,inFilter,inGroups,inWho}=new Function(m[1]+';return {inDate,inWhoOf,inFilter,inGroups,inWho};')();
+const {inDate,inWhoOf,inFilter,inGroups,inWho,inActivity}=new Function(m[1]+';return {inDate,inWhoOf,inFilter,inGroups,inWho,inActivity};')();
 let fails=0,n=0;const ok=(c,msg)=>{n++;if(!c){fails++;console.error('FALLA:',msg);}};
 
 // 1. Fecha del estudio: la primera AAAA-MM-DD de «fecha»; si no hay, la de «periodo» (Speed Trial)
@@ -33,4 +33,9 @@ ok(w[1].name==='M. LÓPEZ'&&w[1].n===1,'M. LÓPEZ: 1');
 const w2=inWho([{kind:'ws',d:{analista:'B'}},{kind:'ws',d:{analista:'A'}}]);
 ok(w2.map(x=>x.name).join()==='A,B','empate: por nombre');
 
+// 6. Actividad: estudios por mes, los 12 meses que terminan en el mes de «hoy»; fuera de la ventana y sin fecha no cuentan
+const A=inActivity([{d:{fecha:'2026-11-02'}},{d:{fecha:'2026-11-20'}},{d:{periodo:'2026-04-10 turno 1'}},{d:{fecha:'2025-11-30'}},{d:{fecha:'2025-12-01'}},{d:{}}],'2026-11-13');
+ok(A.length===12&&A[0].ym==='2025-12'&&A[11].ym==='2026-11','12 meses: diciembre 2025 a noviembre 2026');
+ok(A[11].n===2&&A[4].n===1&&A[0].n===1,'cuenta por mes (nov 2, abr 1, dic 1)');
+ok(A.reduce((a,x)=>a+x.n,0)===4,'noviembre 2025 queda fuera y el sin fecha no cuenta');
 console.log((fails?'FALLAS: '+fails:'OK')+' · '+n+' pruebas de Inicio');process.exit(fails?1:0);

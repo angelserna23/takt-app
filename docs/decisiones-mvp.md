@@ -345,13 +345,15 @@ Para afinar en piso (no bloquea): botón «Actualizar desde el Work Element» (h
 - Botones principales arriba, donde el usuario no tenga que desplazarse. Botones ≥ 48 px; contraste ≥ 4.5:1.
 - Canvas de la carcasa (referencia): https://claude.ai/artifact/3m1eVYym44bfsqv9oLByaz
 
-## Tablero de Inicio — HECHO, EN REVISIÓN DE ANGEL (2026-11-13)
+## Tablero de Inicio — APROBADO (2026-11-13; el diseño fino y el movimiento se ajustan en el chat de diseño)
 Diseño: `docs/superpowers/specs/2026-11-13-tablero-inicio-design.md` · plan: `docs/superpowers/plans/2026-11-13-tablero-inicio.md`.
 - Inicio = la foto de **una planta** (chips de planta; «Sin asignar» es una opción más).
 - Indicadores de planta solo de lo mensual por área (Actual Time y Cálculo de personal), del último mes del año fiscal más reciente: eficiencia con/sin afectación + tendencia, Actual Time contra meta por área, GAP de personal y ausentismo, ocupación y HC volumen vs esquema. **No se promedian estudios entre sí.**
 - Todos los estudios y análisis: un renglón por tipo (12), lo más reciente primero, máximo 12 tarjetas y «Ver todos (n)»; filtro por línea. Cada tarjeta muestra el resultado principal de su tipo con las mismas funciones de la app y de los reportes, y al tocarla abre el estudio.
 - «Quién lo hizo»: cada analista con cuántos estudios, de qué tipos y su fecha más reciente.
 - Dinamismo: números que cuentan, anillos y tendencia que se dibujan, tarjetas que entran escalonadas; cada renglón avanza solo cada 5 s y se detiene en cuanto se toca. Con «reducir movimiento» todo queda quieto.
+- La planta en números (Angel lo pidió el mismo día): **líneas contra el takt** (el Takt y balanceo más reciente de cada línea: eficiencia, estaciones sobre takt, cuello de botella, si cumple la demanda; tocar abre el balanceo), **cobertura** (estaciones con hoja estándar y líneas con algún estudio, contra el catálogo de la planta) y **actividad** (estudios por mes, últimos 12 meses).
+- Descartado a propósito: sumar «oportunidades» entre estudios (horas de SMED, piezas de Speed Trial): mezcla fechas y cuenta doble una máquina estudiada dos veces.
 - «Estudios vencidos»: descartado (Angel: todo es historial).
 
 ## Historial ficticio (semilla) — mientras la app está en pruebas (2026-11-13)

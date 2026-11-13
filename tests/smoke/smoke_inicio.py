@@ -84,6 +84,35 @@ def renglones(pg):
     check('inicio',we.locator('[data-inopen]').count()==3 and f'Ver todos ({tot})' in we.inner_text(),f'renglón con más del máximo: pinta 3 y «Ver todos ({tot})»')
     pg.evaluate('TaktInicio.setMax(12)')
 
+def extra(pg):
+    import datetime
+    norte(pg);D={k:[d for d in json.loads(pg.evaluate(f"TaktStore.dump('{k}')")) if (d.get('ubic') or {}).get('planta')=='sem-pn'] for k in KINDS}
+    # 1) cada línea con balanceo: el más reciente
+    lat={}
+    for d in D['tk']:
+        ln=d['ubic']['linea']
+        if ln not in lat or d['fecha']>lat[ln]['fecha']:lat[ln]=d
+    rows=pg.locator('[data-inline]')
+    check('extra',rows.count()==len(lat),f'una fila por línea con balanceo ({rows.count()} = {len(lat)})')
+    for ln,d in lat.items():
+        r=pg.locator(f'[data-inline="{ln}"]');big=pg.evaluate(f"TaktInicio.head('tk',{d['id']}).big")
+        check('extra',r.count()==1 and r.get_attribute('data-tkid')==str(d['id']) and big in r.inner_text(),f'{ln}: usa el balanceo más reciente ({big})')
+    # 2) cobertura: estaciones con hoja estándar y líneas con al menos un estudio (catálogo de PLANTA NORTE: 12 estaciones, 5 líneas)
+    hs={d['ubic'].get('estacion') for d in D['hs'] if d['ubic'].get('estacion')}
+    lns={d['ubic'].get('linea') for k in KINDS for d in D[k] if d['ubic'].get('linea')}
+    cov=pg.locator('[data-incov="est"]').inner_text().replace('\n',' ')
+    check('extra',f'{len(hs)} de 12' in cov,f'estaciones con hoja estándar: {len(hs)} de 12 («{cov}»)')
+    cov=pg.locator('[data-incov="lin"]').inner_text().replace('\n',' ')
+    check('extra',f'{len(lns)} de 5' in cov,f'líneas con algún estudio: {len(lns)} de 5 («{cov}»)')
+    # 3) actividad: estudios fechados de los últimos 12 meses
+    hoy=datetime.date.today();ini=(hoy.year-1,hoy.month)
+    def f(d):
+        m=re.search(r'\d{4}-\d{2}-\d{2}',str(d.get('fecha') or '')) or re.search(r'\d{4}-\d{2}-\d{2}',str(d.get('periodo') or ''))
+        return m.group(0) if m else ''
+    n=sum(1 for k in KINDS for d in D[k] if f(d) and (int(f(d)[:4]),int(f(d)[5:7]))>ini and f(d)[:7]<=hoy.isoformat()[:7])
+    bars=pg.eval_on_selector_all('[data-inact]','e=>e.map(x=>+x.dataset.n)')
+    check('extra',len(bars)==12 and sum(bars)==n,f'actividad: 12 meses, {sum(bars)} estudios = {n}')
+
 def sl(pg,k):return pg.evaluate(f"document.querySelector('[data-inrow=\"{k}\"] .intrack').scrollLeft")
 def dinamismo(b):
     ctx=b.new_context(viewport={'width':1366,'height':900});pg=ctx.new_page();pg.on('pageerror',lambda e:errs.append(str(e)))
@@ -119,6 +148,7 @@ with sync_playwright() as p:
     semilla(pg)
     kpis(pg)
     renglones(pg)
+    extra(pg)
     dinamismo(b)
     dispositivos(b)
     auto(b)
