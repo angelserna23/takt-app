@@ -259,12 +259,20 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 ## Datos
 - Jerarquía planta → línea → estación desde el día uno.
 
-## Hoja de ruta acordada (actualizada 2026-11-12)
-- Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo.
-- Aprende: los 9 tutoriales listos (2026-11-12).
-- **Guardado de estudios y exportación PDF/Excel: en espera, casi al final de todo (Angel, 2026-11-12).**
-- Pendientes (Angel define el orden): pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI; los tutoriales se revisan solos con la rutina de pruebas), videos de marketing desde las demos. El guardado va casi al final.
+## Hoja de ruta acordada (actualizada 2026-11-12, tras el análisis de brechas)
+- Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo, Aprende (9 tutoriales).
+- **Siguiente (este chat): guardado de estudios** = modelo de datos + jerarquía + guardado local sin conexión. La **exportación PDF/Excel** sigue casi al final. Angel aceptó mover el guardado al frente (2026-11-12) porque el tablero, los estudios vencidos, el antes/después y los pagos dependen de datos guardados.
+- Después (chat nuevo): estudios complementarios. Angel elige cuáles; algunos pueden ser problemáticos (licencias, alcance).
+- Luego: Inicio (tablero) → diseño final → pagos → exportación PDF/Excel.
 - Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
+
+## Análisis de brechas (2026-11-12)
+Lo que el ingeniero industrial necesita de punta a punta: medir → estándar → balancear → documentar → mejorar → demostrar el ahorro. La parte de medir y analizar está cubierta.
+- Imprescindibles que faltan: **tiempo estándar** (valoración + suplementos configurados por el cliente; ciclos necesarios y ciclos anormales en Work Element), **takt time y balanceo por estación** (la tarjeta «Takt de la línea» está vacía; el tablero lo necesita), **antes/después + plan de acción con ahorro**, **hoja de trabajo estándar**.
+- Alto valor: **ergonomía de manejo manual de cargas conforme a la NOM-036-1-STPS-2018** (obligatoria en México; la norma trae métodos en sus apéndices; NIOSH es pública; RULA/REBA: revisar licencia antes de cargar), **VSM**, **diagrama de espagueti**.
+- Complementos: horarios aleatorios en Work Sampling, curva de aprendizaje, 5 porqués / Ishikawa en el plan de acción, cronometrar desde video (proyecto grande).
+- Fuera a propósito: OEE continuo turno a turno (es un MES) y costeo general fuera del Speed Trial.
+- Riesgos detectados: (1) guardado tarde → resuelto moviéndolo al frente; (2) la jerarquía planta → línea → estación no existía en el código; (3) plantas sin wifi → funcionar sin conexión; (4) un solo archivo de 400 KB → migrar a frontend por módulos + backend Python cuando llegue el servidor; (5) las pruebas de cálculo validan copias (hoy 65/65 iguales, verificado) → que lean de index.html; (6) nombres de operadores = datos personales → opción de usar solo el puesto y definir retención.
 
 ## Dónde vive el código
 - **Fuente de verdad: GitHub `angelserna23/takt-app` (rama main).** Ver CONTINUAR.md para retomar en un chat nuevo. Un commit al cerrar cada chat.
