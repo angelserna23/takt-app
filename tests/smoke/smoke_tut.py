@@ -20,7 +20,7 @@ with sync_playwright() as p:
         # Entrada: menú lateral en laptop/tablet; en teléfono desde «Más»
         (pg.locator('.atmore [data-go=aprende]') if tag=='phone' else pg.locator('.navbtn[data-go=aprende]')).click();pg.wait_for_timeout(150)
         check(tag,pg.locator('.tutcard').count()==9,'9 tarjetas de tutorial')
-        check(tag,pg.locator('.tutcard.off').count()==3,'3 marcadas como próximamente (Personal, Actual Time, Diagramas)')
+        check(tag,pg.locator('.tutcard.off').count()==0,'ninguna marcada como próximamente')
         if tag!='phone':check(tag,pg.locator('.navbtn[aria-current=page]').get_attribute('data-go')=='aprende','menú Aprende activo')
         tl=pg.evaluate('TaktTut.list()')
         # Estudio previo del usuario: no debe tocarse
@@ -55,7 +55,7 @@ with sync_playwright() as p:
                     pg.mouse.click(5,h-5 if tag!='phone' else 200);pg.wait_for_timeout(120)
                     check(tag,pg.evaluate("TaktTut.state().i")==2,'guiado: toque fuera del objetivo no avanza')
                 if 'toca' in e:
-                    pg.evaluate('TaktTut.mark()');pg.locator('[data-tutt]').click()
+                    pg.evaluate('TaktTut.mark()');L=pg.locator('[data-tutt]');L.click(force=L.evaluate('e=>e instanceof SVGElement'))
                 elif 'escribe' in e:
                     pg.evaluate('TaktTut.mark()');f=pg.locator('[data-tutt]');f.fill('');f.type(e['valor']);f.press('Enter')
                 elif 'serie' in e:

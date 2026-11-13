@@ -215,14 +215,14 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Resumen ASME sin cambios: actividades, tiempo, distancia, % de operaciones, tabla por símbolo, tabla del proceso y diagrama. Avisos de flujo incompleto.
 - Pruebas: 10 de lógica (parts/dftest.js) + pantalla (tests/smoke/smoke_df.py: arrastre desde la barra, nube, «Viene de», mover).
 
-## Aprende (tutoriales) — 6 ESTUDIOS LISTOS (2026-11-12)
-- Sección propia del menú «Aprende» (debajo de Diagramas de flujo; en teléfono desde «Más»). 9 tarjetas en 3 grupos: Estudios de tiempos (6, listos), Capacidad y eficiencia (Personal; Actual Time + Eficiencia compuesta) y Procesos (Diagramas de flujo); estos 3 quedan «Próximamente». Estado: NUEVO / VISTO / PRÓXIMAMENTE.
-- Ficha por tutorial: qué pregunta responde, úsalo cuando, no es para, lo que vas a ver; botones «Ver demo» y «Hazlo tú (guiado)». Botón «Ver tutorial» en la lista de cada estudio.
+## Aprende (tutoriales) — LOS 9 LISTOS (2026-11-12)
+- Sección propia del menú «Aprende» (debajo de Diagramas de flujo; en teléfono desde «Más»). 9 tarjetas en 3 grupos, todas con tutorial: Estudios de tiempos (6), Capacidad y eficiencia (Cálculo de personal; Actual Time + Eficiencia compuesta) y Procesos (Diagramas de flujo). Estado: NUEVO / VISTO / PRÓXIMAMENTE.
+- Ficha por tutorial: qué pregunta responde, úsalo cuando, no es para, lo que vas a ver; botones «Ver demo» y «Hazlo tú (guiado)». Botón «Ver tutorial» en la lista de cada herramienta.
 - **Demo (opción B):** dentro de la app real. Cursor «bot» naranja, anillo sobre el elemento, globo con el texto (en teléfono, hoja abajo; el motor sube el elemento para que no quede tapado). Corre sola de principio a fin, como video. Barra: Pausa/Seguir, Siguiente (salta la espera), Reiniciar, 1×/2×, Salir (botones ≥ 48 px). Al final: Repetir / Ahora hazlo tú / Volver a Aprende.
 - «Repetir paso» se cambió por «Reiniciar»: los pasos cambian el estado (un toque suma una observación), así que repetir uno solo no es confiable.
 - **Hazlo tú = modo guiado** con el mismo guion. Pedido de Angel (2026-11-12): los pasos que solo explican (señala) **avanzan solos, como video**; solo se espera al usuario cuando debe actuar (tocar, escribir —Enter o Siguiente—, contar). Los toques fuera del objetivo se ignoran (el globo se sacude). En campos sugiere un valor pero acepta cualquiera.
 - **Sin historial (Angel, 2026-11-12):** al entrar se guarda una copia de todo el estado y al salir se restaura, en demo y en guiado. No hay opción de conservar el ejemplo. En demo una capa bloquea los toques del usuario.
-- Pasos como datos: `ir`, `toca`, `escribe` (letra por letra, dispara `input` → MAYÚSCULAS), `elige`, `serie` (varios toques), `señala` (solo explica). `txt` elige el elemento por su texto (incluye lo escrito en campos) y `en` + `txt` toca un botón dentro de un renglón (p. ej. «Interno» en «REGRESAR DADO ANTERIOR»). Se ignoran elementos ocultos o deshabilitados. Si un paso no encuentra su elemento en 4 s, se detiene con «La pantalla cambió».
+- Pasos como datos: `ir`, `toca` (también símbolos SVG del diagrama), `escribe` (letra por letra, dispara `input` → MAYÚSCULAS; `enter` cierra la nube como el usuario), `elige`, `serie` (varios toques), `señala` (solo explica). `txt` elige el elemento por su texto (incluye lo escrito en campos) y `en` + `txt` toca un botón dentro de un renglón (p. ej. «Interno» en «REGRESAR DADO ANTERIOR»). Se ignoran elementos ocultos o deshabilitados. Si un paso no encuentra su elemento en 4 s, se detiene con «La pantalla cambió».
 - Patrón para formatos con cronómetro: el bot hace una prueba en vivo de segundos (iniciar, tocar, terminar), la quita y carga el ejemplo ya cronometrado. Nunca se acelera el reloj.
 - Tutoriales (datos ficticios):
   - Work Sampling (19 pasos): 20 observaciones, 20.0 % innecesario, precisión ±17.5 % (faltan 226).
@@ -231,10 +231,14 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
   - Speed Trial (26): 7 obligatorios, una pieza en vivo con causa «2 · Paro corto», 99 registros → OEE 91.1 %, JPH 45.56; fluctuación, costo, árbol OEE, Pareto y caída de JPH.
   - Man Machine (20): celda de 8 estaciones, TC objetivo 1.10 → celda 1.18 (Máquina 3), espera 0.55, JPH 50.85 vs 46.36.
   - SMED (28): 2 pasos en vivo, cambio de dado de 44 min; «REGRESAR DADO ANTERIOR» a Interno y ajuste de altura 5 → 2 → paro 26.5 min (−39.8 %).
+  - Cálculo de personal (23): MAQUINADO, ejemplo de 3 líneas; volumen de la Línea 1 de 15,000 a 18,000 recalcula en vivo; copiar mayo a junio; resumen anual (ocupación 74.2 %, afectación 33.3 %).
+  - Actual Time + Eficiencia compuesta (23): ensamble con manejo de materiales, ejemplo de 5 meses; abril con partes, cascada de HC y MH; guardar → resumen anual; luego la vista de planta (con/sin afectación, trayectoria, piezas por hora-hombre).
+  - Diagramas de flujo (29): se arma en vivo, sin ejemplo: Inicio → Operación → Transporte → Inspección → Almacenamiento → Fin; editar dos símbolos (tiempo 12 min, distancia 25 m) y «Viene de»; resumen ASME.
 - Agregados a la app para los tutoriales (también sirven al usuario): **«Cargar ejemplo» en Delay Study** (4 actividades por operador; el 1.º y el 2.º son distintos) y **«Cargar tiempos de ejemplo» en Work Element** (llena todos los ciclos; si ya hay tiempos, pide confirmar).
 - **Error corregido (lo encontró la prueba del tutorial):** en Asignación y balanceo (Delay Study y Work Element), tocar una actividad para seleccionarla y usar «Mover aquí» no funcionaba: al soltar, la app volvía a pintar la pantalla aunque no hubo arrastre y el toque se perdía. Ahora solo repinta si hubo arrastre (mouse y táctil verificados).
 - Pruebas: parts/tuttest.js (lee los guiones de index.html y valida su forma) + tests/smoke/smoke_tut.py (cada tutorial en demo a 20× y en guiado, con la prueba haciendo de usuario, en laptop, tablet y teléfono; sin historial al salir; el estudio real del usuario queda intacto). `SOLO=lap|tab|phone` corre un dispositivo.
-- Siguiente: tutoriales de Cálculo de personal, Actual Time + Eficiencia compuesta y Diagramas de flujo (cuando Angel lo pida; idealmente tras el diseño final). Los textos de los globos se ajustan en los datos sin tocar el motor.
+- En teléfono, si el objetivo queda en la mitad de abajo (p. ej. la nube del diagrama), el globo sube arriba para no taparlo.
+- Cuando cambie una pantalla (sobre todo con el diseño final), correr `tests/smoke/smoke_tut.py`: dice qué paso de qué tutorial ya no encuentra su botón. Los textos de los globos se ajustan en los datos sin tocar el motor.
 
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.
@@ -257,8 +261,9 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 
 ## Hoja de ruta acordada (actualizada 2026-11-12)
 - Concluidos: 6 estudios de tiempos, Cálculo de personal, Actual Time + Eficiencia compuesta, Diagramas de flujo.
-- Aprende: motor + tutoriales de los 6 estudios listos (2026-11-12). Faltan Personal, Actual Time y Diagramas de flujo.
-- Después: guardado de estudios y exportación a PDF/Excel → pagos (suscripción, sin publicidad) → Inicio (tablero del analista) → diseño final (paleta y UX/UI) → completar tutoriales.
+- Aprende: los 9 tutoriales listos (2026-11-12).
+- **Guardado de estudios y exportación PDF/Excel: en espera, casi al final de todo (Angel, 2026-11-12).**
+- Pendientes (Angel define el orden): pagos (suscripción, sin publicidad), Inicio (tablero del analista), diseño final (paleta y UX/UI; después, revisar tutoriales con smoke_tut.py), videos de marketing desde las demos. El guardado va casi al final.
 - Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
 
 ## Dónde vive el código
@@ -270,7 +275,7 @@ No es un formato aparte ni se captura nada: botón «Eficiencia compuesta» en l
 - Tiempo estándar: en espera.
 - Qué va en el menú en lugar de OEE / Costo MO (Angel lo define).
 - Al final: mejoras extra por formato (incluye la idea grande de Angel para Work Element), paleta de colores y UX/UI.
-- Guardado de estudios y exportación a PDF/Excel (al final, para todos los formatos).
+- Guardado de estudios y exportación a PDF/Excel: casi al final de todo, para todos los formatos (Angel, 2026-11-12).
 
 - Botón ‹ Todos los estudios junto al título en todos los formatos (solo flecha en tablet/teléfono).
 - Botón eliminar (con confirmación) en cada tarjeta de la lista de estudios, en todos los formatos.

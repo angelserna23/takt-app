@@ -679,6 +679,7 @@ body.tutoring #view{padding-bottom:110px}
 .tutbub .tutn{font-size:11px;font-weight:600;letter-spacing:.06em;color:#C2410C}
 .tutbub .tutsug{display:block;margin-top:8px;font-size:13px;font-weight:600;color:var(--blue)}.tutbub .tutsug[hidden]{display:none}
 .tutbub.sheet{left:8px!important;right:8px;top:auto!important;bottom:84px;width:auto;max-height:34vh;overflow:auto}
+.tutbub.sheet.up{top:8px!important;bottom:auto}
 .tutbub.pop{animation:tutpop .22s ease-out}@keyframes tutpop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .tutbub.shake{animation:tutshake .35s}@keyframes tutshake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .tutbar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:8px;border-radius:20px;background:rgba(27,36,48,.94);color:#fff;box-shadow:0 14px 40px rgba(27,36,48,.35);pointer-events:auto}
@@ -2601,7 +2602,7 @@ function vPCList(){
   setHead('Cálculo de personal',[['Cálculo de personal','pc']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Cálculo de personal</h2><p class="sub">Headcount por área, por mes del año fiscal (abril a marzo)</p></div>
-    <button class="btn orange" type="button" data-pcnew="1">${svg('plus',18,2.2)} Nuevo cálculo</button></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('pc')}<button class="btn orange" type="button" data-pcnew="1">${svg('plus',18,2.2)} Nuevo cálculo</button></div></div>
     <div class="grid" style="margin-top:18px">
     ${PC.studies.map(st=>{const mm=st.months.map(r=>r?pcMonth(r,st.red):null);const last=mm.map((x,i)=>[x,i]).filter(([x])=>x&&x.n).pop();
       return `<div class="studyrow"><button type="button" class="study" data-pcopen="${st.id}">
@@ -2901,7 +2902,7 @@ function vATList(){
   setHead('Actual Time',[['Actual Time','at']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Actual Time</h2><p class="sub">Minutos-hombre reales por pieza, mes a mes del año fiscal (abril a marzo)</p></div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-ecopen="1">${svg('chart',18,2)} Eficiencia compuesta</button><button class="btn orange" type="button" data-atnew="1">${svg('plus',18,2.2)} Nuevo Actual Time</button></div></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-ecopen="1">${svg('chart',18,2)} Eficiencia compuesta</button>${tutBtn('at')}<button class="btn orange" type="button" data-atnew="1">${svg('plus',18,2.2)} Nuevo Actual Time</button></div></div>
     <div class="grid" style="margin-top:18px">
     ${AT.studies.map(st=>{const R=atAll(st,'ens');const last=R.map((x,i)=>[x,i]).filter(([x])=>x&&x.prod).pop();
       return `<div class="studyrow"><button type="button" class="study" data-atopen="${st.id}">
@@ -3319,7 +3320,7 @@ function vDFList(){
   setHead('Diagramas de flujo',[['Diagramas de flujo','df']]);
   return `<section class="glass panel">
     <div class="row"><div><h2>Diagramas de flujo de proceso</h2><p class="sub">Símbolos ASME: operación, inspección, transporte, demora, almacenamiento y decisiones</p></div>
-    <button class="btn orange" type="button" data-dfnew="1">${svg('plus',18,2.2)} Nuevo diagrama</button></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">${tutBtn('df')}<button class="btn orange" type="button" data-dfnew="1">${svg('plus',18,2.2)} Nuevo diagrama</button></div></div>
     <div class="grid" style="margin-top:18px">
     ${DF.studies.map(st=>{const S_=dfSummary(st);return `<div class="studyrow"><button type="button" class="study" data-dfopen="${st.id}">
       <div class="logo" style="background:rgba(29,95,168,.12);color:var(--blue)" aria-hidden="true">DF</div>
@@ -3677,9 +3678,102 @@ const TUTS=[
     {señala:'.glass',txt:'Paro actual contra propuesto',di:'Hoy todo se hace con la máquina parada; con el análisis, lo externo sale del paro y lo eliminado desaparece.'},
     {señala:'.smproj',txt:'Horas de paro recuperadas',di:'Y lo que vale al año: horas y piezas recuperadas con 10 cambios por semana.'}
    ]},
-  {id:'pc',grupo:'cap',nombre:'Cálculo de personal',pregunta:'¿Cuántas personas necesita cada área, mes a mes?'},
-  {id:'at',grupo:'cap',nombre:'Actual Time y Eficiencia compuesta',pregunta:'¿Cuántos minutos-hombre cuesta realmente cada pieza, y cómo va la planta?'},
-  {id:'df',grupo:'proc',nombre:'Diagramas de flujo',pregunta:'¿Cómo fluye el proceso y dónde están las demoras y los transportes?'}
+  {id:'pc',grupo:'cap',nombre:'Cálculo de personal',min:4,
+   pregunta:'¿Cuántas personas necesita cada área, mes a mes, según su volumen?',
+   cuando:'Para planear el headcount del año fiscal por área: lo que justifica el volumen contra la plantilla del esquema de turnos, con la meta de reducción anual.',
+   noPara:'Medir cuánto cuesta realmente cada pieza ya producida: eso es Actual Time.',
+   veras:['Área, tipo y año fiscal','Renglones por mes (líneas) con su personal y volumen','Cambiar un dato y ver todo recalcularse en vivo','Copiar un mes y leer el resumen anual'],
+   pasos:[
+    {ir:'pc',señala:'#view section.panel h2',di:'El Cálculo de personal responde: ¿cuántas personas necesita cada área, mes a mes, según su volumen? Se compara contra la plantilla del esquema de turnos.'},
+    {toca:'#view [data-pcnew]',di:'Empezamos un cálculo nuevo.',tu:'Toca «Nuevo cálculo».'},
+    {escribe:'input[name=nombre]',valor:'MAQUINADO PLANTA 1',di:'Un cálculo por área. Este es su nombre (obligatorio).'},
+    {toca:'[data-pctipo="MAQUINADO"]',di:'El tipo de área. Maquinado tiene sus líneas como renglones.',tu:'Toca «MAQUINADO».'},
+    {señala:'[data-pcfy]',di:'El año fiscal va de abril a marzo y se nombra por el año en que empieza: FY26 = abril 2026 a marzo 2027.'},
+    {señala:'input[name=red]',di:'El % de reducción anual: la meta de personal contra el esquema.'},
+    {toca:'[data-pcneed]',di:'Pasamos a los meses.',tu:'Toca «Continuar a meses».'},
+    {señala:'.pcmonths',di:'Los 12 meses del año fiscal. Cada mes tiene sus propios renglones, porque el personal y el volumen cambian.'},
+    {toca:'[data-pcexample]',di:'Cargamos un ejemplo: 3 líneas en abril y mayo.',tu:'Toca «Cargar ejemplo».'},
+    {señala:'[data-pctot]',di:'El total del mes: HC según volumen (lo que justifica la producción) contra HC según esquema (la plantilla por grupos), y la meta.'},
+    {toca:'button[data-pctoggle]',en:'.pccard',txt:'LINEA 1',di:'Abrimos la Línea 1 para ver su captura.',tu:'Toca «Editar» en la LINEA 1.'},
+    {señala:'.pcgrp',txt:'Indicadores del renglón',di:'Sus indicadores: horas disponibles y requeridas, % de ocupación, LAT, Actual Time y HC por volumen.'},
+    {escribe:'[data-pcf$="|vol"]',en:'.pccard',txt:'LINEA 1',valor:'18000',limpiar:true,di:'Si el volumen sube de 15,000 a 18,000 piezas, todo se recalcula en vivo.'},
+    {señala:'[data-pctot]',di:'El total del mes también se movió: así ves cuántas personas pide el nuevo volumen.'},
+    {toca:'[data-pcm="2"]',di:'Junio todavía no está capturado.',tu:'Toca el mes de junio.'},
+    {toca:'[data-pccopy]',di:'«Copiar de mayo» trae sus renglones; solo cambias lo que se movió.',tu:'Toca «Copiar de Mayo».'},
+    {toca:'.pcbottom [data-pcv="res"]',di:'Vemos el resumen anual.',tu:'Toca «Resumen anual».'},
+    {señala:'.kpi',txt:'% de ocupación promedio',di:'Horas requeridas ÷ horas disponibles, en promedio. Arriba de 100 % falta capacidad.'},
+    {señala:'.kpi',txt:'Meta de reducción',di:'Cuántas personas reducir para llegar a la meta anual.'},
+    {señala:'.kpi',txt:'Personal de afectación',di:'Supervisores, TPM, proyectos y otros contra la plantilla: arriba de 35 % se marca en rojo.'},
+    {señala:'.glass',txt:'Headcount por mes',di:'Mes a mes: lo que justifica el volumen, la plantilla del esquema y la línea de la meta.'},
+    {señala:'.glass',txt:'Personal que agrega valor',di:'Operadores y líderes (agregan valor) contra la afectación.'},
+    {señala:'.glass',txt:'Trazabilidad por línea',di:'Cómo varió cada línea durante el año: JPH, TC, OEE, LAT, Actual Time u ocupación.'}
+   ]},
+  {id:'at',grupo:'cap',nombre:'Actual Time y Eficiencia compuesta',min:4,
+   pregunta:'¿Cuántos minutos-hombre cuesta realmente cada pieza, y cómo va la planta?',
+   cuando:'Al cierre de cada mes, para comparar el costo real en minutos-hombre por pieza contra la meta, ver en qué se va la gente y juntar todas las áreas en la eficiencia de planta.',
+   noPara:'Planear el personal del año (Cálculo de personal) ni medir la velocidad de una línea (Speed Trial).',
+   veras:['Área, manejo de materiales y año fiscal','Los 12 meses y el detalle de un mes','La cascada de headcount','Resumen anual y Eficiencia compuesta de planta'],
+   pasos:[
+    {ir:'at',señala:'#view section.panel h2',di:'El Actual Time responde: ¿cuántos minutos-hombre cuesta realmente cada pieza, mes a mes? Horas trabajadas × 60 ÷ producción.'},
+    {toca:'#view [data-atnew]',di:'Empezamos un Actual Time nuevo: uno por área y año fiscal.',tu:'Toca «Nuevo Actual Time».'},
+    {escribe:'input[name=nombre]',valor:'ENSAMBLE PLANTA 1',di:'El nombre del área (obligatorio).'},
+    {señala:'[data-attipo="ENSAMBLE"]',di:'Ensamble usa el ST (tiempo estándar) por pieza e incluye el DSTR. Maquinado y fundición usan LAT y JPMH.'},
+    {señala:'[data-atmh]',di:'Manejo de materiales es un espejo de ensamble: misma producción y días, con su propio personal.'},
+    {toca:'[data-atneed]',di:'Pasamos a los meses.',tu:'Toca «Continuar a meses».'},
+    {toca:'[data-atexample]',di:'Cargamos un ejemplo de 5 meses.',tu:'Toca «Cargar ejemplo».'},
+    {señala:'.atmonths',di:'Vista general: el Actual Time de cada mes; en rojo los que quedaron arriba de la meta. Abajo, el acumulado del año.'},
+    {toca:'[data-atm="0"]',di:'Abrimos abril.',tu:'Toca el mes de abril.'},
+    {señala:'[data-atlive] .kpi',txt:'Actual Time real',di:'Actual Time real contra la meta (TARGET) y sin afectación.'},
+    {señala:'.pcgrp',txt:'Números de parte',di:'Cada número de parte aporta sus horas requeridas = producción × ST ÷ 60. Puede haber más de 100 partes.'},
+    {señala:'.glass',txt:'Cascada de headcount',di:'La cascada: del plan al HC requerido, pasando por ausentismo, afectaciones e indirectos. Se mueve en vivo al capturar.'},
+    {toca:'[data-atarea="mh"][data-attop]',di:'Abajo del mes no se brinca de mes: sigue manejo de materiales.',tu:'Toca «Siguiente: manejo de materiales».'},
+    {señala:'[data-atlive] .kpi',txt:'Actual Time real',di:'Manejo de materiales: mismo mes, su personal y un solo LAT para toda la línea.'},
+    {toca:'[data-atsave]',di:'Guardamos abril y vamos al resumen anual.',tu:'Toca «Guardar abril».'},
+    {señala:'.kpi',txt:'Actual Time del año',di:'El año completo: suma de horas ÷ suma de producción, no un promedio de porcentajes.'},
+    {señala:'.kpi',txt:'Eficiencia del año',di:'Eficiencia = horas requeridas ÷ horas trabajadas.'},
+    {señala:'.glass',txt:'Cascada de headcount',di:'La cascada de cualquier mes, con su selector.'},
+    {ir:'at',toca:'[data-ecopen]',di:'La Eficiencia compuesta junta los Actual Time de todas las áreas del año: la vista de planta.',tu:'Toca «Eficiencia compuesta».'},
+    {señala:'.kpi',txt:'Planta · año',di:'La eficiencia de la planta: Σ horas requeridas ÷ Σ horas trabajadas de todas las áreas.'},
+    {toca:'[data-ecmode="sin"]',di:'Con o sin afectación: sin afectación quita las horas de afectaciones.',tu:'Toca «SIN AFECTACIÓN».'},
+    {señala:'.glass',txt:'Trayectoria de eficiencia',di:'Una línea por área y la planta en grueso, mes a mes.'},
+    {señala:'.glass',txt:'Tendencia de piezas por hora-hombre',di:'Piezas por hora-hombre: solo tendencia de cada área contra su mes anterior; no se comparan áreas entre sí.'}
+   ]},
+  {id:'df',grupo:'proc',nombre:'Diagramas de flujo',min:3,
+   pregunta:'¿Cómo fluye el proceso y dónde están las demoras y los transportes?',
+   cuando:'Para documentar un proceso con símbolos ASME (operación, inspección, transporte, demora, almacenamiento) y ver qué parte agrega valor.',
+   noPara:'Medir tiempos con cronómetro: el tiempo de cada paso se escribe.',
+   veras:['Datos del proceso y método (actual o propuesto)','Poner símbolos desde la barra y escribir la acción','Editar un símbolo: tiempo, distancia y «Viene de»','Leer el resumen ASME'],
+   pasos:[
+    {ir:'df',señala:'#view section.panel h2',di:'El diagrama de flujo responde: ¿cómo fluye el proceso, paso a paso, y dónde hay transportes, demoras y almacenamientos?'},
+    {toca:'#view [data-dfnew]',di:'Empezamos un diagrama nuevo.',tu:'Toca «Nuevo diagrama».'},
+    {escribe:'input[name=titulo]',valor:'RECEPCIÓN DE MATERIA PRIMA',di:'El título (obligatorio).'},
+    {escribe:'input[name=analista]',valor:'J. PÉREZ',di:'El analista (obligatorio).'},
+    {señala:'[data-dfmet]',di:'El método: actual (como se hace hoy) o propuesto (mejorado).'},
+    {toca:'[data-dfneed]',di:'Pasamos a la hoja.',tu:'Toca «Continuar».'},
+    {señala:'.dfpal',di:'La barra de símbolos ASME. Arrastra uno a la hoja o tócalo para ponerlo debajo del último.'},
+    {toca:'[data-dfpal="ini"]',di:'Empezamos con Inicio. Se abre una nube junto al símbolo.',tu:'Toca «Inicio / fin».'},
+    {escribe:'[data-dff="desc"]',valor:'LLEGA EL CAMIÓN',enter:true,di:'Escribe la acción; Enter o «Listo» cierra la nube.'},
+    {toca:'[data-dfpal="op"]',di:'Una operación: se conecta sola con el último símbolo.',tu:'Toca «Operación».'},
+    {escribe:'[data-dff="desc"]',valor:'DESCARGAR MATERIAL',enter:true,di:'Lo que se hace en este paso.'},
+    {toca:'[data-dfpal="tra"]',di:'Un transporte.',tu:'Toca «Transporte».'},
+    {escribe:'[data-dff="desc"]',valor:'LLEVAR A RECIBO',enter:true,di:'Llevar el material a recibo.'},
+    {toca:'[data-dfpal="insp"]',di:'Una inspección.',tu:'Toca «Inspección».'},
+    {escribe:'[data-dff="desc"]',valor:'INSPECCIÓN DE RECIBO',enter:true,di:'Revisar el material.'},
+    {toca:'[data-dfpal="alm"]',di:'Un almacenamiento.',tu:'Toca «Almacenamiento».'},
+    {escribe:'[data-dff="desc"]',valor:'ALMACENAR EN RACK',enter:true,di:'Guardarlo en su lugar.'},
+    {toca:'[data-dfpal="ini"]',di:'Y el fin del proceso.',tu:'Toca «Inicio / fin».'},
+    {escribe:'[data-dff="desc"]',valor:'FIN',enter:true,di:'Cerramos el proceso.'},
+    {señala:'[data-dfsvg]',di:'Flechas en escuadra siguiendo el proceso. Con Decisión eliges el camino SÍ o NO; el NO y los regresos rodean por la derecha.'},
+    {toca:'[data-dfbox]',txt:'DESCARGAR MATERIAL',di:'Toca un símbolo para editarlo.',tu:'Toca el símbolo «DESCARGAR MATERIAL».'},
+    {señala:'[data-dfprev]',di:'«Viene de» dice de qué paso viene. Si lo cambias, el símbolo se reacomoda junto a su antecesor.'},
+    {escribe:'[data-dff="tiempo"]',valor:'12',enter:true,di:'El tiempo del paso, en minutos.'},
+    {toca:'[data-dfbox]',txt:'LLEVAR A RECIBO',di:'El transporte también lleva distancia.',tu:'Toca el símbolo «LLEVAR A RECIBO».'},
+    {escribe:'[data-dff="dist"]',valor:'25',enter:true,di:'Metros recorridos.'},
+    {toca:'[data-dfv="res"]',di:'Vemos el resumen ASME.',tu:'Toca «Ver resumen».'},
+    {señala:'.kpi',txt:'Actividades',di:'Cuántas actividades tiene el proceso (sin contar inicio, fin ni decisiones).'},
+    {señala:'.kpi',txt:'Operaciones',di:'El % de operaciones: lo único que transforma el producto. Lo demás es candidato a reducirse.'},
+    {señala:'.kpi',txt:'Distancia recorrida',di:'Tiempo total y distancia recorrida: aquí se ve el costo de los transportes.'}
+   ]}
 ];
 const TUT_SEEN=new Set();
 const tutReady=t=>!!(t&&t.pasos);
@@ -3727,7 +3821,7 @@ function tutQuery(sel,txt,en){
   if(txt){const n=tutNorm(txt);L=L.filter(e=>tutNorm(tutText(e)).includes(n));L=L.filter(e=>!L.some(o=>o!==e&&e.contains(o)));}
   return L[0]||null;}
 // ¿El toque del usuario cae en el objetivo del paso? (con contenedor: dentro del renglón correcto)
-function tutHit(x,sel,p){const el=x.closest&&x.closest(sel);if(!el)return false;if(!p.en)return true;const c=el.closest(p.en);return !!c&&tutNorm(tutText(c)).includes(tutNorm(p.txt));}
+function tutHit(x,sel,p){const el=x.closest&&x.closest(sel);if(!el)return false;if(!p.en)return !p.txt||tutNorm(tutText(el)).includes(tutNorm(p.txt));const c=el.closest(p.en);return !!c&&tutNorm(tutText(c)).includes(tutNorm(p.txt));}
 async function tutFind(run,sel,txt,en){const t0=Date.now();
   while(Date.now()-t0<4000){tutAlive(run);const el=tutQuery(sel,txt,en);if(el)return el;await new Promise(r=>setTimeout(r,60));}
   throw {tutErr:'No se encontró «'+(en?en+' › ':'')+sel+(txt?' · '+txt:'')+'». La pantalla cambió: hay que actualizar este tutorial.'};}
@@ -3756,7 +3850,7 @@ function tutBar(){const L=tutLayer();const T=TR;if(!T)return;const n=T.t.pasos.l
 // Coloca anillo, globo y cursor siguiendo al elemento (la app vuelve a pintar la pantalla seguido)
 function tutTrack(){if(!TR)return;const L=tutLayer();const ring=L.querySelector('.tutring'),bub=L.querySelector('.tutbub');
   let el=TR.el;if(el&&!el.isConnected&&TR.sel){el=TR.el=tutQuery(TR.sel,TR.txt,TR.en);}
-  if(el&&!ring.hidden){const r=el.getBoundingClientRect();Object.assign(ring.style,{left:r.left-6+'px',top:r.top-6+'px',width:r.width+12+'px',height:r.height+12+'px'});
+  if(el&&!ring.hidden){const r=el.getBoundingClientRect();if(tutPhone())bub.classList.toggle('up',r.top+r.height/2>innerHeight*0.5);Object.assign(ring.style,{left:r.left-6+'px',top:r.top-6+'px',width:r.width+12+'px',height:r.height+12+'px'});
     if(!tutPhone()&&!bub.hidden){const bw=bub.offsetWidth,bh=bub.offsetHeight,barH=86;let top=r.bottom+14;
       if(top+bh>innerHeight-barH)top=r.top-bh-14;if(top<8)top=Math.min(innerHeight-barH-bh,Math.max(8,r.top+12));
       let left=Math.min(Math.max(12,r.left+r.width/2-bw/2),innerWidth-bw-12);bub.style.left=left+'px';bub.style.top=top+'px';}}
@@ -3766,7 +3860,7 @@ function tutSay(text,sug){const L=tutLayer();const b=L.querySelector('.tutbub');
   b.querySelector('p').textContent=text;const s=b.querySelector('.tutsug');s.textContent=sug||'';s.hidden=!sug;
   b.classList.toggle('sheet',tutPhone());b.hidden=false;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');}
 async function tutAim(run,el,sel,txt,en){TR.el=el;TR.sel=sel;TR.txt=txt;TR.en=en;
-  const top=tutPhone()?70:90,bottom=innerHeight-(tutPhone()?Math.round(innerHeight*.36)+80:110);
+  const top=tutPhone()?70:90,bottom=innerHeight-(tutPhone()?Math.round(innerHeight*.36)+80:110);if(getComputedStyle(el.closest('.dfpop.sheet')||document.body).position==='fixed'){tutLayer().querySelector('.tutring').hidden=false;return;}
   let r=el.getBoundingClientRect();
   if(r.top<top||r.bottom>bottom){window.scrollBy({top:r.top-(top+Math.max(0,(bottom-top-r.height)/2)),behavior:'smooth'});await tutWait(run,420);}
   tutLayer().querySelector('.tutring').hidden=false;}
@@ -3774,7 +3868,7 @@ async function tutMove(run,el,ms){const c=tutLayer().querySelector('.tutcur');c.
   const x=r.left+Math.min(r.width/2,r.width-14),y=r.top+Math.min(r.height/2,r.height-10);
   c.style.transitionDuration=Math.round(ms/TR.speed)+'ms';c.style.transform=`translate(${x}px,${y}px)`;await tutWait(run,ms);}
 async function tutClick(run,el){const c=tutLayer().querySelector('.tutcur');c.classList.remove('tutping');void c.offsetWidth;c.classList.add('tutping');
-  await tutWait(run,160);tutAlive(run);el.click();await tutWait(run,260);}
+  await tutWait(run,160);tutAlive(run);if(typeof el.click==='function')el.click();else el.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}));await tutWait(run,260);}
 async function tutType(run,el,val,clear){el.focus({preventScroll:true});if(clear){el.value='';el.dispatchEvent(new Event('input',{bubbles:true}));}
   for(const ch of val){tutAlive(run);el.value+=ch;el.dispatchEvent(new Event('input',{bubbles:true}));await tutWait(run,55);}
   el.dispatchEvent(new Event('change',{bubbles:true}));el.blur();}
@@ -3803,7 +3897,7 @@ async function tutStep(run,p){
   if(p.señala){await tutWait(run,tutRead(p.di));return;}
   await tutWait(run,Math.max(900,tutRead(p.di)-900));
   if(p.toca)await tutClick(run,el);
-  else if(p.escribe){await tutClick(run,el);const f=tutQuery(sel,p.txt,p.en)||el;await tutType(run,f,p.valor,p.limpiar);await tutWait(run,350);}
+  else if(p.escribe){await tutClick(run,el);const f=tutQuery(sel,p.txt,p.en)||el;await tutType(run,f,p.valor,p.limpiar);if(p.enter){await tutWait(run,250);tutAlive(run);f.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true,cancelable:true}));}await tutWait(run,350);}
   else if(p.elige){el.value=p.valor;el.dispatchEvent(new Event('change',{bubbles:true}));await tutWait(run,500);}
   else if(p.serie){for(let k=0;k<p.v.length;k++){await tutGate(run);const s=tutSel(p,k);const b=await tutFind(run,s);TR.el=b;TR.sel=s;await tutMove(run,b,280);await tutClick(run,b);}}
 }
