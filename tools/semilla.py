@@ -65,9 +65,11 @@ def v_ws(b,i):
     return d
 def v_dsw(b,i,we):
     d=copy.deepcopy(b);nid=Ids();ops=[];acts=[];asg={}
-    for k in range(random.randint(2,4) if we else random.randint(1,3)):
+    nops=random.randint(2,4) if we else 2
+    for k in range(nops):
         oid=nid();ops.append({'id':oid,'name':f'OPERADOR {k+1}' if we else f'MATERIALISTA {k+1}','obj':''})
-        for a in b['acts']:
+        # Work Element: cada operador hace su ciclo completo; Delay Study: las actividades se reparten entre los materialistas
+        for a in (b['acts'] if we else b['acts'][k::nops]):
             x=copy.deepcopy(a);x['id']=nid();x['cap']=oid;k2=f()
             if 'times' in x and x['times']:x['times']=[sc(t,k2) for t in x['times']];vs=[float(t) for t in x['times']];x['secs']=sum(vs)/len(vs)*60
             elif 'secs' in x:x['secs']=float(x['secs'])*k2
@@ -112,10 +114,22 @@ def v_pc(b,i):
 def v_at(b,i):
     d=copy.deepcopy(b);base=[m for m in b['months'] if m];nid=Ids();d['months']=[None]*12
     for m in range(7):
-        mo=copy.deepcopy(base[m%len(base)]);kp=f(0.9,1.1);kh=kp*f(0.95,1.06)
+        mo=copy.deepcopy(base[m%len(base)]);kp=f(0.9,1.1)
         for p in mo['partes']:p['id']=nid();p['prod']=str(round(float(p['prod'])*kp))
-        mo['horasTrab']=str(round(float(mo['horasTrab'])*kh))
-        if mo.get('mh') and str(mo['mh'].get('horasTrab','')).strip():mo['mh']['horasTrab']=str(round(float(mo['mh']['horasTrab'])*kh))
+        # Mes coherente (ficticio): horas trabajadas = requeridas ÷ eficiencia (82–93 %); afectaciones en proporción;
+        # indirectos para que el GAP de personal quede en ±3; JPH y plantilla planeada cerca de lo real (la meta queda cerca del Actual Time)
+        prod=sum(float(p['prod']) for p in mo['partes']);hl=float(mo['dias'])*float(mo['horasDia'])
+        mo['jphCommit']=f"{prod/hl*random.uniform(1.0,1.08):.1f}";mo['jphRes']=f"{prod/hl*random.uniform(0.96,1.0):.1f}"
+        gR=float(mo.get('gruposReal') or mo['gruposCommit']);hPer=hl/gR
+        def ajusta(area,req):
+            old=float(area['horasTrab']);new=req/random.uniform(0.82,0.93);k=new/old;area['horasTrab']=str(round(new))
+            area['afect']={a:(str(round(float(v)*k)) if str(v).strip() else v) for a,v in (area.get('afect') or {}).items()}
+            af=sum(float(v) for v in area['afect'].values() if str(v).strip());hcT=new/hPer
+            ind=max(3,(new-af)/hPer-req/hPer-random.uniform(-2,3))
+            area['sv']=str(max(1,round(ind*0.2)));area['lider']=str(max(1,round(ind*0.45)));area['otrosInd']=str(max(0,round(ind*0.35)))
+            area['hcPlan']=str(round(hcT*random.uniform(1.0,1.05)));area['hcRes']=str(round(hcT*random.uniform(0.98,1.02)))
+        ajusta(mo,sum(float(p['prod'])*float(p['st'])/60 for p in mo['partes']))
+        if mo.get('mh') and str(mo['mh'].get('horasTrab','')).strip():ajusta(mo['mh'],sum(float(p['prod'])*float(mo['partes'][0]['lat'] or 0)/60 for p in mo['partes']))
         d['months'][m]=mo
     return d
 VAR={'ws':v_ws,'ds':lambda b,i:v_dsw(b,i,False),'we':lambda b,i:v_dsw(b,i,True),'st':v_st,'mm':v_mm,'sm':v_sm,'tk':v_tk,'hs':v_hs,'df':v_df,'sp':v_sp,'pc':v_pc,'at':v_at}

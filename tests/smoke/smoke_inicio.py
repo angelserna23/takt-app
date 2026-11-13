@@ -101,6 +101,17 @@ def dinamismo(b):
     check('anim',sl(pg,'we')==a and pg.evaluate('TaktInicio.timers()')==0,'con «reducir movimiento» todo queda quieto')
     ctx.close()
 
+def dispositivos(b):
+    for nm,w,h in [('tab',1024,768),('phone',390,844)]:
+        ctx=b.new_context(viewport={'width':w,'height':h},reduced_motion='reduce',has_touch=nm=='phone',is_mobile=nm=='phone');pg=ctx.new_page();pg.on('pageerror',lambda e:errs.append(str(e)))
+        pg.goto(IDX);pg.wait_for_function('window.TaktStore&&TaktStore.ready()');pg.evaluate('TaktSeed.load()');reload(pg);norte(pg)
+        check(nm,pg.locator('[data-inrow]').count()==12,'pinta los 12 renglones')
+        ov=pg.evaluate('document.documentElement.scrollWidth-innerWidth')
+        check(nm,ov<=1,f'nada se sale de la pantalla a lo ancho ({ov}px)')
+        sz=pg.eval_on_selector_all('[data-inmove],[data-inrow] [data-go],[data-inplanta]','e=>e.filter(x=>x.offsetParent).map(x=>Math.min(x.offsetWidth,x.offsetHeight))')
+        check(nm,sz and min(sz)>=44,f'botones de al menos 44 px (mínimo {min(sz) if sz else None})')
+        ctx.close()
+
 with sync_playwright() as p:
     b=p.chromium.launch()
     pg=b.new_page(viewport={'width':1366,'height':900});pg.on('pageerror',lambda e:errs.append(str(e)))
@@ -109,6 +120,7 @@ with sync_playwright() as p:
     kpis(pg)
     renglones(pg)
     dinamismo(b)
+    dispositivos(b)
     auto(b)
     b.close()
 check('js',not errs,'sin errores de JavaScript '+(str(errs[:3]) if errs else ''))

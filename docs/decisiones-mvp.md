@@ -345,11 +345,20 @@ Para afinar en piso (no bloquea): botón «Actualizar desde el Work Element» (h
 - Botones principales arriba, donde el usuario no tenga que desplazarse. Botones ≥ 48 px; contraste ≥ 4.5:1.
 - Canvas de la carcasa (referencia): https://claude.ai/artifact/3m1eVYym44bfsqv9oLByaz
 
-## Tablero del Analista — 4 KPI (se diseña al final)
-1. Operaciones sobre takt, con el cuello de botella destacado.
-2. Capacidad teórica (pzs/h).
-3. Eficiencia de balanceo (%).
-4. Estudios vencidos.
+## Tablero de Inicio — HECHO, EN REVISIÓN DE ANGEL (2026-11-13)
+Diseño: `docs/superpowers/specs/2026-11-13-tablero-inicio-design.md` · plan: `docs/superpowers/plans/2026-11-13-tablero-inicio.md`.
+- Inicio = la foto de **una planta** (chips de planta; «Sin asignar» es una opción más).
+- Indicadores de planta solo de lo mensual por área (Actual Time y Cálculo de personal), del último mes del año fiscal más reciente: eficiencia con/sin afectación + tendencia, Actual Time contra meta por área, GAP de personal y ausentismo, ocupación y HC volumen vs esquema. **No se promedian estudios entre sí.**
+- Todos los estudios y análisis: un renglón por tipo (12), lo más reciente primero, máximo 12 tarjetas y «Ver todos (n)»; filtro por línea. Cada tarjeta muestra el resultado principal de su tipo con las mismas funciones de la app y de los reportes, y al tocarla abre el estudio.
+- «Quién lo hizo»: cada analista con cuántos estudios, de qué tipos y su fecha más reciente.
+- Dinamismo: números que cuentan, anillos y tendencia que se dibujan, tarjetas que entran escalonadas; cada renglón avanza solo cada 5 s y se detiene en cuanto se toca. Con «reducir movimiento» todo queda quieto.
+- «Estudios vencidos»: descartado (Angel: todo es historial).
+
+## Historial ficticio (semilla) — mientras la app está en pruebas (2026-11-13)
+- Angel: la app se deja **llena hasta hoy** para ver cómo se ve; al lanzar queda en blanco.
+- `tools/semilla.py` corre los tutoriales en modo demo y arma 47 estudios ficticios de los 12 formatos (PLANTA NORTE y PLANTA SUR, 5 analistas, abril a noviembre de 2026; Actual Time y Cálculo de personal de abril a octubre). Los escribe en `index.html` entre `/*<semilla>*/` y `/*</semilla>*/`.
+- Se guarda sola la primera vez que se abre la app en un navegador (marca `semilla` en ajustes); si se borra un estudio de ejemplo no regresa. Configuración → «Datos de prueba» la vuelve a cargar. Las pruebas automáticas arrancan en blanco.
+- **Al lanzar:** `SEED_ON=false`, borrar el bloque `<semilla>` y la tarjeta desaparece sola.
 
 ## Datos
 - Jerarquía planta → línea → estación desde el día uno.
@@ -360,7 +369,7 @@ Para afinar en piso (no bloquea): botón «Actualizar desde el Work Element» (h
 - Estudios complementarios (orden acordado 2026-11-13): **1) Takt y balanceo de línea (terminado)** → **2) hoja de trabajo estándar (terminado)** → al terminarla, Angel elige el siguiente entre: plan de acción + antes/después (falta decidir si habla de dinero o solo tiempos/piezas/horas-hombre) · diagrama de espagueti · ergonomía NOM-036 (apoyo, no dictamen). **Tiempo estándar: DESCARTADO por completo** (2026-11-13; los estándares los da el cliente y no queremos riesgo legal). **Ergonomía NOM-036: DESCARTADO** (Angel, 2026-11-13; la usa Seguridad e Higiene, no el ingeniero; ya tienen sus formatos; sería otra disciplina en la app). **VSM: DESCARTADO** (Angel, 2026-11-13; en la práctica siempre lleva subensambles, sería un editor complejo de uso esporádico). **Cronometrar desde video: DESCARTADO** (Angel, 2026-11-13; haría pesada la app y requiere mucho espacio). **Curva de aprendizaje: DESCARTADO** (2026-11-13; lo lleva RRHH). **Plan de acción + antes/después: DESCARTADO por completo** (Angel, 2026-11-13; no mezclar demasiadas cosas ni volver compleja la app). Principio: la app se queda enfocada en análisis de ingeniería industrial, simple de usar. **Horarios aleatorios del Work Sampling: DESCARTADO** (2026-11-13; el Work Sampling se hace en casos esporádicos, no agrega valor).
 - **Regla de aislamiento (Angel, 2026-11-13): todos los módulos son aislados —se capturan desde cero, no traen ni ligan datos de otros—. La única excepción es Takt y balanceo (trae los Work Element de la línea porque lo necesita). Aplica a los que vienen y a los futuros.**
 - Regla para cada estudio nuevo: nace con guardado (su versión en `STORE_SCHEMA`), ubicación en la jerarquía, tutorial en Aprende y sus pruebas en `smoke_store.py` y `smoke_tut.py`.
-- Luego: Inicio (tablero) → guardado Fase 3 → diseño final → pagos. Exportación: hecha como reportes PDF (2026-11-13); Excel descartado.
+- Luego: Inicio (tablero, hecho 2026-11-13) → guardado Fase 3 → diseño final → pagos. Exportación: hecha como reportes PDF (2026-11-13); Excel descartado.
 - Un tema a la vez, sin adelantarse. Menú actual: Inicio · Estudios de tiempos · Takt y balanceo · Hoja estándar · Cálculo de personal · Actual Time · Diagramas de flujo · Aprende · Configuración.
 
 ## Análisis de brechas (2026-11-12)
