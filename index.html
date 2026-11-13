@@ -779,7 +779,24 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .rep .rsvg.rbox{border:1px solid #D6DEE8;border-radius:8px;padding:6px;background:#fff}
 .rep .rsvg *{animation:none!important;transition:none!important}.rep .rsvg .pbar,.rep .rsvg .cbar,.rep .rsvg .stpt{opacity:1!important}
 .rep .rsvg .lpath,.rep .rsvg .pline,.rep .rsvg .spleg{stroke-dasharray:none!important;stroke-dashoffset:0!important}
-.rep .mmcell,.rep .mmplus{display:none}.rep .rsvg.rpad{padding-right:9%}.rtbl.rnw tbody th{white-space:nowrap}.rtbl.rsm td,.rtbl.rsm th{padding:2.5px 5px}
+.rep .mmcell,.rep .mmplus{display:none}
+/* Tablero de Inicio */
+.inmes{margin:10px 0 0}.inkpis{display:grid;grid-template-columns:1.25fr 1.25fr 1fr 1.1fr;gap:14px;margin-top:12px}
+.inkpis.vacio{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:18px;border:1px dashed var(--line);border-radius:18px}
+.inkpi{position:relative;overflow:hidden;padding:16px 18px;border-radius:18px;background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.8);box-shadow:0 8px 24px rgba(27,36,48,.06);display:flex;flex-direction:column;gap:4px;min-width:0}
+.inkpi>span{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.inkpi>b{font-size:34px;font-weight:600;line-height:1.1}.inkpi.big>b{font-size:44px;color:var(--blue)}.inkpi small{font-size:12px;color:var(--muted);line-height:1.35}
+.inkpi .up{color:#15803D}.inkpi .dn{color:#B42318}
+.inspark{width:100%;height:46px;margin-top:6px}.insparkl{fill:none;stroke:var(--blue);stroke-width:2.4;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}.insparkf{fill:rgba(29,95,168,.08)}.insparkp{fill:#fff;stroke:var(--blue);stroke-width:2.4}
+.inatb{display:flex;flex-direction:column;gap:9px;margin-top:6px}.inatb>div{display:grid;grid-template-columns:minmax(0,1fr) 54px;grid-template-areas:'n v' 'b v';gap:2px 10px;align-items:center}
+.inatb em{grid-area:n;font-style:normal;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.inatb i{grid-area:b;position:relative;height:10px;border-radius:6px;background:#E7ECF2}
+.inatb s{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:#15803D;text-decoration:none}.inatb s.over{background:#DC2626}.inatb u{position:absolute;top:-4px;bottom:-4px;width:3px;border-radius:2px;background:#1B2430}
+.inatb b{grid-area:v;font-size:16px;text-align:right}
+.inpers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}.inpers b{display:block;font-size:30px;font-weight:600}
+.inocc{display:flex;gap:14px;align-items:center;margin-top:4px}.inocc b{display:block;font-size:22px;font-weight:600;line-height:1.1}.inocc small{display:block;margin-bottom:4px}
+.inring{width:86px;height:86px;flex:none}.inringb{fill:none;stroke:#E7ECF2;stroke-width:8}.inringv{fill:none;stroke-width:8;stroke-linecap:round;stroke-dasharray:var(--v) 100;transform:rotate(-90deg);transform-origin:32px 32px}.inring text{font:700 14px 'IBM Plex Mono',monospace;fill:var(--ink)}
+@media (max-width:1100px){.inkpis{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.inkpis{grid-template-columns:1fr}.inkpi.big>b{font-size:38px}}.rep .rsvg.rpad{padding-right:9%}.rtbl.rnw tbody th{white-space:nowrap}.rtbl.rsm td,.rtbl.rsm th{padding:2.5px 5px}
 .rybar b{position:relative;z-index:2;background:#fff;border-radius:3px}.rep .rtbl svg{vertical-align:middle}
 
 /* Diagrama de espagueti */
@@ -1228,8 +1245,59 @@ function inWho(items){const M=new Map();items.forEach(({kind,d})=>{const name=in
   w.n++;w.kinds[kind]=(w.kinds[kind]||0)+1;const f=inDate(d);if(f>w.last)w.last=f;M.set(name,w);});
   return [...M.values()].sort((a,b)=>b.n-a.n||a.name.localeCompare(b.name,'es'));}
 // </in-pure>
-function vInicio(){setHead('Tablero',[['Inicio','inicio']]);
-  return `<section class="glass panel empty"><span class="tag">AL FINAL</span><h2>Tablero del Analista</h2><p>Se diseña al final, cuando los formatos ya generen datos: operaciones sobre takt, capacidad teórica, eficiencia de balanceo y estudios vencidos.</p></section>`;}
+// ===== TABLERO DE INICIO =====
+// Planta de un estudio: la de su ubicación si sigue en el catálogo; si no, '' («Sin asignar»)
+function inPlantOf(d){const p=d&&d.ubic&&d.ubic.planta;return p&&ubFind('planta',p)?p:'';}
+const IN={planta:null,linea:''};
+// Indicadores de la planta: solo de lo mensual por área (Actual Time y Cálculo de personal); nunca se promedian estudios.
+// Año fiscal más reciente con datos de la planta; mes = último capturado. null si la planta no tiene ninguno de los dos.
+function inKpis(planta){
+  const ats=AT.studies.filter(st=>inPlantOf(st)===planta&&st.months.some(m=>m&&atMonth(m).prod));
+  const pcs=PC.studies.filter(st=>inPlantOf(st)===planta&&st.months.some(m=>m&&m.length));
+  if(!ats.length&&!pcs.length)return null;
+  const fy=Math.max(...ats.concat(pcs).map(st=>st.fy));
+  const A=ats.filter(st=>st.fy===fy),P=pcs.filter(st=>st.fy===fy);
+  const D=ecData(fy,planta);const li=D.plant.map((x,i)=>x?i:-1).filter(i=>i>=0).pop();
+  let out={fy,mes:null,efic:null,eficSA:null,dEfic:null,req:0,trab:0,serie:D.plant.map(x=>x?x.efic:null),areas:[],gap:null,aus:null,occ:null,hcVol:null,hcEsq:null};
+  if(li!=null&&li>=0){const x=D.plant[li];let pv=null;for(let i=li-1;i>=0;i--)if(D.plant[i]){pv=D.plant[i];break;}
+    Object.assign(out,{mes:li,efic:x.efic,eficSA:x.eficSA,dEfic:pv?x.efic-pv.efic:null,req:x.req,trab:x.trab});
+    let gap=0,aus=0;A.forEach(st=>{const r=st.months[li]&&atMonth(st.months[li]);if(!r||!r.prod)return;out.areas.push({lbl:st.nombre||'Área',at:r.atReal,meta:r.target});gap+=r.gap;aus+=r.ausentismo;});
+    out.gap=gap;out.aus=aus;}
+  if(P.length){let m=out.mes;if(m==null||!P.some(st=>st.months[m]&&st.months[m].length))m=Math.max(...P.map(st=>st.months.map((r,i)=>r&&r.length?i:-1).reduce((a,b)=>Math.max(a,b),-1)));
+    if(out.mes==null)out.mes=m;let hReq=0,hDisp=0,hv=0,he=0;P.forEach(st=>{const r=st.months[m];if(!r||!r.length)return;const M=pcMonth(r,st.red);hReq+=M.hReq;hDisp+=M.hDisp;hv+=M.hcVol;he+=M.hcEsq;});
+    Object.assign(out,{occ:hDisp?hReq/hDisp:null,hcVol:hv,hcEsq:he,pcMes:m});}
+  return out;}
+// plantas que se pueden elegir: las del catálogo con algo guardado, más «Sin asignar» si tiene estudios
+function inPlantas(){const all=ubAllStudies();const n=id=>all.filter(d=>inPlantOf(d)===id).length;
+  const L=CAT.plantas.map(p=>({id:p.id,nombre:p.nombre,n:n(p.id)})).filter(p=>p.n);const sa=n('');if(sa)L.push({id:'',nombre:'Sin asignar',n:sa});return L;}
+function inSpark(serie){const P=serie.map((v,i)=>v==null?null:[i,v]).filter(Boolean);if(P.length<2)return '';
+  const lo=Math.min(...P.map(p=>p[1])),hi=Math.max(...P.map(p=>p[1]));const W=220,H=46;const X=i=>6+i*(W-12)/11,Y=v=>H-6-(hi>lo?(v-lo)/(hi-lo):0.5)*(H-14);
+  const d=P.map((p,k)=>(k?'L':'M')+X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ');const l=P[P.length-1];
+  return `<svg class="inspark" viewBox="0 0 ${W} ${H}" aria-hidden="true"><path d="${d} L${X(l[0]).toFixed(1)},${H} L${X(P[0][0]).toFixed(1)},${H} Z" class="insparkf"/><path d="${d}" class="insparkl" pathLength="1"/><circle cx="${X(l[0]).toFixed(1)}" cy="${Y(l[1]).toFixed(1)}" r="4" class="insparkp"/></svg>`;}
+function inKpiBand(planta){const K=inKpis(planta);
+  if(!K)return `<div class="inkpis vacio" data-inkpis-vacio="1"><div><b>Indicadores de la planta</b><p class="sub">Salen de <b>Actual Time</b> y <b>Cálculo de personal</b> de esta planta. Captura uno para ver aquí la eficiencia, el Actual Time contra meta y el personal.</p></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost sm" type="button" data-go="at">${svg('at',16)} Actual Time</button><button class="btn ghost sm" type="button" data-go="pc">${svg('pc',16)} Cálculo de personal</button></div></div>`;
+  const mes=K.mes!=null?PC_MONTHS[K.mes]+' '+(2000+K.fy+(K.mes<9?0:1)):'';
+  const atMax=Math.max(1e-9,...K.areas.map(a=>Math.max(a.at,a.meta)*1.1));
+  return `<p class="sub inmes">FY${String(K.fy).padStart(2,'0')} · ${esc(mes)} · último mes capturado</p><div class="inkpis">
+    <div class="inkpi big"><span>Eficiencia de planta</span>${K.efic!=null?`<b class="mono" data-inkpi="efic" data-count="${(K.efic*100).toFixed(1)}" data-suf="%">${pc(K.efic,1)}</b>
+      <small>sin afectación <b>${pc(K.eficSA,1)}</b>${K.dEfic!=null?` · <span class="${K.dEfic>=0?'up':'dn'}">${K.dEfic>=0?'▲':'▼'} ${Math.abs(K.dEfic*100).toFixed(1)} pts</span> vs mes anterior`:''}</small>${inSpark(K.serie)}`:'<b class="mono">—</b><small>sin Actual Time en esta planta</small>'}</div>
+    <div class="inkpi"><span>Actual Time contra meta</span>${K.areas.length?`<div class="inatb">${K.areas.map(a=>{const over=a.meta&&a.at>a.meta;return `<div><em>${esc(a.lbl)}</em><i><s style="width:${(a.at/atMax*100).toFixed(1)}%" class="${over?'over':''}"></s>${a.meta?`<u style="left:${(a.meta/atMax*100).toFixed(1)}%"></u>`:''}</i><b class="mono ${over?'dn':'up'}">${f2(a.at)}</b></div>`;}).join('')}</div><small>min-hombre por pieza · la marca es la meta</small>`:'<b class="mono">—</b>'}</div>
+    <div class="inkpi"><span>Personal</span>${K.gap!=null?`<div class="inpers"><div><b class="mono ${K.gap>0?'dn':K.gap<0?'dn':'up'}" data-count="${K.gap.toFixed(1)}" data-sign="1">${K.gap>0?'+':''}${f1(K.gap)}</b><small>GAP de personal<br>${K.gap>0?'personas de más':K.gap<0?'faltan personas':'justo'}</small></div>
+      <div><b class="mono ${K.aus>0?'dn':'up'}" data-count="${K.aus.toFixed(1)}">${f1(K.aus)}</b><small>ausentismo<br>personas equivalentes</small></div></div>`:'<b class="mono">—</b><small>sin Actual Time</small>'}</div>
+    <div class="inkpi"><span>Ocupación · Cálculo de personal</span>${K.occ!=null?`<div class="inocc">${inRing(K.occ,K.occ>1?'#DC2626':'#1D5FA8')}<div><b class="mono" data-count="${K.hcVol}">${K.hcVol}</b><small>HC según volumen</small><b class="mono" data-count="${K.hcEsq}">${K.hcEsq}</b><small>HC según esquema${K.hcEsq>K.hcVol?` · <span class="dn">${K.hcEsq-K.hcVol} arriba</span>`:''}</small></div></div>`:'<b class="mono">—</b><small>sin Cálculo de personal</small>'}</div>
+  </div>`;}
+// anillo de porcentaje (se dibuja al aparecer)
+function inRing(g,col,txt){const v=Math.max(0,Math.min(1,g||0));return `<svg class="inring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" class="inringb"/><circle cx="32" cy="32" r="26" class="inringv" stroke="${col}" pathLength="100" style="--v:${(v*100).toFixed(1)}"/><text x="32" y="37" text-anchor="middle">${txt!=null?txt:Math.round((g||0)*100)+'%'}</text></svg>`;}
+function vInicio(){const PL=inPlantas();
+  if(IN.planta==null||!PL.some(p=>p.id===IN.planta))IN.planta=PL.length?PL[0].id:'';
+  const pl=PL.find(p=>p.id===IN.planta);setHead('Tablero',[['Inicio','inicio']]);
+  if(!PL.length)return `<section class="glass panel empty"><h2>Tablero</h2><p>Todavía no hay estudios guardados. Cuando guardes el primero, aquí verás la planta, sus indicadores y todo lo que se ha analizado.</p></section>`;
+  return `<section class="glass panel inpanel ${S.keep?'':'view'}"><div class="row"><div><h2>${esc(pl?pl.nombre:'Tablero')}</h2><p class="sub">Todo lo que se ha analizado en la planta</p></div>
+    ${PL.length>1?`<div class="chips" role="group" aria-label="Planta">${PL.map(p=>`<button type="button" class="chip" data-inplanta="${esc(p.id)}" aria-pressed="${p.id===IN.planta}">${esc(p.nombre)} <span class="mono" style="opacity:.6">${p.n}</span></button>`).join('')}</div>`:''}</div>
+    ${inKpiBand(IN.planta)}</section>`;}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-inplanta]');if(!b)return;IN.planta=b.dataset.inplanta;IN.linea='';S.keep=true;render(true);S.keep=false;});
+window.TaktInicio={kpis:inKpis};
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
   return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Takt, capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="tk">${svg('tk',18)} Takt y balanceo</button><button class="btn ghost" type="button" data-go="hs">${svg('hs',18)} Hoja estándar</button><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="diag">${svg('diag',18)} Diagramas</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
   ${vCatalogo()}
@@ -3362,7 +3430,8 @@ const EC={fy:null,mode:'con'};
 const EC_COL=['#1D5FA8','#C2410C','#15803D','#7C3AED','#B45309','#0E7490','#BE185D','#4D7C0F'];
 const ecLbl=st=>(st.nombre||'Sin nombre')+(st.tipo==='ENSAMBLE'&&st.mh?' + MH':'');
 const ecFys=()=>[...new Set(AT.studies.map(s=>s.fy))].sort((a,b)=>b-a);
-function ecData(fy){const list=AT.studies.filter(s=>s.fy===fy).map(st=>{const prev=AT.studies.find(p=>p.fy===fy-1&&p.tipo===st.tipo&&String(p.nombre).trim()===String(st.nombre).trim());
+// planta (opcional): solo las áreas de esa planta ('' = sin asignar); sin planta = todas (Eficiencia compuesta)
+function ecData(fy,planta){const list=AT.studies.filter(s=>s.fy===fy&&(planta===undefined||inPlantOf(s)===planta)).map(st=>{const prev=AT.studies.find(p=>p.fy===fy-1&&p.tipo===st.tipo&&String(p.nombre).trim()===String(st.nombre).trim());
     return Object.assign({st,lbl:ecLbl(st)},ecSeries(st,prev));}).filter(L=>L.months.some(Boolean));
   list.forEach((L,i)=>L.col=EC_COL[i%EC_COL.length]);return {list,plant:ecPlant(list)};}
 function ecExample(){const a={id:nid(),ubic:{},nombre:'ENSAMBLE PLANTA 1',tipo:'ENSAMBLE',tipoOtro:'',mh:true,fy:pcFY(),months:Array(12).fill(null)};atExample(a);

@@ -36,11 +36,28 @@ def auto(b):
     reload(pg);check('semilla',total(pg)==c-1,'si se borra un estudio de ejemplo no regresa al recargar')
     ctx.close()
 
+def kpis(pg):
+    go(pg,'inicio');pg.click('[data-inplanta="sem-pn"]');pg.wait_for_timeout(200)
+    N=pg.evaluate("TaktInicio.kpis('sem-pn')");S=pg.evaluate("TaktInicio.kpis('sem-ps')")
+    check('kpis',N and S and N['fy']==S['fy'] and N['mes']==S['mes'],'Norte y Sur tienen indicadores del mismo año y mes')
+    t=pg.locator('[data-inkpi="efic"]').inner_text()
+    check('kpis',t.replace(' ','').startswith(f"{N['efic']*100:.1f}%"),f'Inicio muestra la eficiencia de planta ({t.strip()} vs {N["efic"]*100:.1f}%)')
+    # La Eficiencia compuesta (todas las plantas) = suma de horas de Norte + Sur: el filtro por planta reparte bien
+    go(pg,'at-planta');lbl=pg.locator('#view .kpi').nth(2).inner_text()
+    exp=(N['req']+S['req'])/(N['trab']+S['trab'])*100
+    check('kpis',f'{exp:.1f}%' in lbl,f'Eficiencia compuesta del mes = horas de Norte + Sur ({exp:.1f}% en «{lbl.splitlines()[1] if len(lbl.splitlines())>1 else lbl}»)')
+    check('kpis',len(N['areas'])==2 and all(a['at']>0 and a['meta']>0 for a in N['areas']),'Actual Time contra meta de las 2 áreas de Norte')
+    check('kpis',N['occ'] and N['occ']>0 and N['hcVol']>0 and N['hcEsq']>0,'ocupación y headcount de Cálculo de personal')
+    go(pg,'inicio');pg.click('[data-inplanta=""]');pg.wait_for_timeout(200)
+    v=pg.locator('#view').inner_text()
+    check('kpis',pg.locator('[data-inkpis-vacio]').count()==1 and 'NaN' not in v and 'Infinity' not in v,'«Sin asignar» (sin Actual Time ni personal) invita a capturar, sin NaN')
+
 with sync_playwright() as p:
     b=p.chromium.launch()
     pg=b.new_page(viewport={'width':1366,'height':900});pg.on('pageerror',lambda e:errs.append(str(e)))
     pg.goto(IDX);pg.wait_for_function('window.TaktStore&&TaktStore.ready()')
     semilla(pg)
+    kpis(pg)
     auto(b)
     b.close()
 check('js',not errs,'sin errores de JavaScript '+(str(errs[:3]) if errs else ''))
