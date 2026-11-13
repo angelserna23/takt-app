@@ -1212,6 +1212,22 @@ function vNuevo(){
   S.view='hub';return vNuevo();
 }
 
+// <in-pure> Funciones puras del tablero de Inicio: se prueban en Node (parts/intest.js) leyendo este bloque directo de index.html.
+// Fecha del estudio: la primera AAAA-MM-DD de «fecha»; si no hay, la de «periodo» (Speed Trial guarda la fecha en el periodo)
+function inDate(d){const m=String(d&&d.fecha||'').match(/\d{4}-\d{2}-\d{2}/)||String(d&&d.periodo||'').match(/\d{4}-\d{2}-\d{2}/);return m?m[0]:'';}
+// Quién lo hizo: analista, observador (Delay Study / Work Element) o elaboró (Hoja estándar)
+function inWhoOf(d){return String(d&&(d.analista||d.observador||d.elaboro)||'').trim().replace(/\s+/g,' ').toLocaleUpperCase('es-MX');}
+// Filtro: planta '' = «Sin asignar» (sin planta o con una planta que ya no existe); linea '' = todas
+function inFilter(items,planta,linea,plantIds){const ids=new Set(plantIds||[]);
+  return items.filter(({d})=>{const u=d&&d.ubic||{};const p=u.planta&&ids.has(u.planta)?u.planta:'';return p===planta&&(!linea||u.linea===linea);});}
+// Un grupo por tipo, en el orden fijo; dentro, lo más reciente primero y lo que no tiene fecha al final
+function inGroups(items,order){return order.map(kind=>{const L=items.filter(x=>x.kind===kind).map((x,i)=>({x,i,f:inDate(x.d)}));
+  L.sort((a,b)=>a.f&&b.f?(b.f.localeCompare(a.f)||a.i-b.i):a.f?-1:b.f?1:a.i-b.i);return {kind,n:L.length,items:L.map(y=>y.x)};}).filter(g=>g.n);}
+// Por analista: cuántos estudios, de qué tipos y su fecha más reciente (más estudios primero; empate por nombre)
+function inWho(items){const M=new Map();items.forEach(({kind,d})=>{const name=inWhoOf(d);if(!name)return;const w=M.get(name)||{name,n:0,kinds:{},last:''};
+  w.n++;w.kinds[kind]=(w.kinds[kind]||0)+1;const f=inDate(d);if(f>w.last)w.last=f;M.set(name,w);});
+  return [...M.values()].sort((a,b)=>b.n-a.n||a.name.localeCompare(b.name,'es'));}
+// </in-pure>
 function vInicio(){setHead('Tablero',[['Inicio','inicio']]);
   return `<section class="glass panel empty"><span class="tag">AL FINAL</span><h2>Tablero del Analista</h2><p>Se diseña al final, cuando los formatos ya generen datos: operaciones sobre takt, capacidad teórica, eficiencia de balanceo y estudios vencidos.</p></section>`;}
 function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios','config']]);
