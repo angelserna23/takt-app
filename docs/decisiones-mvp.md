@@ -291,8 +291,8 @@ Cálculos (24 pruebas automáticas, `parts/tktest.js`, leen el bloque `<tk-pure>
 - Personal teórico = Σ TC ÷ takt; mínimo de estaciones = ⌈personal teórico⌉.
 - «Antes» = estaciones originales con `st0`; las estaciones agregadas para simular solo cuentan en el después.
 - Ejemplo ficticio (poleas): 800 pzs/día, 2 × (480 − 40) = 880 min → takt 1.10. EST 20 = 1.24 (cuello), eficiencia 81.5 %, 709.7 pzs/día (no cumple), personal 3.67 → 4. Mover ATORNILLAR (0.18) a EST 30 → 1.06 / 1.03, eficiencia 95.3 %, 830 pzs/día (cumple).
-Decisión de Claude (a confirmar): **el takt vive dentro de cada balanceo (fechado)**, no en el catálogo. Configuración muestra «Takt de la línea» = el del balanceo más reciente de cada línea. Así no se versiona el catálogo y queda historial para el antes/después.
-Pendiente de comentarios de Angel.
+Decisión confirmada por Angel (2026-11-13): **el takt vive dentro de cada balanceo (fechado)**, no en el catálogo. Configuración muestra «Takt de la línea» = el del balanceo más reciente de cada línea. Así no se versiona el catálogo y queda historial para el antes/después.
+Angel lo está probando; pendientes sus comentarios.
 
 ## Usuarios
 - Roles = permisos, no tipos de usuario: Analista y Capturista. Una persona puede tener los dos.

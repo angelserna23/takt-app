@@ -36,7 +36,7 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 ## Estado al 2026-11-13 (Takt y balanceo)
 
 - Nuevo: **Takt y balanceo de línea** (pestaña propia): takt con demanda/turnos/paros, estaciones traídas de los Work Element de la línea (cada operador = una estación), balanceo arrastrando elementos contra el takt, resultados con antes → simulado. Clave `tk` v1, ubicación hasta línea, tutorial 10, 24 pruebas de cálculo + guardado + tutorial en 3 dispositivos. Publicado en el mismo artifact.
-- Esperando comentarios de Angel. Decisión a confirmar: el takt vive en cada balanceo (fechado); Configuración muestra el más reciente por línea.
+- Angel lo está probando; esperar sus comentarios. Confirmado: el takt vive en cada balanceo (fechado); Configuración muestra el más reciente por línea.
 - Siguiente complementario: plan de acción + antes/después (antes, decidir si habla de dinero).
 
 ## Estado al 2026-11-12 (noche, guardado Fases 1 y 2)
