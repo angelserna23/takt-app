@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Estudios complementarios: **todos cerrados**. Reportes en PDF: **terminados y aprobados** (11 formatos, incluido Actual Time). Tablero de Inicio aprobado (la app trae un historial ficticio mientras está en pruebas). Siguiente: **chat de diseño** (visual y movimiento). Después: guardado Fase 3 y pagos (descartados: tiempo estándar, plan de acción/antes-después, NOM-036, VSM, video, curva de aprendizaje, horarios aleatorios). Tiempo estándar: descartado por completo (orden en la «Hoja de ruta» de `docs/decisiones-mvp.md`).
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md` (sobre todo «Pendientes» y el enfoque elegido para el inglés). Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Toca: **la app en inglés** con el enfoque A (capa de traducción sobre la pantalla + diccionario español → inglés + prueba que recorre todas las pantallas y los 12 tutoriales y falla si queda español), incluidos reportes PDF. Antes de construir, propón el diseño y el plan. Después siguen pagos (otro chat), guardado Fase 3 y al final el diseño visual.
 
 ## Pasos para Claude al iniciar
 
@@ -32,6 +32,11 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Explicar cada decisión técnica (Angel estudia Full Stack Python); ser directo y decir cuando algo sea mala idea.
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
+
+## Estado al 2026-11-13 (cierre del día)
+
+- Hecho hoy: reportes PDF de los 11 formatos (aprobados), tablero de Inicio (aprobado) con líneas contra el takt, cobertura y actividad, e historial ficticio de 47 estudios.
+- Orden acordado: **inglés (siguiente chat, enfoque A ya elegido) → pagos → guardado Fase 3 → diseño al final**. Se quitó el pendiente «qué va en el menú en lugar de OEE / Costo MO».
 
 ## Estado al 2026-11-13 (noche: tablero de Inicio)
 

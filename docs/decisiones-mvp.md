@@ -388,12 +388,12 @@ Lo que el ingeniero industrial necesita de punta a punta: medir → estándar �
 - Respaldo en el proyecto: takt-app/codigo-calculos-1.md y -2.md (cálculos y pruebas al 2026-11-11).
 
 ## Pendientes (actualizado 2026-11-13, noche)
-- **Siguiente chat: diseño** — visual y movimiento de toda la app (tablero incluido), paleta, UX/UI y mejoras extra por formato (incluye la idea grande de Angel para Work Element).
+- Orden acordado (Angel, 2026-11-13): **inglés (siguiente chat) → pagos (chat aparte) → guardado Fase 3 → diseño al final**.
+- **Inglés — enfoque elegido por Angel (A): capa de traducción sobre la pantalla.** La app sigue escrita en español; con EN, un diccionario español → inglés cambia los textos al pintar (texto, placeholder, aria-label, title, SVG, avisos, modales, reportes PDF y tutoriales), con plantillas para textos con números. Lo que captura el usuario (títulos, nombres, actividades) no se traduce; los nombres de los estudios ya están en inglés. El idioma se recuerda (ajustes). Una prueba recorre todas las pantallas y los 12 tutoriales en inglés y **falla si queda texto en español**. Costo aceptado: al migrar a módulos + Python se rehace la conexión; el diccionario se reutiliza.
+- **Diseño (de los últimos)** — visual y movimiento de toda la app (tablero incluido), paleta, UX/UI y mejoras extra por formato (incluye la idea grande de Angel para Work Element).
 - Guardado Fase 3: avisos de almacenamiento lleno o no disponible en pantalla y que se recuerden ajustes de vista (p. ej. FY de Eficiencia compuesta).
-- Inglés (el producto es bilingüe): hoy el botón EN dice «después»; falta traducir toda la app y los reportes.
-- Qué va en el menú en lugar de OEE / Costo MO (Angel lo define; también actualizar las instrucciones del proyecto, que aún dicen «Tiempos → OEE → Costo»).
 - Pagos.
 - Chicos que quedaron anotados: Eficiencia compuesta junta todas las plantas (solo Inicio separa); el GAP de personal del tablero no incluye manejo de materiales.
 - Al lanzar: `SEED_ON=false` y borrar el bloque `<semilla>` (la app queda en blanco).
 - Para un producto real: cuentas y datos en la nube, usuarios y roles, funcionar sin internet como app instalable, validación en piso real, pasar de un solo archivo a módulos + backend en Python, y política para nombres de operadores (datos personales).
-- Cerrados y quitados de esta lista: tiempo estándar (descartado), guardado y exportación (hechos: guardado Fases 1–2 y reportes PDF), botón ‹ Todos los estudios y eliminar desde la lista (hechos).
+- Cerrados y quitados de esta lista: qué va en el menú en lugar de OEE / Costo MO (ya se reemplazó con los demás módulos), tiempo estándar (descartado), guardado y exportación (hechos: guardado Fases 1–2 y reportes PDF), botón ‹ Todos los estudios y eliminar desde la lista (hechos).
