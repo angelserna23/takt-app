@@ -15,7 +15,7 @@ IDX = R / 'index.html'
 
 def leer():
     dic, tpl, err, vistos = {}, [], [], {}
-    for f in sorted((R / 'i18n').glob('*.txt')):
+    for f in sorted(x for x in (R / 'i18n').glob('*.txt') if x.name not in ('neutras.txt','ignora.txt')):
         for k, ln in enumerate(f.read_text(encoding='utf8').splitlines(), 1):
             s = ln.strip()
             if not s or s.startswith('#'):
