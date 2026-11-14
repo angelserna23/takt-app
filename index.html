@@ -934,6 +934,10 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
   body:has(.hsprint) .hsprint *{animation:none!important}
   .hssheet.pr{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+
+/* Encabezado en laptop y tablet: título, idioma y cuenta en un solo renglón; el buscador se oculta donde no cabe */
+@media (min-width:701px){.app .top{flex-wrap:nowrap}.top>div:first-of-type{flex:1 1 auto!important;min-width:0}.top h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top .langseg{flex:none}}
+@media (min-width:701px) and (max-width:1250px){.app .top .field.search{display:none}}
 </style>
 </head>
 <body>
