@@ -11,7 +11,7 @@ cd "$(dirname "$0")/.." || exit 1
 fallas=0
 
 echo "== Cálculos"
-for t in test dstest wetest sttest mmtest smtest tktest hstest sptest pctest attest ectest dftest tuttest storetest intest; do
+for t in test dstest wetest sttest mmtest smtest tktest hstest sptest pctest attest ectest dftest tuttest storetest intest i18ntest; do
   if node parts/$t.js >/tmp/takt_$t.txt 2>&1; then echo "  ok   $t"; else echo "  FALLA $t"; tail -5 /tmp/takt_$t.txt; fallas=1; fi
 done
 

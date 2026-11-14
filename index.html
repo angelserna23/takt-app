@@ -5328,6 +5328,33 @@ function storeMaxId(o){let m=0;const seen=new Set();
 function storeStateOf(d,saved){if(!d||!d._uuid||!saved.has(d._uuid))return 'nuevo';return JSON.stringify(d)===saved.get(d._uuid)?'ok':'cambios';}
 // </store-pure>
 
+// <i18n-pure> Motor de traducción (inglés). Funciones puras: se prueban en Node (parts/i18ntest.js) leyendo este bloque.
+// La app está escrita en español; con EN, cada texto que se pinta pasa por trText: 1) búsqueda exacta,
+// 2) sin distinguir mayúsculas (y se reaplica el estilo del original), 3) plantillas con huecos {n} (número) y {x} (texto).
+// En la salida, {n}/{x} se llenan en orden y {1},{2}… por posición. Lo que no se conoce se regresa igual.
+function trCase(src,out){const up=src.toUpperCase(),lo=src.toLowerCase();
+  if(src===up&&src!==lo)return out.toUpperCase();
+  const f=src.match(/\p{L}/u);if(!f)return out;const i=out.search(/\p{L}/u);if(i<0)return out;
+  const c=f[0]===f[0].toUpperCase()?out[i].toUpperCase():out[i].toLowerCase();return out.slice(0,i)+c+out.slice(i+1);}
+function trMake(dic,tpl){const norm=s=>s.replace(/\s+/g,' ');
+  const ex=new Map(),low=new Map();Object.keys(dic).forEach(k=>{const n=norm(k.trim());ex.set(n,dic[k]);if(!low.has(n.toLowerCase()))low.set(n.toLowerCase(),dic[k]);});
+  const re=s=>s.replace(/[.*+?^$()|[\]\\]/g,'\\$&');
+  const T=(tpl||[]).map(([es,en])=>{const kinds=[];const src='^'+es.split(/(\{[nx]\})/).map(p=>{if(p==='{n}'){kinds.push('n');return '([-+]?\\d[\\d.,]*%?)';}if(p==='{x}'){kinds.push('x');return '(.+?)';}return re(p);}).join('')+'$';
+    return {cs:new RegExp(src,'u'),ci:new RegExp(src,'iu'),kinds,en,lit:es.replace(/\{[nx]\}/g,'').length,weak:(es.replace(/\{[nx]\}/g,'').match(/\p{L}/gu)||[]).length<4};}).sort((a,b)=>b.lit-a.lit);
+  const fill=(t,g)=>{let k=0;return t.en.replace(/\{(n|x|\d+)\}/g,(_,w)=>{const j=/\d/.test(w)?+w-1:k++;const v=g[j];return v==null?'':(t.kinds[j]==='x'?tr(v):v);});};
+  const cache=new Map();
+  function core(c){if(ex.has(c))return ex.get(c);const l=low.get(c.toLowerCase());if(l!=null)return trCase(c,l);
+    // Plantilla «débil» (poco texto fijo, p. ej. «{x} de {x}»): solo aplica si todos sus textos se conocen; si no, atraparía cualquier frase.
+    const okG=(t,g)=>!t.weak||t.kinds.every((k,j)=>k!=='x'||tr(g[j])!==g[j]);
+    for(const t of T){let g=c.match(t.cs);if(g&&okG(t,g.slice(1)))return fill(t,g.slice(1));g=c.match(t.ci);if(g&&okG(t,g.slice(1)))return trCase(c,fill(t,g.slice(1)));}
+    return null;}
+  function tr(s){if(typeof s!=='string'||!/\p{L}/u.test(s))return s;
+    if(cache.has(s))return cache.get(s);
+    const a=s.match(/^\s*/)[0],b=s.match(/\s*$/)[0];const c=norm(s.trim());const r=core(c);const out=r==null?s:a+r+b;
+    if(cache.size>20000)cache.clear();cache.set(s,out);return out;}
+  return tr;}
+// </i18n-pure>
+
 const STORE_SCHEMA={ws:2,ds:2,we:2,st:2,mm:2,sm:2,pc:2,at:2,df:2,tk:1,hs:1,sp:1};  // versión actual de cada formato
 // sp (Espagueti) también nace en la v1 con ubicación (hasta área).
 // hs (Hoja estándar) también nace en la v1 con ubicación (hasta estación).
