@@ -1,0 +1,158 @@
+# Glosario aprobado por Angel (2026-11-13) — docs/glosario-en.md
+# Formato: Texto en español ⇒ English text. Mayúsculas: basta una forma; la app reaplica el estilo (GUARDAR → SAVE).
+
+# Menú y secciones
+Inicio ⇒ Home
+Estudios ⇒ Studies
+Estudios de tiempos ⇒ Time studies
+Takt y balanceo ⇒ Takt & line balancing
+Takt y balanceo de línea ⇒ Takt & line balancing
+Hoja estándar ⇒ Standard work
+Hoja de trabajo estándar ⇒ Standardized work sheet
+Cálculo de personal ⇒ Headcount planning
+Personal ⇒ Headcount
+Eficiencia compuesta ⇒ Composite efficiency
+Diagramas ⇒ Diagrams
+Diagramas de flujo ⇒ Flow charts
+Diagrama de flujo ⇒ Flow chart
+Flujo de proceso ⇒ Process flow chart
+Diagrama de flujo de proceso ⇒ Process flow chart
+Espagueti ⇒ Spaghetti diagram
+Diagrama de espagueti ⇒ Spaghetti diagram
+Aprende ⇒ Learn
+Ver demo ⇒ Watch demo
+Hazlo tú (guiado) ⇒ Try it (guided)
+Hazlo tú ⇒ Try it
+Configuración ⇒ Settings
+Más ⇒ More
+Idioma ⇒ Language
+
+# Guardado y ubicación
+Guardar estudio ⇒ Save study
+Descartar cambios ⇒ Discard changes
+SIN GUARDAR ⇒ UNSAVED
+CAMBIOS SIN GUARDAR ⇒ UNSAVED CHANGES
+FINALIZADO ⇒ COMPLETED
+Planta ⇒ Plant
+Área ⇒ Area
+Línea ⇒ Line
+Estación ⇒ Station
+Plantas ⇒ Plants
+Áreas ⇒ Areas
+Líneas ⇒ Lines
+Estaciones ⇒ Stations
+Sin asignar ⇒ Unassigned
+Analista ⇒ Analyst
+Puesto ⇒ Job position
+Descargar PDF ⇒ Download PDF
+Página {n} de {n} ⇒ Page {n} of {n}
+
+# Conceptos
+Tiempo ciclo ⇒ Cycle time
+TC objetivo ⇒ Target CT
+TC real ⇒ Actual CT
+TC ⇒ CT
+Tiempo disponible ⇒ Available time
+Disponible ⇒ Available
+Carga ⇒ Workload
+Libre ⇒ Idle time
+Ocupación ⇒ Utilization
+Holgura ⇒ Slack
+Cuello de botella ⇒ Bottleneck
+Personal requerido ⇒ Required headcount
+Personal teórico ⇒ Theoretical headcount
+Eficiencia de balanceo ⇒ Line balance efficiency
+Demanda ⇒ Demand
+Paros programados ⇒ Planned downtime
+Necesaria ⇒ Necessary
+Innecesaria ⇒ Unnecessary
+Necesario ⇒ Necessary
+Innecesario ⇒ Unnecessary
+Precisión ⇒ Precision
+Nivel de confianza ⇒ Confidence level
+Margen de error ⇒ Margin of error
+Observaciones ⇒ Observations
+Conteo ⇒ Count
+Vuelta vacía ⇒ Empty trip
+Elemento ⇒ Element
+Elementos ⇒ Elements
+Ciclo ⇒ Cycle
+Ciclos ⇒ Cycles
+Pérdida ⇒ Loss
+Pérdidas ⇒ Losses
+Pareto de afectaciones ⇒ Loss Pareto
+Caída de JPH ⇒ JPH waterfall
+Fluctuación pieza por pieza ⇒ Piece-by-piece variation
+Con afectación ⇒ With losses
+Sin afectación ⇒ Without losses
+Afectación ⇒ Losses
+Afectaciones ⇒ Losses
+Proyección de costo ⇒ Cost projection
+Piezas OK ⇒ OK parts
+Piezas NG ⇒ NG parts
+pzs ⇒ pcs
+Espera del operador ⇒ Operator wait
+Ocio de máquina ⇒ Machine idle
+Gemelas ⇒ Twin
+Trillizas ⇒ Triple
+Fuera del ciclo ⇒ Outside machine cycle
+Durante el ciclo ⇒ During machine cycle
+Paro ⇒ Downtime
+Interno ⇒ Internal
+Externo ⇒ External
+Eliminar ⇒ Eliminate
+Puntos clave ⇒ Key points
+Equipo de protección ⇒ PPE
+Manejo de materiales ⇒ Material handling
+Ausentismo ⇒ Absenteeism
+Grupos ⇒ Crews
+Líderes ⇒ Team leaders
+Supervisores ⇒ Supervisors
+Indirectos ⇒ Indirect staff
+Horas-hombre ⇒ Man-hours
+Meta de reducción ⇒ Reduction target
+Volumen ⇒ Volume
+Capacidad ⇒ Capacity
+Año fiscal ⇒ Fiscal year
+
+# Las 14 pérdidas del Speed Trial
+Falla de máquina ⇒ Equipment breakdown
+Paro corto ⇒ Minor stoppage
+Cambio de modelo ⇒ Changeover
+Cambio de herramienta ⇒ Tool change
+Inspección y medición ⇒ Inspection & measurement
+Ajuste ⇒ Adjustment
+Preparación de arranque y paro ⇒ Start-up & shutdown
+Otros ⇒ Other
+Falta de material por proceso anterior ⇒ Starved by upstream process
+Falta de material por proceso siguiente ⇒ Blocked by downstream process
+Inactividad ⇒ Idling
+Pérdida de tiempo ciclo ⇒ Cycle time loss
+Defectivo propio de proceso ⇒ Defects – own process
+Defectivo por proceso anterior ⇒ Defects – upstream process
+
+# 6M
+Mano de obra ⇒ Manpower
+Máquina ⇒ Machine
+Material ⇒ Material
+Método ⇒ Method
+Medición ⇒ Measurement
+Medio ambiente ⇒ Environment
+
+# Categorías SMED
+Preparación ⇒ Preparation
+Búsqueda y traslado ⇒ Search & transport
+Montaje y desmontaje ⇒ Mounting & removal
+Ajustes y pruebas ⇒ Adjustments & trials
+Limpieza ⇒ Cleaning
+Espera ⇒ Waiting
+Otro ⇒ Other
+
+# Símbolos ASME
+Operación ⇒ Operation
+Inspección ⇒ Inspection
+Transporte ⇒ Transport
+Demora ⇒ Delay
+Almacenamiento ⇒ Storage
+Decisión ⇒ Decision
+Inicio / fin ⇒ Start / end

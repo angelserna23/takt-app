@@ -1,0 +1,9 @@
+# Carcasa de la app: encabezado, menú, Configuración, avisos comunes
+
+Buscar ⇒ Search
+Buscar estudio, operación… ⇒ Search study, operation…
+Cuenta de usuario ⇒ User account
+Navegación ⇒ Navigation
+Regresar a todos los estudios ⇒ Back to all studies
+Idioma de la app. Lo que escribes en tus estudios no se traduce. ⇒ App language. What you type in your studies is not translated.
+Takt — Prototipo ⇒ Takt — Prototype

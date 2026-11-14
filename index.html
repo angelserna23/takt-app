@@ -947,7 +947,6 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5F6B78" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
         <span class="sr">Buscar</span><input type="search" placeholder="Buscar estudio, operación…">
       </label>
-      <div class="seg" role="group" aria-label="Idioma"><button type="button" aria-pressed="true">ES</button><button type="button" aria-pressed="false" title="Inglés: después">EN</button></div>
       <button class="avatar" type="button" aria-label="Cuenta de usuario">AS</button>
     </header>
     <div id="view"></div>
@@ -1434,7 +1433,7 @@ function vConfig(){setHead('Configuración',[['Plantas, líneas, takt y usuarios
   return `<section class="glass panel atmore"><div class="row"><div><h2>Más herramientas</h2><p class="sub">Takt, capacidad, eficiencia, diagramas de flujo y tutoriales</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" type="button" data-go="tk">${svg('tk',18)} Takt y balanceo</button><button class="btn ghost" type="button" data-go="hs">${svg('hs',18)} Hoja estándar</button><button class="btn ghost" type="button" data-go="pc">${svg('pc',18)} Cálculo de personal</button><button class="btn ghost" type="button" data-go="at">${svg('at',18)} Actual Time</button><button class="btn ghost" type="button" data-go="diag">${svg('diag',18)} Diagramas</button><button class="btn ghost" type="button" data-go="aprende">${svg('aprende',18)} Aprende</button></div></div></section>
   ${vCatalogo()}
   <section class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
-  ${tkConfigCard()}${SEED_ON?`<div class="slot" style="min-height:220px;padding:22px"><b>Datos de prueba</b><p class="sub" style="line-height:1.5">Historial ficticio de los 12 formatos para ver la app llena mientras está en pruebas. Al lanzar se quita y la app queda en blanco.</p><button class="btn ghost sm" type="button" data-seedload="1">Volver a cargar el historial de ejemplo</button></div>`:''}${[['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
+  ${tkConfigCard()}${langCard()}${SEED_ON?`<div class="slot" style="min-height:220px;padding:22px"><b>Datos de prueba</b><p class="sub" style="line-height:1.5">Historial ficticio de los 12 formatos para ver la app llena mientras está en pruebas. Al lanzar se quita y la app queda en blanco.</p><button class="btn ghost sm" type="button" data-seedload="1">Volver a cargar el historial de ejemplo</button></div>`:''}${[['Usuarios y permisos','Analista y Capturista; una persona puede tener los dos.']].map(x=>`<div class="slot" style="min-height:220px;padding:22px"><b>${x[0]}</b><p class="sub" style="line-height:1.5">${x[1]}</p></div>`).join('')}</section>`;}
 
 /* ---------- render + eventos ---------- */
 function render(keep){
@@ -5382,7 +5381,7 @@ async function storeInit(){
   try{
     const all=await storeTx(['estudios'],'readonly',tx=>storeReq(tx.objectStore('estudios').getAll()));
     const ajs=await storeTx(['ajustes'],'readonly',tx=>storeReq(tx.objectStore('ajustes').getAll()));
-    (ajs||[]).forEach(a=>{if(a.key==='stcat'&&a.value&&typeof a.value==='object')ST.cat=a.value;if(a.key==='catalogo'&&a.value&&Array.isArray(a.value.plantas))CAT.plantas=a.value.plantas;});
+    (ajs||[]).forEach(a=>{if(a.key==='lang'&&(a.value==='es'||a.value==='en'))LANG=a.value;if(a.key==='stcat'&&a.value&&typeof a.value==='object')ST.cat=a.value;if(a.key==='catalogo'&&a.value&&Array.isArray(a.value.plantas))CAT.plantas=a.value.plantas;});
     const bad=[];
     (all||[]).sort((a,b)=>String(b.savedAt).localeCompare(String(a.savedAt))).forEach(env=>{
       if(!STORE_KINDS.includes(env.kind)){bad.push(env.uuid);return;}
@@ -5547,6 +5546,48 @@ function ubicDecorate(){if(storeTut())return;const rows=[...document.querySelect
     const u=d.ubic||{};const ok=['planta','area','linea'].every(l=>!UBF[l]||u[l]===UBF[l]);row.hidden=!ok;if(!ok)hidden++;});
   if(hidden&&panel){const g=panel.querySelector('.grid');if(g&&!g.querySelector('.ubhidden'))g.insertAdjacentHTML('beforeend',`<p class="sub ubhidden">${hidden} estudio${hidden!==1?'s':''} oculto${hidden!==1?'s':''} por el filtro de ubicación.</p>`);}}
 
+// ===== IDIOMA · capa de traducción sobre la pantalla (enfoque A, 2026-11-13) =====
+// La app se escribe en español. Con EN, todo lo que entra a la página pasa por trText (bloque <i18n-pure>):
+// textos (HTML y SVG) y los atributos placeholder, aria-label, title y alt. Nunca se tocan los campos de captura
+// (su valor) ni nada dentro de [translate="no"] (datos del usuario: se pintan con ud()).
+const I18N_DIC=/*<i18n-dic>*/{"Afectaciones":"Losses","Afectación":"Losses","Ajuste":"Adjustment","Ajustes y pruebas":"Adjustments & trials","Almacenamiento":"Storage","Analista":"Analyst","Aprende":"Learn","Ausentismo":"Absenteeism","Año fiscal":"Fiscal year","Buscar":"Search","Buscar estudio, operación…":"Search study, operation…","Búsqueda y traslado":"Search & transport","CAMBIOS SIN GUARDAR":"UNSAVED CHANGES","Cambio de herramienta":"Tool change","Cambio de modelo":"Changeover","Capacidad":"Capacity","Carga":"Workload","Caída de JPH":"JPH waterfall","Ciclo":"Cycle","Ciclos":"Cycles","Con afectación":"With losses","Configuración":"Settings","Conteo":"Count","Cuello de botella":"Bottleneck","Cuenta de usuario":"User account","Cálculo de personal":"Headcount planning","Decisión":"Decision","Defectivo por proceso anterior":"Defects – upstream process","Defectivo propio de proceso":"Defects – own process","Demanda":"Demand","Demora":"Delay","Descargar PDF":"Download PDF","Descartar cambios":"Discard changes","Diagrama de espagueti":"Spaghetti diagram","Diagrama de flujo":"Flow chart","Diagrama de flujo de proceso":"Process flow chart","Diagramas":"Diagrams","Diagramas de flujo":"Flow charts","Disponible":"Available","Durante el ciclo":"During machine cycle","Eficiencia compuesta":"Composite efficiency","Eficiencia de balanceo":"Line balance efficiency","Elemento":"Element","Elementos":"Elements","Eliminar":"Eliminate","Equipo de protección":"PPE","Espagueti":"Spaghetti diagram","Espera":"Waiting","Espera del operador":"Operator wait","Estaciones":"Stations","Estación":"Station","Estudios":"Studies","Estudios de tiempos":"Time studies","Externo":"External","FINALIZADO":"COMPLETED","Falla de máquina":"Equipment breakdown","Falta de material por proceso anterior":"Starved by upstream process","Falta de material por proceso siguiente":"Blocked by downstream process","Fluctuación pieza por pieza":"Piece-by-piece variation","Flujo de proceso":"Process flow chart","Fuera del ciclo":"Outside machine cycle","Gemelas":"Twin","Grupos":"Crews","Guardar estudio":"Save study","Hazlo tú":"Try it","Hazlo tú (guiado)":"Try it (guided)","Hoja de trabajo estándar":"Standardized work sheet","Hoja estándar":"Standard work","Holgura":"Slack","Horas-hombre":"Man-hours","Idioma":"Language","Idioma de la app. Lo que escribes en tus estudios no se traduce.":"App language. What you type in your studies is not translated.","Inactividad":"Idling","Indirectos":"Indirect staff","Inicio":"Home","Inicio / fin":"Start / end","Innecesaria":"Unnecessary","Innecesario":"Unnecessary","Inspección":"Inspection","Inspección y medición":"Inspection & measurement","Interno":"Internal","Libre":"Idle time","Limpieza":"Cleaning","Líderes":"Team leaders","Línea":"Line","Líneas":"Lines","Manejo de materiales":"Material handling","Mano de obra":"Manpower","Margen de error":"Margin of error","Material":"Material","Medición":"Measurement","Medio ambiente":"Environment","Meta de reducción":"Reduction target","Montaje y desmontaje":"Mounting & removal","Máquina":"Machine","Más":"More","Método":"Method","Navegación":"Navigation","Necesaria":"Necessary","Necesario":"Necessary","Nivel de confianza":"Confidence level","Observaciones":"Observations","Ocio de máquina":"Machine idle","Ocupación":"Utilization","Operación":"Operation","Otro":"Other","Otros":"Other","Pareto de afectaciones":"Loss Pareto","Paro":"Downtime","Paro corto":"Minor stoppage","Paros programados":"Planned downtime","Personal":"Headcount","Personal requerido":"Required headcount","Personal teórico":"Theoretical headcount","Piezas NG":"NG parts","Piezas OK":"OK parts","Planta":"Plant","Plantas":"Plants","Precisión":"Precision","Preparación":"Preparation","Preparación de arranque y paro":"Start-up & shutdown","Proyección de costo":"Cost projection","Puesto":"Job position","Puntos clave":"Key points","Pérdida":"Loss","Pérdida de tiempo ciclo":"Cycle time loss","Pérdidas":"Losses","Regresar a todos los estudios":"Back to all studies","SIN GUARDAR":"UNSAVED","Sin afectación":"Without losses","Sin asignar":"Unassigned","Supervisores":"Supervisors","TC":"CT","TC objetivo":"Target CT","TC real":"Actual CT","Takt y balanceo":"Takt & line balancing","Takt y balanceo de línea":"Takt & line balancing","Takt — Prototipo":"Takt — Prototype","Tiempo ciclo":"Cycle time","Tiempo disponible":"Available time","Transporte":"Transport","Trillizas":"Triple","Ver demo":"Watch demo","Volumen":"Volume","Vuelta vacía":"Empty trip","pzs":"pcs","Área":"Area","Áreas":"Areas"}/*</i18n-dic>*/;
+const I18N_TPL=/*<i18n-tpl>*/[["Página {n} de {n}","Page {n} of {n}"]]/*</i18n-tpl>*/;
+const trText=trMake(I18N_DIC,I18N_TPL);
+let LANG=navigator.webdriver?'es':(String(navigator.language||'es').toLowerCase().startsWith('es')?'es':'en');
+const trOn=()=>LANG==='en';
+const LOC=()=>trOn()?'en-US':'es-MX';
+const trData=s=>trOn()&&typeof s==='string'?trText(s):s;      // datos que pone la app (ejemplos, plantillas, tutoriales)
+const ud=s=>`<span translate="no">${esc(s)}</span>`;          // datos del usuario: nunca se traducen
+const TR_ATTR=['placeholder','aria-label','title','alt'];
+const TR_NO='[translate="no"]',TR_SKIP='script,style,textarea,'+TR_NO;
+const TR_TXT=new WeakMap();   // nodo de texto → {o: original en español, w: lo que escribió la capa}
+const TR_AT=new WeakMap();    // elemento → {atributo: {o, w}}
+function trTextNode(t){const p=t.parentElement;if(!p||p.closest(TR_SKIP))return;const m=TR_TXT.get(t);
+  if(m&&m.w===t.data)return;const o=trText(t.data);if(o!==t.data){TR_TXT.set(t,{o:t.data,w:o});t.data=o;}}
+function trAttr(el,a){const v=el.getAttribute(a);if(v==null||el.closest(TR_NO))return;const m=TR_AT.get(el)||{};
+  if(m[a]&&m[a].w===v)return;const o=trText(v);if(o!==v){m[a]={o:v,w:o};TR_AT.set(el,m);el.setAttribute(a,o);}}
+function trNode(n){if(!trOn()||!n)return;
+  if(n.nodeType===3){trTextNode(n);return;}if(n.nodeType!==1&&n.nodeType!==9)return;
+  const el=n.nodeType===9?n.documentElement:n;if(el.closest&&el.closest(TR_NO))return;
+  const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let t;while((t=w.nextNode()))trTextNode(t);
+  const sel=TR_ATTR.map(a=>'['+a+']').join(',');if(el.matches&&el.matches(sel))TR_ATTR.forEach(a=>trAttr(el,a));
+  el.querySelectorAll(sel).forEach(x=>TR_ATTR.forEach(a=>trAttr(x,a)));}
+// Regresar al español lo que la capa cambió (al pasar de EN a ES sin recargar)
+function trRestore(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let t;
+  while((t=w.nextNode())){const m=TR_TXT.get(t);if(m&&m.w===t.data)t.data=m.o;TR_TXT.delete(t);}
+  root.querySelectorAll('*').forEach(el=>{const m=TR_AT.get(el);if(!m)return;Object.keys(m).forEach(a=>{if(el.getAttribute(a)===m[a].w)el.setAttribute(a,m[a].o);});TR_AT.delete(el);});}
+const TR_OBS=new MutationObserver(L=>{if(!trOn())return;L.forEach(r=>{
+  if(r.type==='childList')r.addedNodes.forEach(trNode);else if(r.type==='characterData')trTextNode(r.target);else if(r.type==='attributes')trAttr(r.target,r.attributeName);});});
+TR_OBS.observe(document.documentElement,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:TR_ATTR});
+function langApply(){document.documentElement.lang=LANG;if(trOn())trNode(document);else trRestore(document.documentElement);}
+function langSet(l){if(l!=='es'&&l!=='en'||l===LANG)return;LANG=l;
+  if(STORE.ok)storeTx(['ajustes'],'readwrite',tx=>tx.objectStore('ajustes').put({key:'lang',value:l})).catch(e=>console.warn('[idioma]',e));
+  if(ASK)closeAsk();langApply();render(true);}
+function langCard(){return `<div class="slot" style="min-height:220px;padding:22px"><b>Idioma</b><p class="sub" style="line-height:1.5">Idioma de la app. Lo que escribes en tus estudios no se traduce.</p>
+  <div class="seg" role="group" aria-label="Idioma" style="margin-top:10px"><button type="button" data-lang="es" aria-pressed="${LANG==='es'}" style="min-height:48px;min-width:72px">ES</button><button type="button" data-lang="en" aria-pressed="${LANG==='en'}" style="min-height:48px;min-width:72px">EN</button></div></div>`;}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-lang]');if(b)langSet(b.dataset.lang);});
+window.TaktI18n={set:langSet,get:()=>LANG,tr:s=>trText(s)};
+
 // Arranque: primero se lee lo guardado y después se pinta la app
 // ===== HISTORIAL FICTICIO (semilla) · solo mientras la app está en pruebas =====
 // Angel (2026-11-13): la app se ve «llena hasta hoy» con estudios ficticios de los 12 formatos; se guardan como cualquier estudio.
@@ -5567,7 +5608,7 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
   ask('Historial de ejemplo','Se vuelven a cargar los '+SEED.est.length+' estudios ficticios (los que borraste regresan; los tuyos no se tocan).','Cargar',()=>{seedLoad().then(()=>location.reload()).catch(err=>{console.warn('[semilla]',err);storeToast('No se pudo cargar el historial','err');});});});
 window.TaktSeed={load:()=>seedLoad(),count:()=>SEED.est.length,
   orphans:()=>ubAllStudies().filter(d=>d.ubic&&d.ubic.planta&&!ubFind('planta',d.ubic.planta)).length};
-storeInit().finally(()=>render());
+storeInit().finally(()=>{langApply();render();});
 })();
 </script>
 </body>
