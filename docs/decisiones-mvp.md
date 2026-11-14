@@ -356,6 +356,12 @@ Diseño: `docs/superpowers/specs/2026-11-13-tablero-inicio-design.md` · plan: `
 - Descartado a propósito: sumar «oportunidades» entre estudios (horas de SMED, piezas de Speed Trial): mezcla fechas y cuenta doble una máquina estudiada dos veces.
 - «Estudios vencidos»: descartado (Angel: todo es historial).
 
+## Teléfono y selector de idioma (Angel, 2026-11-13, noche)
+- **ES / EN siempre visible en el encabezado** (también en teléfono; en teléfono se quita el círculo de usuario para que quepa). También sigue en Configuración. Razón: que el analista no se pierda buscando cómo cambiar el idioma.
+- **Botón central del teléfono (cronómetro):** ya no abre un Work Sampling directo; abre una hoja «¿Qué estudio vas a hacer?» con los 12 tipos (estudios de tiempos · balanceo y procesos · capacidad y eficiencia). Al elegir, abre la lista del tipo y oprime su «Nuevo» (mismo camino que el usuario).
+- **Pestaña «Personal» → «Capacidad»:** vista previa con Cálculo de personal y Actual Time (los más recientes con su resultado, «Ver todos», «Nuevo») y el acceso a Eficiencia compuesta. Ya no manda directo a Cálculo de personal.
+- Pruebas: `tests/smoke/smoke_i18n.py` (selector en teléfono, 12 tipos, elegir Speed Trial, Capacidad).
+
 ## Catálogo de ubicaciones compacto (Angel, 2026-11-13)
 - En Configuración, «Plantas, áreas, líneas y estaciones» es desplegable: la sección y cada planta, área y línea se abren con su botón (muestra cuántos hijos tiene). Todo arranca cerrado al cargar la página; lo abierto se recuerda mientras la página sigue abierta y lo que se agrega queda abierto.
 

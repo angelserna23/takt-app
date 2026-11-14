@@ -165,3 +165,20 @@ Descargar PDF de {x} ⇒ Download PDF of {x}
 {n} plantas · {n} áreas · {n} líneas · {n} estaciones · toca para abrir ⇒ {1} plants · {2} areas · {3} lines · {4} stations · tap to open
 Takt de la línea ⇒ Line takt
 Abrir {x} ⇒ Open {x}
+
+# Teléfono: selector de estudios y vista Capacidad
+¿Qué estudio vas a hacer? ⇒ Which study will you do?
+Cerrar ⇒ Close
+Balanceo y procesos ⇒ Balancing & processes
+Takt de la línea y balanceo de estaciones contra el takt. ⇒ Line takt and station balancing against takt.
+Secuencia, puntos clave y flujo de la operación en una hoja. ⇒ Sequence, key points and operation flow on one sheet.
+Pasos del proceso con símbolos ASME. ⇒ Process steps with ASME symbols.
+Recorrido del operador o del material y metros por ciclo. ⇒ Operator or material path and meters per cycle.
+Headcount por volumen y por esquema, mes a mes. ⇒ Headcount by volume and by crew pattern, month by month.
+Minutos-hombre reales por pieza contra la meta. ⇒ Actual man-minutes per piece against target.
+Capacidad ⇒ Capacity
+Capacidad y eficiencia ⇒ Capacity & efficiency
+¿Cuánta gente necesita el área mes a mes, por volumen y por esquema? ⇒ How many people does the area need month by month, by volume and by crew pattern?
+¿Cuántos minutos-hombre cuesta realmente cada pieza contra la meta? ⇒ How many man-minutes does each piece really cost against target?
+Nuevo ⇒ New
+Todavía no hay ninguno guardado. Toca «Nuevo» para empezar. ⇒ Nothing saved yet. Tap “New” to start.
