@@ -176,9 +176,6 @@ Pasos del proceso con símbolos ASME. ⇒ Process steps with ASME symbols.
 Recorrido del operador o del material y metros por ciclo. ⇒ Operator or material path and meters per cycle.
 Headcount por volumen y por esquema, mes a mes. ⇒ Headcount by volume and by crew pattern, month by month.
 Minutos-hombre reales por pieza contra la meta. ⇒ Actual man-minutes per piece against target.
-Capacidad ⇒ Capacity
 Capacidad y eficiencia ⇒ Capacity & efficiency
-¿Cuánta gente necesita el área mes a mes, por volumen y por esquema? ⇒ How many people does the area need month by month, by volume and by crew pattern?
-¿Cuántos minutos-hombre cuesta realmente cada pieza contra la meta? ⇒ How many man-minutes does each piece really cost against target?
 Nuevo ⇒ New
-Todavía no hay ninguno guardado. Toca «Nuevo» para empezar. ⇒ Nothing saved yet. Tap “New” to start.
+Ver estudios guardados ⇒ View saved studies
