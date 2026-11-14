@@ -45,6 +45,10 @@ eq(trCase('HOLA','hello there'),'HELLO THERE','trCase mayúsculas');
 eq(trCase('Hola','hello'),'Hello','trCase inicial');
 eq(trCase('hola','Hello'),'hello','trCase minúscula inicial');
 eq(trCase('12 PZS','12 pcs'),'12 PCS','trCase con números');
+// 8b. separadores en las orillas se conservan
+eq(tr(' · Guardar estudio · '),' · Save study · ','separadores ·');
+eq(tr('Guardar estudio:'),'Save study:','dos puntos al final');
+eq(tr('— Operador 3'),'— Operator 3','raya al inicio');
 // 9. rendimiento: 20,000 búsquedas en < 1 s
 const t0=Date.now();for(let i=0;i<20000;i++)tr(i%2?'Operador '+i:'TEXTO DESCONOCIDO '+i);
 ok(Date.now()-t0<1000,'rendimiento: '+(Date.now()-t0)+' ms');

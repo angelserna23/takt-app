@@ -1,0 +1,160 @@
+# Work Sampling (pantallas, reporte y avisos)
+
+Total línea ⇒ Line total
+# plantilla de actividades (se crea en inglés con EN)
+Inspección visual ⇒ Visual inspection
+Marcar ⇒ Marking
+Inspección con lima ⇒ File inspection
+Inspección con lámpara ⇒ Lamp inspection
+*Limpieza ⇒ *Cleaning
+*Plática ⇒ *Chatting
+*Espera ⇒ *Waiting
+Plática ⇒ Chatting
+Sale de la operación ⇒ Leaves the operation
+Sopleteo ⇒ Air blowing
+Dejar pieza ⇒ Place part
+Tomar pieza ⇒ Pick up part
+Tomar agua ⇒ Drink water
+Quitar hojas de korokoro ⇒ Remove korokoro sheets
+Otros ⇒ Other
+
+Muestreo de actividades necesarias e innecesarias por operador. Cualquier proceso. ⇒ Sampling of necessary and unnecessary activities per operator. Any process.
+Nuevo muestreo ⇒ New sampling
+Muestreos ⇒ Samplings
+Estudios de Work Sampling ⇒ Work Sampling studies
+No. parte ⇒ Part no.
+No. de parte ⇒ Part no.
+{n} operador ⇒ {n} operator
+{n} operadores ⇒ {n} operators
+innecesario línea ⇒ unnecessary (line)
+{n} obs. ⇒ {n} obs.
+{n}% innecesario línea ⇒ {n}% unnecessary (line)
+Eliminar estudio {x} ⇒ Delete study {x}
+Eliminar estudio ⇒ Delete study
+EN PROCESO ⇒ IN PROGRESS
+EN CONTEO ⇒ COUNTING
+PENDIENTE ⇒ PENDING
+LISTO ⇒ READY
+Abierto ⇒ Open
+Cerrado ⇒ Closed
+Aún no hay estudios ⇒ No studies yet
+Toca ⇒ Tap
+Nuevo estudio ⇒ New study
+para crear el primero. ⇒ to create the first one.
+Actividades ⇒ Activities
+Resultados ⇒ Results
+Usa el botón de continuar ⇒ Use the continue button
+Pasos del operador ⇒ Operator steps
+Precisión del muestreo ⇒ Sampling precision
+{n}% confianza ⇒ {n}% confidence
+✓ cumple ±{n}% ⇒ ✓ meets ±{n}%
+cumple ±{n}% ⇒ meets ±{n}%
+faltan ⇒ still need
+faltan {n} obs. para ±{n}% ⇒ {1} more obs. needed for ±{2}%
+obs. para ±{n}% (requiere {n}) ⇒ obs. for ±{1}% (requires {2})
+Tiempo de muestreo ⇒ Sampling time
+Notas del analista ⇒ Analyst notes
+El porqué de lo innecesario: causas, condiciones, ideas de mejora ⇒ Why it is unnecessary: causes, conditions, improvement ideas
+Ej. Espera por falta de material en el rack 3 ⇒ E.g. Waiting for material at rack 3
+¿A qué dedica su tiempo ⇒ Where does the time go for
+Distribución de actividades de {x} ⇒ Activity breakdown for {x}
+Distribución de actividades de ⇒ Activity breakdown for
+Área de oportunidad ⇒ Improvement opportunity
+Actividades innecesarias, de mayor a menor ⇒ Unnecessary activities, largest first
+Todas sus actividades ⇒ All activities
+Ordenadas de mayor a menor ⇒ Largest first
+{n} obs./h ⇒ {n} obs./h
+Sin actividades innecesarias registradas. ⇒ No unnecessary activities recorded.
+{x}: {x} necesario, {x} innecesario ⇒ {1}: {2} necessary, {3} unnecessary
+Sin observaciones ⇒ No observations
+Información del estudio ⇒ Study information
+Lo que va arriba de tu hoja ⇒ What goes at the top of your sheet
+Título ⇒ Title
+Ej. Análisis de línea de poleas ⇒ E.g. Pulley line analysis
+Ej. Ensamble 1 ⇒ E.g. Assembly 1
+Ej. 00000-XXXX ⇒ E.g. 00000-XXXX
+Nombre ⇒ Name
+Fecha ⇒ Date
+Margen de error aceptado (± %) ⇒ Accepted margin of error (± %)
+Volver a la lista ⇒ Back to list
+Cancelar ⇒ Cancel
+Continuar a operadores ⇒ Continue to operators
+{n}% confianza, ±{n}% ⇒ {1}% confidence, ±{2}%
+Editar información ⇒ Edit information
+Operadores ⇒ Operators
+Operador ⇒ Operator
+Operador {n} ⇒ Operator {n}
+Toca un operador para validar sus actividades y empezar a contar ⇒ Tap an operator to validate their activities and start counting
+Agregar operador ⇒ Add operator
+Se copian las actividades del anterior ⇒ Activities are copied from the previous one
+Lista de estudios ⇒ Study list
+{n} innec. ⇒ {n} unnec.
+General de línea ⇒ Line overview
+Actividades de ⇒ Activities for
+Actividades de {x} ⇒ Activities for {x}
+Valida qué vas a contar y si es necesaria o innecesaria ⇒ Confirm what you will count and whether it is necessary or unnecessary
+Eliminar operador ⇒ Delete operator
+Agregar actividad ⇒ Add activity
+Nombre de la actividad ⇒ Activity name
+Clasificación de {x} ⇒ Classification of {x}
+Quitar actividad ⇒ Remove activity
+Validar y empezar conteo ⇒ Validate and start counting
+Conteo · {x} ⇒ Count · {x}
+Toca lo que está haciendo en cada ciclo ⇒ Tap what they are doing on each round
+observaciones ⇒ observations
+{n} observaciones ⇒ {n} observations
+Deshacer ⇒ Undo
+inicio {x} ⇒ start {x}
+el tiempo empieza con la primera marca ⇒ time starts with the first tap
+Terminar conteo ⇒ Finish count
+Qué aporta y qué no aporta valor ⇒ What adds value and what does not
+¿Qué sigue? ⇒ What's next?
+Agregar otro operador ⇒ Add another operator
+Seguir contando a ⇒ Keep counting
+Siguiente ⇒ Next
+Siguiente: {x} ⇒ Next: {x}
+Ver general de línea ⇒ View line overview
+Resumen de {n} operador · se suman los conteos de todos ⇒ Summary of {n} operator · all counts are added
+Resumen de {n} operadores · se suman los conteos de todos ⇒ Summary of {n} operators · all counts are added
+Necesario · línea ⇒ Necessary · line
+Innecesario · línea ⇒ Unnecessary · line
+¿Quién pesa más en lo innecesario? ⇒ Who carries the most unnecessary time?
+De mayor a menor % innecesario ⇒ Highest % unnecessary first
+Distribución por operador y línea ⇒ Breakdown by operator and line
+Resultado % ⇒ Result %
+Innec. ⇒ Unnec.
+Nec. ⇒ Nec.
+Obs. ⇒ Obs.
+ESTUDIO SIN TÍTULO ⇒ UNTITLED STUDY
+¿Eliminar este estudio? ⇒ Delete this study?
+Se borra «{x}» con todos sus operadores y conteos. No se puede deshacer. ⇒ “{x}” will be deleted with all its operators and counts. This cannot be undone.
+Estudio ⇒ Study
+¿Eliminar a {x}? ⇒ Delete {x}?
+Se borran sus actividades y sus {n} observaciones. No se puede deshacer. ⇒ Their activities and {n} observations will be deleted. This cannot be undone.
+NUEVA ACTIVIDAD ⇒ NEW ACTIVITY
+OPERADOR {n} ⇒ OPERATOR {n}
+# reporte
+{n} obs. · {x}–{x} ⇒ {1} obs. · {2}–{3}
+Mayor oportunidad ⇒ Biggest opportunity
+Este estudio todavía no tiene observaciones. ⇒ This study has no observations yet.
+Resumen de la línea ⇒ Line summary
+Distribución de actividades ⇒ Activity breakdown
+Resultado por actividad (%) ⇒ Result by activity (%)
+aporta valor ⇒ adds value
+oportunidad de mejora ⇒ improvement opportunity
+{n}% confianza · {x} ⇒ {1}% confidence · {2}
+Ubicación ⇒ Location
+Confianza / margen ⇒ Confidence / margin
+Tipo ⇒ Type
+innecesario línea · {n} obs. ⇒ unnecessary (line) · {n} obs.
+observaciones · {x} ⇒ observations · {x}
+# periodos (Delay Study)
+Hora ⇒ Hour
+Turno ⇒ Shift
+Día ⇒ Day
+Innec ⇒ Unnec
+Generado el {x} · solo lectura: los datos se trabajan en la app ⇒ Generated on {x} · read-only: data is worked on in the app
+Actividad ⇒ Activity
+Detalle por operador ⇒ Detail by operator
+Reporte · {x} ⇒ Report · {x}
+Reporte ⇒ Report

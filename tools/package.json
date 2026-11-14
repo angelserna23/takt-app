@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "description": "Herramientas de desarrollo de Takt (no van en la app)",
+  "devDependencies": {"acorn": "^8.14.0", "acorn-walk": "^8.3.4"}
+}

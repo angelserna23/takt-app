@@ -1,0 +1,167 @@
+# Carcasa, Configuración, catálogo de ubicaciones, guardado y tablero de Inicio
+
+# carcasa
+Navegación principal ⇒ Main navigation
+Tiempos y movimientos ⇒ Time & motion
+Contraer o expandir menú ⇒ Collapse or expand menu
+Contraer menú ⇒ Collapse menu
+Todos los estudios ⇒ All studies
+Pilar 1 · MVP ⇒ Pillar 1 · MVP
+Tipos de estudio ⇒ Study types
+Este formato se diseña después de Work Sampling. ⇒ This format will be designed after Work Sampling.
+Volver a estudios ⇒ Back to studies
+Ocupación de operadores en actividades no cíclicas y balanceo: materiales, almacén, fundición. ⇒ Operator utilization in non-cyclic activities and balancing: materials, warehouse, foundry.
+Ocupación del operador en operaciones cíclicas por elementos y balanceo: ensamble, inspección. ⇒ Operator utilization in cyclic operations by element and balancing: assembly, inspection.
+Velocidad real de la línea contra el objetivo: OEE, pérdidas, Pareto, caída de JPH y costo. ⇒ Actual line speed against target: OEE, losses, Pareto, JPH waterfall and cost.
+Recorrido del operador contra el tiempo ciclo de las máquinas: maquinados, fundición. ⇒ Operator walk against machine cycle times: machining, foundry.
+Cambio de modelo: separar lo interno de lo externo y reducir el tiempo de paro. ⇒ Changeover: separate internal from external work and reduce downtime.
+
+# Configuración
+Plantas, líneas, takt y usuarios ⇒ Plants, lines, takt and users
+Más herramientas ⇒ More tools
+Takt, capacidad, eficiencia, diagramas de flujo y tutoriales ⇒ Takt, capacity, efficiency, flow charts and tutorials
+Datos de prueba ⇒ Test data
+Historial ficticio de los 12 formatos para ver la app llena mientras está en pruebas. Al lanzar se quita y la app queda en blanco. ⇒ Fictitious history for all 12 formats, so the app looks full while it is in testing. It is removed at launch and the app starts blank.
+Volver a cargar el historial de ejemplo ⇒ Reload the sample history
+Usuarios y permisos ⇒ Users and permissions
+Analista y Capturista; una persona puede tener los dos. ⇒ Analyst and Data entry; one person can have both.
+Historial de ejemplo ⇒ Sample history
+Se vuelven a cargar los {n} estudios ficticios (los que borraste regresan; los tuyos no se tocan). ⇒ The {n} fictitious studies are reloaded (the ones you deleted come back; yours are not touched).
+Cargar ⇒ Load
+No se pudo cargar el historial ⇒ The history could not be loaded
+
+# catálogo de ubicaciones
+Agregar {x} ⇒ Add {x}
+Falta {x} ⇒ Missing {x}
+Nombre de la nueva {x} ⇒ Name of the new {x}
+se pide hasta {x} · «Sin asignar» está permitido, pero así no aparecerá agrupado en el tablero ⇒ required down to {x} · “Unassigned” is allowed, but it will not be grouped on the dashboard
+{x} agregada al catálogo ✓ ⇒ {x} added to the catalog ✓
+{x} agregada ✓ ⇒ {x} added ✓
+No se puede quitar «{x}»: la usan {n} estudio. Cámbialos primero. ⇒ “{1}” cannot be removed: {2} study uses it. Change it first.
+No se puede quitar «{x}»: la usan {n} estudios. Cámbialos primero. ⇒ “{1}” cannot be removed: {2} studies use it. Change them first.
+¿Quitar {x} «{x}»? ⇒ Remove {1} “{2}”?
+También se quitan sus {n} {x} y lo que tengan dentro. Ningún estudio las usa. ⇒ Its {1} {2} and everything inside them are removed too. No study uses them.
+Ningún estudio la usa. ⇒ No study uses it.
+Abrir ⇒ Open
+Nombre de {x} ⇒ Name of {x}
+Quitar {x} {x} ⇒ Remove {1} {2}
+{n} estudio ⇒ {n} study
+{n} estudios ⇒ {n} studies
+Nueva {x} ⇒ New {x}
+planta ⇒ plant
+área ⇒ area
+línea ⇒ line
+estación ⇒ station
+plantas ⇒ plants
+áreas ⇒ areas
+líneas ⇒ lines
+estaciones ⇒ stations
+plantas, áreas, líneas y estaciones ⇒ plants, areas, lines and stations
+Plantas, áreas, líneas y estaciones ⇒ Plants, areas, lines and stations
+La ubicación de cada estudio. Renombrar no afecta los estudios; solo se puede quitar lo que ningún estudio usa. Se guarda al momento. ⇒ The location of each study. Renaming does not affect studies; only what no study uses can be removed. Saved instantly.
+{x} · toca para abrir ⇒ {x} · tap to open
+Aún no hay plantas. Agrega la primera; también puedes crearlas desde la Información de cualquier estudio. ⇒ No plants yet. Add the first one; you can also create them from any study's Information.
+Todas ⇒ All
+Sin ubicación ⇒ No location
+
+# guardado
+El estudio es de una versión más nueva de la app ({n} > {n}). ⇒ The study comes from a newer version of the app ({1} > {2}).
+Este navegador no permite guardar. Lo que captures se pierde al cerrar. ⇒ This browser does not allow saving. What you enter is lost when you close it.
+No se pudieron abrir {n} estudio(s) guardados. ⇒ {n} saved study(ies) could not be opened.
+No se pudo leer lo guardado. ⇒ Saved data could not be read.
+No se puede guardar en este navegador ⇒ This browser cannot save
+Guardado ✓ ⇒ Saved ✓
+Sin espacio para guardar en este dispositivo ⇒ No storage space left on this device
+No se pudo guardar. Intenta de nuevo. ⇒ Could not save. Try again.
+Cambios sin guardar ⇒ Unsaved changes
+Sin guardar ⇒ Unsaved
+¿Descartar los cambios? ⇒ Discard changes?
+El estudio regresa a como quedó la última vez que lo guardaste. ⇒ The study goes back to how it was the last time you saved it.
+Descartar ⇒ Discard
+Guardar ⇒ Save
+Eliminar ⇒ Delete
+Quitar ⇒ Remove
+este estudio ⇒ this study
+Se borra «{x}» con toda su información. No se puede deshacer. ⇒ “{x}” will be deleted with all its information. This cannot be undone.
+
+# Tablero de Inicio
+Tablero ⇒ Dashboard
+Indicadores de la planta ⇒ Plant indicators
+Salen de ⇒ They come from
+de esta planta. Captura uno para ver aquí la eficiencia, el Actual Time contra meta y el personal. ⇒ for this plant. Enter one to see efficiency, Actual Time against target and headcount here.
+FY{n} · {x} · último mes capturado ⇒ FY{1} · {2} · last month entered
+Eficiencia de planta ⇒ Plant efficiency
+Actual Time contra meta ⇒ Actual Time against target
+Ocupación (personal) ⇒ Utilization (headcount)
+{x} {n} pts ⇒ {1} {2} pts
+vs mes anterior ⇒ vs previous month
+sin Actual Time en esta planta ⇒ no Actual Time in this plant
+min-hombre por pieza · la marca es la meta ⇒ man-min per piece · the mark is the target
+personas de más ⇒ extra people
+faltan personas ⇒ people short
+GAP de personal ⇒ Headcount GAP
+personas equivalentes ⇒ equivalent people
+sin Actual Time ⇒ no Actual Time
+{n} arriba ⇒ {n} over
+HC según volumen ⇒ HC by volume
+HC según esquema ⇒ HC by crew pattern
+sin Cálculo de personal ⇒ no Headcount planning
+Líneas contra el takt ⇒ Lines against takt
+Cobertura ⇒ Coverage
+Actividad · últimos 12 meses ⇒ Activity · last 12 months
+estudios y análisis con fecha ⇒ dated studies and analyses
+cuello ⇒ bottleneck
+eficiencia de balanceo del balanceo más reciente de cada línea ⇒ line balance efficiency of each line's latest balancing
+{n} de {n} sobre takt ⇒ {1} of {2} over takt
+{n} estaciones dentro del takt ⇒ {n} stations within takt
+cumple la demanda ⇒ meets demand
+no cumple la demanda ⇒ does not meet demand
+Ninguna línea de esta planta tiene ⇒ No line in this plant has
+{n} de {n} ⇒ {1} of {2}
+estaciones con hoja estándar ⇒ stations with standard work
+líneas con algún estudio ⇒ lines with at least one study
+Los estudios sin planta no tienen catálogo contra qué medir. ⇒ Studies without a plant have no catalog to measure against.
+todavía sin datos ⇒ no data yet
+% innecesario ⇒ % unnecessary
+necesario {n} · {n} obs. ⇒ necessary {1} · {2} obs.
+ocupación promedio ⇒ average utilization
+{n} arriba de 100 % ⇒ {n} over 100 %
+todos dentro del tiempo ⇒ all within time
+{n} operador · {n} ciclos ⇒ {1} operator · {2} cycles
+{n} operadores · {n} ciclos ⇒ {1} operators · {2} cycles
+JPH {n} vs plan {n} ⇒ JPH {1} vs plan {2}
+{n}/mes ⇒ {n}/month
+ciclo de la celda ⇒ cell cycle
+espera {n} · limita {x} ⇒ wait {1} · limited by {2}
+el operador ⇒ the operator
+paro propuesto ⇒ proposed downtime
+{n} sobre takt · takt {n} ⇒ {1} over takt · takt {2}
+{n} pasos ⇒ {n} steps
+{n} del takt ⇒ {n} of takt
+por ciclo ⇒ per cycle
+{n} viaje ⇒ {n} trip
+{n} viajes ⇒ {n} trips
+% de ocupación ⇒ % utilization
+% de ocupación · {x} ⇒ % utilization · {x}
+HC {n} volumen vs {n} esquema ⇒ HC {1} volume vs {2} crew pattern
+meta {n} · eficiencia {n} ⇒ target {1} · efficiency {2}
+Anteriores ⇒ Previous
+Siguientes ⇒ Next
+Ver todos ({n}) ⇒ View all ({n})
+{n} estudio · último ⇒ {n} study · latest
+{n} estudios · último ⇒ {n} studies · latest
+Quién lo hizo ⇒ Who did it
+Todavía no hay estudios guardados. Cuando guardes el primero, aquí verás la planta, sus indicadores y todo lo que se ha analizado. ⇒ No saved studies yet. When you save the first one, you will see the plant, its indicators and everything analyzed here.
+Todo lo que se ha analizado en la planta ⇒ Everything analyzed in the plant
+toda la planta ⇒ whole plant
+Estudios y análisis ⇒ Studies and analyses
+lo más reciente primero · toca una tarjeta para abrirla ⇒ most recent first · tap a card to open it
+{n} estaciones dentro del takt · cuello ⇒ {n} stations within takt · bottleneck
+{n} en toda la planta · lo más reciente primero · toca una tarjeta para abrirla ⇒ {n} in the whole plant · most recent first · tap a card to open it
+{n} en {x} · lo más reciente primero · toca una tarjeta para abrirla ⇒ {1} in {2} · most recent first · tap a card to open it
+JPH {n} vs plan {n} · {x}/mes ⇒ JPH {1} vs plan {2} · {3}/month
+{n} pasos · {n} del takt ⇒ {1} steps · {2} of takt
+Descargar PDF de {x} ⇒ Download PDF of {x}
+{n} plantas · {n} áreas · {n} líneas · {n} estaciones · toca para abrir ⇒ {1} plants · {2} areas · {3} lines · {4} stations · tap to open
+Takt de la línea ⇒ Line takt
+Abrir {x} ⇒ Open {x}

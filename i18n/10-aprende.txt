@@ -1,0 +1,80 @@
+# Aprende: fichas, barra del tutorial y guiones (los textos de los globos)
+
+Capacidad y eficiencia ⇒ Capacity & efficiency
+Procesos ⇒ Processes
+Ver tutorial ⇒ View tutorial
+Tutoriales ⇒ Tutorials
+Aprende con una demo en vivo ⇒ Learn with a live demo
+Un bot usa la app real con datos ficticios y te explica cada paso. Después lo haces tú, guiado. Nada de lo que se hace en un tutorial se guarda. ⇒ A bot uses the real app with fictitious data and explains each step. Then you do it yourself, guided. Nothing done in a tutorial is saved.
+PRÓXIMAMENTE ⇒ COMING SOON
+NUEVO ⇒ NEW
+VISTO ⇒ SEEN
+Todos los tutoriales ⇒ All tutorials
+Este tutorial se arma cuando la pantalla tenga su diseño final, para que no quede viejo. ⇒ This tutorial will be built once the screen has its final design, so it does not go stale.
+TUTORIAL · ≈ {n} MIN ⇒ TUTORIAL · ≈ {n} MIN
+Úsalo cuando ⇒ Use it when
+No es para ⇒ Not for
+Lo que vas a ver ⇒ What you will see
+Datos ficticios. Al salir, todo se descarta: no quedan estudios ni historial. ⇒ Fictitious data. When you exit, everything is discarded: no studies or history remain.
+No se encontró «{x}». La pantalla cambió: hay que actualizar este tutorial. ⇒ “{x}” was not found. The screen changed: this tutorial needs updating.
+No se encontró el elemento. La pantalla cambió: hay que actualizar este tutorial. ⇒ The element was not found. The screen changed: this tutorial needs updating.
+Controles del tutorial ⇒ Tutorial controls
+Reiniciar ⇒ Restart
+Salir del tutorial ⇒ Exit tutorial
+Salir ⇒ Exit
+Seguir ⇒ Resume
+Pausa ⇒ Pause
+Velocidad ⇒ Speed
+{x} · PASO {n} DE {n} ⇒ {1} · STEP {2} OF {3}
+Escribe, por ejemplo: {x} · luego Enter o «Siguiente» ⇒ Type, for example: {x} · then Enter or “Next”
+Elige: {x} ⇒ Choose: {x}
+Llevas {n} de {n} ⇒ {1} of {2} done
+{x} Al salir, todo lo del tutorial se descarta. ⇒ {x} When you exit, everything from the tutorial is discarded.
+Al salir, todo lo del tutorial se descarta. ⇒ When you exit, everything from the tutorial is discarded.
+Volver a Aprende ⇒ Back to Learn
+Así se hace un {x} ⇒ That's how a {x} is done
+¡Listo! Lo hiciste tú ⇒ Done! You did it yourself
+Ahora hazlo tú: el globo te dice qué tocar y espera a que lo hagas. ⇒ Now you try: the bubble tells you what to tap and waits for you.
+Ya sabes hacer el flujo completo. Con un estudio real, cuenta hasta que la precisión cumpla. ⇒ You now know the full flow. With a real study, keep counting until the precision is met.
+Repetir demo ⇒ Replay demo
+Ver la demo ⇒ Watch the demo
+Ahora hazlo tú ⇒ Now you try
+Repetir ⇒ Replay
+
+# ---- Work Sampling ----
+¿En qué se le va el tiempo a cada operador? ⇒ Where does each operator's time go?
+En cualquier proceso, cíclico o no, cuando quieres saber qué parte del tiempo es necesaria y cuál no agrega valor. ⇒ In any process, cyclic or not, when you want to know which part of the time is necessary and which adds no value.
+Medir tiempo ciclo, JPH u OEE: para eso están Work Element y Speed Trial. ⇒ Measuring cycle time, JPH or OEE: that is what Work Element and Speed Trial are for.
+Crear el estudio y sus datos de encabezado ⇒ Create the study and its header data
+Validar las actividades del operador (necesarias e innecesarias) ⇒ Validate the operator's activities (necessary and unnecessary)
+Contar observaciones con un toque ⇒ Count observations with one tap
+Leer el % innecesario, la precisión y el área de oportunidad ⇒ Read the % unnecessary, the precision and the improvement opportunity
+Work Sampling responde una pregunta: ¿en qué se le va el tiempo a cada operador? Observas en rondas y anotas qué está haciendo. Vamos a hacer uno con datos ficticios. ⇒ Work Sampling answers one question: where does each operator's time go? You observe in rounds and record what they are doing. Let's do one with fictitious data.
+Todo empieza con «Nuevo estudio». ⇒ Everything starts with “New study”.
+Toca «Nuevo estudio». ⇒ Tap “New study”.
+BALANCEO LÍNEA DE POLEAS ⇒ PULLEY LINE BALANCING
+El título es lo que va arriba de tu hoja. Todo lo que escribes queda en MAYÚSCULAS. ⇒ The title is what goes at the top of your sheet. Everything you type is stored in CAPITALS.
+ENSAMBLE 1 ⇒ ASSEMBLY 1
+El área donde haces el muestreo. ⇒ The area where you sample.
+J. PÉREZ ⇒ J. SMITH
+Quién hace el estudio. ⇒ Who does the study.
+Nivel de confianza y margen de error definen cuántas observaciones necesitas. Lo usual es 95 % y ±5 %; la app te avisa si te faltan. ⇒ Confidence level and margin of error set how many observations you need. The usual is 95 % and ±5 %; the app tells you if you are short.
+Continuamos a los operadores. ⇒ On to the operators.
+Toca «Continuar a operadores». ⇒ Tap “Continue to operators”.
+Cada operador tiene su tarjeta con su estado, sus observaciones y su % innecesario. La app crea el primero. ⇒ Each operator has a card with status, observations and % unnecessary. The app creates the first one.
+Lo abrimos para validar sus actividades. ⇒ We open it to validate the activities.
+Toca la tarjeta del operador. ⇒ Tap the operator's card.
+ENSAMBLADOR 1 ⇒ ASSEMBLER 1
+Ponle el nombre del puesto o del operador. ⇒ Enter the job position or operator name.
+Las actividades vienen de la plantilla. Las naranjas son innecesarias (limpieza, plática, espera). Cualquiera se cambia con un toque en Necesaria / Innecesaria. ⇒ Activities come from the template. Orange ones are unnecessary (cleaning, chatting, waiting). Any of them changes with one tap on Necessary / Unnecessary.
+Con las actividades validadas, empieza el conteo. ⇒ With the activities validated, counting starts.
+Toca «Validar y empezar conteo». ⇒ Tap “Validate and start counting”.
+En cada ronda miras al operador y tocas lo que está haciendo en ese instante. Cada toque es una observación; la hora de inicio es la del primer toque. ⇒ On each round you look at the operator and tap what they are doing at that moment. Each tap is one observation; the start time is the first tap.
+Toca 10 veces, como si observaras al operador en 10 rondas. ⇒ Tap 10 times, as if you observed the operator over 10 rounds.
+Aquí llevas la cuenta. Si te equivocas, «Deshacer» quita el último toque. ⇒ This is your tally. If you make a mistake, “Undo” removes the last tap.
+Terminamos el conteo de este operador. ⇒ We finish counting this operator.
+Toca «Terminar conteo». ⇒ Tap “Finish count”.
+El resultado principal: la parte de su tiempo que no agrega valor. Ese es tu margen de mejora. ⇒ The main result: the part of their time that adds no value. That is your room for improvement.
+Con pocas observaciones el margen de error es grande. La app te dice cuántas faltan para llegar a ±5 %: sigue contando antes de concluir. ⇒ With few observations the margin of error is large. The app tells you how many more you need to reach ±5 %: keep counting before you conclude.
+Las actividades innecesarias, de mayor a menor: ataca primero la más grande. En «Notas del analista» escribe el porqué. ⇒ Unnecessary activities, largest first: attack the biggest one first. Write the why in “Analyst notes”.
+Desde aquí sigues con otro operador o ves la general de línea, que suma los conteos de todos (no promedia porcentajes). ⇒ From here you continue with another operator or view the line overview, which adds everyone's counts (it does not average percentages).

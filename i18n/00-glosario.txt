@@ -100,7 +100,7 @@ Durante el ciclo ⇒ During machine cycle
 Paro ⇒ Downtime
 Interno ⇒ Internal
 Externo ⇒ External
-Eliminar ⇒ Eliminate
+# «Eliminar» (SMED) = Eliminate: se resuelve en la pantalla de SMED con data-en; aquí «Eliminar» = Delete
 Puntos clave ⇒ Key points
 Equipo de protección ⇒ PPE
 Manejo de materiales ⇒ Material handling

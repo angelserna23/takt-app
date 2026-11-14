@@ -1,0 +1,17 @@
+# Textos que la prueba de cobertura no debe revisar (no se ven en pantalla). Uno por renglón, tal cual los reporta; ${…} se escribe {x}.
+AS
+fmt-{x}
+{x}px
+savechip {x}
+err show
+danger solid
+script,style,textarea,{x}
+[data-dsopobj="{x}"]
+[data-dsscen="{x}"]
+${x} mil M
+aprende-{x}
+{x}ms
+translate({x}px,{x}px)
+<svg style="transform:rotate(45deg)"
+en-US
+es-MX
