@@ -1,0 +1,187 @@
+# Actual Time y Eficiencia compuesta
+
+Técnico ⇒ Technical
+Evento ⇒ Event
+Proyectos (PIC) ⇒ Projects (PIC)
+Nuevo Actual Time ⇒ New Actual Time
+Ensamble ⇒ Assembly
+Maquinado ⇒ Machining
+Fundición ⇒ Foundry
+Pintura ⇒ Paint
+Otro ⇒ Other
+Minutos-hombre reales por pieza, mes a mes del año fiscal (abril a marzo) ⇒ Actual man-minutes per piece, month by month of the fiscal year (April to March)
+{n} de 12 meses capturados ⇒ {n} of 12 months entered
+{x} de 12 meses capturados ⇒ {x} of 12 months entered
++ MH ⇒ + MH
+meta {x} ⇒ target {x}
+Aún no hay Actual Time ⇒ No Actual Time yet
+Crea uno por área: ensamble (con manejo de materiales), maquinado, fundición… ⇒ Create one per area: assembly (with material handling), machining, foundry…
+DSTR real vs objetivo ⇒ Actual vs target DSTR
+JPMH real vs compromiso ⇒ Actual vs committed JPMH
+compromiso {x} piezas por hora-hombre ⇒ commitment {x} pieces per man-hour
+Forecast ⇒ Forecast
+(60 ÷ JPH real) × HC ÷ grupos ⇒ (60 ÷ actual JPH) × HC ÷ crews
+Actual Time real ⇒ Actual Time
+min-hombre por pieza ⇒ man-min per piece
+Meta (TARGET) ⇒ Target (TARGET)
+(60 ÷ JPH compr.) × HC plan ÷ grupos compr. ⇒ (60 ÷ committed JPH) × planned HC ÷ committed crews
+Actual Time sin afectación ⇒ Actual Time without losses
+quitando técnico, evento, TPM, PIC y otros ⇒ removing technical, event, TPM, PIC and other
+Eficiencia ⇒ Efficiency
+sin afectación {x} ⇒ without losses {x}
+Horas requeridas / trabajadas ⇒ Required / worked hours
+HC trabajado {x} vs plan {x} ⇒ Worked HC {1} vs plan {2}
+arriba de la meta ⇒ over target
+vs meta ⇒ vs target
+sin meta ⇒ no target
+Arriba del plan ⇒ Over plan
+personas equivalentes de más ⇒ extra equivalent people
+faltan personas para lo requerido ⇒ short of the required people
+justo lo requerido ⇒ exactly what is required
+ARRIBA DEL PLAN ⇒ OVER PLAN
+HC TRABAJADO ⇒ WORKED HC
+LÍDER ⇒ LEADER
+OTROS IND. ⇒ OTHER IND.
+HC REQUERIDO ⇒ REQUIRED HC
+Cascada de headcount ⇒ Headcount waterfall
+Cascada de headcount · {x} ⇒ Headcount waterfall · {x}
+LAT manejo de materiales ⇒ Material handling LAT
+uno para toda la línea ⇒ one for the whole line
+min-h/pza ⇒ man-min/pc
+Producción ⇒ Production
+piezas ⇒ pieces
+% del total ⇒ % of total
+Total · {n} parte ⇒ Total · {n} part
+Total · {n} partes ⇒ Total · {n} parts
+Número de parte {x} ⇒ Part number {x}
+Número de parte ⇒ Part number
+{x} parte {x} ⇒ {1} part {2}
+Producción parte {x} ⇒ Production part {x}
+Quitar parte ⇒ Remove part
+LAT de manejo de materiales (aplica a todas las partes) ⇒ Material handling LAT (applies to all parts)
+LAT de manejo de materiales copiado de la primera parte ⇒ Material handling LAT copied from the first part
+Se copia de la primera parte ⇒ Copied from the first part
+afect. ⇒ losses
+horas-hombre que se restan a las trabajadas · genba, si aplica, en «Otros» ⇒ man-hours subtracted from worked hours · genba, if any, under “Other”
+Producción, días, horas por día, JPH, grupos y DST se toman de ⇒ Production, days, hours per day, JPH, crews and DST are taken from
+ensamble ⇒ assembly
+Horas del mes · manejo de materiales ⇒ Monthly hours · material handling
+Horas trabajadas ⇒ Worked hours
+Personal · manejo de materiales ⇒ Headcount · material handling
+HC plan (compromiso) ⇒ Planned HC (commitment)
+HC total del área (real) ⇒ Total area HC (actual)
+Líder ⇒ Leader
+Otros indirectos ⇒ Other indirect
+Horas del mes ⇒ Monthly hours
+Días trabajados ⇒ Days worked
+{x} tiene {n} días ⇒ {1} has {2} days
+Plan (compromiso) ⇒ Plan (commitment)
+JPH comprometido ⇒ Committed JPH
+Grupos comprometidos ⇒ Committed crews
+define la meta (TARGET) ⇒ sets the target (TARGET)
+Resultado real ⇒ Actual result
+HC total del área ⇒ Total area HC
+Grupos reales ⇒ Actual crews
+= COMPR. ⇒ = COMMIT.
+grupos reales convierten horas en personas ⇒ actual crews convert hours into people
+Tiempo estándar de diseño (DST) ⇒ Design standard time (DST)
+Actual Time del año ⇒ Year Actual Time
+Σ horas trabajadas × 60 ÷ Σ producción ⇒ Σ worked hours × 60 ÷ Σ production
+Meta del año ⇒ Year target
+TARGET ponderado por producción ⇒ TARGET weighted by production
+Eficiencia del año ⇒ Year efficiency
+Σ horas requeridas ÷ Σ trabajadas ⇒ Σ required hours ÷ Σ worked
+Producción del año ⇒ Year production
+{n} mes ⇒ {n} month
+{n} meses ⇒ {n} months
+meta {x} · sin afectación {x} ⇒ target {1} · without losses {2}
+GAP de personal · {x} ⇒ Headcount GAP · {x}
+operadores {x} vs requeridos {x} ⇒ operators {1} vs required {2}
+compromiso {x} ⇒ commitment {x}
+Forecast · {x} ⇒ Forecast · {x}
+Un Actual Time por área y año fiscal. Cada mes se captura una vez, al cierre. ⇒ One Actual Time per area and fiscal year. Each month is entered once, at month-end.
+Ej. ENSAMBLE PLANTA 1 ⇒ E.g. ASSEMBLY PLANT 1
+Tiempo por pieza ⇒ Time per piece
+(tiempo estándar planeado). Incluye DSTR. ⇒ (planned standard time). Includes DSTR.
+(Line Actual Time de Cálculo de personal). ⇒ (Line Actual Time from Headcount planning).
+(Line Actual Time de Cálculo de personal). Incluye JPMH. ⇒ (Line Actual Time from Headcount planning). Includes JPMH.
+Incluye JPMH. ⇒ Includes JPMH.
+espejo de ensamble con su propio personal ⇒ mirror of assembly with its own headcount
+Incluir ⇒ Include
+No incluir ⇒ Do not include
++ manejo de materiales ⇒ + material handling
+Meses · FY{n} ⇒ Months · FY{n}
+{x} · {n} de 12 meses capturados · toca un mes para capturarlo o revisarlo ⇒ {1} · {2} of 12 months entered · tap a month to enter or review it
+{n} de 12 meses capturados · toca un mes para capturarlo o revisarlo ⇒ {n} of 12 months entered · tap a month to enter or review it
+Acumulado del año ⇒ Year to date
+Cargar ejemplo (5 meses) ⇒ Load example (5 months)
+Aún no hay meses capturados ⇒ No months entered yet
+Toca un mes para empezar. Cada mes se captura una vez, al cierre. ⇒ Tap a month to start. Each month is entered once, at month-end.
+{x} · se captura al cierre del mes ⇒ {x} · entered at month-end
+se captura al cierre del mes ⇒ entered at month-end
+Todos los meses ⇒ All months
+Copia ⇒ Copy
+(partes, plan y personal) y cambia solo lo que se movió. ⇒ (parts, plan and headcount) and change only what moved.
+Captura las partes, las horas y el personal del mes. ⇒ Enter the month's parts, hours and headcount.
+Números de parte ⇒ Part numbers
+cada parte aporta sus horas requeridas = producción × {x} ÷ 60 ⇒ each part adds its required hours = production × {x} ÷ 60
+Horas convertidas a personas equivalentes: días × horas por día ÷ grupos reales = ⇒ Hours converted to equivalent people: days × hours per day ÷ actual crews =
+h por persona ⇒ h per person
+Borrar mes ⇒ Delete month
+Traer LAT de Cálculo de personal ⇒ Bring LAT from Headcount planning
+Guardar {x} ⇒ Save {x}
+{x} · {n} de 12 meses capturados ⇒ {1} · {2} of 12 months entered
+Del plan al HC requerido, en personas equivalentes ⇒ From plan to required HC, in equivalent people
+Horas req. ⇒ Req. hours
+Horas trab. ⇒ Worked hours
+{x} pond. ⇒ weighted {x}
+Sin afect. ⇒ W/o losses
+HC trabajado ⇒ Worked HC
+HC req. ⇒ Req. HC
+Minutos-hombre por pieza contra la meta · abajo es mejor ⇒ Man-minutes per piece against target · lower is better
+Horas requeridas ÷ horas trabajadas · arriba es mejor ⇒ Required hours ÷ worked hours · higher is better
+Compromiso 100 % ⇒ Commitment 100 %
+Horas trabajadas vs requeridas ⇒ Worked vs required hours
+Trabajadas ⇒ Worked
+Requeridas ⇒ Required
+Producción mensual ⇒ Monthly production
+Piezas · arriba es mejor ⇒ Pieces · higher is better
+JPH real vs comprometido ⇒ Actual vs committed JPH
+Actual Time ÷ tiempo estándar de diseño · abajo es mejor ⇒ Actual Time ÷ design standard time · lower is better
+Piezas por hora-hombre de un grupo · arriba es mejor ⇒ Pieces per man-hour for one crew · higher is better
+JPMH real ⇒ Actual JPMH
+Compromiso ⇒ Commitment
+DSTR obj. ⇒ Target DSTR
+JPMH compr. ⇒ Committed JPMH
+Sin nombre ⇒ Unnamed
+ENSAMBLE PLANTA 1 ⇒ ASSEMBLY PLANT 1
+MAQUINADO PLANTA 1 ⇒ MACHINING PLANT 1
+# Eficiencia compuesta
+Trayectoria de eficiencia por área ⇒ Efficiency trend by area
+PLANTA {x} ⇒ PLANT {x}
+{x} % vs mes anterior ⇒ {x} % vs previous month
+{x}: {x} piezas por hora-hombre ⇒ {1}: {2} pieces per man-hour
+Piezas por hora-hombre de {x} ⇒ Pieces per man-hour for {x}
+Eficiencia compuesta · FY{n} ⇒ Composite efficiency · FY{n}
+Vista general de planta: junta los Actual Time del año. Ensamble + manejo de materiales cuentan como una sola área. No se captura nada aquí. ⇒ Plant overview: combines the year's Actual Time records. Assembly + material handling count as one area. Nothing is entered here.
+Aún no hay Actual Time con meses capturados en FY{n} ⇒ No Actual Time with months entered in FY{n} yet
+La eficiencia compuesta se arma sola con los Actual Time de cada área. ⇒ Composite efficiency builds itself from each area's Actual Time.
+Cargar ejemplo de planta (ensamble + MH y maquinado) ⇒ Load plant example (assembly + MH and machining)
+Planta · año ⇒ Plant · year
+con afectación · Σ requeridas ÷ Σ trabajadas ⇒ with losses · Σ required ÷ Σ worked
+Planta · año sin afectación ⇒ Plant · year without losses
+Planta · {x} ⇒ Plant · {x}
+{x} · con afectación ⇒ {x} · with losses
+{x} · sin afectación ⇒ {x} · without losses
+Áreas · {x} ⇒ Areas · {x}
+Trayectoria de eficiencia con afectación ⇒ Efficiency trend with losses
+Trayectoria de eficiencia sin afectación ⇒ Efficiency trend without losses
+Una línea por área; la línea gruesa es la planta (ponderada por horas) ⇒ One line per area; the thick line is the plant (weighted by hours)
+Tendencia de piezas por hora-hombre ⇒ Pieces per man-hour trend
+Cada área contra su mes anterior (verde sube, rojo baja). No se comparan áreas entre sí: cada una tiene su propia escala. ⇒ Each area against its previous month (green up, red down). Areas are not compared with each other: each has its own scale.
+{x} vs mes anterior ⇒ {x} vs previous month
+primer mes del año ⇒ first month of the year
+mejor ⇒ best
+menor ⇒ lowest
+sin mes anterior ⇒ no previous month
+{x} · piezas por hora-hombre ⇒ {x} · pieces per man-hour

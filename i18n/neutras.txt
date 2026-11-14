@@ -63,3 +63,10 @@ Shingo
 pts
 vs
 plan
+MXN
+USD
+mh
+MOD-A
+MOD-B
+MOD-C
+SM

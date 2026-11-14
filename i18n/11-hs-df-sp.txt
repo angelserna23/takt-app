@@ -1,0 +1,223 @@
+# Diagrama de flujo (ASME)
+SÍ ⇒ YES
+NO ⇒ NO
+sin acción escrita ⇒ no action written
+decisión sin camino SÍ ⇒ decision without a YES path
+decisión sin camino NO ⇒ decision without a NO path
+no tiene siguiente paso ⇒ has no next step
+nadie llega a este símbolo ⇒ nothing leads to this symbol
+Nuevo diagrama ⇒ New diagram
+sin acción ⇒ no action
+ESCRIBE LA ACCIÓN ⇒ WRITE THE ACTION
+Diagrama de flujo del proceso ⇒ Process flow chart
+Diagramas de flujo de proceso ⇒ Process flow charts
+Símbolos ASME: operación, inspección, transporte, demora, almacenamiento y decisiones ⇒ ASME symbols: operation, inspection, transport, delay, storage and decisions
+{n} símbolos ⇒ {n} symbols
+{x} símbolos ⇒ {x} symbols
+Aún no hay diagramas ⇒ No diagrams yet
+Diagrama ⇒ Diagram
+Resumen ⇒ Summary
+(ya conectado) ⇒ (already connected)
+— nada — ⇒ — none —
+Tipo de símbolo ⇒ Symbol type
+Viene de ⇒ Comes from
+— es el inicio / sin antecesor — ⇒ — it is the start / no predecessor —
+Pregunta ⇒ Question
+Acción ⇒ Action
+Ej. ¿CUMPLE? ⇒ E.g. PASS?
+Ej. INICIO / FIN ⇒ E.g. START / END
+Ej. DESCARGAR MATERIAL ⇒ E.g. UNLOAD MATERIAL
+Responsable ⇒ Owner
+Distancia (m) ⇒ Distance (m)
+Camino {x} va a ⇒ Path {x} goes to
+Va a ⇒ Goes to
+Datos del proceso que se va a diagramar ⇒ Data of the process to chart
+Continuar al diagrama ⇒ Continue to diagram
+Ej. RECEPCIÓN DE MATERIA PRIMA ⇒ E.g. RAW MATERIAL RECEIVING
+Ej. ALMACÉN DE MATERIALES ⇒ E.g. MATERIALS WAREHOUSE
+Actual (como se hace hoy) ⇒ Current (how it is done today)
+Propuesto (mejora) ⇒ Proposed (improvement)
+Arrastra un símbolo de la barra a la hoja (o tócalo para ponerlo debajo del último). Se abre una nube para escribir la acción y de qué paso viene. Toca un símbolo para editarlo; arrástralo para moverlo. ⇒ Drag a symbol from the bar onto the sheet (or tap it to place it under the last one). A bubble opens to write the action and which step it comes from. Tap a symbol to edit it; drag it to move it.
+Ver resumen ⇒ View summary
+Símbolos: arrastra a la hoja ⇒ Symbols: drag onto the sheet
+{n} aviso · ver en Resumen ⇒ {n} warning · see Summary
+{n} avisos · ver en Resumen ⇒ {n} warnings · see Summary
+Flujo completo ⇒ Complete flow
+Resumen ASME ⇒ ASME summary
+{n} decisión · sin contar inicio/fin ⇒ {n} decision · not counting start/end
+{n} decisiones · sin contar inicio/fin ⇒ {n} decisions · not counting start/end
+Tiempo total ⇒ Total time
+Distancia recorrida ⇒ Distance traveled
+metros en transportes ⇒ meters in transport
+Operaciones ⇒ Operations
+de las actividades · {x} del tiempo (lo que transforma el producto) ⇒ of activities · {x} of the time (what transforms the product)
+Símbolo ⇒ Symbol
+Cantidad ⇒ Quantity
+% del tiempo ⇒ % of time
+Tabla del proceso ⇒ Process table
+En el orden del flujo, desde el inicio ⇒ In flow order, from the start
+Sigue ⇒ Next
+{n} aviso ⇒ {n} warning
+{n} avisos ⇒ {n} warnings
+Corregir ⇒ Fix
+SÍ → {x} · NO → {x} ⇒ YES → {1} · NO → {2}
+LLEGA EL CAMIÓN ⇒ TRUCK ARRIVES
+DESCARGAR MATERIAL ⇒ UNLOAD MATERIAL
+LLEVAR A ÁREA DE RECIBO ⇒ TAKE TO RECEIVING AREA
+INSPECCIÓN DE RECIBO ⇒ RECEIVING INSPECTION
+¿CUMPLE ESPECIFICACIÓN? ⇒ MEETS SPECIFICATION?
+LLEVAR A ALMACÉN ⇒ TAKE TO WAREHOUSE
+ALMACENAR EN RACK ⇒ STORE IN RACK
+ESPERA DE DISPOSICIÓN ⇒ WAIT FOR DISPOSITION
+RETRABAJO / SELECCIÓN ⇒ REWORK / SORTING
+RECEPCIÓN DE MATERIA PRIMA ⇒ RAW MATERIAL RECEIVING
+ALMACÉN DE MATERIALES ⇒ MATERIALS WAREHOUSE
+# Hoja de trabajo estándar
+Lentes de seguridad ⇒ Safety glasses
+Guantes ⇒ Gloves
+Protección auditiva ⇒ Hearing protection
+Casco ⇒ Hard hat
+Zapato de seguridad ⇒ Safety shoes
+Careta ⇒ Face shield
+Mascarilla ⇒ Mask
+Mandil / peto ⇒ Apron
+Seguridad ⇒ Safety
+Ergonomía ⇒ Ergonomics
+CAMINAR AL CONTENEDOR DE CARCASAS ⇒ WALK TO THE HOUSING BIN
+TOMAR CARCASA Y COLOCAR EN DISPOSITIVO ⇒ PICK UP HOUSING AND PLACE IN FIXTURE
+MUESCA HACIA EL OPERADOR ⇒ NOTCH FACING THE OPERATOR
+INSERTAR BALERO CON PRENSA ⇒ INSERT BEARING WITH PRESS
+MANOS FUERA DE LA PRENSA: BOTÓN BIMANUAL ⇒ HANDS OUT OF THE PRESS: TWO-HAND BUTTON
+VERIFICAR ALTURA DEL BALERO CON CALIBRADOR ⇒ CHECK BEARING HEIGHT WITH GAUGE
+PASA / NO PASA; SI NO PASA, A CONTENEDOR ROJO ⇒ GO / NO-GO; IF NO-GO, TO THE RED BIN
+GIRAR PIEZA Y COLOCAR TAPA ⇒ ROTATE PART AND INSTALL COVER
+GIRAR CON AMBAS MANOS, SIN TORCER MUÑECA ⇒ ROTATE WITH BOTH HANDS, WITHOUT TWISTING THE WRIST
+LLEVAR PIEZA A LA BANDA ⇒ TAKE PART TO THE CONVEYOR
+DEJAR PIEZA EN CONTENEDOR DE PRODUCTO TERMINADO ⇒ PLACE PART IN FINISHED GOODS BIN
+INSERCIÓN DE BALERO ⇒ BEARING INSERTION
+Hojas de trabajo estándar ⇒ Standardized work sheets
+Cómo se hace el trabajo en cada estación: secuencia, puntos clave, flujo y equipo de protección. Se imprime y se consulta en la tablet. ⇒ How the work is done at each station: sequence, key points, flow and protective equipment. It is printed and viewed on the tablet.
+rev. ⇒ rev.
+rev. {x} ⇒ rev. {x}
+{n} paso ⇒ {n} step
+{n} pasos ⇒ {n} steps
+Aún no hay hojas ⇒ No sheets yet
+encabezado, pasos con su símbolo y puntos clave, y la hoja lista para imprimir. ⇒ header, steps with their symbol and key points, and the sheet ready to print.
+Encabezado ⇒ Header
+Secuencia ⇒ Sequence
+Hoja ⇒ Sheet
+Pasos de la hoja ⇒ Sheet steps
+Sin pasos. ⇒ No steps.
+Flujo del proceso de la estación: {n} pasos ⇒ Station process flow: {n} steps
+Revisión ⇒ Revision
+min / pieza ⇒ min / piece
+{n} puntos clave ⇒ {n} key points
+Secuencia de trabajo ⇒ Work sequence
+Flujo del proceso ⇒ Process flow
+sin takt capturado ⇒ no takt entered
+No indicado ⇒ Not specified
+Elaboró ⇒ Prepared by
+Revisó ⇒ Reviewed by
+Aprobó ⇒ Approved by
+Los datos que van arriba de la hoja ⇒ The data at the top of the sheet
+Continuar a secuencia ⇒ Continue to sequence
+Ej. INSERCIÓN DE BALERO ⇒ E.g. BEARING INSERTION
+Ej. PL-2040 ⇒ E.g. PL-2040
+Takt (min por pieza) ⇒ Takt (min per piece)
+Ej. 1.2 ⇒ E.g. 1.2
+Toca los que se usan en la estación ⇒ Tap the ones used at the station
+Símbolo del paso {x} ⇒ Step {x} symbol
+Subir paso {x} ⇒ Move step {x} up
+Bajar paso {x} ⇒ Move step {x} down
+Descripción del paso ⇒ Step description
+Descripción del paso {x} ⇒ Step {x} description
+Tiempo del paso {x} (min) ⇒ Step {x} time (min)
+Tipo de punto clave ⇒ Key point type
+Punto clave ⇒ Key point
+Punto clave del paso {x} ⇒ Step {x} key point
+Cada paso con su símbolo ASME, su tiempo (min) y, si aplica, sus puntos clave de seguridad ⚠, calidad ◆ o ergonomía. ⇒ Each step with its ASME symbol, its time (min) and, if any, its safety ⚠, quality ◆ or ergonomics key points.
+min · suma de los pasos ⇒ min · sum of steps
+sin takt en el encabezado ⇒ no takt in the header
+{n} pasos: la hoja impresa saldrá con letra chica. Si puedes, junta pasos cortos. ⇒ {n} steps: the printed sheet will have small text. If you can, merge short steps.
+Aún no hay pasos. Agrega el primero o carga el ejemplo. ⇒ No steps yet. Add the first one or load the example.
+Cargar ejemplo (8 pasos) ⇒ Load example (8 steps)
+Ver hoja ⇒ View sheet
+Así se ve en la tablet. Al imprimir sale en carta horizontal, en una página. ⇒ This is how it looks on the tablet. It prints on landscape letter, on one page.
+Imprimir ⇒ Print
+Si no se abrió la ventana de impresión: en el enlace de prueba está bloqueada; funcionará en la app publicada. ⇒ If the print window did not open: it is blocked in the test link; it will work in the published app.
+{n} pasos: al imprimir la letra saldrá chica. ⇒ {n} steps: the print will have small text.
+# Espagueti
+ALMACÉN ⇒ WAREHOUSE
+RACK A ⇒ RACK A
+Nuevo espagueti ⇒ New spaghetti
+Diagramas de espagueti ⇒ Spaghetti diagrams
+El recorrido real sobre el layout del área y sus metros ⇒ The actual path over the area layout and its meters
+{x} · {n} viaje ⇒ {1} · {2} trip
+{x} · {n} viajes ⇒ {1} · {2} trips
+Aún no hay diagramas de espagueti ⇒ No spaghetti diagrams yet
+pon los puntos del área y traza el recorrido tocándolos en orden. ⇒ place the area points and trace the path by tapping them in order.
+Pasos del diagrama ⇒ Diagram steps
+Punto ⇒ Point
+{n} visita ⇒ {n} visit
+{n} visitas ⇒ {n} visits
+Diagrama de espagueti: {n} puntos, {n} viajes ⇒ Spaghetti diagram: {1} points, {2} trips
+Qué se sigue, la escala del área y, si quieres, ciclos y velocidad para llevarlo a turno y día ⇒ What is followed, the area scale and, optionally, cycles and speed to scale it to shift and day
+Continuar a layout ⇒ Continue to layout
+Ej. RECORRIDO DE SURTIDO LÍNEA 3 ⇒ E.g. LINE 3 SUPPLY ROUTE
+Qué se sigue ⇒ What is followed
+Distancia ⇒ Distance
+Metros por cuadro ⇒ Meters per square
+Ancho del área (cuadros) ⇒ Area width (squares)
+Largo del área (cuadros) ⇒ Area length (squares)
+Ciclos por turno ⇒ Cycles per shift
+Ej. 50 ⇒ E.g. 50
+Ej. 2 ⇒ E.g. 2
+Velocidad de caminata (m/min) ⇒ Walking speed (m/min)
+opcional, medida en piso ⇒ optional, measured on the floor
+Ej. 60 ⇒ E.g. 60
+En escuadra (pasillos) ⇒ Right-angle (aisles)
+En línea recta ⇒ Straight line
+seleccionado: escribe su nombre, o toca un cuadro libre para moverlo. ⇒ selected: type its name, or tap a free square to move it.
+Toca un cuadro libre para poner un punto (estación, rack, contenedor, máquina…). ⇒ Tap a free square to place a point (station, rack, bin, machine…).
+Layout del área ⇒ Area layout
+Trazar recorrido ⇒ Trace path
+Nombre del punto ⇒ Point name
+Cargar ejemplo (6 puntos) ⇒ Load example (6 points)
+viaja el material ⇒ the material travels
+camina el operador ⇒ the operator walks
+Toca los puntos en el orden en que {x}. Si un trayecto se repite, la línea se engruesa. ⇒ Tap the points in the order {x}. If a leg repeats, the line gets thicker.
+Viajes ⇒ Trips
+Borrar recorrido ⇒ Clear path
+Aún no hay trayectos: toca el punto donde empieza. ⇒ No legs yet: tap the point where it starts.
+método propuesto ⇒ proposed method
+método actual ⇒ current method
+en línea recta ⇒ straight line
+en escuadra ⇒ right-angle
+{x} · {x} · distancia {x} · {x} m por cuadro ⇒ {1} · {2} · distance {3} · {4} m per square
+Distancia por ciclo ⇒ Distance per cycle
+Trayecto más repetido ⇒ Most repeated leg
+Punto más visitado ⇒ Most visited point
+Por turno / por día ⇒ Per shift / per day
+Tiempo caminando ⇒ Walking time
+Trayecto ⇒ Leg
+Veces ⇒ Times
+m cada vez ⇒ m each time
+m por ciclo ⇒ m per cycle
+% del ciclo ⇒ % of cycle
+{n} visita por ciclo ⇒ {n} visit per cycle
+{n} visitas por ciclo ⇒ {n} visits per cycle
+{n} ciclos por turno ⇒ {n} cycles per shift
+× {n} turnos ⇒ × {n} shifts
+captura ciclos por turno en Información ⇒ enter cycles per shift in Information
+{n} min por turno ⇒ {n} min per shift
+captura la velocidad medida en Información ⇒ enter the measured speed in Information
+# reportes
+Si no se abrió la ventana de impresión: en el enlace de prueba está bloqueada; en la app publicada se abre con «Guardar como PDF». ⇒ If the print window did not open: it is blocked in the test link; in the published app it opens with “Save as PDF”.
+Entendido ⇒ Got it
+{x}–{x} de {x} ⇒ {1}–{2} of {3}
+{x} min disponibles por {x} ⇒ {1} min available per {2}
+Carga por operador (Yamazumi) ⇒ Workload per operator (Yamazumi)
+{n} {x} distintos: cada color es uno; el detalle está en la tabla siguiente. ⇒ {1} different {2}: each color is one; details are in the next table.
+Base ⇒ Basis
+Periodo / objetivo ⇒ Period / target
+{x} min por {x} ⇒ {1} min per {2}

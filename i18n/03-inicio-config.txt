@@ -179,3 +179,8 @@ Minutos-hombre reales por pieza contra la meta. ⇒ Actual man-minutes per piece
 Capacidad y eficiencia ⇒ Capacity & efficiency
 Nuevo ⇒ New
 Ver estudios guardados ⇒ View saved studies
+Los pasos del proceso con símbolos ASME: operación, inspección, transporte, demora, almacenamiento y decisiones. ⇒ Process steps with ASME symbols: operation, inspection, transport, delay, storage and decisions.
+Por dónde camina el operador o viaja el material sobre el layout del área, y cuántos metros por ciclo, turno y día. ⇒ Where the operator walks or the material travels on the area layout, and how many meters per cycle, shift and day.
+Tipos de diagrama ⇒ Diagram types
+{n} guardado ⇒ {n} saved
+{n} guardados ⇒ {n} saved

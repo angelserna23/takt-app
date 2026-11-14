@@ -116,14 +116,14 @@ addHtmlish(pre,'comun',1);
 // ---- evaluar ----
 const seen=new Map();
 for(const f of found){
-  let s=f.s;if(IGNORA.has(s.split(HOLE).join('{x}')))continue;
+  let s=f.s;if(IGNORA.has(s.split(HOLE).join('{x}')))continue;if(/<[a-z]+ [^>]*="/.test(s))continue;
   // pedazos con huecos: cada pedazo con texto debe estar cubierto, o el conjunto (con 7 en los huecos) por una plantilla
   // instancia de prueba: «7» en cada hueco; un hueco pegado a una palabra es plural (operador{x} → operador / operadores)
   const mk=pl=>s.replace(/\u0004/g,'').replace(/\u0003/g,pl).split(HOLE).join('7').replace(/\s+/g,' ').trim();
   const inst=mk(''),inst2=s.includes(PLUR)?mk(/[aeiouáéíóú]\u0003/i.test(s)?'s':'es'):inst;
   if(!hasWord(inst.replace(/\d/g,'')))continue;
   const key=s.split(HOLE).join('{x}').replace(/\u0003/g,'{s}').replace(/\u0004/g,'{?}');
-  if(seen.has(key))continue;
+  if(seen.has(key)||IGNORA.has(key)||/="/.test(key))continue;
   const okI=i=>tr(i)!==i||trM(i).includes(MK)||neutral(i);
   const ok=okI(inst)&&(inst2===inst||okI(inst2));
   seen.set(key,{...f,key,ok});

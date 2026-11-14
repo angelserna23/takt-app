@@ -1,0 +1,168 @@
+# Man Machine
+
+INSPECCIÓN CON CALIBRADOR ⇒ GAUGE INSPECTION
+CALIBRACIÓN ⇒ CALIBRATION
+Línea / celda ⇒ Line / cell
+Nuevo Man Machine ⇒ New Man Machine
+MAQUINA {n} ⇒ MACHINE {n}
+MAQUINA {x} ⇒ MACHINE {x}
+ESTACIÓN MANUAL ⇒ MANUAL STATION
+ESTACION MANUAL ⇒ MANUAL STATION
+ESTACION MANUAL {n} ⇒ MANUAL STATION {n}
+ESTACION MANUAL {x} ⇒ MANUAL STATION {x}
+{n} estaciones ⇒ {n} stations
+{x} estaciones ⇒ {x} stations
+TC más alto ⇒ Highest CT
+Revisar tabla ⇒ Review table
+Layout ⇒ Layout
+Gráfica ⇒ Chart
+Detener cronómetro ⇒ Stop timer
+{x} · manual {x} · {n} pasos ⇒ {1} · manual {2} · {3} steps
+{x} · manual {x} · {x} pasos ⇒ {1} · manual {2} · {3} steps
+{x} · {n} pasos ⇒ {1} · {2} steps
+durante {x} ⇒ during {x}
+Capturar ⇒ Enter
+Carga y descarga ⇒ Load and unload
+sopleteos, inspecciones, calibraciones, registro… ⇒ air blowing, inspections, calibrations, logging…
++ OTRA ⇒ + OTHER
+Pasos hacia la siguiente estación ⇒ Steps to the next station
+Un paso menos ⇒ One step less
+Un paso más ⇒ One step more
+Quitar estación ⇒ Remove station
+Estación sin máquina: sopleteadora, mesa de inspección, registro. Su tiempo va en ⇒ Station without a machine: air blower, inspection table, logging. Its time goes in
+Actividades manuales ⇒ Manual activities
+TC plan (min) ⇒ Planned CT (min)
+opcional · para el GAP ⇒ optional · for the GAP
+Ej. 1.10 ⇒ E.g. 1.10
+Máquinas iguales ⇒ Identical machines
+de que cierra la puerta a que abre ⇒ from door close to door open
+se promedian y se dividen entre {x} ⇒ averaged and divided by {x}
+TC efectivo ⇒ Effective CT
+tomar y dejar pieza juntas · estándar 0.03 + 0.03 ⇒ pick up and place part together · standard 0.03 + 0.03
+solo dejar o tomar pieza · estándar 0.03 ⇒ only place or pick up part · standard 0.03
+Cuándo ⇒ When
+Minutos ⇒ Minutes
+Sin actividades manuales en esta estación. ⇒ No manual activities at this station.
+Estación manual ⇒ Manual station
+Dejar / tomar ⇒ Place / pick up
+Layout del recorrido del operador ⇒ Operator walk layout
+Gráfica hombre-máquina: operador {x} min, celda {x} min ⇒ Man-machine chart: operator {1} min, cell {2} min
+Ocupación de máquinas contra el TC objetivo ⇒ Machine utilization against target CT
+{x} · TC {x} · {x} del objetivo ⇒ {1} · CT {2} · {3} of target
+Semana ⇒ Week
+Mes ⇒ Month
+Año ⇒ Year
+{x} h/día · {x} días/semana · {x} semanas/mes ⇒ {1} h/day · {2} days/week · {3} weeks/month
+Indicadores ⇒ Indicators
+Escríbelo en ⇒ Enter it in
+para comparar el JPH real contra el objetivo y ver la ocupación de las máquinas. ⇒ to compare actual JPH against target and see machine utilization.
+Ir a Información ⇒ Go to Information
+JPH real vs plan ⇒ Actual JPH vs plan
+Tiempo del operador sin trabajo ⇒ Operator idle time
+{x} min de cada hora esperando a la máquina ⇒ {x} min of every hour waiting for the machine
+Ocupación promedio de máquinas ⇒ Average machine utilization
+TC promedio {x} ÷ objetivo {x} ⇒ Average CT {1} ÷ target {2}
+TC de cada máquina ÷ TC objetivo de la línea · en rojo las que no alcanzan el objetivo ⇒ Each machine's CT ÷ line target CT · red ones miss the target
+Dentro del objetivo ⇒ Within target
+Piezas perdidas por hora ⇒ Pieces lost per hour
+Piezas arriba del plan ⇒ Pieces over plan
+la celda sale más lenta que el JPH plan ⇒ the cell runs slower than JPH plan
+la celda alcanza el JPH plan ⇒ the cell reaches JPH plan
+{x} arriba del objetivo ⇒ {x} over target
+todas dentro del objetivo ⇒ all within target
+Proyección de piezas perdidas ⇒ Projected lost pieces
+(JPH plan − JPH real) × {x} ⇒ (JPH plan − actual JPH) × {x}
+Horas-hombre sin trabajo ⇒ Idle man-hours
+espera del operador ({x} de cada {x} min) × {x} · no son piezas: la celda la limita la máquina ⇒ operator wait ({1} of every {2} min) × {3} · not pieces: the cell is limited by the machine
+La celda la limita ⇒ The cell is limited by
+: necesita {x} min por vuelta ({x} manual + {x} de máquina) y el operador regresa en {x}. ⇒ : it needs {1} min per round ({2} manual + {3} machine) and the operator comes back in {4}.
+necesita {x} min por vuelta ({x} manual + {x} de máquina) y el operador regresa en {x}. ⇒ it needs {1} min per round ({2} manual + {3} machine) and the operator comes back in {4}.
+El operador espera {x} min por vuelta ⇒ The operator waits {x} min per round
+({x} de su tiempo). ⇒ ({x} of their time).
+: su vuelta ({x} min) es más larga que lo que necesita cualquier máquina, así que ⇒ : their round ({x} min) is longer than any machine needs, so
+su vuelta ({x} min) es más larga que lo que necesita cualquier máquina, así que ⇒ their round ({x} min) is longer than any machine needs, so
+no espera ⇒ they do not wait
+; son las máquinas las que lo esperan a él. ⇒ ; the machines wait for them.
+son las máquinas las que lo esperan a él. ⇒ the machines wait for them.
+Gráfica hombre-máquina ⇒ Man-machine chart
+Ciclo del operador ⇒ Operator cycle
+manual {x} + durante {x} + caminata {x} ({x} pasos × 0.01) ⇒ manual {1} + during {2} + walking {3} ({4} steps × 0.01)
+Ciclo real de la celda ⇒ Actual cell cycle
+lo limita ⇒ limited by
+{x} piezas por hora ⇒ {x} pieces per hour
+por vuelta · ocupación del operador {x} ⇒ per round · operator utilization {x}
+Recorrido ⇒ Walk path
+{x} pasos por vuelta ⇒ {x} steps per round
+Operación manual y manual durante el ciclo ⇒ Manual operation and manual during cycle
+Ciclo de máquina ⇒ Machine cycle
+Caminata ⇒ Walking
+Cómo leer la gráfica y los resultados ⇒ How to read the chart and results
+Gráfica (igual que tu Excel): ⇒ Chart (same as your Excel):
+Gráfica (igual que tu Excel) ⇒ Chart (same as your Excel)
+Ciclo real de la celda: ⇒ Actual cell cycle:
+si una máquina necesita más que la vuelta del operador, él llega antes de que termine y la espera. Es tiempo pagado sin trabajo. ⇒ if a machine needs more than the operator's round, the operator arrives before it finishes and waits. It is paid time without work.
+tiempo en que la máquina ya terminó y está parada esperando al operador. Si es grande, la máquina tiene capacidad sobrada. ⇒ time in which the machine has finished and stands idle waiting for the operator. If it is large, the machine has spare capacity.
+Escala ⇒ Scale
+se ajusta sola a la pantalla; ya no hace falta el campo de escala de tu hoja. ⇒ fits the screen by itself; the scale field from your sheet is no longer needed.
+Proceso ⇒ Process
+Llega ⇒ Arrives
+Termina manual ⇒ Manual ends
+Máquina libre ⇒ Machine free
+Necesita por vuelta ⇒ Needs per round
+Ocio ⇒ Idle
+Utilización ⇒ Utilization
+Ojo ⇒ Note
+la operación manual "durante el ciclo" dura más que el TC de la máquina; revisa si en realidad es fuera del ciclo. ⇒ the manual operation "during cycle" takes longer than the machine CT; check whether it is really outside the cycle.
+Continuar a estaciones ⇒ Continue to stations
+Opcional ⇒ Optional
+Metros por paso ⇒ Meters per step
+largo de un paso del operador · pasos × metros = distancia que camina por vuelta ⇒ length of one operator step · steps × meters = distance walked per round
+para JPH objetivo y ocupación de máquinas ⇒ for target JPH and machine utilization
+Supuestos para las proyecciones ⇒ Projection assumptions
+Igual que en el Speed Trial: escríbelos de acuerdo a la planta ⇒ Same as in the Speed Trial: enter them for your plant
+estándar 85 · JPH plan = (60 ÷ TC objetivo) × OEE plan ⇒ standard 85 · JPH plan = (60 ÷ target CT) × planned OEE
+Ej. CELDA MAQUINADO 3 ⇒ E.g. MACHINING CELL 3
+Captúralas ⇒ Enter them
+en el orden en que camina el operador ⇒ in the order the operator walks
+; para reordenar, arrastra la estación (en tablet: mantén presionado). La app arranca el recorrido en la máquina con el TC más alto. ⇒ ; to reorder, drag the station (on a tablet: press and hold). The app starts the walk at the machine with the highest CT.
+para reordenar, arrastra la estación (en tablet: mantén presionado). La app arranca el recorrido en la máquina con el TC más alto. ⇒ to reorder, drag the station (on a tablet: press and hold). The app starts the walk at the machine with the highest CT.
+Entrada ⇒ Input
+Salida ⇒ Output
+Agrega al menos una máquina ⇒ Add at least one machine
+Cargar ejemplo (8 estaciones) ⇒ Load example (8 stations)
+Aún no hay estaciones ⇒ No stations yet
+Agrega Máquina, Entrada o Salida en el orden en que camina el operador. ⇒ Add Machine, Input or Output in the order the operator walks.
+Concentración de datos armada en automático. Si algo no cuadra, corrígelo aquí: lo corregido queda marcado en naranja. ⇒ Data summary built automatically. If something does not add up, correct it here: corrections are marked in orange.
+Ver layout ⇒ View layout
+TC más alto (arranca el recorrido) ⇒ Highest CT (starts the walk)
+Operación manual por vuelta ⇒ Manual operation per round
+Pasos por vuelta ⇒ Steps per round
+{x} m a {x} m por paso ⇒ {1} m at {2} m per step
+Piezas tomadas ⇒ Pieces taken
+Op. manual (carga/descarga + fuera) ⇒ Manual op. (load/unload + outside)
+Op. manual durante el TC ⇒ Manual op. during CT
+Pasos ⇒ Steps
+TC máquina ⇒ Machine CT
+TC plan · GAP ⇒ Planned CT · GAP
+Total por vuelta ⇒ Total per round
+seleccionada: toca un espacio libre para moverla, u otra estación para intercambiarlas. ⇒ selected: tap a free space to move it, or another station to swap them.
+Arrastra una estación a un espacio libre para moverla, o sobre otra para intercambiarlas (en tablet: mantén presionado). Donde sueltes la estación, ahí entra en el recorrido. Toca un espacio libre (+) para agregar una estación. El número en cada flecha es la cantidad de pasos. ⇒ Drag a station to a free space to move it, or onto another to swap them (on a tablet: press and hold). Where you drop the station is where it enters the walk. Tap a free space (+) to add a station. The number on each arrow is the number of steps.
+Layout del recorrido ⇒ Walk layout
+Tabla ⇒ Table
+Ver gráfica ⇒ View chart
+Acomodar en U ⇒ Arrange in U
+Tamaño de la cuadrícula: ⇒ Grid size:
+Tamaño de la cuadrícula ⇒ Grid size
+Columnas ⇒ Columns
+Menos columnas ⇒ Fewer columns
+Más columnas ⇒ More columns
+Filas ⇒ Rows
+Menos filas ⇒ Fewer rows
+Más filas ⇒ More rows
+Máquina · TC efectivo ⇒ Machine · effective CT
+Entrada / salida ⇒ Input / output
+Recorrido · pasos ⇒ Walk · steps
+M = manual · D = durante el ciclo ⇒ M = manual · D = during cycle
+agregada al recorrido. Le faltan sus tiempos y pasos; revisa también los pasos de la estación anterior. ⇒ added to the walk. Its times and steps are missing; also check the steps of the previous station.
+Capturar ahora ⇒ Enter now
+Después ⇒ Later

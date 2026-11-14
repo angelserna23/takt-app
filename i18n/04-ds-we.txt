@@ -1,0 +1,173 @@
+# Delay Study y Work Element
+
+Objetivos actuales de cada operador ⇒ Current targets for each operator
+Actividad {n} ⇒ Activity {n}
+Actividad {x} ⇒ Activity {x}
+Estudios de {x} ⇒ {x} studies
+Ocupación de operadores en operaciones cíclicas, por elementos ⇒ Operator utilization in cyclic operations, by element
+Ocupación de operadores en actividades no cíclicas ⇒ Operator utilization in non-cyclic activities
+Información ⇒ Information
+Cronometraje ⇒ Timing
+Asignación ⇒ Assignment
+Pasos del estudio ⇒ Study steps
+vuelta vacía · se suma a #{n} ⇒ empty trip · added to #{n}
+vuelta vacía · se suma a #{x} ⇒ empty trip · added to #{x}
+vuelta vacía · sin traslado ⇒ empty trip · no transfer
+Tiempo (min) ⇒ Time (min)
+Carritos / racks ⇒ Carts / racks
+SNP (pzs por rack) ⇒ SNP (pcs per rack)
+Min por pieza ⇒ Min per piece
+Yamazumi: carga por operador contra tiempo disponible ⇒ Yamazumi: workload per operator against available time
+tiempo ciclo {n} min ⇒ cycle time {n} min
+tiempo ciclo {x} min ⇒ cycle time {x} min
+{n} min disponibles ⇒ {n} min available
+obj {n} pzs/{x} ⇒ target {1} pcs/{2}
+excede {x} ⇒ exceeds {x}
+libre {x} ⇒ idle {x}
+Lo que va arriba de tu hoja · el tiempo disponible y el objetivo son el estándar para todos los operadores ⇒ What goes at the top of your sheet · available time and target are the standard for all operators
+Ej. Análisis de ensamble 1 ⇒ E.g. Assembly 1 analysis
+Observador ⇒ Observer
+Área de análisis ⇒ Analysis area
+Ej. Ensamble de poleas ⇒ E.g. Pulley assembly
+Periodo de análisis ⇒ Analysis period
+¿Contra qué tiempo se mide la ocupación? ⇒ What time is utilization measured against?
+Periodo ⇒ Period
+Tiempo disponible (min por {x}) ⇒ Available time (min per {x})
+Objetivo estándar (piezas por {x}) · cada operador puede tener el suyo ⇒ Standard target (pieces per {x}) · each operator can have their own
+Ej. 6 ⇒ E.g. 6
+Continuar a cronometraje ⇒ Continue to timing
+Cronometraje · {x} ⇒ Timing · {x}
+Inicia, escribe o toca la actividad y presiona Siguiente actividad ⇒ Start, type or tap the activity and press Next activity
+y ver asignación ⇒ and view assignment
+Operador {x} · puesto ⇒ Operator {x} · job position
+Objetivo de este operador (piezas por {x}) ⇒ This operator's target (pieces per {x})
+Vacío = estándar ({x}) ⇒ Empty = standard ({x})
+Actividad {x} · {x} ⇒ Activity {1} · {2}
+Ej. TRASLADAR PIEZAS ⇒ E.g. MOVE PARTS
+Ej. CASCARONES ⇒ E.g. SHELLS
+Actividades registradas ⇒ Recorded activities
+{n} actividad de ⇒ {n} activity of
+{n} actividades de ⇒ {n} activities of
+la más reciente arriba · puedes corregir cualquier dato ⇒ most recent on top · you can correct any value
+Termina el cronómetro primero ⇒ Stop the timer first
+Actividad {n} en curso ⇒ Activity {n} in progress
+Actividad {x} en curso ⇒ Activity {x} in progress
+Cronómetro detenido ⇒ Timer stopped
+Siguiente actividad ⇒ Next activity
+Terminar ⇒ Finish
+Reanudar cronómetro ⇒ Resume timer
+Iniciar cronómetro ⇒ Start timer
+lista para iniciar ⇒ ready to start
+Actividades ya capturadas ⇒ Activities already entered
+Aún no hay actividades registradas. ⇒ No activities recorded yet.
+Cargar ejemplo (4 actividades) ⇒ Load example (4 activities)
+{n} min/pza ⇒ {n} min/pc
+{x} min/pza ⇒ {x} min/pc
+min/pza ⇒ min/pc
+Asignación y balanceo ⇒ Assignment & balancing
+Para rebalancear, ⇒ To rebalance,
+arrastra ⇒ drag
+una actividad a otro operador (en teléfono: mantén presionado y arrastra), o tócala y usa ⇒ an activity to another operator (on a phone: press and hold, then drag), or tap it and use
+. Toma el objetivo del operador que la recibe. ⇒ . It takes the target of the operator who receives it.
+Toma el objetivo del operador que la recibe. ⇒ It takes the target of the operator who receives it.
+Objetivo estándar ⇒ Standard target
+{n} actividad ⇒ {n} activity
+{n} actividades ⇒ {n} activities
+Para simular un rebalanceo sin cronometrar ⇒ To simulate a rebalance without timing
+Cancelar selección ⇒ Cancel selection
+Todas las actividades están asignadas. ⇒ All activities are assigned.
+Quitar operador ⇒ Remove operator
+{n} de {n} min · {x} ⇒ {1} of {2} min · {3}
+{x} de {x} min · {x} ⇒ {1} of {2} min · {3}
+Objetivo ⇒ Target
+Cronometrar ⇒ Time it
+(estándar {x}) ⇒ (standard {x})
+Mover aquí ⇒ Move here
+Sin actividades. ⇒ No activities.
+Cronometrar siguiente operador ⇒ Time next operator
+Ver resultados ⇒ View results
+Yamazumi: carga de cada operador contra el tiempo disponible por {x} ⇒ Yamazumi: each operator's workload against available time per {x}
+Escenario de demanda ⇒ Demand scenario
+Piezas extra a cada operador ⇒ Extra pieces per operator
+Aumento de demanda ⇒ Demand increase
+Personal requerido teórico ⇒ Theoretical required headcount
+carga total ÷ tiempo disponible ⇒ total workload ÷ available time
+Operadores arriba de 100 % ⇒ Operators over 100 %
+Carga total ⇒ Total workload
+min por {x} ⇒ min per {x}
+Carga por operador ⇒ Workload per operator
+Min/pza ⇒ Min/pc
+Carga (min) ⇒ Workload (min)
+% del disponible ⇒ % of available
+⚠ Hay vueltas vacías pero ninguna actividad con piezas en el estudio; su tiempo no se puede repartir. Revisa racks y SNP en Cronometraje. ⇒ ⚠ There are empty trips but no activity with pieces in the study; their time cannot be distributed. Check racks and SNP in Timing.
+hay que rebalancear ⇒ rebalance needed
+Total ⇒ Total
+Rebalancear ⇒ Rebalance
+# datos de ejemplo (se crean en inglés con EN)
+SURTIR CASCARONES ⇒ SUPPLY SHELLS
+REGRESO VACÍO ⇒ EMPTY RETURN
+SURTIR TORNILLERÍA ⇒ SUPPLY FASTENERS
+RETIRAR EMPAQUE ⇒ REMOVE PACKAGING
+SURTIR POLEAS ⇒ SUPPLY PULLEYS
+ETIQUETAR CAJAS ⇒ LABEL BOXES
+TRASLADO A ALMACÉN ⇒ TRANSFER TO WAREHOUSE
+PRODUCTO TERMINADO ⇒ FINISHED GOODS
+CASCARONES ⇒ SHELLS
+TORNILLERÍA ⇒ FASTENERS
+POLEAS ⇒ PULLEYS
+CAJAS ⇒ BOXES
+EMPAQUE ⇒ PACKAGING
+MATERIALISTA ⇒ MATERIAL HANDLER
+MATERIALISTA 1 ⇒ MATERIAL HANDLER 1
+MATERIALISTA 2 ⇒ MATERIAL HANDLER 2
+# Work Element
+Por hora (JPH) ⇒ Per hour (JPH)
+Por tiempo ciclo de la línea ⇒ By line cycle time
+Ej. Análisis de ensamble ⇒ E.g. Assembly analysis
+Ej. 00000-XXX ⇒ E.g. 00000-XXX
+Ej. Ensamble de válvula ⇒ E.g. Valve assembly
+¿Cómo se mide la ocupación? ⇒ How is utilization measured?
+Por hora con el JPH, o contra el tiempo ciclo de la línea con 1 pieza ⇒ Per hour with the JPH, or against the line cycle time with 1 piece
+Base de medición ⇒ Measurement basis
+Ciclos a cronometrar por operador ⇒ Cycles to time per operator
+Tiempo ciclo de la línea (min) ⇒ Line cycle time (min)
+Ej. 1.20 ⇒ E.g. 1.20
+Tiempo disponible (min por hora) ⇒ Available time (min per hour)
+JPH estándar (piezas por hora) · cada operador puede tener el suyo ⇒ Standard JPH (pieces per hour) · each operator can have their own
+Ej. 10 ⇒ E.g. 10
+Continuar a elementos ⇒ Continue to elements
+JPH de este operador (piezas por hora) ⇒ This operator's JPH (pieces per hour)
+Primero observa la operación y registra los elementos en orden. Después cronometras los ciclos. ⇒ First observe the operation and record the elements in order. Then time the cycles.
+Validar y cronometrar ⇒ Validate and time
+Escribe un elemento y presiona Enter ⇒ Type an element and press Enter
+Agregar ⇒ Add
+Este operador ya tiene tiempos. Si cambias el orden o quitas elementos, revisa sus ciclos. ⇒ This operator already has times. If you change the order or remove elements, check the cycles.
+Elemento {n} ⇒ Element {n}
+Elemento {x} ⇒ Element {x}
+Subir ⇒ Move up
+Bajar ⇒ Move down
+Quitar elemento ⇒ Remove element
+Aún no hay elementos. Usa los botones de arriba o escribe uno. ⇒ No elements yet. Use the buttons above or type one.
+Promedio ⇒ Average
+Total del ciclo ⇒ Cycle total
+{n} ciclo {n} ⇒ {1} cycle {2}
+{x} ciclo {x} ⇒ {1} cycle {2}
+Cada toque cierra el elemento en curso y arranca el siguiente. Al cerrar el ciclo el cronómetro se detiene: inicia el siguiente cuando estés listo para la próxima unidad. ⇒ Each tap closes the current element and starts the next one. When the cycle closes the timer stops: start the next one when you are ready for the next unit.
+Tiempos por ciclo (min) ⇒ Times per cycle (min)
+Puedes corregir cualquier celda; el promedio se recalcula solo ⇒ You can correct any cell; the average recalculates itself
+Cargar tiempos de ejemplo ⇒ Load sample times
+Pausa el cronómetro primero ⇒ Pause the timer first
+Completa al menos un ciclo ⇒ Complete at least one cycle
+de {x} · elemento {x} de {x} ⇒ of {1} · element {2} of {3}
+✓ {n} ciclos completos ⇒ ✓ {n} cycles complete
+✓ {x} ciclos completos ⇒ ✓ {x} cycles complete
+Ciclos terminados ⇒ Cycles finished
+Pausar ⇒ Pause
+Cerrar ciclo {n} ⇒ Close cycle {n}
+Iniciar ciclo {n} ⇒ Start cycle {n}
+Reanudar ciclo {n} ⇒ Resume cycle {n}
+Cerrar ciclo {x} ⇒ Close cycle {x}
+Iniciar ciclo {x} ⇒ Start cycle {x}
+Reanudar ciclo {x} ⇒ Resume cycle {x}
+{n} {x} · {n} operador ⇒ {1} {2} · {3} operator
+{n} {x} · {n} operadores ⇒ {1} {2} · {3} operators

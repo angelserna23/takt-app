@@ -1,0 +1,149 @@
+# Cálculo de personal (y meses del año fiscal, comunes a toda la app)
+
+Abril ⇒ April
+Mayo ⇒ May
+Junio ⇒ June
+Julio ⇒ July
+Agosto ⇒ August
+Septiembre ⇒ September
+Octubre ⇒ October
+Noviembre ⇒ November
+Diciembre ⇒ December
+Enero ⇒ January
+Febrero ⇒ February
+Marzo ⇒ March
+abr ⇒ Apr
+may ⇒ May
+jun ⇒ Jun
+jul ⇒ Jul
+ago ⇒ Aug
+sep ⇒ Sep
+oct ⇒ Oct
+nov ⇒ Nov
+dic ⇒ Dec
+ene ⇒ Jan
+feb ⇒ Feb
+mar ⇒ Mar
+{x} {n} ⇒ {1} {2}
+Días ⇒ Days
+Horas por día ⇒ Hours per day
+Tiempo TPM (h/día) ⇒ TPM time (h/day)
+Domingos ⇒ Sundays
+Volumen requerido ⇒ Required volume
+Proyectos ⇒ Projects
+Disponibilidad de la línea ⇒ Line availability
+Plan de producción ⇒ Production plan
+Personal directo por grupo ⇒ Direct headcount per crew
+Personal indirecto ⇒ Indirect headcount
+Nuevo cálculo ⇒ New calculation
+LINEA 1 ⇒ LINE 1
+LINEA 2 ⇒ LINE 2
+LINEA 3 ⇒ LINE 3
+LINEA {n} ⇒ LINE {n}
+Headcount por área, por mes del año fiscal (abril a marzo) ⇒ Headcount by area, by month of the fiscal year (April to March)
+HC volumen / esquema ⇒ HC volume / crew pattern
+Eliminar {x} ⇒ Delete {x}
+Eliminar cálculo ⇒ Delete calculation
+{n} renglones en {x} ⇒ {1} rows in {2}
+{n} renglón en {x} ⇒ {1} row in {2}
+Aún no hay cálculos ⇒ No calculations yet
+Crea uno por área: ensamble, maquinado, fundición… ⇒ Create one per area: assembly, machining, foundry…
+Meses ⇒ Months
+Resumen anual ⇒ Annual summary
+TC (60 ÷ JPH × OEE) ⇒ CT (60 ÷ JPH × OEE)
+Horas disponibles ⇒ Available hours
+Horas requeridas ⇒ Required hours
+Capacidad máxima ⇒ Maximum capacity
+GAP de volumen ⇒ Volume GAP
+Horas-hombre requeridas ⇒ Required man-hours
+Horas por persona ⇒ Hours per person
+Personas directas por grupo ⇒ Direct people per crew
+se redondea a {x} × {x} grupos ⇒ rounded to {1} × {2} crews
+sobra capacidad ⇒ spare capacity
+Esquema ⇒ Crew pattern
+RENGLÓN {n} ⇒ ROW {n}
+RENGLÓN {x} ⇒ ROW {x}
+Sin parte ⇒ No part
+esquema {x} · ocupación ⇒ crew pattern {x} · utilization
+Editar ⇒ Edit
+Ej. LINEA 1 ⇒ E.g. LINE 1
+Indicadores del renglón ⇒ Row indicators
+Duplicar renglón ⇒ Duplicate row
+Quitar renglón ⇒ Remove row
+A · 1 grupo ⇒ A · 1 crew
+B · 2 grupos ⇒ B · 2 crews
+C · 3 grupos ⇒ C · 3 crews
+Esquema de trabajo ⇒ Crew pattern
+lo que el volumen justifica ⇒ what the volume justifies
+plantilla por grupos ⇒ staffing by crews
+{x} h requeridas de {x} disponibles ⇒ {1} h required of {2} available
+Volumen vs capacidad ⇒ Volume vs capacity
+{x} arriba del volumen ⇒ {x} over volume
+Headcount por mes ⇒ Headcount by month
+{x}: {x} por volumen ⇒ {1}: {2} by volume
+{x}: {x} por esquema ⇒ {1}: {2} by crew pattern
+Ocupación por mes ⇒ Utilization by month
+% ocupación ⇒ % utilization
+Personal que agrega valor contra afectación ⇒ Value-adding headcount against indirect
+{x}: {x} operadores y líderes ⇒ {1}: {2} operators and team leaders
+{x}: {x} de afectación ⇒ {1}: {2} indirect
+Sin datos. ⇒ No data.
+Trazabilidad por línea ⇒ Traceability by line
+Información del cálculo ⇒ Calculation information
+Un cálculo por área. Dentro de cada mes se capturan sus líneas o renglones. ⇒ One calculation per area. Each month holds its lines or rows.
+Continuar a meses ⇒ Continue to months
+Nombre del área ⇒ Area name
+Ej. MAQUINADO PLANTA 1 ⇒ E.g. MACHINING PLANT 1
+% de reducción anual (objetivo) ⇒ Annual reduction % (target)
+Tipo de área ⇒ Area type
+abril a marzo ⇒ April to March
+¿Qué área es? ⇒ Which area is it?
+Ej. PINTURA ⇒ E.g. PAINT
+FY{n} · abr {n} – mar {n} ⇒ FY{1} · Apr {2} – Mar {3}
+{n} renglón · cada uno con su personal y su volumen ⇒ {n} row · each with its headcount and volume
+{n} renglones · cada uno con su personal y su volumen ⇒ {n} rows · each with its headcount and volume
+Mes sin capturar ⇒ Month not entered
+Meses del año fiscal ⇒ Fiscal year months
+Copia los renglones de ⇒ Copy the rows from
+y cambia solo lo que se movió. ⇒ and change only what moved.
+Agrega las líneas o renglones de esta área. ⇒ Add the lines or rows for this area.
+{x} sin capturar ⇒ {x} not entered
+Empezar en blanco ⇒ Start blank
+Copiar de {x} ⇒ Copy from {x}
+Cargar ejemplo (3 líneas) ⇒ Load example (3 lines)
+Reemplazar con {x} ⇒ Replace with {x}
+Resumen anual · FY{n} ⇒ Annual summary · FY{n}
+Captura al menos un mes para ver el resumen. ⇒ Enter at least one month to see the summary.
+% de ocupación promedio ⇒ Average % utilization
+{n} mes capturado ⇒ {n} month entered
+{n} meses capturados ⇒ {n} months entered
+LAT promedio ⇒ Average LAT
+min-hombre por pieza (Line Actual Time) ⇒ man-min per piece (Line Actual Time)
+Actual Time promedio ⇒ Average Actual Time
+LAT ÷ ocupación ⇒ LAT ÷ utilization
+de {x} a {x} personas ({x} % anual) ⇒ from {1} to {2} people ({3} % per year)
+Personal de afectación · {x} ⇒ Indirect headcount · {x}
+{x} de {x}: supervisores, TPM, proyectos y otros ⇒ {1} of {2}: supervisors, TPM, projects and other
+Personas arriba del volumen · {x} ⇒ People over volume · {x}
+Piezas por persona promedio ⇒ Average pieces per person
+volumen del mes ÷ plantilla del esquema ⇒ monthly volume ÷ crew pattern staffing
+Holgura de capacidad · {x} ⇒ Capacity slack · {x}
+esquema {x} contra {x} que justifica el volumen ⇒ crew pattern {1} against {2} justified by volume
+faltan {x} personas para el volumen ⇒ {x} people short for the volume
+la plantilla coincide con el volumen ⇒ staffing matches the volume
+volumen extra que aguanta ⇒ extra volume it can absorb
+Lo que justifica el volumen contra la plantilla del esquema, y la meta con reducción anual ⇒ What the volume justifies against crew pattern staffing, and the target with annual reduction
+Según volumen ⇒ By volume
+Según esquema ⇒ By crew pattern
+% de ocupación por mes ⇒ % utilization by month
+Horas requeridas ÷ horas disponibles · en rojo arriba del 100 % (falta capacidad) ⇒ Required hours ÷ available hours · red over 100 % (capacity short)
+Personal que agrega valor vs afectación ⇒ Value-adding headcount vs indirect
+Plantilla del esquema: operadores y líderes contra supervisores, TPM, proyectos y otros · el % es la afectación (en rojo arriba de 35 %) ⇒ Crew pattern staffing: operators and team leaders against supervisors, TPM, projects and other · the % is the indirect share (red over 35 %)
+Agrega valor (operadores + líderes) ⇒ Adds value (operators + team leaders)
+Cómo varió cada renglón durante el año ⇒ How each row changed during the year
+Indicador ⇒ Indicator
+Renglones ⇒ Rows
+HC volumen ⇒ HC volume
+HC esquema ⇒ HC crew pattern
+Meta ⇒ Target
+Reducir ⇒ Reduce

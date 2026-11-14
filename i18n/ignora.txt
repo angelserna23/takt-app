@@ -15,3 +15,56 @@ translate({x}px,{x}px)
 <svg style="transform:rotate(45deg)"
 en-US
 es-MX
+{x}-nuevo
+<svg style="transform:rotate(90deg)"
+<circle class="stpt {s} {?}" cx="{x}" cy="{x}" r="{x}" tabindex="0" data-stpt="{x}" data-n="{x}" data-t="{x}" data-g="{x}" data-c="{x}" data-p="
+" style="animation-delay:{x}ms">
+mh.
+mh.horasTrab
+mh.hcPlan
+mh.hcRes
+mh.sv
+mh.lider
+mh.otrosInd
+[data-atph="{x}"]
+[data-atpp="{x}"]
+{x} · {s} afectación
+Trayectoria de eficiencia {s} afectación
+{x}afect.{x}
+[data-pckpi="{x}"]
+[data-pchc="{x}"]
+[data-pcocc="{x}"]
+{x} renglón{s} · cada uno con su personal y su volumen
+{x} mes{s} capturado{s}
+{x}|tc|{x}
+{x}|cd|0
+{x}|act|{x}
+io man
+translate({x},{x})
+id{x}
+· {x} estaci{x} · takt {x} min
+{x}Cada operador del estudio entra como una estación, con el promedio de cada elemento.
+{x} estaci{x}
+estaci{x} (hoy {x})
+ón
+{x}{x}px
+hsar{s}
+scale({x})
+color:{x}
+Page
+Página
+@page rep{size:letter portrait;margin:13mm 12mm 15mm;@bottom-left{content:"Takt ·
+";font:9px 'Inter',sans-serif;color:#5B6673}@bottom-right{content:"{x}" counter(page) "{x}" counter(pages);font:9px 'Inter',sans-serif;color:#5B6673}}
+background:transparent;border-top:2px {x} {x};height:0;border-radius:0;vertical-align:3px
+background:{x}
+color:{x};
+Eliminate
+{x} decisi{x} · sin contar inicio/fin
+{x}{x} · {x} ({x} del ciclo)
+{x}–{x} de {x}
+Está en el recorrido {x}{x}; esos trayectos se quitan también.
+{x} renglón{s} · HC volumen {x} · esquema {x} · meta {x}
+{x}Resumen anual
+{x}Gráficas del año
+{x}Cascada de headcount · {x}
+{x}Resumen por mes

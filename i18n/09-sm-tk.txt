@@ -1,0 +1,188 @@
+# SMED
+Línea / máquina ⇒ Line / machine
+PREPARAR HERRAMIENTA ⇒ PREPARE TOOLS
+BUSCAR HERRAMIENTA ⇒ SEARCH FOR TOOLS
+QUITAR HERRAMENTAL ⇒ REMOVE TOOLING
+COLOCAR HERRAMENTAL ⇒ INSTALL TOOLING
+PRIMERA PIEZA / INSPECCIÓN ⇒ FIRST PIECE / INSPECTION
+TRASLADO DE DADO NUEVO ⇒ MOVE NEW DIE
+AFLOJAR TORNILLOS DEL DADO ⇒ LOOSEN DIE BOLTS
+QUITAR DADO ⇒ REMOVE DIE
+LIMPIEZA DE MESA ⇒ CLEAN BOLSTER
+COLOCAR DADO NUEVO ⇒ INSTALL NEW DIE
+APRETAR TORNILLOS ⇒ TIGHTEN BOLTS
+AJUSTE DE ALTURA ⇒ HEIGHT ADJUSTMENT
+ESPERA DE INSPECTOR ⇒ WAIT FOR INSPECTOR
+PRIMERA PIEZA E INSPECCIÓN ⇒ FIRST PIECE AND INSPECTION
+REGRESAR DADO ANTERIOR ⇒ RETURN PREVIOUS DIE
+máquina parada ⇒ machine stopped
+con la máquina corriendo ⇒ with the machine running
+no agrega valor ⇒ adds no value
+Nuevo SMED ⇒ New SMED
+Cambio de modelo: separar lo interno de lo externo y reducir el tiempo de paro ⇒ Changeover: separate internal from external work and reduce downtime
+min de paro ⇒ min of downtime
+Análisis ⇒ Analysis
+Paro actual {x} min contra propuesto {x} min ⇒ Current downtime {1} min against proposed {2} min
+Propuesto ⇒ Proposed
+Tiempo del cambio por categoría ⇒ Changeover time by category
+Información del cambio ⇒ Changeover information
+El cambio se mide de la última pieza buena del modelo que sale a la primera pieza buena del que entra ⇒ The changeover is measured from the last good piece of the outgoing model to the first good piece of the incoming one
+Continuar a registro ⇒ Continue to log
+Modelo que sale ⇒ Outgoing model
+Ej. MOD-A ⇒ E.g. MOD-A
+Modelo que entra ⇒ Incoming model
+Ej. MOD-B ⇒ E.g. MOD-B
+Personas en el cambio ⇒ People in the changeover
+Para las proyecciones ⇒ For the projections
+Opcionales: piezas y horas recuperadas por semana, mes y año ⇒ Optional: pieces and hours recovered per week, month and year
+piezas que se dejan de hacer por cada minuto de paro ⇒ pieces not made for each minute of downtime
+Cambios por semana ⇒ Changeovers per week
+Ej. PRENSA 400 T ⇒ E.g. PRESS 400 T
+Registro del cambio ⇒ Changeover log
+Inicia, toca o escribe el paso y presiona Terminar paso ⇒ Start, tap or type the step and press Finish step
+Continuar a análisis ⇒ Continue to analysis
+Paso {n} ⇒ Step {n}
+Paso {x} ⇒ Step {x}
+Ej. QUITAR DADO SUPERIOR ⇒ E.g. REMOVE UPPER DIE
+Tipo de paso ⇒ Step type
+{n} paso · el más reciente arriba · puedes corregir descripción, categoría y tiempo ⇒ {n} step · most recent on top · you can correct description, category and time
+{n} pasos · el más reciente arriba · puedes corregir descripción, categoría y tiempo ⇒ {n} steps · most recent on top · you can correct description, category and time
+Termina el cambio primero ⇒ Finish the changeover first
+Paso {n} en curso · paro {x} min ⇒ Step {1} in progress · downtime {2} min
+Paso {x} en curso · paro {x} min ⇒ Step {1} in progress · downtime {2} min
+{x} pasos · {x} min ⇒ {1} steps · {2} min
+Terminar paso ⇒ Finish step
+Terminar cambio ⇒ Finish changeover
+Reanudar cambio ⇒ Resume changeover
+Iniciar cambio ⇒ Start changeover
+Cargar ejemplo (cambio de dado, 11 pasos) ⇒ Load example (die change, 11 steps)
+Paso ⇒ Step
+Categoría ⇒ Category
+Análisis: interno, externo o eliminar ⇒ Analysis: internal, external or eliminate
+= necesita la máquina parada · ⇒ = needs the machine stopped ·
+= se puede hacer antes o después con la máquina corriendo · ⇒ = can be done before or after with the machine running ·
+= no agrega valor. La app sugiere según la categoría; tú decides. ⇒ = adds no value. The app suggests by category; you decide.
+Paro actual ⇒ Current downtime
+Paro propuesto (solo interno) ⇒ Proposed downtime (internal only)
+externo {x} · eliminado {x} ⇒ external {1} · eliminated {2}
+Reducción ⇒ Reduction
+{x} min menos por cambio ⇒ {x} min less per changeover
+Clasificación del paso {x} ⇒ Classification of step {x}
+PASO {n} ⇒ STEP {n}
+PASO {x} ⇒ STEP {x}
+sugerido ⇒ suggested
+sugerido: {x} ⇒ suggested: {x}
+Tiempo mejorado ⇒ Improved time
+Sale del cambio ⇒ Out of the changeover
+Resultados del SMED ⇒ SMED results
+{n} persona en el cambio ⇒ {n} person in the changeover
+{n} personas en el cambio ⇒ {n} people in the changeover
+persona en el cambio ⇒ person in the changeover
+personas en el cambio ⇒ people in the changeover
+hoy ⇒ today
+por cambio ⇒ per changeover
+Reducción del paro ⇒ Downtime reduction
+Paro actual contra propuesto ⇒ Current vs proposed downtime
+Hoy todo se hace con la máquina parada. Con el análisis, lo externo se hace antes o después y lo eliminado desaparece. ⇒ Today everything is done with the machine stopped. With the analysis, external work is done before or after and eliminated work disappears.
+Externo (sale del paro) ⇒ External (out of downtime)
+Eliminado ⇒ Eliminated
+¿En qué se va el tiempo del cambio? ⇒ Where does the changeover time go?
+Tiempo actual por categoría, de mayor a menor ⇒ Current time by category, largest first
+Clasificación ⇒ Classification
+Total de paro ⇒ Total downtime
+el paro propuesto es de un solo dígito ⇒ the proposed downtime is single-digit
+de paro interno faltan por reducir ⇒ of internal downtime still to reduce
+Piezas recuperadas por cambio ⇒ Pieces recovered per changeover
+hoy se dejan de hacer {x} piezas por cambio (paro ÷ TC {x}) ⇒ today {1} pieces are not made per changeover (downtime ÷ CT {2})
+Horas de paro recuperadas ⇒ Downtime hours recovered
+{x} min × {x} cambios por semana × {x} semanas por mes ⇒ {1} min × {2} changeovers per week × {3} weeks per month
+Por cambio ⇒ Per changeover
+Piezas recuperadas ⇒ Pieces recovered
+minutos recuperados ÷ TC objetivo {x} ⇒ minutes recovered ÷ target CT {x}
+Escribe ⇒ Enter
+cambios por semana ⇒ changeovers per week
+(y TC objetivo) en Información para ver las horas y piezas recuperadas por semana, mes y año. ⇒ (and target CT) in Information to see the hours and pieces recovered per week, month and year.
+fuera del paro ⇒ out of downtime
+# Takt y balanceo
+TOMAR CARCASA ⇒ PICK UP HOUSING
+COLOCAR EN DISPOSITIVO ⇒ PLACE IN FIXTURE
+INSERTAR BALERO ⇒ INSERT BEARING
+TOMAR POLEA ⇒ PICK UP PULLEY
+PRENSAR POLEA ⇒ PRESS PULLEY
+COLOCAR TORNILLOS ⇒ INSTALL SCREWS
+GIRAR PIEZA ⇒ ROTATE PART
+COLOCAR TAPA ⇒ INSTALL COVER
+PRUEBA DE GIRO ⇒ SPIN TEST
+Nuevo balanceo ⇒ New balancing
+{n} estación · takt {x} min ⇒ {1} station · takt {2} min
+{n} estaciones · takt {x} min ⇒ {1} stations · takt {2} min
+Aún no hay balanceos ⇒ No balancings yet
+calcula el takt de la línea y trae sus Work Element. ⇒ calculate the line takt and bring in its Work Element studies.
+Balanceo ⇒ Balancing
+Pasos del balanceo ⇒ Balancing steps
+El ritmo al que la línea debe sacar una pieza para cumplir la demanda ⇒ The pace at which the line must produce one piece to meet demand
+Ej. BALANCEO LÍNEA 3 ⇒ E.g. LINE 3 BALANCING
+Demanda y tiempo disponible ⇒ Demand and available time
+Por día. Los paros programados se restan de cada turno. ⇒ Per day. Planned downtime is subtracted from each shift.
+Demanda (piezas por día) ⇒ Demand (pieces per day)
+Ej. 800 ⇒ E.g. 800
+Turnos por día ⇒ Shifts per day
+Minutos por turno ⇒ Minutes per shift
+Paros programados por turno (min) ⇒ Planned downtime per shift (min)
+comida, breaks, juntas, TPM ⇒ lunch, breaks, meetings, TPM
+Ej. 40 ⇒ E.g. 40
+Minutos disponibles por día ⇒ Available minutes per day
+turnos × (min por turno − paros) ⇒ shifts × (min per shift − downtime)
+De Work Element « ⇒ From Work Element “
+De Work Element «{x}» ⇒ From Work Element “{x}”
+Capturada a mano ⇒ Entered by hand
+Tiempo del elemento {x} (min) ⇒ Element {x} time (min)
+Estaciones de la línea ⇒ Line stations
+Continuar a balanceo ⇒ Continue to balancing
+Traer de Work Element ⇒ Bring from Work Element
+Cada operador del estudio entra como una estación, con el promedio de cada elemento. ⇒ Each operator in the study enters as a station, with the average of each element.
+{n} estación ⇒ {n} station
+Estación a mano ⇒ Station by hand
+Estudios de ⇒ Studies of
+Elige la línea en «Takt» para ver solo los de esa línea. ⇒ Choose the line in “Takt” to see only that line's studies.
+Traer todos ({n}) ⇒ Bring all ({n})
+{n} operador · {n} elementos ⇒ {1} operator · {2} elements
+{n} operadores · {n} elementos ⇒ {1} operators · {2} elements
+Ya está ⇒ Already in
+Traer ⇒ Bring
+de esta línea ⇒ from this line
+No hay Work Element {x}. Guarda uno con la ubicación de la línea, o captura las estaciones a mano. ⇒ No Work Element {x}. Save one with the line location, or enter the stations by hand.
+Cargar ejemplo (4 estaciones) ⇒ Load example (4 stations)
+Aún no hay estaciones. Trae los Work Element de la línea o captura a mano. ⇒ No stations yet. Bring the line's Work Element studies or enter them by hand.
+de ⇒ of
+un elemento a otra estación (en teléfono: mantén presionado y arrastra), o tócalo y usa ⇒ an element to another station (on a phone: press and hold, then drag), or tap it and use
+{x} pzs/día ⇒ {x} pcs/day
+Estaciones sobre takt ⇒ Stations over takt
+Σ TC ÷ (estaciones × cuello de botella) ⇒ Σ CT ÷ (stations × bottleneck)
+Para simular repartir el trabajo ⇒ To simulate redistributing the work
+Regresar a como se trajo ⇒ Return to as brought in
+sin tiempos ⇒ no times
+todas dentro del takt ⇒ all within takt
+de {x} · {x} ⇒ of {1} · {2}
+Sin elementos. ⇒ No elements.
+con rebalanceo simulado ⇒ with simulated rebalance
+Resultados del balanceo ⇒ Balancing results
+demanda {x} pzs/día · {x} min disponibles ⇒ demand {1} pcs/day · {2} min available
+de {x} ⇒ of {x}
+Capacidad teórica ⇒ Theoretical capacity
+{x} pzs/día · {x} ⇒ {1} pcs/day · {2}
+Σ TC {x} ÷ ({x} × {x}) ⇒ Σ CT {1} ÷ ({2} × {3})
+Σ TC ÷ takt · mínimo ⇒ Σ CT ÷ takt · minimum
+estación (hoy {x}) ⇒ station (today {x})
+estaciones (hoy {x}) ⇒ stations (today {x})
+{n} estación (hoy {x}) ⇒ {1} station (today {2})
+{n} estaciones (hoy {x}) ⇒ {1} stations (today {2})
+Arriba del takt ⇒ Over takt
+TC (min) ⇒ CT (min)
+% del takt ⇒ % of takt
+Holgura (min) ⇒ Slack (min)
+antes {x} ⇒ before {x}
+faltan {x} pzs/día ⇒ {x} pcs/day short
+antes {x} pzs/h ⇒ before {x} pcs/h
+TC como se trajo ⇒ CT as brought in
+Se calcula en «Takt y balanceo» con la demanda diaria, los turnos y los paros programados. Aquí aparece el más reciente de cada línea. ⇒ Calculated in “Takt & line balancing” from daily demand, shifts and planned downtime. The latest one for each line appears here.

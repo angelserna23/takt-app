@@ -1,0 +1,199 @@
+# Speed Trial
+
+EST {x} · ⇒ ST {x} ·
+EST {x} ⇒ ST {x}
+{x}. {x} · SIN PROBLEMA ASIGNADO ⇒ {1}. {2} · NO PROBLEM ASSIGNED
+SIN PROBLEMA ASIGNADO ⇒ NO PROBLEM ASSIGNED
+CAÍDA DE VELOCIDAD ⇒ SPEED DROP
+Nombre del proceso ⇒ Process name
+Nombre del modelo ⇒ Model name
+Costo unitario ⇒ Unit cost
+Nombre del analista ⇒ Analyst name
+Nuevo Speed Trial ⇒ New Speed Trial
+Velocidad real de la línea contra el objetivo: OEE, pérdidas y costo ⇒ Actual line speed against target: OEE, losses and cost
+{n} piezas ⇒ {n} pieces
+{x} piezas ⇒ {x} pieces
+Registro ⇒ Log
+Muestras ⇒ Samples
+TC real (promedio) ⇒ Actual CT (average)
+Tiempo registrado ⇒ Logged time
+Máx / mín T.T ⇒ Max / min T.T
+Piezas OK / NG ⇒ OK / NG parts
+JPH plan · automático ⇒ JPH plan · automatic
+(60 ÷ TC objetivo) × OEE plan ⇒ (60 ÷ target CT) × planned OEE
+JPH real ⇒ Actual JPH
+costo unitario {x} ⇒ unit cost {x}
+Proyección según el análisis: supone el mismo GAP todas las horas del periodo · {x} h/día · {x} días/semana · {x} semanas/mes · 12 meses · valor producido {x}/h ⇒ Projection from the analysis: assumes the same GAP every hour of the period · {1} h/day · {2} days/week · {3} weeks/month · 12 months · value produced {4}/h
+editar supuestos ⇒ edit assumptions
+Tendencia anual · proyección acumulada por mes ⇒ Annual trend · cumulative projection by month
+Acumulado mensual: {x} al mes 12 ⇒ Cumulative: {x} by month 12
+Proyección del costo por incumplimiento de JPH ⇒ Projected cost of missing JPH
+Proyección de la ventaja contra el JPH plan ⇒ Projected advantage against JPH plan
+La línea produce {x} piezas por hora más que el plan: no hay pérdida que proyectar. Abajo ves cuánto vale esa ventaja. ⇒ The line produces {x} more pieces per hour than plan: there is no loss to project. Below you can see what that advantage is worth.
+Por hora ⇒ Per hour
+Diario ⇒ Daily
+Semanal ⇒ Weekly
+Mensual ⇒ Monthly
+Anual ⇒ Annual
+Mes {n}: {x} ⇒ Month {1}: {2}
+Mes {n} ⇒ Month {n}
+JPH objetivo (100 % OEE) ⇒ Target JPH (100 % OEE)
+Piezas posibles en el tiempo registrado ⇒ Possible pieces in the logged time
+T. total ÷ TC objetivo ⇒ Total T. ÷ target CT
+Real ⇒ Actual
+JPH real (piezas OK) ⇒ Actual JPH (OK parts)
+piezas OK ÷ horas registradas ⇒ OK parts ÷ logged hours
+JPH máximo (pieza más rápida) ⇒ Max JPH (fastest piece)
+60 ÷ T.T mínimo ⇒ 60 ÷ min T.T
+JPH mínimo (pieza más lenta) ⇒ Min JPH (slowest piece)
+60 ÷ T.T máximo ⇒ 60 ÷ max T.T
+Minutos de pérdida por afectaciones ⇒ Minutes lost to losses
+causas 1 a 14 ⇒ causes 1 to 14
+Piezas perdidas por afectaciones ⇒ Pieces lost to losses
+minutos de pérdida ÷ TC objetivo ⇒ minutes lost ÷ target CT
+JPH perdido ⇒ Lost JPH
+piezas perdidas ÷ horas registradas ⇒ lost pieces ÷ logged hours
+JPH con afectación (WA) ⇒ JPH with losses (WA)
+JPH sin afectación (WOA) ⇒ JPH without losses (WOA)
+Promedio T.T con afectación (WA) ⇒ Average T.T with losses (WA)
+tiempo registrado ÷ muestras (= TC real) ⇒ logged time ÷ samples (= actual CT)
+Promedio T.T sin afectación (WOA) ⇒ Average T.T without losses (WOA)
+(tiempo − pérdidas) ÷ muestras ⇒ (time − losses) ÷ samples
+Estadísticas de la línea ⇒ Line statistics
+Capacidad contra lo real, cuánto se pierde por afectaciones y a qué ritmo iría la línea sin ellas (WA = con afectación · WOA = sin afectación) ⇒ Capacity against actual, how much is lost and what pace the line would run without losses (WA = with losses · WOA = without losses)
+Objetivo 100 % ⇒ Target 100 %
+Ordenado por tiempo perdido · solo piezas que excedieron el TC objetivo · {x} min = {x} piezas perdidas ⇒ Sorted by lost time · only pieces over target CT · {1} min = {2} lost pieces
+Minutos perdidos ⇒ Minutes lost
+% acumulado ⇒ Cumulative %
+Pareto: {x} concentra {x} del tiempo perdido ⇒ Pareto: {1} accounts for {2} of lost time
+Posición ⇒ Rank
+Repetibilidad ⇒ Frequency
+Total min ⇒ Total min
+ACT % ⇒ ACT %
+Acumulado ⇒ Cumulative
+Piezas perdidas ⇒ Lost pieces
+Renglones resaltados: los pocos vitales, que suman hasta el 80 % del tiempo perdido (regla 80/20). Ahí conviene atacar primero. ⇒ Highlighted rows: the vital few, adding up to 80 % of lost time (80/20 rule). Attack those first.
+{x}. {x} · {x} min · {x} · {x} veces ⇒ {1}. {2} · {3} min · {4} · {5} times
+({n} problemas) ⇒ ({n} problems)
+({n} problema) ⇒ ({n} problem)
+JPH al 100 % (60 ÷ TC objetivo) ⇒ JPH at 100 % (60 ÷ target CT)
+Posición {x} del Pareto · {x} ⇒ Pareto rank {1} · {2}
+GANANCIA · piezas más rápidas que el TC objetivo ⇒ GAIN · pieces faster than target CT
+JPH real (piezas OK ÷ horas registradas) ⇒ Actual JPH (OK parts ÷ logged hours)
+{x} · {x} min · {x} piezas · {x} JPH ⇒ {1} · {2} min · {3} pieces · {4} JPH
+De {x} JPH al 100 % a {x} JPH real · pérdidas −{x} · ganancia +{x} · eje desde {x} para que se vean las barras chicas ⇒ From {1} JPH at 100 % to {2} actual JPH · losses −{3} · gain +{4} · axis starts at {5} so small bars are visible
+Ganancia ⇒ Gain
+Caída de JPH de {x} a {x} ⇒ JPH waterfall from {1} to {2}
+Toca una barra para ver qué afectación es. Los números de abajo son la posición del Pareto. ⇒ Tap a bar to see which loss it is. The numbers below are the Pareto rank.
+Ganancia vs TC objetivo (piezas más rápidas) ⇒ Gain vs target CT (faster pieces)
+Resultado de pérdidas acorde a la OEE ⇒ Losses by OEE
+Del tiempo disponible a las piezas buenas: qué se perdió en cada nivel y por qué ⇒ From available time to good parts: what was lost at each level and why
+Disponibilidad × Desempeño × Calidad ⇒ Availability × Performance × Quality
+OEE · objetivo {x} % ⇒ OEE · target {x} %
+Tiempo registrado + paro planeado ⇒ Logged time + planned downtime
+Tiempo de paro planeado ⇒ Planned downtime
+Paro programado ⇒ Planned downtime
+Queda laborable ⇒ Remaining working time
+Tiempo total laborable ⇒ Total working time
+Laborable ⇒ Working time
+Tiempo de paro ⇒ Downtime
+Aprovechamiento del tiempo ⇒ Time utilization
+Disponibilidad = trabajado ÷ laborable ⇒ Availability = worked ÷ working time
+Tiempo trabajado ⇒ Worked time
+Trabajado ⇒ Worked
+Pérdida por velocidad ⇒ Speed loss
+Porcentaje de pérdida por velocidad ⇒ Speed loss percentage
+arriba de 100 %: el TC objetivo está holgado ⇒ over 100 %: the target CT is loose
+Desempeño = {x} ⇒ Performance = {x}
+Desempeño ⇒ Performance
+Disponibilidad ⇒ Availability
+Calidad ⇒ Quality
+Tiempo trabajado (piezas NG + OK) ⇒ Worked time (NG + OK parts)
+Tiempo de pérdida por defectivo ⇒ Time lost to defects
+Tasa de piezas OK ⇒ OK part rate
+Calidad = piezas OK ÷ (NG + OK), en tiempo ⇒ Quality = OK parts ÷ (NG + OK), in time
+Tiempo trabajado (piezas OK) ⇒ Worked time (OK parts)
+= TC objetivo × piezas OK ⇒ = target CT × OK parts
+el objetivo de {x} % · {x} pts ⇒ the {1} % target · {2} pts
+el objetivo de {x} % ⇒ the {x} % target
+piezas OK ÷ tiempo laborable ⇒ OK parts ÷ working time
+Cumple ⇒ Meets
+No cumple ⇒ Does not meet
+Pieza {x}: {x} min ⇒ Piece {1}: {2} min
+Fluctuación de la línea, pieza por pieza ⇒ Line variation, piece by piece
+{x} de {x} piezas por encima del objetivo · toca un punto para ver su detalle ⇒ {1} of {2} pieces over target · tap a point for detail
+desliza para ver todo ⇒ swipe to see everything
+Arriba del objetivo ⇒ Over target
+En o abajo del objetivo ⇒ At or under target
+Con falla registrada ⇒ With a recorded failure
+TC objetivo {x} ⇒ Target CT {x}
+TC real {x} ⇒ Actual CT {x}
+Tiempo de cada pieza contra el TC objetivo {x} y el TC real {x} ⇒ Time of each piece against target CT {1} and actual CT {2}
+Pieza ⇒ Piece
+Objetivo {x} ⇒ Target {x}
+Real {x} ⇒ Actual {x}
+Problema · {x} ⇒ Problem · {x}
+Problema ⇒ Problem
+Nuevo problema ⇒ New problem
+Aún no hay problemas de esta causa en la línea {x}. Créalo una vez y después solo lo tocas. ⇒ No problems for this cause on line {x} yet. Create it once and afterwards just tap it.
+Ej. 102 ⇒ E.g. 102
+Problema (corto) ⇒ Problem (short)
+Ej. SE CAE LA HERRAMIENTA ⇒ E.g. TOOL FALLS
+6M · sugerido por la causa ⇒ 6M · suggested by the cause
+Guardar y usar ⇒ Save and use
+Información complementaria ⇒ Additional information
+Los campos con * son obligatorios. Lo demás lo calcula la app con el registro. ⇒ Fields with * are required. The app calculates the rest from the log.
+Paro programado (min) ⇒ Planned downtime (min)
+Supuestos para la proyección de costo ⇒ Cost projection assumptions
+Cada empresa los maneja distinto: escríbelos de acuerdo a la planta ⇒ Each company handles them differently: enter them for your plant
+Estándar 85 %; con el TC objetivo calcula el JPH plan ⇒ Standard 85 %; with the target CT it calculates the JPH plan
+Horas productivas por día ⇒ Productive hours per day
+Ej. 24 − 0.5 comedor − 0.5 TPM − 0.5 break = 22.5 ⇒ E.g. 24 − 0.5 lunch − 0.5 TPM − 0.5 break = 22.5
+Días por semana ⇒ Days per week
+Semanas por mes ⇒ Weeks per month
+Calculado automáticamente ⇒ Calculated automatically
+Fecha del estudio ⇒ Study date
+se llena con el registro ⇒ filled from the log
+Ej. Ensamble ⇒ E.g. Assembly
+Ej. MOD-01 ⇒ E.g. MOD-01
+Ej. 2026-11-10 turno 1 ⇒ E.g. 2026-11-10 shift 1
+Continuar al registro ⇒ Continue to log
+Registro de tiempos ⇒ Time log
+Un registro por pieza. Si hubo pérdida, marca la causa antes de cerrar la pieza (o corrígela después en la tabla). ⇒ One record per piece. If there was a loss, mark the cause before closing the piece (or correct it later in the table).
+{x} · objetivo {x} min ⇒ {1} · target {2} min
+Causa de pérdida de esta pieza ⇒ Loss cause for this piece
+Comentario (opcional, solo si es muy específico) ⇒ Comment (optional, only if very specific)
+Ej. SE TRABÓ EL SENSOR DESPUÉS DEL CAMBIO ⇒ E.g. SENSOR STUCK AFTER CHANGEOVER
+Registros ⇒ Records
+{n} pieza · la más reciente arriba · puedes corregir tiempo, causa y problema ⇒ {n} piece · most recent on top · you can correct time, cause and problem
+{n} piezas · la más reciente arriba · puedes corregir tiempo, causa y problema ⇒ {n} pieces · most recent on top · you can correct time, cause and problem
+No. ⇒ No.
+Target ⇒ Target
+GAP vs TC ⇒ GAP vs CT
+Estación · problema ⇒ Station · problem
+Comentario ⇒ Comment
+Cumplimiento ⇒ Compliance
+Pieza OK ⇒ OK piece
+Pieza {n} en curso ⇒ Piece {n} in progress
+Pieza {x} en curso ⇒ Piece {x} in progress
+Pieza terminada ⇒ Piece finished
+Sin pérdida ⇒ No loss
+Repetir anterior: {x} ⇒ Repeat previous: {x}
+Repetir anterior ⇒ Repeat previous
+Cargar ejemplo (99 registros del Excel) ⇒ Load example (99 records)
+Pérdida del registro {x} ⇒ Loss for record {x}
+Problema del registro {x} ⇒ Problem for record {x}
+Tiempo productivo (TC objetivo × piezas OK) ⇒ Productive time (target CT × OK parts)
+OEE y balance de tiempo. Estadísticas, costo, OEE, Pareto y caída de JPH. ⇒ OEE and time balance. Statistics, cost, OEE, Pareto and JPH waterfall.
+plan {x} (OEE {x} %) · máx. {x} (100 %) ⇒ plan {1} (OEE {2} %) · max {3} (100 %)
+TC real vs objetivo ⇒ Actual vs target CT
+objetivo {x} min · promedio de {x} ciclos ⇒ target {1} min · average of {2} cycles
+{x} min registrados ⇒ {x} min logged
+Más de 100 %: el TC objetivo es mayor que lo real. Revisa el objetivo o las muestras. ⇒ Over 100 %: the target CT is higher than actual. Check the target or the samples.
+TC objetivo × piezas OK ÷ tiempo registrado ⇒ Target CT × OK parts ÷ logged time
+Falla ⇒ Failure
+Sin falla registrada ⇒ No failure recorded
+Pieza {x} ⇒ Piece {x}
+vs objetivo ⇒ vs target
+No se pudo guardar el catálogo ⇒ The catalog could not be saved
+EST {n} ⇒ ST {n}

@@ -1,0 +1,207 @@
+# Avisos de confirmación y reportes PDF de todos los formatos
+
+¿Quitar esta actividad? ⇒ Remove this activity?
+Se borra «{x}» y su tiempo de {x} min. ⇒ “{1}” and its {2} min time will be deleted.
+¿Quitar a {x}? ⇒ Remove {x}?
+Sus actividades regresan a "Sin asignar". No se borra ningún tiempo. ⇒ Their activities go back to "Unassigned". No time is deleted.
+Se borra «{x}» con todas sus actividades y operadores. No se puede deshacer. ⇒ “{x}” will be deleted with all its activities and operators. This cannot be undone.
+— Elegir traslado — ⇒ — Choose transfer —
+¿Quitar «{x}»? ⇒ Remove “{x}”?
+Este elemento ya tiene tiempos cronometrados y se borran. ⇒ This element already has timed data, and it will be deleted.
+¿Reemplazar los tiempos? ⇒ Replace the times?
+Se llenan todos los ciclos con tiempos de ejemplo (ficticios) y se reemplaza lo cronometrado. ⇒ All cycles are filled with sample (fictitious) times, replacing what was timed.
+Cargar ejemplo ⇒ Load example
+Se borra «{x}» con sus {x} registros. No se puede deshacer. ⇒ “{1}” will be deleted with its {2} records. This cannot be undone.
+¿Quitar esta estación? ⇒ Remove this station?
+Se quita «{x}» con sus tiempos capturados. ⇒ “{x}” is removed with its entered times.
+Se borra «{x}» con sus {x} estaciones. No se puede deshacer. ⇒ “{1}” will be deleted with its {2} stations. This cannot be undone.
+Se borra «{x}» con sus {x} pasos. No se puede deshacer. ⇒ “{1}” will be deleted with its {2} steps. This cannot be undone.
+¿Reemplazar {x}? ⇒ Replace {x}?
+Se borran los renglones de {x} y se copian los de {x}. ⇒ The rows of {1} are deleted and those of {2} are copied.
+Reemplazar ⇒ Replace
+RENGLÓN ⇒ ROW
+{x} (COPIA) ⇒ {x} (COPY)
+¿Quitar este renglón? ⇒ Remove this row?
+Se quita «{x}» de {x}. Los demás meses no cambian. ⇒ “{1}” is removed from {2}. Other months do not change.
+renglón ⇒ row
+¿Eliminar este cálculo? ⇒ Delete this calculation?
+Se borra «{x}» con todos sus meses. No se puede deshacer. ⇒ “{x}” will be deleted with all its months. This cannot be undone.
+¿Guardar {x} incompleto? ⇒ Save {x} incomplete?
+(horas trabajadas, producción o LAT). Puedes guardarlo así y completarlo después. ⇒ (worked hours, production or LAT). You can save it like this and complete it later.
+Se borra lo capturado en {x} y se copia {x}. ⇒ What was entered in {1} is deleted and {2} is copied.
+¿Borrar {x}? ⇒ Delete {x}?
+Se borra todo lo capturado en {x}. Los demás meses no cambian. ⇒ Everything entered in {x} is deleted. Other months do not change.
+¿Quitar esta parte? ⇒ Remove this part?
+Se quita «{x}» de {x}. ⇒ “{1}” is removed from {2}.
+parte sin nombre ⇒ unnamed part
+¿Eliminar este Actual Time? ⇒ Delete this Actual Time?
+¿Quitar este símbolo? ⇒ Remove this symbol?
+Se quita «{x}» y las flechas que llegaban a él. ⇒ “{x}” and the arrows leading to it are removed.
+¿Eliminar este diagrama? ⇒ Delete this diagram?
+Se borra «{x}» con sus {x} símbolos. No se puede deshacer. ⇒ “{1}” will be deleted with its {2} symbols. This cannot be undone.
+BALANCEO SIN TÍTULO ⇒ UNTITLED BALANCING
+Se quitan también sus {n} elemento. ⇒ Its {n} element is removed too.
+Se quitan también sus {n} elementos. ⇒ Its {n} elements are removed too.
+¿Regresar a como se trajo? ⇒ Return to as brought in?
+Cada elemento vuelve a su estación original y se quitan las estaciones agregadas para simular. ⇒ Each element returns to its original station and the stations added for the simulation are removed.
+Regresar ⇒ Return
+¿Eliminar este balanceo? ⇒ Delete this balancing?
+Se borra «{x}». Los Work Element de donde vino no se tocan. ⇒ “{x}” will be deleted. The Work Element studies it came from are not touched.
+¿Quitar el paso? ⇒ Remove the step?
+Se quita «{x}» con sus puntos clave. ⇒ “{x}” is removed with its key points.
+Quitar paso ⇒ Remove step
+¿Eliminar esta hoja? ⇒ Delete this sheet?
+Se borra «{x}». ⇒ “{x}” will be deleted.
+ESPAGUETI SIN TÍTULO ⇒ UNTITLED SPAGHETTI
+¿Quitar el punto? ⇒ Remove the point?
+Está en el recorrido {n} vez; esos trayectos se quitan también. ⇒ It is in the path {n} time; those legs are removed too.
+Está en el recorrido {n} veces; esos trayectos se quitan también. ⇒ It is in the path {n} times; those legs are removed too.
+Quitar punto ⇒ Remove point
+¿Borrar el recorrido? ⇒ Clear the path?
+Se quitan todos los trayectos; los puntos del layout se quedan. ⇒ All legs are removed; the layout points stay.
+¿Eliminar este estudio? ⇒ Delete this study?
+# reportes PDF
+Este estudio todavía no tiene actividades cronometradas. ⇒ This study has no timed activities yet.
+Actividades cronometradas ⇒ Timed activities
+Las vueltas vacías no traen piezas, pero su tiempo cuenta: se reparte entre las piezas del traslado al que pertenecen. ⇒ Empty trips carry no pieces, but their time counts: it is distributed among the pieces of the transfer they belong to.
+Piezas (racks × SNP) ⇒ Pieces (racks × SNP)
+Promedio (min) ⇒ Average (min)
+Mín ⇒ Min
+Máx ⇒ Max
+Rango ⇒ Range
+Asignado a ⇒ Assigned to
+Este estudio todavía no tiene elementos cronometrados. ⇒ This study has no timed elements yet.
+Cronometraje por operador ⇒ Timing by operator
+Promedio = media de los ciclos capturados de cada elemento (las celdas vacías no cuentan). Rango = máximo − mínimo. ⇒ Average = mean of each element's entered cycles (empty cells do not count). Range = maximum − minimum.
+Proceso / modelo ⇒ Process / model
+Este estudio todavía no tiene piezas registradas. ⇒ This study has no pieces logged yet.
+Nivel / pérdida ⇒ Level / loss
+Tiempo disponible (registrado + paro planeado) ⇒ Available time (logged + planned downtime)
+Paro planeado ⇒ Planned downtime
+Tiempo laborable ⇒ Working time
+Tiempo trabajado · disponibilidad {x} ⇒ Worked time · availability {x}
+Ganancia: piezas más rápidas que el objetivo ⇒ Gain: pieces faster than target
+Tiempo neto (piezas NG + OK) · desempeño {x} ⇒ Net time (NG + OK parts) · performance {x}
+Tiempo de piezas OK · calidad {x} ⇒ OK parts time · quality {x}
+tiempo total ÷ TC objetivo ⇒ total time ÷ target CT
+tiempo ÷ muestras ⇒ time ÷ samples
+{x} el objetivo de {x} % ⇒ {1} the {2} % target
+Los puntos con borde oscuro tienen una falla registrada. {x} de {x} piezas por encima del objetivo. ⇒ Points with a dark border have a recorded failure. {1} of {2} pieces over target.
+Pérdidas acorde a la OEE ⇒ Losses by OEE
+Grupo ⇒ Group
+Valor ⇒ Value
+Cómo se calcula ⇒ How it is calculated
+WA = con afectación · WOA = sin afectación. ⇒ WA = with losses · WOA = without losses.
+Anexo · registro pieza por pieza ⇒ Appendix · piece-by-piece log
+Resultado ⇒ Result
+trabajado ÷ laborable ⇒ worked ÷ working time
+neto ÷ trabajado ⇒ net ÷ worked
+piezas OK ÷ (NG + OK) ⇒ OK parts ÷ (NG + OK)
+A × D × C · objetivo {x} % ⇒ A × P × Q · target {x} %
+GAP de JPH ⇒ JPH GAP
+plan {x} · real {x} ⇒ plan {1} · actual {2}
+GAP × costo unitario {x} ⇒ GAP × unit cost {x}
+Supone el mismo GAP todas las horas: {x} h/día · {x} días/semana · {x} semanas/mes · 12 meses. ⇒ Assumes the same GAP every hour: {1} h/day · {2} days/week · {3} weeks/month · 12 months.
+Proyección ⇒ Projection
+Solo piezas que excedieron el TC objetivo (o defectivas) · {x} min = {x} piezas perdidas. Renglones en negritas: los pocos vitales (hasta el 80 %). ⇒ Only pieces over target CT (or defective) · {1} min = {2} lost pieces. Bold rows: the vital few (up to 80 %).
+Del JPH al 100 % al JPH real: cada barra roja es una posición del Pareto; la verde, lo que se ganó con piezas más rápidas que el objetivo. ⇒ From JPH at 100 % to actual JPH: each red bar is a Pareto rank; the green one is what was gained with pieces faster than target.
+Este estudio todavía no tiene estaciones. ⇒ This study has no stations yet.
+: su vuelta ({x} min) es más larga que lo que necesita cualquier máquina, así que no espera; son las máquinas las que lo esperan a él. ⇒ : their round ({x} min) is longer than any machine needs, so they do not wait; the machines wait for them.
+su vuelta ({x} min) es más larga que lo que necesita cualquier máquina, así que no espera; son las máquinas las que lo esperan a él. ⇒ their round ({x} min) is longer than any machine needs, so they do not wait; the machines wait for them.
+manual {x} + durante {x} + caminata {x} ⇒ manual {1} + during {2} + walking {3}
+lo limita {x} · {x} pzs/h ⇒ limited by {1} · {2} pcs/h
+por vuelta · ocupación {x} ⇒ per round · utilization {x}
+Tiempos por estación en la vuelta ⇒ Times per station in the round
+Manual ⇒ Manual
+Vuelta del operador ⇒ Operator round
+ciclo {x} min · celda {x} min ⇒ cycle {1} min · cell {2} min
+Los números en las flechas son los pasos entre estaciones; el número de cada caja es su orden en la vuelta. ⇒ Numbers on the arrows are the steps between stations; the number in each box is its order in the round.
+Operación manual ⇒ Manual operation
+Caminata (pasos × 0.01 min) ⇒ Walking (steps × 0.01 min)
+Ojo: en ⇒ Note: in
+la operación manual «durante el ciclo» dura más que el TC de la máquina. ⇒ the manual operation “during cycle” takes longer than the machine CT.
+la celda sale más lenta que el plan ⇒ the cell runs slower than plan
+la celda alcanza el plan ⇒ the cell reaches plan
+Operador sin trabajo ⇒ Operator idle
+{x} min de cada hora ⇒ {x} min of every hour
+Ocupación de máquinas ⇒ Machine utilization
+TC promedio {x} ÷ {x} ⇒ Average CT {1} ÷ {2}
+Indicadores contra el TC objetivo ⇒ Indicators against target CT
+Proyección con {x}. ⇒ Projection with {x}.
+Cambio ⇒ Changeover
+Este estudio todavía no tiene pasos registrados. ⇒ This study has no steps logged yet.
+solo lo interno · externo {x} · eliminado {x} ⇒ internal only · external {1} · eliminated {2}
+paro de un solo dígito ⇒ single-digit downtime
+Pasos del cambio ⇒ Changeover steps
+Propuesto (min) ⇒ Proposed (min)
+Interno = necesita la máquina parada · Externo = se hace antes o después con la máquina corriendo · Eliminar = no agrega valor. ⇒ Internal = needs the machine stopped · External = done before or after with the machine running · Eliminate = adds no value.
+Interno (máquina parada) ⇒ Internal (machine stopped)
+piezas = minutos ÷ TC objetivo {x} ⇒ pieces = minutes ÷ target CT {x}
+Lo que se recupera ⇒ What is recovered
+{x} min × {x} cambios por semana × {x} semanas por mes. ⇒ {1} min × {2} changeovers per week × {3} weeks per month.
+(fuera del paro) ⇒ (out of downtime)
+Turnos ⇒ Shifts
+Este balanceo todavía no tiene estaciones. ⇒ This balancing has no stations yet.
+Demanda del cliente ⇒ Customer demand
+piezas por día ⇒ pieces per day
+{n} turno × ({x} − {x} de paros) ⇒ {1} shift × ({2} − {3} downtime)
+{n} turnos × ({x} − {x} de paros) ⇒ {1} shifts × ({2} − {3} downtime)
+Resultado del balanceo ⇒ Balancing result
+Elementos por estación ⇒ Elements per station
+(con rebalanceo simulado) ⇒ (with simulated rebalance)
+{x} · {x} del takt ⇒ {1} · {2} of takt
+Después · rebalanceo simulado ⇒ After · simulated rebalance
+«Venía de»: estación donde estaba el elemento antes del rebalanceo simulado. ⇒ “Came from”: station where the element was before the simulated rebalance.
+Venía de ⇒ Came from
+TC {x} min ⇒ CT {x} min
+Este diagrama todavía no tiene símbolos. ⇒ This diagram has no symbols yet.
+en transportes ⇒ in transport
+de las actividades · {x} del tiempo ⇒ of activities · {x} of the time
+{x} m por cuadro · {x} ⇒ {1} m per square · {2}
+línea recta ⇒ straight line
+Este diagrama todavía no tiene puntos. ⇒ This diagram has no points yet.
+Por turno ⇒ Per shift
+por día {x} ({x} turnos) ⇒ per day {1} ({2} shifts)
+sin ciclos por turno capturados ⇒ no cycles per shift entered
+sin velocidad capturada ⇒ no speed entered
+{x} ↔ {x} · {x} ({x} del ciclo) ⇒ {1} ↔ {2} · {3} ({4} of cycle)
+Las líneas más gruesas se recorren más veces (×n). El número de cada cuadro es el punto en la tabla de puntos. ⇒ Thicker lines are traveled more times (×n). The number in each square is the point in the points table.
+Puntos y recorrido ⇒ Points and path
+Visitas por ciclo ⇒ Visits per cycle
+{n} visita por ciclo. ⇒ {n} visit per cycle.
+{n} visitas por ciclo. ⇒ {n} visits per cycle.
+Trayectos ⇒ Legs
+Viaje ⇒ Trip
+Metros ⇒ Meters
+FY{n} (abril a marzo) ⇒ FY{n} (April to March)
+Reducción anual ⇒ Annual reduction
+Todavía no hay meses capturados. ⇒ No months entered yet.
+{n} renglón · HC volumen {x} · esquema {x} · meta {x} ⇒ {1} row · HC volume {2} · crew pattern {3} · target {4}
+{n} renglones · HC volumen {x} · esquema {x} · meta {x} ⇒ {1} rows · HC volume {2} · crew pattern {3} · target {4}
+Parte / proceso ⇒ Part / process
+Esq. ⇒ Pattern
+H disp. ⇒ Avail. h
+H req. ⇒ Req. h
+HC vol. ⇒ HC vol.
+HC esq. ⇒ HC pattern
+{n} de 12 meses ⇒ {n} of 12 months
+Piezas por persona ⇒ Pieces per person
+promedio: volumen ÷ plantilla ⇒ average: volume ÷ staffing
+Horas requeridas ÷ horas disponibles · en rojo arriba del 100 % (falta capacidad). ⇒ Required hours ÷ available hours · red over 100 % (capacity short).
+Trazabilidad por línea · Actual Time ⇒ Traceability by line · Actual Time
+Trazabilidad por línea · % de ocupación ⇒ Traceability by line · % utilization
+Resumen por mes ⇒ Summary by month
+Detalle por mes y línea ⇒ Detail by month and line
+Arriba del volumen · {x} ⇒ Over volume · {x}
+esquema {x} vs {x} del volumen ⇒ crew pattern {1} vs {2} by volume
+faltan {x} personas ⇒ {x} people short
+la plantilla coincide ⇒ staffing matches
+Afectación (en rojo arriba de 35 %) ⇒ Indirect (red over 35 %)
+Resumen anual ⇒ Annual summary
+Gráficas del año ⇒ Year charts
+Del plan al HC requerido, en personas equivalentes (último mes capturado). ⇒ From plan to required HC, in equivalent people (last month entered).
+HC trab. ⇒ Worked HC
+min-hombre por pieza · abajo es mejor ⇒ man-min per piece · lower is better
+horas requeridas ÷ trabajadas · arriba es mejor ⇒ required hours ÷ worked · higher is better
+Obj. ⇒ Target
+Compr. ⇒ Commit.
