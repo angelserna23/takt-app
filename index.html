@@ -718,6 +718,11 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 .cath{display:flex;gap:8px;align-items:center}.cath input{flex:1;min-width:0;height:44px;border-radius:10px;border:1px solid var(--line);padding:0 10px;font:600 14px 'IBM Plex Sans',sans-serif}
 .catlv{flex:0 0 74px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .catk{display:flex;flex-direction:column;gap:8px;margin:10px 0 0 18px;padding-left:12px;border-left:2px solid var(--line)}
+.cathead{display:flex;align-items:flex-start;gap:12px;cursor:pointer}.cathead h2{margin:0}
+.cattog{flex:none;display:inline-flex;align-items:center;gap:6px;min-width:44px;height:44px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.7);color:var(--ink);font:600 12px 'IBM Plex Sans',sans-serif;cursor:pointer;white-space:nowrap}
+.cattog svg{transition:transform .2s}.cattog[aria-expanded="true"] svg{transform:rotate(90deg)}.cattog span{color:var(--muted)}.cattog.sp{visibility:hidden;padding:0;min-width:44px;border:0}
+.cath .cattog{min-width:108px}.cath .cattog.sp{min-width:108px}
+@media (max-width:700px){.cattog span{display:none}.cath .cattog,.cath .cattog.sp{min-width:44px}}
 .catadd{display:flex;gap:8px;align-items:center}.catadd input{flex:1;min-width:0;height:44px;border-radius:10px;border:1px dashed var(--line);padding:0 10px;font:600 14px 'IBM Plex Sans',sans-serif;background:transparent}
 .catadd input.miss{border-color:#C2410C}
 @media (max-width:700px){.catk{margin-left:6px;padding-left:8px}.catlv{flex-basis:56px}}
@@ -5445,7 +5450,7 @@ function ubUsed(lv,id){return ubAllStudies().filter(d=>d.ubic&&d.ubic[lv]===id).
 function ubSubtreeUsed(lv,node){let n=ubUsed(lv,node.id);const k=UB_KIDS[lv];if(k)(node[k]||[]).forEach(c=>n+=ubSubtreeUsed(UB_LV[UB_LV.indexOf(lv)+1],c));return n;}
 function catSave(){if(storeTut())return;if(!STORE.ok){storeToast(STORE.err||'No se puede guardar en este navegador','err');return;}
   storeTx(['ajustes'],'readwrite',tx=>tx.objectStore('ajustes').put({key:'catalogo',value:JSON.parse(JSON.stringify(CAT))})).catch(e=>{console.warn('[catálogo]',e);storeToast('No se pudo guardar el catálogo','err');});}
-function ubAdd(lv,parentId,nombre){const n={id:storeUUID(),nombre:String(nombre).trim().toLocaleUpperCase('es-MX')};if(UB_KIDS[lv])n[UB_KIDS[lv]]=[];ubKids(lv,parentId).push(n);catSave();return n;}
+function ubAdd(lv,parentId,nombre){const n={id:storeUUID(),nombre:String(nombre).trim().toLocaleUpperCase('es-MX')};if(UB_KIDS[lv]){n[UB_KIDS[lv]]=[];CATO.open.add(n.id);}ubKids(lv,parentId).push(n);catSave();return n;}
 
 // Selector de ubicación (va en la Información de cada formato)
 function ubicPicker(kind,d){const u=ubOf(d);const deep=UB_DEEP[kind]||3,req=UB_REQ[kind]||1;
@@ -5484,14 +5489,24 @@ document.addEventListener('keydown',e=>{if(e.key!=='Enter'||!e.target)return;
   if(e.target.dataset&&e.target.dataset.catnew!==undefined){e.preventDefault();const b=document.querySelector(`[data-catadd="${e.target.dataset.catnew}"]`);if(b)b.click();}});
 
 // Catálogo en Configuración
+// Catálogo compacto (Angel, 2026-11-13): la sección y cada planta, área y línea se pliegan; todo arranca cerrado al cargar la página.
+// Lo abierto se recuerda solo mientras la página está abierta; lo que se agrega queda abierto para seguir capturando.
+const CATO={sec:false,open:new Set()};
 function vCatalogo(){
-  const node=(lv,n)=>{const i=UB_LV.indexOf(lv);const k=UB_KIDS[lv];const used=ubUsed(lv,n.id);const child=UB_LV[i+1];
-    return `<div class="catn lv${i}"><div class="cath"><span class="catlv">${UB_LBL[lv]}</span><input data-catname="${lv}|${n.id}" value="${esc(n.nombre)}" aria-label="Nombre de ${UB_LBL[lv].toLowerCase()}" autocomplete="off">
+  const cnt=(lv,arr)=>arr.length+' '+(arr.length===1?UB_LBL[lv].toLowerCase():{area:'áreas',linea:'líneas',estacion:'estaciones',planta:'plantas'}[lv]);
+  const tog=(key,open,lbl,txt)=>`<button type="button" class="cattog" data-cattog="${key}" aria-expanded="${open}" aria-label="${open?'Cerrar':'Abrir'} ${esc(lbl)}">${svg('next',16,2.4)}${txt?`<span>${txt}</span>`:''}</button>`;
+  const node=(lv,n)=>{const i=UB_LV.indexOf(lv);const k=UB_KIDS[lv];const used=ubUsed(lv,n.id);const child=UB_LV[i+1];const open=!!k&&CATO.open.has(n.id);const kids=k?(n[k]||[]):[];
+    return `<div class="catn lv${i}"><div class="cath">${k?tog(lv+'|'+n.id,open,UB_LBL[lv].toLowerCase()+' '+n.nombre,cnt(child,kids)):'<span class="cattog sp"></span>'}<span class="catlv">${UB_LBL[lv]}</span><input data-catname="${lv}|${n.id}" value="${esc(n.nombre)}" aria-label="Nombre de ${UB_LBL[lv].toLowerCase()}" autocomplete="off">
       <span class="sub" style="margin:0;white-space:nowrap">${used?used+' estudio'+(used!==1?'s':''):''}</span><button type="button" class="iconbtn" data-catdel="${lv}|${n.id}" aria-label="Quitar ${UB_LBL[lv].toLowerCase()} ${esc(n.nombre)}">${svg('trash',16)}</button></div>
-      ${k?`<div class="catk">${(n[k]||[]).map(c=>node(child,c)).join('')}${addRow(child,n.id)}</div>`:''}</div>`;};
+      ${open?`<div class="catk">${kids.map(c=>node(child,c)).join('')}${addRow(child,n.id)}</div>`:''}</div>`;};
   const addRow=(lv,parent)=>`<div class="catadd"><input data-catnew="${lv}|${parent||''}" autocomplete="off" placeholder="Nueva ${UB_LBL[lv].toLowerCase()}"><button type="button" class="btn ghost sm" data-catadd="${lv}|${parent||''}">${svg('plus',16,2.2)} ${UB_LBL[lv]}</button></div>`;
-  return `<section class="glass panel" id="catalogo"><div class="row"><div><h2>Plantas, áreas, líneas y estaciones</h2><p class="sub">La ubicación de cada estudio. Renombrar no afecta los estudios; solo se puede quitar lo que ningún estudio usa. Se guarda al momento.</p></div></div>
-    <div class="catree">${CAT.plantas.map(p=>node('planta',p)).join('')||'<div class="slot empty" style="min-height:120px"><p>Aún no hay plantas. Agrega la primera; también puedes crearlas desde la Información de cualquier estudio.</p></div>'}${addRow('planta',null)}</div></section>`;}
+  const all=lv=>{const out=[];const walk=(arr,l)=>(arr||[]).forEach(n=>{if(l===lv)out.push(n);else if(UB_KIDS[l])walk(n[UB_KIDS[l]],UB_LV[UB_LV.indexOf(l)+1]);});walk(CAT.plantas,'planta');return out;};
+  const resumen=['planta','area','linea','estacion'].map(l=>cnt(l,all(l))).join(' · ');
+  return `<section class="glass panel" id="catalogo"><div class="row cathead">${tog('sec',CATO.sec,'plantas, áreas, líneas y estaciones','')}<div style="flex:1;min-width:0"><h2>Plantas, áreas, líneas y estaciones</h2><p class="sub">${CATO.sec?'La ubicación de cada estudio. Renombrar no afecta los estudios; solo se puede quitar lo que ningún estudio usa. Se guarda al momento.':esc(resumen)+' · toca para abrir'}</p></div></div>
+    ${CATO.sec?`<div class="catree">${CAT.plantas.map(p=>node('planta',p)).join('')||'<div class="slot empty" style="min-height:120px"><p>Aún no hay plantas. Agrega la primera; también puedes crearlas desde la Información de cualquier estudio.</p></div>'}${addRow('planta',null)}</div>`:''}</section>`;}
+document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-cattog],#catalogo .cathead h2,#catalogo .cathead .sub');if(!t)return;
+  const key=t.dataset&&t.dataset.cattog||'sec';if(key==='sec')CATO.sec=!CATO.sec;else{const id=key.split('|')[1];CATO.open.has(id)?CATO.open.delete(id):CATO.open.add(id);}
+  S.keep=true;render(true);S.keep=false;const b=document.querySelector(`[data-cattog="${key}"]`);if(b)b.focus({preventScroll:true});});
 
 // Listas: ubicación de cada estudio + filtro por planta, área y línea
 function ubicDecorate(){if(storeTut())return;const rows=[...document.querySelectorAll('#view [data-sdel]')];const r=route();

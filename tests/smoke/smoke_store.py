@@ -9,6 +9,9 @@ def check(tag,c,msg):
     if not c:fails.append(tag+' '+msg)
 def en(pg,sel):pg.locator(sel+':not([disabled])').first.click();pg.wait_for_timeout(80)
 def go(pg,h):pg.evaluate(f"location.hash='{h}'");pg.wait_for_timeout(120)
+# Catálogo de Configuración: siempre cerrado al cargar; se abre la sección y cada nodo
+def abrecat(pg):
+    while pg.locator('[data-cattog][aria-expanded="false"]').count():pg.locator('[data-cattog][aria-expanded="false"]').first.click();pg.wait_for_timeout(80)
 # Flujo mínimo por formato hasta su botón Guardar (con los ejemplos de cada formato)
 def make(pg,k):
     if k=='ws':
@@ -164,6 +167,8 @@ with sync_playwright() as p:
     check('mig',sch==2,f'y queda guardado ya migrado a la versión 2 (versión en almacén: {sch})')
     # --- catálogo en Configuración ---
     go(pg,'config')
+    check('cat',pg.locator('[data-cattog="sec"][aria-expanded="false"]').count()==1 and pg.locator('[data-catnew="planta|"]').count()==0,'el catálogo arranca cerrado')
+    pg.click('[data-cattog="sec"]');pg.wait_for_timeout(100)
     pg.fill('[data-catnew="planta|"]','planta norte');pg.click('[data-catadd="planta|"]');pg.wait_for_timeout(150)
     pid=pg.locator('[data-catname^="planta|"]').first.get_attribute('data-catname').split('|')[1]
     pg.fill(f'[data-catnew="area|{pid}"]','ensamble');pg.press(f'[data-catnew="area|{pid}"]','Enter');pg.wait_for_timeout(150)
@@ -171,6 +176,8 @@ with sync_playwright() as p:
     pg.fill(f'[data-catnew="linea|{aid}"]','línea 1');pg.click(f'[data-catadd="linea|{aid}"]');pg.wait_for_timeout(150)
     check('cat',pg.locator('[data-catname^="planta|"]').first.input_value()=='PLANTA NORTE' and pg.locator('[data-catname^="linea|"]').count()==1,'agregar planta, área y línea (en MAYÚSCULAS)')
     exec(RL);go(pg,'config')
+    check('cat',pg.locator('[data-catname]').count()==0,'al recargar vuelve a estar cerrado')
+    abrecat(pg)
     check('cat',pg.locator('[data-catname^="linea|"]').count()==1 and pg.locator('[data-catname^="area|"]').first.input_value()=='ENSAMBLE','el catálogo sobrevive a la recarga')
     # --- selector en un estudio: elegir planta y área, y crear la línea desde ahí ---
     go(pg,'sm');en(pg,'#view [data-smnew]');pg.fill('input[name=linea]','prensa ubicada');pg.fill('input[name=analista]','jp')
@@ -189,7 +196,7 @@ with sync_playwright() as p:
     check('ubic',vis==1 and total>1 and pg.locator('.ubhidden').count()==1,f'filtrar por planta deja solo los de esa planta ({vis} de {total})')
     pg.select_option('[data-ubf="planta"]','');pg.wait_for_timeout(100)
     # --- renombrar no ensucia estudios; quitar algo en uso no se permite ---
-    before=pg.evaluate("TaktStore.dump('sm')");go(pg,'config')
+    before=pg.evaluate("TaktStore.dump('sm')");go(pg,'config');abrecat(pg)
     lid=[x.get_attribute('data-catname') for x in pg.locator('[data-catname^="linea|"]').all() if pg.locator(f'[data-catname="{x.get_attribute("data-catname")}"]').input_value()=='LÍNEA 3'][0]
     pg.fill(f'[data-catname="{lid}"]','línea 3 norte');pg.press(f'[data-catname="{lid}"]','Tab');pg.wait_for_timeout(150)
     go(pg,'sm');check('cat',pg.evaluate("TaktStore.dump('sm')")==before and 'LÍNEA 3 NORTE' in pg.locator('.studyrow').filter(has_text='PRENSA UBICADA').inner_text() and pg.locator('.savetag').count()==0,'renombrar cambia el nombre en la lista sin tocar los estudios')
@@ -199,7 +206,7 @@ with sync_playwright() as p:
     check('cat',pg.locator(f'[data-catname="planta|{pid}"]').count()==1,'tampoco la planta que la contiene')
     # una línea sin estudios sí se puede quitar
     lid1=[x.get_attribute('data-catname') for x in pg.locator('[data-catname^="linea|"]').all() if pg.locator(f'[data-catname="{x.get_attribute("data-catname")}"]').input_value()=='LÍNEA 1'][0]
-    pg.click(f'[data-catdel="{lid1}"]');pg.click('#modal [data-mok]');pg.wait_for_timeout(150);exec(RL);go(pg,'config')
+    pg.click(f'[data-catdel="{lid1}"]');pg.click('#modal [data-mok]');pg.wait_for_timeout(150);exec(RL);go(pg,'config');abrecat(pg)
     check('cat',pg.locator(f'[data-catname="{lid1}"]').count()==0,'una línea sin estudios sí se quita (y queda quitada al recargar)')
     # ---- Puesto en lugar del nombre ----
     go(pg,'ws');en(pg,'#view [data-go="ws-nuevo"]');en(pg,'[data-wsv="hub"]');en(pg,'[data-enter]')

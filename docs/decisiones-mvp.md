@@ -356,6 +356,9 @@ Diseño: `docs/superpowers/specs/2026-11-13-tablero-inicio-design.md` · plan: `
 - Descartado a propósito: sumar «oportunidades» entre estudios (horas de SMED, piezas de Speed Trial): mezcla fechas y cuenta doble una máquina estudiada dos veces.
 - «Estudios vencidos»: descartado (Angel: todo es historial).
 
+## Catálogo de ubicaciones compacto (Angel, 2026-11-13)
+- En Configuración, «Plantas, áreas, líneas y estaciones» es desplegable: la sección y cada planta, área y línea se abren con su botón (muestra cuántos hijos tiene). Todo arranca cerrado al cargar la página; lo abierto se recuerda mientras la página sigue abierta y lo que se agrega queda abierto.
+
 ## Historial ficticio (semilla) — mientras la app está en pruebas (2026-11-13)
 - Angel: la app se deja **llena hasta hoy** para ver cómo se ve; al lanzar queda en blanco.
 - `tools/semilla.py` corre los tutoriales en modo demo y arma 47 estudios ficticios de los 12 formatos (PLANTA NORTE y PLANTA SUR, 5 analistas, abril a noviembre de 2026; Actual Time y Cálculo de personal de abril a octubre). Los escribe en `index.html` entre `/*<semilla>*/` y `/*</semilla>*/`.
