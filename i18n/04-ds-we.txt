@@ -151,7 +151,6 @@ Aún no hay elementos. Usa los botones de arriba o escribe uno. ⇒ No elements 
 Promedio ⇒ Average
 Total del ciclo ⇒ Cycle total
 {n} ciclo {n} ⇒ {1} cycle {2}
-{x} ciclo {x} ⇒ {1} cycle {2}
 Cada toque cierra el elemento en curso y arranca el siguiente. Al cerrar el ciclo el cronómetro se detiene: inicia el siguiente cuando estés listo para la próxima unidad. ⇒ Each tap closes the current element and starts the next one. When the cycle closes the timer stops: start the next one when you are ready for the next unit.
 Tiempos por ciclo (min) ⇒ Times per cycle (min)
 Puedes corregir cualquier celda; el promedio se recalcula solo ⇒ You can correct any cell; the average recalculates itself

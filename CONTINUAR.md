@@ -4,13 +4,13 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md` (sobre todo «Pendientes» y el enfoque elegido para el inglés). Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Toca: **la app en inglés** con el enfoque A (capa de traducción sobre la pantalla + diccionario español → inglés + prueba que recorre todas las pantallas y los 12 tutoriales y falla si queda español), incluidos reportes PDF. Antes de construir, propón el diseño y el plan. Después siguen pagos (otro chat), guardado Fase 3 y al final el diseño visual.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md` (sobre todo «Pendientes» y «La app en inglés»). Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Toca: **guardado Fase 3** (avisos de almacenamiento lleno o no disponible y recordar ajustes de vista). Pagos van en otro chat; el diseño visual al final. Recuerda: todo texto nuevo de pantalla lleva su traducción en `i18n/*.txt`.
 
 ## Pasos para Claude al iniciar
 
 1. Clonar `angelserna23/takt-app` (rama `main`).
 2. Leer `docs/decisiones-mvp.md` completo: reglas generales, unidades, reglas de teléfono y la hoja de ruta.
-3. Instalar Chromium para Playwright (`playwright install chromium`) y correr `bash tests/correr_pruebas.sh`: cálculos + guardado de los 12 formatos (incluye PDF de una página) + los 12 tutoriales en laptop, tablet y teléfono (≈ 5 min). Debe terminar en «TODO PASA». Durante el trabajo, `bash tests/correr_pruebas.sh rapido` corre solo los cálculos.
+3. Instalar Chromium para Playwright (`playwright install chromium`) y correr `bash tests/correr_pruebas.sh`: cálculos + guardado de los 12 formatos (incluye PDF de una página) + los 12 tutoriales en laptop, tablet y teléfono + la app en inglés sin español (≈ 9 min). `cd tools && npm install` la primera vez (acorn para la prueba de cobertura del inglés). Debe terminar en «TODO PASA». Durante el trabajo, `bash tests/correr_pruebas.sh rapido` corre solo los cálculos.
 4. Para publicar cambios de la app: el artifact ya existe (slug `b963594a-ed0b-4bfe-9897-a3ee86914094`). Republicar `index.html` sobre ese mismo slug (pedir la versión actual con get_artifact y usarla como base_version). No crear un artifact nuevo.
 5. Al terminar el chat: seguir la rutina de cierre (abajo).
 
@@ -32,6 +32,12 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Explicar cada decisión técnica (Angel estudia Full Stack Python); ser directo y decir cuando algo sea mala idea.
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
+
+## Estado al 2026-11-14 (la app en inglés)
+
+- Hecho: la app completa en inglés (enfoque A): 12 formatos, Inicio, Configuración, avisos, 12 reportes PDF y 12 tutoriales; selector ES / EN visible en el encabezado; prueba que falla si queda español. Detalle en `docs/decisiones-mvp.md` → «La app en inglés».
+- Teléfono: barra Inicio · Actual Time · [cronómetro: elige el tipo de estudio] · Personal · Configuración; menú lateral y encabezado responsivos en pantallas bajas o medianas.
+- Siguiente: guardado Fase 3 → pagos (otro chat) → diseño.
 
 ## Estado al 2026-11-13 (cierre del día)
 

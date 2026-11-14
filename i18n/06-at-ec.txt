@@ -55,7 +55,6 @@ Total · {n} parte ⇒ Total · {n} part
 Total · {n} partes ⇒ Total · {n} parts
 Número de parte {x} ⇒ Part number {x}
 Número de parte ⇒ Part number
-{x} parte {x} ⇒ {1} part {2}
 Producción parte {x} ⇒ Production part {x}
 Quitar parte ⇒ Remove part
 LAT de manejo de materiales (aplica a todas las partes) ⇒ Material handling LAT (applies to all parts)

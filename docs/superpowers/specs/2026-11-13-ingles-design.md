@@ -1,6 +1,6 @@
 # Takt en inglés — diseño (enfoque A: capa de traducción)
 
-Fecha: 2026-11-13 · Estado: propuesta para aprobación de Angel
+Fecha: 2026-11-13 · Estado: aprobado por Angel y construido (2026-11-14)
 
 ## Intención
 El producto será bilingüe (ES/EN) para venderse también a plantas que trabajan en inglés. La app sigue escrita en español; con EN, una capa cambia los textos al pintarse. Angel eligió este enfoque (A) en el chat anterior: costo aceptado = al migrar a módulos + Python se rehace la conexión, pero el diccionario se reutiliza.

@@ -1,0 +1,190 @@
+# Textos que antes se «traducían» a medias por una plantilla demasiado amplia (ahora cada uno tiene su entrada)
+Agregar actividad a mano ⇒ Add activity by hand
+Agregar operador vacío ⇒ Add empty operator
+Quitar de su operador ⇒ Remove from its operator
+Tiempo ciclo objetivo ⇒ Target cycle time
+Estudios de Speed Trial ⇒ Speed Trial studies
+12. Pérdida de tiempo ciclo (incluye caída de velocidad) ⇒ 12. Cycle time loss (includes speed drop)
+Tiempo ciclo objetivo (min) ⇒ Target cycle time (min)
+Agregar a mano ⇒ Add by hand
+Estudios de Man Machine Chart ⇒ Man Machine Chart studies
+Estudios de Work Element ⇒ Work Element studies
+Estudios de Delay Study ⇒ Delay Study studies
+Recorrido del operador contra el tiempo ciclo de las máquinas ⇒ Operator walk against machine cycle times
+Tiempo ciclo de la máquina ⇒ Machine cycle time
+Falta el TC objetivo de la línea ⇒ The line's target CT is missing
+(OEE {x} %) · 100 % = {x} · real = 60 ÷ ciclo de la celda {x} ⇒ (OEE {1} %) · 100 % = {2} · actual = 60 ÷ cell cycle {3}
+Recorrido del operador contra el tiempo ciclo de las máquinas, desde la máquina con el TC más alto ⇒ Operator walk against machine cycle times, starting at the machine with the highest CT
+cada renglón es una estación en el orden del recorrido. La línea negra es el operador trabajando; la diagonal delgada es la caminata (pasos × 0.01 min); el escalón hacia abajo es la operación manual durante el ciclo; la punteada azul es la máquina corriendo sola desde que termina la carga. El cuadro de arriba es el ciclo del operador. ⇒ each row is a station in walk order. The black line is the operator working; the thin diagonal is walking (steps × 0.01 min); the step down is manual work during the cycle; the dotted blue line is the machine running alone after loading ends. The box on top is the operator cycle.
+el mayor entre el ciclo del operador y lo que necesita la máquina más cargada (su manual + su TC). Es cada cuánto sale una pieza. ⇒ the larger of the operator cycle and what the most loaded machine needs (its manual + its CT). It is how often a piece comes out.
+TC objetivo de la línea (min) ⇒ Line target CT (min)
+carga/descarga + fuera del ciclo · durante el ciclo {x} ⇒ load/unload + outside cycle · during cycle {x}
+Quitar correcciones y volver a lo capturado ⇒ Remove corrections and return to entered values
+Agregar en esta casilla: ⇒ Add in this square:
+Agregar en esta casilla ⇒ Add in this square
+META SMED 10 min ⇒ SMED TARGET 10 min
+TC objetivo (min) ⇒ Target CT (min)
+min · {n} pasos ⇒ min · {n} steps
+min · {x} pasos ⇒ min · {x} steps
+Meta SMED (menos de 10 min) ⇒ SMED target (under 10 min)
+Meta con reducción anual ({x} %) ⇒ Target with annual reduction ({x} %)
+objetivo contra el esquema ⇒ target against crew pattern
+Guardar cálculo ⇒ Save calculation
+{x} ponderado {x} · {x} piezas ⇒ weighted {1} {2} · {3} pieces
+objetivo ya determinado; al real se le resta la afectación base ⇒ target already set; base losses are subtracted from actual
+Agregar parte ⇒ Add part
+Real (con afectación) ⇒ Actual (with losses)
+Real (sin afectación) ⇒ Actual (without losses)
+Guardar así ⇒ Save as is
+El ritmo que pide el cliente contra el tiempo ciclo de cada estación. Junta los Work Element de la línea y simula el rebalanceo. ⇒ The customer's pace against each station's cycle time. Gathers the line's Work Element studies and simulates rebalancing.
+Tiempo ciclo por estación contra el takt ⇒ Cycle time per station against takt
+min por pieza · disponible ÷ demanda ⇒ min per piece · available ÷ demand
+Nombre de la estación ⇒ Station name
+Cada estación con sus elementos y su tiempo por pieza (min). Su tiempo ciclo es la suma. ⇒ Each station with its elements and time per piece (min). Its cycle time is the sum.
+Tiempo ciclo por estación ⇒ Cycle time per station
+Agregar estación vacía ⇒ Add empty station
+Quitar estación vacía ⇒ Remove empty station
+min por pieza para cumplir {x} pzs/día ⇒ min per piece to meet {x} pcs/day
+tiempo ciclo (min) ⇒ cycle time (min)
+No. de parte / modelo ⇒ Part no. / model
+Quitar punto clave ⇒ Remove key point
+por ciclo · a {x} m/min ⇒ per cycle · at {x} m/min
+a {x} m/min ⇒ at {x} m/min
+tiempo ciclo de la línea ⇒ line cycle time
+{x} de {x} ciclos completos · ciclo promedio {x} min ⇒ {1} of {2} cycles complete · average cycle {3} min
+objetivo {x} min · {x} piezas ⇒ target {1} min · {2} pieces
+: necesita {x} min por vuelta ({x} manual + {x} de máquina) y el operador regresa en {x}. El operador espera ⇒ : it needs {1} min per round ({2} manual + {3} machine) and the operator comes back in {4}. The operator waits
+necesita {x} min por vuelta ({x} manual + {x} de máquina) y el operador regresa en {x}. El operador espera ⇒ it needs {1} min per round ({2} manual + {3} machine) and the operator comes back in {4}. The operator waits
+{x} min por vuelta ⇒ {x} min per round
+min por pieza = disponible ÷ demanda ⇒ min per piece = available ÷ demand
+Antes · como se trajo de los estudios ⇒ Before · as brought in from the studies
+Falta la migración de la versión {x} a la {x} para {x}. ⇒ Migration from version {1} to {2} for {3} is missing.
+También se quitan sus {n} {x} y lo que tengan dentro. Ningún estudio las usa. ⇒ Its {1} {2} and everything inside them are removed too. No study uses them.
+# tutoriales
+Definir el periodo y el objetivo de piezas ⇒ Set the period and the piece target
+Cronometramos al siguiente operador; el ciclo se repite. ⇒ We time the next operator; the cycle repeats.
+¿Cuánto tarda cada elemento del ciclo y qué tan cargado está el operador? ⇒ How long does each element of the cycle take, and how loaded is the operator?
+Cronometrar un ciclo con un toque por elemento ⇒ Time a cycle with one tap per element
+El Work Element responde: ¿cuánto tarda cada elemento del ciclo y qué tan cargado está el operador? Se cronometra por elementos y se promedian varios ciclos. ⇒ Work Element answers: how long does each element of the cycle take, and how loaded is the operator? It is timed by element and several cycles are averaged.
+La base de medición: por hora contra el JPH, o contra el tiempo ciclo de la línea con 1 pieza. ⇒ The measurement basis: per hour against the JPH, or against the line cycle time with 1 piece.
+Toca «Iniciar ciclo 1». ⇒ Tap “Start cycle 1”.
+Cada toque cierra el elemento en curso y arranca el siguiente. Al cerrar el último, el cronómetro se detiene: arrancas el siguiente ciclo cuando llega la próxima pieza. ⇒ Each tap closes the current element and starts the next. When the last one closes, the timer stops: you start the next cycle when the next piece arrives.
+…el tiempo ciclo objetivo, en minutos decimales: 1.20 = 50 piezas por hora al 100 %… ⇒ …the target cycle time, in decimal minutes: 1.20 = 50 pieces per hour at 100 %…
+Pieza terminada. ⇒ Piece finished.
+Pieza por pieza: en rojo las que pasaron del objetivo, en verde las que no. Toca un punto para ver su detalle. ⇒ Piece by piece: red ones went over target, green ones did not. Tap a point for detail.
+Las pocas causas que se llevan la mayor parte del tiempo perdido (80/20). Ataca las primeras. ⇒ The few causes that take most of the lost time (80/20). Attack the first ones.
+En celdas donde un operador atiende varias máquinas (maquinados, fundición): ves su recorrido contra el tiempo ciclo de cada máquina. ⇒ In cells where one operator runs several machines (machining, foundry): you see their walk against each machine's cycle time.
+El Man Machine responde: ¿quién limita la celda, el operador o la máquina? Compara el recorrido del operador con el tiempo ciclo de cada máquina. ⇒ Man Machine answers: who limits the cell, the operator or the machine? It compares the operator's walk with each machine's cycle time.
+Negro = operador trabajando; azul punteado = máquina corriendo; diagonal = caminata. El cuadro de arriba es el ciclo del operador. ⇒ Black = operator working; dotted blue = machine running; diagonal = walking. The box on top is the operator cycle.
+Cada número de parte aporta sus horas requeridas = producción × ST ÷ 60. Puede haber más de 100 partes. ⇒ Each part number adds its required hours = production × ST ÷ 60. There can be more than 100 parts.
+Cada estación con sus elementos y tiempos por pieza; su tiempo ciclo es la suma. Todo se puede corregir. ⇒ Each station with its elements and times per piece; its cycle time is the sum. Everything can be corrected.
+Medir tiempos (para eso están los estudios) ni comparar el ciclo de varios operadores con máquinas (eso es el Man Machine). ⇒ Measuring times (that is what the studies are for) or comparing the cycle of several operators with machines (that is Man Machine).
+Número de parte o modelo. ⇒ Part number or model.
+El tiempo ciclo es la suma de los pasos: 1.12 min, el 93.3 % del takt. ⇒ Cycle time is the sum of the steps: 1.12 min, 93.3 % of takt.
+Medir el tiempo de ciclo de una celda con máquinas (eso es el Man Machine) ni los pasos del proceso (eso es el Flujo de proceso). ⇒ Measuring a machine cell's cycle time (that is Man Machine) or the process steps (that is the Process flow chart).
+En la demo: 82 m por ciclo en 10 viajes. ⇒ In the demo: 82 m per cycle in 10 trips.
+A la velocidad que mediste, 1.37 min por ciclo se van caminando. ⇒ At the speed you measured, 1.37 min per cycle go to walking.
+Para documentar un proceso con símbolos ASME (operación, inspección, transporte, demora, almacenamiento) y ver qué parte agrega valor. ⇒ To document a process with ASME symbols (operation, inspection, transport, delay, storage) and see which part adds value.
+# nombres de formato (iguales en inglés; se registran para que las plantillas los acepten)
+Work Sampling ⇒ Work Sampling
+Delay Study ⇒ Delay Study
+Work Element ⇒ Work Element
+Speed Trial ⇒ Speed Trial
+Man Machine ⇒ Man Machine
+Man Machine Chart ⇒ Man Machine Chart
+SMED ⇒ SMED
+Actual Time ⇒ Actual Time
+OPERADOR 1 ⇒ OPERATOR 1
+Actividad {n} · capturando ⇒ Activity {n} · recording
+capturando ⇒ recording
+pzs/hora ⇒ pcs/hour
+{n} pzs/hora ⇒ {n} pcs/hour
+{x} pzs/hora ⇒ {x} pcs/hour
+TORNILLOS ⇒ SCREWS
+ETIQUETAS ⇒ LABELS
+MOVER ⇒ MOVE
+GIRAR ⇒ ROTATE
+SOLTAR ⇒ RELEASE
++ {x} ⇒ + {x}
+# ---- revisión en vivo (smoke_en) ----
+{x} · {x} ⇒ {1} · {2}
+{n}. {x} ⇒ {1}. {2}
+{x} ({n}) ⇒ {1} ({2})
+{x}: {x} min ⇒ {1}: {2} min
+{n} ciclo {n} ⇒ {1} cycle {2}
+{n} parte {n} ⇒ {1} part {2}
+DSTR ⇒ DSTR
+GUARDADO ⇒ SAVED
+Inactividad de tiempo trabajado ⇒ Idling during worked time
+Propio de proceso ⇒ Own process
+Por proceso anterior ⇒ Upstream process
+13. Propio de proceso ⇒ 13. Own process
+14. Por proceso anterior ⇒ 14. Upstream process
+99 piezas con sus causas: un turno de ejemplo. ⇒ 99 pieces with their causes: a sample shift.
+60 ÷ TC objetivo ⇒ 60 ÷ target CT
+60 ÷ promedio T.T WA ⇒ 60 ÷ average T.T WA
+60 ÷ promedio T.T WOA ⇒ 60 ÷ average T.T WOA
+min · % disponible ⇒ min · % available
+min · % laborable ⇒ min · % working time
+Desempeño = {x} · arriba de 100 %: el TC objetivo está holgado ⇒ Performance = {x} · over 100 %: the target CT is loose
+Por hora: {x} ⇒ Per hour: {x}
+Diario: {x} ⇒ Daily: {x}
+Semanal: {x} ⇒ Weekly: {x}
+Mensual: {x} ⇒ Monthly: {x}
+Anual: {x} ⇒ Annual: {x}
+MÁQUINA ⇒ MACHINE
+{x} · TC {x} · manual {x} · {n} pasos ⇒ {1} · CT {2} · manual {3} · {4} steps
+TC {x} · M {x} ⇒ CT {1} · M {2}
+TC {x} · M {x} · D {x} ⇒ CT {1} · M {2} · D {3}
+TRASLADO ⇒ TRANSFER
+AFLOJAR ⇒ LOOSEN
+APRETAR ⇒ TIGHTEN
+OTRO ⇒ OTHER
+Paso {n} · {x} ⇒ Step {1} · {2}
+{x} · {x} min · sugerido: {x} ⇒ {1} · {2} min · suggested: {3}
+Nuevo cálculo · FY{n} ⇒ New calculation · FY{n}
+Nuevo Actual Time · FY{n} ⇒ New Actual Time · FY{n}
+GAP {x} · sobra capacidad ⇒ GAP {x} · spare capacity
+{x} · {x} · esquema {x} · ocupación ⇒ {1} · {2} · crew pattern {3} · utilization
+{x} + manejo de materiales · {n} de 12 meses capturados · toca un mes para capturarlo o revisarlo ⇒ {1} + material handling · {2} of 12 months entered · tap a month to enter or review it
+{x} + manejo de materiales · se captura al cierre del mes ⇒ {x} + material handling · entered at month-end
+{x} + manejo de materiales ⇒ {x} + material handling
+{x} + MH ⇒ {x} + MH
+personas equivalentes de más ({x} vs {x}) ⇒ extra equivalent people ({1} vs {2})
+faltan personas para lo requerido ({x} vs {x}) ⇒ short of the required people ({1} vs {2})
+ST ensamble ⇒ Assembly ST
+22.5 = 2 turnos · 11.25 = 1 turno ⇒ 22.5 = 2 shifts · 11.25 = 1 shift
+personas ⇒ people
+AUSENTISMO ⇒ ABSENTEEISM
+PLAN ⇒ PLAN
+{x} · {x} · {n} de 12 meses capturados ⇒ {1} · {2} · {3} of 12 months entered
+Elige la línea en «Takt» para ver solo los de esa línea. Cada operador del estudio entra como una estación, con el promedio de cada elemento. ⇒ Choose the line in “Takt” to see only that line's studies. Each operator in the study enters as a station, with the average of each element.
+No hay Work Element guardados. Guarda uno con la ubicación de la línea, o captura las estaciones a mano. ⇒ No saved Work Element studies. Save one with the line location, or enter the stations by hand.
+de {n} · hay que rebalancear ⇒ of {n} · rebalance needed
+holgura {x} ⇒ slack {x}
+{x} min de {x} · holgura {x} ⇒ {1} min of {2} · slack {3}
+{x} min de {x} · excede {x} ⇒ {1} min of {2} · exceeds {3}
+ETIQUETAR ⇒ LABEL
+{x} del takt · antes {x} ( ⇒ {1} of takt · before {2} (
+TC simulado (min) ⇒ Simulated CT (min)
+{x}, {n} visitas ⇒ {1}, {2} visits
+{x}, {n} visita ⇒ {1}, {2} visit
+{n} veces · {x} ({x} del ciclo) ⇒ {1} times · {2} ({3} of cycle)
+{n} vez · {x} ({x} del ciclo) ⇒ {1} time · {2} ({3} of cycle)
+{n} ciclos por turno × {n} turnos ⇒ {1} cycles per shift × {2} shifts
+por ciclo · {x} min por turno · a {x} m/min ⇒ per cycle · {1} min per shift · at {2} m/min
+Inicio / fin {n}: {x} ⇒ Start / end {1}: {2}
+Operación {n}: {x} ⇒ Operation {1}: {2}
+Inspección {n}: {x} ⇒ Inspection {1}: {2}
+Transporte {n}: {x} ⇒ Transport {1}: {2}
+Demora {n}: {x} ⇒ Delay {1}: {2}
+Almacenamiento {n}: {x} ⇒ Storage {1}: {2}
+Decisión {n}: {x} ⇒ Decision {1}: {2}
+{n} de 12 meses capturados · {n} renglones en {x} ⇒ {1} of 12 months entered · {2} rows in {3}
+{n} de 12 meses capturados · {n} renglón en {x} ⇒ {1} of 12 months entered · {2} row in {3}
+{x} · menor ⇒ {x} · lowest
+{x} · mejor ⇒ {x} · best
+ESPERAR CICLO DE PRENSA ⇒ WAIT FOR PRESS CYCLE
+{x} ciclo {n} ⇒ {1} cycle {2}
+{x} · {x} min ⇒ {1} · {2} min
+ST parte {n} ⇒ ST part {n}

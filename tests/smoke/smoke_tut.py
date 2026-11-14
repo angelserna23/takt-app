@@ -1,3 +1,4 @@
+import os
 # Prueba de pantalla de «Aprende»: corre cada tutorial listo en demo (bot) y en modo guiado (la prueba hace de usuario)
 # en laptop, tablet y teléfono. Falla si un paso no encuentra su botón (la pantalla cambió) o si queda historial.
 import pathlib as _pl, sys
@@ -11,6 +12,8 @@ def quieto(L):
         b=L.bounding_box()
         if b and prev and abs(b['x']-prev['x'])<0.5 and abs(b['y']-prev['y'])<0.5:return
         prev=b;L.page.wait_for_timeout(60)
+# texto esperado en el idioma de la app (con LANG_APP=en se traduce con el mismo diccionario)
+def T(pg,s):return pg.evaluate('s=>TaktI18n.tr(s)',s) if os.environ.get('LANG_APP')=='en' else s
 def check(tag,cond,msg):
     print(tag,('OK ' if cond else 'FALLA ')+msg)
     if not cond:fails.append(tag+' '+msg)
@@ -24,6 +27,7 @@ with sync_playwright() as p:
         pg=b.new_page(viewport={'width':w,'height':h},has_touch=True);pg.route('**/fonts.googleapis.com/**',lambda r:r.abort())
         pg.on('pageerror',lambda e,t=tag:errs.append(t+' '+str(e)))
         pg.goto(IDX+('#config' if tag=='phone' else '#estudios'))
+        if os.environ.get('LANG_APP')=='en':pg.wait_for_function('window.TaktStore&&TaktStore.ready()');pg.evaluate("TaktI18n.set('en')");pg.wait_for_timeout(200)   # mismos tutoriales, app en inglés
         # Entrada: menú lateral en laptop/tablet; en teléfono desde «Más»
         (pg.locator('.atmore [data-go=aprende]') if tag=='phone' else pg.locator('.navbtn[data-go=aprende]')).click();pg.wait_for_timeout(150)
         check(tag,pg.locator('.tutcard').count()==12,'12 tarjetas de tutorial')
@@ -46,7 +50,7 @@ with sync_playwright() as p:
             wait_state(pg,"document.body.dataset.tut==='fin'||document.body.dataset.tut==='error'")
             st=pg.evaluate("document.body.dataset.tut");err=pg.evaluate("(TaktTut.state()||{}).err")
             check(tag,st=='fin',f'{tid} demo termina sin errores'+('' if st=='fin' else ' → '+str(err)))
-            if tid=='ws':check(tag,pg.locator('.kpi').filter(has_text='Innecesario').first.inner_text().find('20.0%')>=0,'ws demo: 20.0 % innecesario (4 de 20)')
+            if tid=='ws':check(tag,pg.locator('.kpi').filter(has_text=T(pg,'Innecesario')).first.inner_text().find('20.0%')>=0,'ws demo: 20.0 % innecesario (4 de 20)')
             check(tag,pg.locator('#tut .tutend').is_visible(),'tarjeta final visible')
             # «Ahora hazlo tú» desde la tarjeta final
             pg.click('#tut .tutend [data-tutc="tu"]');pg.wait_for_timeout(300);pg.evaluate('TaktTut.speed(20)')
@@ -80,13 +84,13 @@ with sync_playwright() as p:
                 except Exception:
                     check(tag,False,f'{tid} guiado se atoró en el paso {i+1}: {e} · {pg.evaluate("TaktTut.state()")}');break
             check(tag,pg.evaluate("document.body.dataset.tut")=='fin',f'{tid} guiado termina')
-            if tid=='ws':check(tag,pg.evaluate("document.querySelector('[data-oname]')===null")and pg.locator('.kpi').filter(has_text='Observaciones').first.inner_text().find('10')>=0,'ws guiado: 10 observaciones del usuario')
+            if tid=='ws':check(tag,pg.evaluate("document.querySelector('[data-oname]')===null")and pg.locator('.kpi').filter(has_text=T(pg,'Observaciones')).first.inner_text().find('10')>=0,'ws guiado: 10 observaciones del usuario')
             # Salir: se descarta todo y regresa el estudio real
             pg.click('#tut .tutend [data-tutc="exit"]');pg.wait_for_timeout(200)
             check(tag,pg.evaluate('TaktTut.counts()')==before,f'{tid}: sin historial al salir {pg.evaluate("TaktTut.counts()")}')
             check(tag,pg.evaluate("location.hash")==f'#aprende-{tid}' and pg.locator('#tut').count()==0,'regresa a la ficha y quita la capa')
             pg.click('#view [data-go="aprende"]');pg.wait_for_timeout(100)
-            check(tag,pg.locator(f'.tutcard[data-go="aprende-{tid}"] .tag').inner_text()=='VISTO','tarjeta marcada como VISTO')
+            check(tag,pg.locator(f'.tutcard[data-go="aprende-{tid}"] .tag').inner_text()==T(pg,'VISTO'),'tarjeta marcada como VISTO')
         pg.evaluate("location.hash='ws'");pg.wait_for_timeout(100)
         check(tag,pg.locator('.study').count()==1 and 'MI ESTUDIO REAL' in pg.locator('.study').first.inner_text(),'el estudio real del usuario sigue intacto')
         # Salir a media demo también descarta

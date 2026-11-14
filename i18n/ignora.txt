@@ -68,3 +68,5 @@ Está en el recorrido {x}{x}; esos trayectos se quitan también.
 {x}Gráficas del año
 {x}Cascada de headcount · {x}
 {x}Resumen por mes
+También se quitan sus {x} {x}{s} y lo que tengan dentro. Ningún estudio las usa.
+{x}{x} · cada uno con su personal y su volumen

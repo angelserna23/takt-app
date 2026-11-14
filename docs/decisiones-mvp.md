@@ -396,9 +396,17 @@ Lo que el ingeniero industrial necesita de punta a punta: medir → estándar �
 - App publicada: artifact https://claude.ai/artifact/PtmQXuoBcXnPbmmhkWdK8f (slug b963594a-ed0b-4bfe-9897-a3ee86914094); se republica sobre el mismo slug.
 - Respaldo en el proyecto: takt-app/codigo-calculos-1.md y -2.md (cálculos y pruebas al 2026-11-11).
 
-## Pendientes (actualizado 2026-11-13, noche)
-- Orden acordado (Angel, 2026-11-13): **inglés (siguiente chat) → pagos (chat aparte) → guardado Fase 3 → diseño al final**.
-- **Inglés — enfoque elegido por Angel (A): capa de traducción sobre la pantalla.** La app sigue escrita en español; con EN, un diccionario español → inglés cambia los textos al pintar (texto, placeholder, aria-label, title, SVG, avisos, modales, reportes PDF y tutoriales), con plantillas para textos con números. Lo que captura el usuario (títulos, nombres, actividades) no se traduce; los nombres de los estudios ya están en inglés. El idioma se recuerda (ajustes). Una prueba recorre todas las pantallas y los 12 tutoriales en inglés y **falla si queda texto en español**. Costo aceptado: al migrar a módulos + Python se rehace la conexión; el diccionario se reutiliza.
+## La app en inglés (hecho 2026-11-14, enfoque A)
+- **Cómo funciona.** La app se sigue escribiendo en español. Con EN, una capa (`MutationObserver`) traduce todo lo que entra a la pantalla con el motor `trText` (bloque `<i18n-pure>`): búsqueda exacta → sin distinguir mayúsculas (reaplica el estilo: GUARDAR → SAVE) → plantillas con huecos `{n}` (número) y `{x}` (texto). Un `{x}` solo acepta un texto que se traduce o uno sin palabras en minúsculas de 4+ letras (datos en MAYÚSCULAS, números, fechas): así una plantilla amplia no traduce media frase.
+- **El diccionario vive en `i18n/*.txt`** (un archivo por módulo, `español ⇒ English`, ≈ 2,100 textos + 500 plantillas). `python3 tools/i18n_build.py` lo copia a `index.html`; la prueba falla si no está al día. Glosario aprobado: `docs/glosario-en.md`.
+- **Datos del usuario nunca se traducen:** se pintan con `ud()` (`<span translate="no">`; `uds()` dentro de SVG). Los datos que pone la app (plantilla de WS, ejemplos, lo que escribe el bot en los tutoriales, «OPERADOR 1», «Sin asignar») se crean en inglés con `trData()`. «Eliminar» de SMED es *Eliminate* (`smClsLbl`), el botón es *Delete*.
+- **Fechas** con `LOC()` (`en-US`), **pie del PDF** («Page x of y» y el tipo de reporte), `<html lang>`.
+- **Selector ES / EN** en el encabezado (también en teléfono) y en Configuración; se guarda en ajustes; la primera vez, según el idioma del navegador (bajo pruebas automáticas arranca en español).
+- **Pruebas:** `parts/i18ntest.js` (motor, 28), `tools/i18n_faltantes.js` (estática: todo texto en español de `index.html` tiene traducción; usa acorn, en `tools/node_modules`), `tests/smoke/smoke_i18n.py` (capa y selector), `tests/smoke/smoke_en.py` (12 tutoriales + todas las rutas en inglés, incluido lo que escribe el bot; luego historial en español + 12 PDF: el español solo se permite como dato del usuario) y `smoke_tut.py` con `LANG_APP=en` (tutoriales guiados en teléfono). Se comprobó que borrar 2 entradas del diccionario hace fallar la prueba.
+- **Al agregar o cambiar un texto de pantalla:** agregar su traducción en `i18n/*.txt`, correr `python3 tools/i18n_build.py`, y `correr_pruebas.sh` dice si falta algo.
+
+## Pendientes (actualizado 2026-11-14)
+- Orden acordado: **pagos (chat aparte) → guardado Fase 3 → diseño al final**. El inglés quedó hecho.
 - **Diseño (de los últimos)** — visual y movimiento de toda la app (tablero incluido), paleta, UX/UI y mejoras extra por formato (incluye la idea grande de Angel para Work Element).
 - Guardado Fase 3: avisos de almacenamiento lleno o no disponible en pantalla y que se recuerden ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Pagos.

@@ -1,0 +1,438 @@
+# Guiones de los tutoriales (globos y fichas). El bot escribe los «valor» ya traducidos con EN.
+
+# ---- Delay Study ----
+¿Qué tan ocupado está cada operador en trabajo no cíclico, y cómo se reparte mejor la carga? ⇒ How busy is each operator in non-cyclic work, and how is the load best shared?
+En materiales, almacén, fundición o surtido: trabajo que no se repite pieza por pieza, donde quieres saber la ocupación y simular un rebalanceo. ⇒ In materials, warehouse, foundry or supply: work that does not repeat piece by piece, where you want to know utilization and simulate a rebalance.
+Operaciones cíclicas rápidas por microelementos (para eso es Work Element) ni para medir la velocidad de la línea (Speed Trial). ⇒ Fast cyclic operations by micro-elements (that is Work Element) or measuring line speed (Speed Trial).
+Cronometrar actividades con material, racks y SNP ⇒ Time activities with material, racks and SNP
+Ver la ocupación de cada operador ⇒ See each operator's utilization
+Mover una actividad para rebalancear ⇒ Move an activity to rebalance
+Leer el Yamazumi y el escenario de demanda ⇒ Read the Yamazumi and the demand scenario
+El Delay Study responde: ¿qué tan ocupado está cada operador en actividades no cíclicas, como surtir material? Y te deja simular cómo repartir mejor la carga. ⇒ The Delay Study answers: how busy is each operator in non-cyclic activities, like supplying material? And it lets you simulate how to share the load better.
+Empezamos un estudio nuevo. ⇒ We start a new study.
+SURTIDO LÍNEA DE POLEAS ⇒ PULLEY LINE SUPPLY
+El título del estudio. ⇒ The study title.
+Quién observa. ⇒ Who observes.
+El periodo dice contra qué tiempo se mide la ocupación. Por hora son 60 minutos disponibles. ⇒ The period sets what time utilization is measured against. Per hour means 60 minutes available.
+El objetivo estándar: cuántas piezas por hora debe sostener cada operador. Aquí, 60. ⇒ The standard target: how many pieces per hour each operator must sustain. Here, 60.
+Pasamos a cronometrar al primer operador. ⇒ We move on to timing the first operator.
+Toca «Continuar a cronometraje». ⇒ Tap “Continue to timing”.
+Nombre o puesto del operador. ⇒ Operator name or job position.
+Una sola tarjeta de captura junto al cronómetro: actividad, material, racks, SNP y número de parte. Lo de material y racks se conserva para la siguiente. ⇒ A single entry card next to the timer: activity, material, racks, SNP and part number. Material and racks carry over to the next one.
+Iniciamos el cronómetro con la primera actividad. ⇒ We start the timer with the first activity.
+Toca «Iniciar cronómetro». ⇒ Tap “Start timer”.
+Escribe qué está haciendo (o tócalo si ya lo capturaste antes). ⇒ Type what they are doing (or tap it if you entered it before).
+«Siguiente actividad» guarda esta y arranca la que sigue; «Terminar» detiene el cronómetro. ⇒ “Next activity” saves this one and starts the next; “Finish” stops the timer.
+Toca «Terminar». ⇒ Tap “Finish”.
+Cada actividad queda en la lista y se corrige aquí. El tiempo por pieza es tiempo ÷ (racks × SNP). ⇒ Each activity stays in the list and is corrected here. Time per piece is time ÷ (racks × SNP).
+Esta duró segundos. La quitamos para cargar un ejemplo ya cronometrado. ⇒ This one lasted seconds. We remove it to load an already-timed example.
+Toca el bote para quitar esta prueba. ⇒ Tap the trash can to remove this test.
+La app siempre confirma antes de borrar. ⇒ The app always confirms before deleting.
+Toca «Quitar actividad» para confirmar. ⇒ Tap “Remove activity” to confirm.
+Cuatro actividades ficticias de un materialista. ⇒ Four fictitious activities of a material handler.
+Toca «Cargar ejemplo». ⇒ Tap “Load example”.
+Una vuelta sin racks ni SNP es vuelta vacía: su tiempo se suma solo al traslado con piezas anterior del mismo operador. ⇒ A trip without racks or SNP is an empty trip: its time is added to the same operator's previous transfer with pieces.
+Terminamos al operador y vemos la asignación. ⇒ We finish the operator and look at the assignment.
+Toca «Terminar MATERIALISTA 1 y ver asignación». ⇒ Tap “Finish MATERIAL HANDLER 1 and view assignment”.
+Terminar {x} y ver asignación ⇒ Finish {x} and view assignment
+Su columna: ocupación en vivo contra los 60 minutos y lo que le queda libre. ⇒ Their column: live utilization against the 60 minutes and their idle time.
+Toca «Cronometrar siguiente operador». ⇒ Tap “Time next operator”.
+Nombre del segundo operador. ⇒ Name of the second operator.
+Cargamos sus actividades de ejemplo. ⇒ We load their sample activities.
+Y regresamos a la asignación. ⇒ And go back to the assignment.
+Toca «Terminar MATERIALISTA 2 y ver asignación». ⇒ Tap “Finish MATERIAL HANDLER 2 and view assignment”.
+El segundo pasa de 100 %: con su carga no sostiene 60 piezas por hora. Hay que rebalancear. ⇒ The second one goes over 100 %: with that workload they cannot sustain 60 pieces per hour. A rebalance is needed.
+Tocamos una actividad para seleccionarla (también se puede arrastrar). ⇒ We tap an activity to select it (you can also drag it).
+Toca la actividad «ETIQUETAR CAJAS». ⇒ Tap the activity “LABEL BOXES”.
+«Mover aquí» se la pasa al primer operador. Toma el objetivo de quien la recibe. ⇒ “Move here” gives it to the first operator. It takes the target of whoever receives it.
+Toca «Mover aquí» en la columna del primer operador. ⇒ Tap “Move here” in the first operator's column.
+Los dos quedan abajo de 100 %. Así se simula un rebalanceo sin volver a cronometrar. ⇒ Both end up under 100 %. That is how a rebalance is simulated without timing again.
+Vemos los resultados. ⇒ We look at the results.
+Toca «Ver resultados». ⇒ Tap “View results”.
+Carga total ÷ tiempo disponible: cuántas personas necesita en teoría este trabajo. ⇒ Total workload ÷ available time: how many people this work needs in theory.
+El Yamazumi: la carga de cada operador contra la línea roja del tiempo disponible. ⇒ The Yamazumi: each operator's workload against the red available-time line.
+El escenario de demanda: ¿qué pasa si la demanda sube 20 %? ⇒ The demand scenario: what happens if demand goes up 20 %?
+Toca «+20 %». ⇒ Tap “+20 %”.
+arriba de 100 ⇒ over 100
+Con 20 % más, la app te dice quién se pasa del tiempo disponible antes de que pase en piso. ⇒ With 20 % more, the app tells you who goes over the available time before it happens on the floor.
+
+# ---- Work Element ----
+En operaciones cíclicas rápidas (ensamble, inspección, subestaciones): se cronometra por microelementos varios ciclos y se promedia. ⇒ In fast cyclic operations (assembly, inspection, substations): several cycles are timed by micro-elements and averaged.
+Trabajo no cíclico como surtir material (Delay Study) ni para medir la velocidad de toda la línea (Speed Trial). ⇒ Non-cyclic work like supplying material (Delay Study) or measuring the whole line's speed (Speed Trial).
+Elegir la base: por hora (JPH) o por tiempo ciclo ⇒ Choose the basis: per hour (JPH) or by cycle time
+Registrar los elementos en orden ⇒ Record the elements in order
+Leer promedios, ocupación y resultados ⇒ Read averages, utilization and results
+ENSAMBLE DE POLEA ⇒ PULLEY ASSEMBLY
+ENSAMBLE DE POLEAS ⇒ PULLEY ASSEMBLY
+El JPH estándar: 120 piezas por hora. ⇒ The standard JPH: 120 pieces per hour.
+Cuántos ciclos vas a cronometrar por operador. Lo usual es 10; aquí 5 para ir rápido. ⇒ How many cycles you will time per operator. The usual is 10; here 5 to go faster.
+Primero se registran los elementos. ⇒ First the elements are recorded.
+Toca «Continuar a elementos». ⇒ Tap “Continue to elements”.
+Observa la operación y registra los elementos en orden. Los botones rápidos agregan verbos comunes; también puedes escribir. ⇒ Watch the operation and record the elements in order. The quick buttons add common verbs; you can also type.
+Primer elemento: tomar la pieza. ⇒ First element: pick up the part.
+Toca «+ TOMAR». ⇒ Tap “+ PICK UP”.
+Colocarla en el dispositivo. ⇒ Place it in the fixture.
+Toca «+ COLOCAR». ⇒ Tap “+ PLACE”.
+Atornillar. ⇒ Screw.
+Toca «+ ATORNILLAR». ⇒ Tap “+ SCREW”.
+E inspeccionar. ⇒ And inspect.
+Toca «+ INSPECCIONAR». ⇒ Tap “+ INSPECT”.
+TOMAR ⇒ PICK UP
+COLOCAR ⇒ PLACE
+ATORNILLAR ⇒ SCREW
+INSPECCIONAR ⇒ INSPECT
+TRASLADAR ⇒ MOVE
+ESPERAR ⇒ WAIT
+AJUSTAR ⇒ ADJUST
+Con la lista validada, a cronometrar. ⇒ With the list validated, on to timing.
+Toca «Validar y cronometrar». ⇒ Tap “Validate and time”.
+El cronómetro arranca con el primer elemento. ⇒ The timer starts with the first element.
+Toca el botón grande 4 veces, una por elemento. ⇒ Tap the big button 4 times, once per element.
+En la demo los toques duran segundos. Cargamos tiempos de ejemplo para los 5 ciclos. ⇒ In the demo the taps last seconds. We load sample times for the 5 cycles.
+Toca «Cargar tiempos de ejemplo». ⇒ Tap “Load sample times”.
+Confirmamos que reemplace lo cronometrado. ⇒ We confirm it replaces what was timed.
+Toca «Cargar ejemplo» para confirmar. ⇒ Tap “Load example” to confirm.
+La tabla N1…N5 es editable. El tiempo de cada elemento es el promedio de sus ciclos; una celda vacía no cuenta. ⇒ The N1…N5 table is editable. Each element's time is the average of its cycles; an empty cell does not count.
+Pasamos a la asignación. ⇒ On to the assignment.
+Toca «Terminar OPERADOR 1 y ver asignación». ⇒ Tap “Finish OPERATOR 1 and view assignment”.
+Ocupación = suma de promedios × JPH ÷ 60 minutos. Aquí también se rebalancea igual que en el Delay Study. ⇒ Utilization = sum of averages × JPH ÷ 60 minutes. Rebalancing works here the same as in the Delay Study.
+La ocupación del operador contra el tiempo disponible. ⇒ The operator's utilization against available time.
+El Yamazumi por elementos: si una barra pasa la línea roja, el operador no sostiene el JPH. ⇒ The Yamazumi by element: if a bar goes past the red line, the operator cannot sustain the JPH.
+
+# ---- Speed Trial ----
+¿A qué velocidad corre realmente la línea contra el objetivo, y qué la frena? ⇒ How fast does the line really run against target, and what slows it down?
+Cuando necesitas el OEE, el JPH real, las pérdidas con su Pareto, la caída de JPH y el costo de no cumplir el plan. ⇒ When you need OEE, actual JPH, losses with their Pareto, the JPH waterfall and the cost of missing plan.
+Saber en qué se le va el tiempo a cada operador (Work Sampling) ni medir elementos de una operación (Work Element). ⇒ Knowing where each operator's time goes (Work Sampling) or measuring an operation's elements (Work Element).
+Datos obligatorios y supuestos de costo ⇒ Required data and cost assumptions
+Registrar piezas con su causa de pérdida ⇒ Log pieces with their loss cause
+Cargar 99 registros de ejemplo ⇒ Load 99 sample records
+Leer OEE, fluctuación, costo, Pareto y caída de JPH ⇒ Read OEE, variation, cost, Pareto and JPH waterfall
+El Speed Trial responde: ¿a qué velocidad corre realmente la línea contra el objetivo, y qué la frena? Aquí viven el OEE, las pérdidas y el costo. ⇒ The Speed Trial answers: how fast does the line really run against target, and what slows it down? OEE, losses and cost live here.
+Los campos con * son obligatorios. Número de parte… ⇒ Fields with * are required. Part number…
+…el nombre del proceso… ⇒ …the process name…
+…el nombre del modelo… ⇒ …the model name…
+…costo unitario: con él se proyecta cuánto cuesta no cumplir el plan… ⇒ …unit cost: with it the app projects what missing plan costs…
+…analista… ⇒ …analyst…
+…y el periodo analizado. ⇒ …and the period analyzed.
+Supuestos de costo de tu planta: con el OEE plan, el JPH plan = (60 ÷ TC objetivo) × OEE. ⇒ Your plant's cost assumptions: with planned OEE, JPH plan = (60 ÷ target CT) × OEE.
+Pasamos al registro. ⇒ On to the log.
+Toca «Continuar al registro». ⇒ Tap “Continue to log”.
+Un registro por pieza: «Pieza terminada» guarda su tiempo y arranca la siguiente. ⇒ One record per piece: “Piece finished” saves its time and starts the next.
+Iniciamos el cronómetro. ⇒ We start the timer.
+Si la pieza tuvo una pérdida, marca la causa antes de cerrarla. Son las 14 pérdidas; aquí, un paro corto. ⇒ If the piece had a loss, mark the cause before closing it. These are the 14 losses; here, a minor stoppage.
+Toca la causa «2 · Paro corto». ⇒ Tap the cause “2 · Minor stoppage”.
+Toca «Pieza terminada». ⇒ Tap “Piece finished”.
+Pausamos el cronómetro. ⇒ We pause the timer.
+Toca «Pausar». ⇒ Tap “Pause”.
+Esta pieza duró segundos. La quitamos para cargar 99 registros de ejemplo. ⇒ This piece lasted seconds. We remove it to load 99 sample records.
+Toca el bote del registro para quitarlo. ⇒ Tap the record's trash can to remove it.
+OEE = TC objetivo × piezas OK ÷ tiempo registrado. Arriba del OEE plan, en azul. ⇒ OEE = target CT × OK parts ÷ logged time. Above planned OEE, in blue.
+Piezas OK por hora contra el JPH plan. ⇒ OK parts per hour against JPH plan.
+Fluctuación de la línea ⇒ Line variation
+El costo por hora, día, semana, mes y año: GAP de JPH × costo unitario. Si la línea va arriba del plan, es la ventaja. ⇒ Cost per hour, day, week, month and year: JPH GAP × unit cost. If the line runs above plan, it is the advantage.
+El árbol de pérdidas: disponibilidad × desempeño × calidad, con semáforo contra el OEE plan. ⇒ The loss tree: availability × performance × quality, with a traffic light against planned OEE.
+De 50 JPH al 100 % al JPH real: cuántas piezas por hora se lleva cada afectación. Cierra exacto. ⇒ From 50 JPH at 100 % to actual JPH: how many pieces per hour each loss takes. It closes exactly.
+
+# ---- Man Machine ----
+¿Quién limita la celda: el operador o la máquina? ⇒ Who limits the cell: the operator or the machine?
+Costos: aquí solo hay piezas y tiempos. El costo vive en el Speed Trial. ⇒ Costs: here there are only pieces and times. Cost lives in the Speed Trial.
+Datos de la celda y TC objetivo ⇒ Cell data and target CT
+Estaciones en el orden en que camina el operador ⇒ Stations in the order the operator walks
+Tabla y layout armados en automático ⇒ Table and layout built automatically
+Leer la gráfica, la espera y los indicadores ⇒ Read the chart, the wait and the indicators
+CELDA MAQUINADO 3 ⇒ MACHINING CELL 3
+Línea o celda (obligatorio). ⇒ Line or cell (required).
+Analista (obligatorio). ⇒ Analyst (required).
+Metros por paso: pasos × metros = lo que camina el operador por vuelta. ⇒ Meters per step: steps × meters = what the operator walks per round.
+El TC objetivo de la línea, para comparar el JPH real y la ocupación de las máquinas. ⇒ The line's target CT, to compare actual JPH and machine utilization.
+Pasamos a las estaciones. ⇒ On to the stations.
+Toca «Continuar a estaciones». ⇒ Tap “Continue to stations”.
+Las estaciones se capturan en el orden en que camina el operador: Máquina, Estación manual, Entrada y Salida. ⇒ Stations are entered in the order the operator walks: Machine, Manual station, Input and Output.
+Cargamos una celda de ejemplo con 8 estaciones. ⇒ We load a sample cell with 8 stations.
+Cada máquina lleva su TC (de que cierra la puerta a que abre), su carga y descarga y los pasos hacia la siguiente. ⇒ Each machine has its CT (from door close to door open), its load and unload, and the steps to the next one.
+La app arma la tabla sola. ⇒ The app builds the table by itself.
+Toca «Revisar tabla». ⇒ Tap “Review table”.
+El recorrido arranca en la máquina con el TC más alto. Lo que corrijas en la tabla queda en naranja. ⇒ The walk starts at the machine with the highest CT. What you correct in the table shows in orange.
+Vemos el layout. ⇒ We look at the layout.
+Toca «Ver layout». ⇒ Tap “View layout”.
+El layout en U, con flechas que siguen el recorrido. Arrastra una estación para moverla y entra al recorrido donde quedó. ⇒ The U layout, with arrows following the walk. Drag a station to move it; it enters the walk where you drop it.
+Y la gráfica. ⇒ And the chart.
+Toca «Ver gráfica». ⇒ Tap “View chart”.
+El veredicto en una línea: qué máquina limita la celda y cuánto espera el operador por vuelta. ⇒ The verdict in one line: which machine limits the cell and how long the operator waits per round.
+Cada cuánto sale una pieza: lo limita la máquina más cargada o el operador, el que sea mayor. ⇒ How often a piece comes out: limited by the most loaded machine or the operator, whichever is larger.
+JPH real contra el JPH plan. La espera del operador no son piezas perdidas: son horas-hombre sin trabajo. ⇒ Actual JPH against JPH plan. Operator wait is not lost pieces: it is idle man-hours.
+Cada máquina contra el TC objetivo: en rojo la que no lo alcanza. Ahí está el cuello de botella. ⇒ Each machine against target CT: red ones miss it. That is the bottleneck.
+
+# ---- SMED ----
+¿Cuánto del cambio de modelo puede hacerse con la máquina corriendo? ⇒ How much of the changeover can be done with the machine running?
+Cuando el cambio de modelo o de herramental para la línea mucho tiempo (la pérdida «3 · Cambio de modelo» del Speed Trial). ⇒ When a model or tooling changeover stops the line for a long time (loss “3 · Changeover” in the Speed Trial).
+Medir la velocidad de la línea en producción (Speed Trial). ⇒ Measuring line speed in production (Speed Trial).
+Datos del cambio y supuestos de proyección ⇒ Changeover data and projection assumptions
+Cronometrar pasos con botones rápidos ⇒ Time steps with quick buttons
+Clasificar cada paso: interno, externo o eliminar ⇒ Classify each step: internal, external or eliminate
+Leer el paro propuesto, la meta de 10 min y lo recuperado ⇒ Read the proposed downtime, the 10-min target and what is recovered
+El SMED responde: ¿cuánto del cambio de modelo puede hacerse con la máquina corriendo? Se mide de la última pieza buena a la primera buena. ⇒ SMED answers: how much of the changeover can be done with the machine running? It is measured from the last good piece to the first good one.
+PRENSA 400 T ⇒ PRESS 400 T
+Línea o máquina (obligatorio). ⇒ Line or machine (required).
+Modelo que sale… ⇒ Outgoing model…
+…y modelo que entra. ⇒ …and incoming model.
+Opcional: con el TC objetivo se calculan las piezas que se dejan de hacer por cada minuto de paro. ⇒ Optional: with the target CT the app calculates the pieces not made for each minute of downtime.
+Y con los cambios por semana, las horas recuperadas por semana, mes y año. ⇒ And with changeovers per week, the hours recovered per week, month and year.
+Toca «Continuar a registro». ⇒ Tap “Continue to log”.
+Iniciamos el cambio: corre el cronómetro. ⇒ We start the changeover: the timer runs.
+Toca «Iniciar cambio». ⇒ Tap “Start changeover”.
+Tocamos qué está pasando; la categoría se pone sola. ⇒ We tap what is happening; the category fills in by itself.
+Toca «BUSCAR HERRAMIENTA». ⇒ Tap “SEARCH FOR TOOLS”.
+«Terminar paso» guarda su tiempo y arranca el siguiente. ⇒ “Finish step” saves its time and starts the next.
+Toca «Terminar paso». ⇒ Tap “Finish step”.
+Siguiente paso: quitar el herramental. ⇒ Next step: remove the tooling.
+Toca «QUITAR HERRAMENTAL». ⇒ Tap “REMOVE TOOLING”.
+«Terminar cambio» cierra el último paso y detiene el cronómetro. ⇒ “Finish changeover” closes the last step and stops the timer.
+Toca «Terminar cambio». ⇒ Tap “Finish changeover”.
+Los pasos quedan en una tabla editable: descripción, categoría y tiempo. ⇒ The steps stay in an editable table: description, category and time.
+Estos pasos duraron segundos. Los quitamos para cargar un cambio completo ya cronometrado. ⇒ These steps lasted seconds. We remove them to load a complete, already-timed changeover.
+Toca el bote del primer paso. ⇒ Tap the first step's trash can.
+El otro también. ⇒ The other one too.
+Toca el bote del otro paso. ⇒ Tap the other step's trash can.
+Un cambio de dado de ejemplo: 11 pasos, 44 minutos de paro. ⇒ A sample die change: 11 steps, 44 minutes of downtime.
+Pasamos al análisis. ⇒ On to the analysis.
+Toca «Continuar a análisis». ⇒ Tap “Continue to analysis”.
+Cada paso es Interno (máquina parada), Externo (se hace con la máquina corriendo) o Eliminar (no agrega valor). La app sugiere por categoría; tú decides. ⇒ Each step is Internal (machine stopped), External (done with the machine running) or Eliminate (adds no value). The app suggests by category; you decide.
+Cambiamos una sugerencia: en esta planta el dado anterior se regresa con la prensa parada, así que es Interno. ⇒ We change a suggestion: in this plant the previous die is returned with the press stopped, so it is Internal.
+Toca «Interno» en «REGRESAR DADO ANTERIOR». ⇒ Tap “Internal” on “RETURN PREVIOUS DIE”.
+Tiempo mejorado: con bloques calibrados el ajuste baja de 5 a 2 minutos. ⇒ Improved time: with gauge blocks the adjustment drops from 5 to 2 minutes.
+El paro propuesto suma solo lo interno, con su tiempo mejorado. ⇒ The proposed downtime adds only internal work, with its improved time.
+Cuánto se reduce el paro por cada cambio. ⇒ How much downtime drops per changeover.
+La meta SMED: menos de 10 minutos. La app te dice cuánto falta. ⇒ The SMED target: under 10 minutes. The app tells you how much is left.
+Hoy todo se hace con la máquina parada; con el análisis, lo externo sale del paro y lo eliminado desaparece. ⇒ Today everything is done with the machine stopped; with the analysis, external work leaves the downtime and eliminated work disappears.
+Y lo que vale al año: horas y piezas recuperadas con 10 cambios por semana. ⇒ And what it is worth per year: hours and pieces recovered with 10 changeovers per week.
+
+# ---- Cálculo de personal ----
+¿Cuántas personas necesita cada área, mes a mes, según su volumen? ⇒ How many people does each area need, month by month, according to its volume?
+Para planear el headcount del año fiscal por área: lo que justifica el volumen contra la plantilla del esquema de turnos, con la meta de reducción anual. ⇒ To plan the fiscal year headcount by area: what the volume justifies against crew pattern staffing, with the annual reduction target.
+Medir cuánto cuesta realmente cada pieza ya producida: eso es Actual Time. ⇒ Measuring what each piece already produced really costs: that is Actual Time.
+Área, tipo y año fiscal ⇒ Area, type and fiscal year
+Renglones por mes (líneas) con su personal y volumen ⇒ Rows per month (lines) with their headcount and volume
+Cambiar un dato y ver todo recalcularse en vivo ⇒ Change a value and see everything recalculate live
+Copiar un mes y leer el resumen anual ⇒ Copy a month and read the annual summary
+El Cálculo de personal responde: ¿cuántas personas necesita cada área, mes a mes, según su volumen? Se compara contra la plantilla del esquema de turnos. ⇒ Headcount planning answers: how many people does each area need, month by month, according to its volume? It is compared against crew pattern staffing.
+Empezamos un cálculo nuevo. ⇒ We start a new calculation.
+Toca «Nuevo cálculo». ⇒ Tap “New calculation”.
+Un cálculo por área. Este es su nombre (obligatorio). ⇒ One calculation per area. This is its name (required).
+El tipo de área. Maquinado tiene sus líneas como renglones. ⇒ The area type. Machining has its lines as rows.
+Toca «MAQUINADO». ⇒ Tap “MACHINING”.
+El año fiscal va de abril a marzo y se nombra por el año en que empieza: FY26 = abril 2026 a marzo 2027. ⇒ The fiscal year runs April to March and is named after the year it starts: FY26 = April 2026 to March 2027.
+El % de reducción anual: la meta de personal contra el esquema. ⇒ The annual reduction %: the headcount target against the crew pattern.
+Pasamos a los meses. ⇒ On to the months.
+Toca «Continuar a meses». ⇒ Tap “Continue to months”.
+Los 12 meses del año fiscal. Cada mes tiene sus propios renglones, porque el personal y el volumen cambian. ⇒ The 12 months of the fiscal year. Each month has its own rows, because headcount and volume change.
+Cargamos un ejemplo: 3 líneas en abril y mayo. ⇒ We load an example: 3 lines in April and May.
+El total del mes: HC según volumen (lo que justifica la producción) contra HC según esquema (la plantilla por grupos), y la meta. ⇒ The month total: HC by volume (what production justifies) against HC by crew pattern (staffing by crews), and the target.
+Abrimos la Línea 1 para ver su captura. ⇒ We open Line 1 to see its entry.
+Toca «Editar» en la LINEA 1. ⇒ Tap “Edit” on LINE 1.
+Sus indicadores: horas disponibles y requeridas, % de ocupación, LAT, Actual Time y HC por volumen. ⇒ Its indicators: available and required hours, % utilization, LAT, Actual Time and HC by volume.
+Si el volumen sube de 15,000 a 18,000 piezas, todo se recalcula en vivo. ⇒ If volume goes up from 15,000 to 18,000 pieces, everything recalculates live.
+El total del mes también se movió: así ves cuántas personas pide el nuevo volumen. ⇒ The month total moved too: that is how you see how many people the new volume needs.
+Junio todavía no está capturado. ⇒ June is not entered yet.
+Toca el mes de junio. ⇒ Tap the month of June.
+«Copiar de mayo» trae sus renglones; solo cambias lo que se movió. ⇒ “Copy from May” brings its rows; you only change what moved.
+Toca «Copiar de Mayo». ⇒ Tap “Copy from May”.
+Vemos el resumen anual. ⇒ We look at the annual summary.
+Toca «Resumen anual». ⇒ Tap “Annual summary”.
+Horas requeridas ÷ horas disponibles, en promedio. Arriba de 100 % falta capacidad. ⇒ Required hours ÷ available hours, on average. Over 100 % means capacity is short.
+Cuántas personas reducir para llegar a la meta anual. ⇒ How many people to reduce to reach the annual target.
+Personal de afectación ⇒ Indirect headcount
+Supervisores, TPM, proyectos y otros contra la plantilla: arriba de 35 % se marca en rojo. ⇒ Supervisors, TPM, projects and other against staffing: over 35 % is marked red.
+Mes a mes: lo que justifica el volumen, la plantilla del esquema y la línea de la meta. ⇒ Month by month: what the volume justifies, crew pattern staffing and the target line.
+Personal que agrega valor ⇒ Value-adding headcount
+Operadores y líderes (agregan valor) contra la afectación. ⇒ Operators and team leaders (adding value) against indirect.
+Cómo varió cada línea durante el año: JPH, TC, OEE, LAT, Actual Time u ocupación. ⇒ How each line changed during the year: JPH, CT, OEE, LAT, Actual Time or utilization.
+
+# ---- Actual Time ----
+Actual Time y Eficiencia compuesta ⇒ Actual Time & Composite efficiency
+¿Cuántos minutos-hombre cuesta realmente cada pieza, y cómo va la planta? ⇒ How many man-minutes does each piece really cost, and how is the plant doing?
+Al cierre de cada mes, para comparar el costo real en minutos-hombre por pieza contra la meta, ver en qué se va la gente y juntar todas las áreas en la eficiencia de planta. ⇒ At each month-end, to compare the real cost in man-minutes per piece against target, see where people's time goes and combine all areas into plant efficiency.
+Planear el personal del año (Cálculo de personal) ni medir la velocidad de una línea (Speed Trial). ⇒ Planning the year's headcount (Headcount planning) or measuring a line's speed (Speed Trial).
+Área, manejo de materiales y año fiscal ⇒ Area, material handling and fiscal year
+Los 12 meses y el detalle de un mes ⇒ The 12 months and one month's detail
+La cascada de headcount ⇒ The headcount waterfall
+Resumen anual y Eficiencia compuesta de planta ⇒ Annual summary and plant Composite efficiency
+El Actual Time responde: ¿cuántos minutos-hombre cuesta realmente cada pieza, mes a mes? Horas trabajadas × 60 ÷ producción. ⇒ Actual Time answers: how many man-minutes does each piece really cost, month by month? Worked hours × 60 ÷ production.
+Empezamos un Actual Time nuevo: uno por área y año fiscal. ⇒ We start a new Actual Time: one per area and fiscal year.
+Toca «Nuevo Actual Time». ⇒ Tap “New Actual Time”.
+El nombre del área (obligatorio). ⇒ The area name (required).
+Ensamble usa el ST (tiempo estándar) por pieza e incluye el DSTR. Maquinado y fundición usan LAT y JPMH. ⇒ Assembly uses ST (standard time) per piece and includes DSTR. Machining and foundry use LAT and JPMH.
+Manejo de materiales es un espejo de ensamble: misma producción y días, con su propio personal. ⇒ Material handling mirrors assembly: same production and days, with its own headcount.
+Cargamos un ejemplo de 5 meses. ⇒ We load a 5-month example.
+Vista general: el Actual Time de cada mes; en rojo los que quedaron arriba de la meta. Abajo, el acumulado del año. ⇒ Overview: each month's Actual Time; red ones ended over target. Below, the year to date.
+Abrimos abril. ⇒ We open April.
+Toca el mes de abril. ⇒ Tap the month of April.
+Actual Time real contra la meta (TARGET) y sin afectación. ⇒ Actual Time against target (TARGET) and without losses.
+La cascada: del plan al HC requerido, pasando por ausentismo, afectaciones e indirectos. Se mueve en vivo al capturar. ⇒ The waterfall: from plan to required HC, through absenteeism, losses and indirect staff. It moves live as you enter data.
+Abajo del mes no se brinca de mes: sigue manejo de materiales. ⇒ Below the month you do not jump to another month: material handling comes next.
+Toca «Siguiente: manejo de materiales». ⇒ Tap “Next: material handling”.
+Manejo de materiales: mismo mes, su personal y un solo LAT para toda la línea. ⇒ Material handling: same month, its headcount and a single LAT for the whole line.
+Guardamos abril y vamos al resumen anual. ⇒ We save April and go to the annual summary.
+Toca «Guardar abril». ⇒ Tap “Save April”.
+El año completo: suma de horas ÷ suma de producción, no un promedio de porcentajes. ⇒ The full year: sum of hours ÷ sum of production, not an average of percentages.
+Eficiencia = horas requeridas ÷ horas trabajadas. ⇒ Efficiency = required hours ÷ worked hours.
+La cascada de cualquier mes, con su selector. ⇒ The waterfall for any month, with its selector.
+La Eficiencia compuesta junta los Actual Time de todas las áreas del año: la vista de planta. ⇒ Composite efficiency combines the year's Actual Time of all areas: the plant view.
+Toca «Eficiencia compuesta». ⇒ Tap “Composite efficiency”.
+La eficiencia de la planta: Σ horas requeridas ÷ Σ horas trabajadas de todas las áreas. ⇒ Plant efficiency: Σ required hours ÷ Σ worked hours of all areas.
+Con o sin afectación: sin afectación quita las horas de afectaciones. ⇒ With or without losses: without losses removes loss hours.
+Toca «SIN AFECTACIÓN». ⇒ Tap “WITHOUT LOSSES”.
+Trayectoria de eficiencia ⇒ Efficiency trend
+Una línea por área y la planta en grueso, mes a mes. ⇒ One line per area and the plant in bold, month by month.
+Piezas por hora-hombre: solo tendencia de cada área contra su mes anterior; no se comparan áreas entre sí. ⇒ Pieces per man-hour: only each area's trend against its previous month; areas are not compared with each other.
+
+# ---- Takt y balanceo ----
+¿Qué estación no alcanza el ritmo que pide el cliente? ⇒ Which station cannot keep the pace the customer demands?
+Cuando ya tienes los Work Element de las estaciones de una línea y quieres ver su balanceo contra la demanda, y simular mover elementos entre estaciones. ⇒ When you already have Work Element studies for a line's stations and want to see their balance against demand, and simulate moving elements between stations.
+Balancear operadores dentro de una misma operación (eso es la Asignación del Delay Study y del Work Element). ⇒ Balancing operators within one operation (that is the Assignment in Delay Study and Work Element).
+Calcular el takt con demanda, turnos y paros ⇒ Calculate takt with demand, shifts and downtime
+Traer las estaciones desde sus Work Element (o un ejemplo) ⇒ Bring the stations from their Work Element studies (or an example)
+Mover un elemento de la estación que excede el takt ⇒ Move an element from the station that exceeds takt
+Leer cuello de botella, capacidad, eficiencia y personal teórico ⇒ Read bottleneck, capacity, efficiency and theoretical headcount
+Takt y balanceo responde: ¿qué estación no alcanza el ritmo que pide el cliente? Junta los Work Element de una línea y los compara contra el takt. ⇒ Takt & line balancing answers: which station cannot keep the pace the customer demands? It gathers a line's Work Element studies and compares them against takt.
+Empezamos un balanceo nuevo. ⇒ We start a new balancing.
+Toca «Nuevo balanceo». ⇒ Tap “New balancing”.
+Un título para reconocerlo en la lista. ⇒ A title to recognize it in the list.
+La ubicación se pide hasta la línea: así solo aparecen los Work Element de esa línea y el tablero sabe de qué línea es el takt. ⇒ The location is required down to the line: that way only that line's Work Element studies appear and the dashboard knows which line the takt belongs to.
+La demanda diaria: 800 piezas. ⇒ Daily demand: 800 pieces.
+Dos turnos de 480 minutos vienen por omisión; cámbialos si tu línea trabaja distinto. ⇒ Two 480-minute shifts come by default; change them if your line works differently.
+Paros programados por turno: comida, breaks, juntas. Se restan de cada turno. ⇒ Planned downtime per shift: lunch, breaks, meetings. It is subtracted from each shift.
+Takt = 2 × (480 − 40) ÷ 800 = 880 ÷ 800 = 1.10 minutos por pieza. Ninguna estación debería tardar más. ⇒ Takt = 2 × (480 − 40) ÷ 800 = 880 ÷ 800 = 1.10 minutes per piece. No station should take longer.
+Aquí aparecen los Work Element guardados de la línea: cada operador entra como una estación con el promedio de cada elemento. «Traer todos» los junta de un golpe. ⇒ The line's saved Work Element studies appear here: each operator enters as a station with the average of each element. “Bring all” gathers them in one go.
+En la demo usamos un ejemplo ficticio de 4 estaciones. ⇒ In the demo we use a fictitious 4-station example.
+Vamos al balanceo. ⇒ On to the balancing.
+Toca «Continuar a balanceo». ⇒ Tap “Continue to balancing”.
+La línea roja es el takt. EST 20 tarda 1.24: excede el takt y es el cuello de botella; la línea solo puede sacar 709 de las 800 piezas. ⇒ The red line is takt. ST 20 takes 1.24: it exceeds takt and is the bottleneck; the line can only produce 709 of the 800 pieces.
+Tomamos «Atornillar» (0.18 min) de EST 20… ⇒ We take “Screw” (0.18 min) from ST 20…
+Toca el elemento «ATORNILLAR». ⇒ Tap the element “SCREW”.
+…y lo pasamos a EST 30, que tiene holgura. También se puede arrastrar. ⇒ …and move it to ST 30, which has slack. You can also drag it.
+Toca «Mover aquí» en EST 30. ⇒ Tap “Move here” on ST 30.
+Ninguna estación pasa del takt y la eficiencia de balanceo sube de 81.5 % a 95.3 %. ⇒ No station exceeds takt and line balance efficiency rises from 81.5 % to 95.3 %.
+Con el nuevo cuello de botella (1.06) la línea da 56.6 piezas por hora: 830 al día, ya cumple las 800. ⇒ With the new bottleneck (1.06) the line gives 56.6 pieces per hour: 830 per day, now meeting the 800.
+Contenido de trabajo ÷ takt = 3.67: con 4 estaciones basta. Si el resultado diera menos estaciones de las que tienes, hay oportunidad de juntar. ⇒ Work content ÷ takt = 3.67: 4 stations are enough. If the result were fewer stations than you have, there is an opportunity to combine.
+EST 10 ⇒ ST 10
+EST 20 ⇒ ST 20
+EST 30 ⇒ ST 30
+EST 40 ⇒ ST 40
+
+# ---- Hoja de trabajo estándar ----
+¿Cómo se hace el trabajo en esta estación, paso a paso? ⇒ How is the work done at this station, step by step?
+Para documentar una estación de la línea y enseñar al operador nuevo: secuencia, puntos clave, flujo y equipo de protección. Se imprime y se consulta en la tablet. ⇒ To document a line station and train new operators: sequence, key points, flow and protective equipment. It is printed and viewed on the tablet.
+Llenar el encabezado y el equipo de protección ⇒ Fill in the header and protective equipment
+Capturar los pasos con su símbolo ASME, tiempo y puntos clave ⇒ Enter the steps with their ASME symbol, time and key points
+Ver la hoja con el flujo dibujado solo ⇒ See the sheet with the flow drawn automatically
+Imprimirla en carta horizontal, en una página ⇒ Print it on landscape letter, on one page
+La hoja de trabajo estándar documenta cómo se hace el trabajo en una estación. Todo se captura aquí: no trae datos de otros estudios. ⇒ The standardized work sheet documents how the work is done at a station. Everything is entered here: it does not pull data from other studies.
+Empezamos una hoja nueva. ⇒ We start a new sheet.
+Toca «Nueva hoja». ⇒ Tap “New sheet”.
+Nueva hoja ⇒ New sheet
+La operación es el título grande de la hoja. ⇒ The operation is the sheet's big title.
+La ubicación se pide hasta la estación: así la hoja queda en su lugar de la línea. ⇒ The location is required down to the station: that way the sheet sits in its place on the line.
+El takt se escribe a mano (opcional): 1.2 minutos por pieza. ⇒ Takt is entered by hand (optional): 1.2 minutes per piece.
+Quién elaboró la hoja (obligatorio). Revisó y aprobó salen como líneas de firma. ⇒ Who prepared the sheet (required). Reviewed and approved appear as signature lines.
+El equipo de protección se elige con un toque. ⇒ Protective equipment is chosen with one tap.
+Toca «Lentes de seguridad». ⇒ Tap “Safety glasses”.
+También guantes. ⇒ Gloves too.
+Toca «Guantes». ⇒ Tap “Gloves”.
+Pasamos a la secuencia. ⇒ On to the sequence.
+Toca «Continuar a secuencia». ⇒ Tap “Continue to sequence”.
+En la demo cargamos un ejemplo ficticio de 8 pasos. ⇒ In the demo we load a fictitious 8-step example.
+Cada paso lleva su símbolo ASME: operación, inspección, transporte, demora o almacén. Con eso se dibuja el flujo. ⇒ Each step has its ASME symbol: operation, inspection, transport, delay or storage. The flow is drawn from them.
+Los puntos clave se marcan como seguridad ⚠, calidad ◆ o ergonomía. Un paso puede tener varios. ⇒ Key points are marked as safety ⚠, quality ◆ or ergonomics. One step can have several.
+Vemos la hoja. ⇒ We look at the sheet.
+Toca «Ver hoja». ⇒ Tap “View sheet”.
+Arriba: takt, tiempo ciclo, % del takt con su holgura y los pasos. ⇒ On top: takt, cycle time, % of takt with its slack and the steps.
+El flujo del proceso se dibujó solo con los símbolos de cada paso; con muchos pasos se acomoda en serpentina. ⇒ The process flow drew itself from each step's symbols; with many steps it wraps in a serpentine.
+Abajo: equipo de protección, resumen por símbolo y las firmas de elaboró, revisó y aprobó. ⇒ Below: protective equipment, summary by symbol and the prepared, reviewed and approved signatures.
+«Imprimir» la acomoda en carta horizontal, en una sola página, con alto contraste para pegarla en la estación. ⇒ “Print” fits it on landscape letter, on a single page, with high contrast to post at the station.
+
+# ---- Espagueti ----
+¿Cuánto camina el operador (o viaja el material) y por dónde? ⇒ How far does the operator walk (or the material travel), and where?
+Para ver el desperdicio de movimiento en un área: idas y vueltas, cruces y caminatas largas por material, con sus metros por ciclo, turno y día. ⇒ To see motion waste in an area: back-and-forth trips, crossings and long walks for material, with their meters per cycle, shift and day.
+Escala, ciclos y velocidad medida ⇒ Scale, cycles and measured speed
+Poner los puntos del área en la cuadrícula ⇒ Place the area points on the grid
+Trazar el recorrido tocando los puntos en orden ⇒ Trace the path by tapping the points in order
+Leer metros, trayecto más repetido y tiempo caminando ⇒ Read meters, most repeated leg and walking time
+«Diagramas» reúne el Flujo de proceso y el Espagueti. Cada uno guarda lo suyo por separado. ⇒ “Diagrams” brings together the Process flow chart and the Spaghetti diagram. Each one saves its own data separately.
+Entramos a Espagueti. ⇒ We go into Spaghetti.
+Toca «Espagueti». ⇒ Tap “Spaghetti diagram”.
+Empezamos un diagrama nuevo. ⇒ We start a new diagram.
+Toca «Nuevo espagueti». ⇒ Tap “New spaghetti”.
+RECORRIDO DE SURTIDO ⇒ SUPPLY ROUTE
+Un título para reconocerlo. ⇒ A title to recognize it.
+Método actual o propuesto, si sigues al operador o al material, y cómo se mide: en escuadra (por pasillos) o en línea recta. ⇒ Current or proposed method, whether you follow the operator or the material, and how it is measured: right-angle (along aisles) or straight line.
+La escala: 1 cuadro = 1 metro. Ajústala a tu área. ⇒ The scale: 1 square = 1 meter. Adjust it to your area.
+Opcional: 50 ciclos por turno, para llevar los metros a turno y día. ⇒ Optional: 50 cycles per shift, to scale meters to shift and day.
+Dos turnos por día. ⇒ Two shifts per day.
+Opcional: la velocidad de caminata que tú mediste en piso (aquí 60 m/min). La app no usa valores estándar. ⇒ Optional: the walking speed you measured on the floor (here 60 m/min). The app does not use standard values.
+Pasamos al layout. ⇒ On to the layout.
+Toca «Continuar a layout». ⇒ Tap “Continue to layout”.
+Tocas un cuadro libre y aparece un punto; le pones nombre. Si tocas un punto y luego otro cuadro, se mueve. ⇒ Tap a free square and a point appears; give it a name. If you tap a point and then another square, it moves.
+En la demo cargamos 6 puntos de ejemplo: almacén, dos estaciones, un rack, inspección y empaque. ⇒ In the demo we load 6 sample points: warehouse, two stations, a rack, inspection and packing.
+Ahora trazamos el recorrido. ⇒ Now we trace the path.
+Toca «Trazar recorrido». ⇒ Tap “Trace path”.
+Tocamos los puntos en el orden en que camina: almacén, EST 10, EST 20, rack, EST 20, inspección, empaque, rack, EST 20, EST 10, almacén. ⇒ We tap the points in walking order: warehouse, ST 10, ST 20, rack, ST 20, inspection, packing, rack, ST 20, ST 10, warehouse.
+Toca 4 puntos, en el orden que quieras (tocar dos veces seguidas el mismo no es un viaje). ⇒ Tap 4 points, in any order you like (tapping the same one twice in a row is not a trip).
+Las líneas siguen los pasillos. EST 20 ↔ RACK A se recorre 3 veces: por eso es la más gruesa. ⇒ The lines follow the aisles. ST 20 ↔ RACK A is traveled 3 times: that is why it is the thickest.
+El trayecto que más pesa: ahí está la primera oportunidad, por ejemplo acercar el rack a la estación. ⇒ The heaviest leg: that is the first opportunity, for example moving the rack closer to the station.
+Con 50 ciclos por turno y 2 turnos: 4.1 km por turno y 8.2 km al día. ⇒ With 50 cycles per shift and 2 shifts: 4.1 km per shift and 8.2 km per day.
+INSPECCIÓN ⇒ INSPECTION
+
+# ---- Diagrama de flujo ----
+¿Cómo fluye el proceso y dónde están las demoras y los transportes? ⇒ How does the process flow, and where are the delays and transports?
+Medir tiempos con cronómetro: el tiempo de cada paso se escribe. ⇒ Measuring times with a timer: each step's time is typed in.
+Datos del proceso y método (actual o propuesto) ⇒ Process data and method (current or proposed)
+Poner símbolos desde la barra y escribir la acción ⇒ Place symbols from the bar and write the action
+Editar un símbolo: tiempo, distancia y «Viene de» ⇒ Edit a symbol: time, distance and “Comes from”
+Leer el resumen ASME ⇒ Read the ASME summary
+El diagrama de flujo responde: ¿cómo fluye el proceso, paso a paso, y dónde hay transportes, demoras y almacenamientos? ⇒ The flow chart answers: how does the process flow, step by step, and where are the transports, delays and storage?
+Toca «Nuevo diagrama». ⇒ Tap “New diagram”.
+El título (obligatorio). ⇒ The title (required).
+El analista (obligatorio). ⇒ The analyst (required).
+El método: actual (como se hace hoy) o propuesto (mejorado). ⇒ The method: current (how it is done today) or proposed (improved).
+Pasamos a la hoja. ⇒ On to the sheet.
+Toca «Continuar». ⇒ Tap “Continue”.
+Continuar ⇒ Continue
+La barra de símbolos ASME. Arrastra uno a la hoja o tócalo para ponerlo debajo del último. ⇒ The ASME symbol bar. Drag one onto the sheet or tap it to place it under the last one.
+Empezamos con Inicio. Se abre una nube junto al símbolo. ⇒ We start with Start. A bubble opens next to the symbol.
+Toca «Inicio / fin». ⇒ Tap “Start / end”.
+Escribe la acción; Enter o «Listo» cierra la nube. ⇒ Write the action; Enter or “Done” closes the bubble.
+Listo ⇒ Done
+Una operación: se conecta sola con el último símbolo. ⇒ An operation: it connects by itself to the last symbol.
+Toca «Operación». ⇒ Tap “Operation”.
+Lo que se hace en este paso. ⇒ What is done in this step.
+Un transporte. ⇒ A transport.
+Toca «Transporte». ⇒ Tap “Transport”.
+LLEVAR A RECIBO ⇒ TAKE TO RECEIVING
+Llevar el material a recibo. ⇒ Take the material to receiving.
+Una inspección. ⇒ An inspection.
+Toca «Inspección». ⇒ Tap “Inspection”.
+Revisar el material. ⇒ Check the material.
+Un almacenamiento. ⇒ A storage.
+Toca «Almacenamiento». ⇒ Tap “Storage”.
+Guardarlo en su lugar. ⇒ Put it in its place.
+Y el fin del proceso. ⇒ And the end of the process.
+Cerramos el proceso. ⇒ We close the process.
+Flechas en escuadra siguiendo el proceso. Con Decisión eliges el camino SÍ o NO; el NO y los regresos rodean por la derecha. ⇒ Right-angle arrows following the process. With Decision you choose the YES or NO path; NO and returns go around on the right.
+Toca un símbolo para editarlo. ⇒ Tap a symbol to edit it.
+Toca el símbolo «DESCARGAR MATERIAL». ⇒ Tap the symbol “UNLOAD MATERIAL”.
+«Viene de» dice de qué paso viene. Si lo cambias, el símbolo se reacomoda junto a su antecesor. ⇒ “Comes from” says which step it comes from. If you change it, the symbol moves next to its predecessor.
+El tiempo del paso, en minutos. ⇒ The step time, in minutes.
+El transporte también lleva distancia. ⇒ The transport also has a distance.
+Toca el símbolo «LLEVAR A RECIBO». ⇒ Tap the symbol “TAKE TO RECEIVING”.
+Metros recorridos. ⇒ Meters traveled.
+Vemos el resumen ASME. ⇒ We look at the ASME summary.
+Toca «Ver resumen». ⇒ Tap “View summary”.
+Cuántas actividades tiene el proceso (sin contar inicio, fin ni decisiones). ⇒ How many activities the process has (not counting start, end or decisions).
+El % de operaciones: lo único que transforma el producto. Lo demás es candidato a reducirse. ⇒ The % of operations: the only thing that transforms the product. Everything else is a candidate for reduction.
+Tiempo total y distancia recorrida: aquí se ve el costo de los transportes. ⇒ Total time and distance traveled: this is where the cost of transports shows.
+INICIO ⇒ START
+FIN ⇒ END
+INICIO / FIN ⇒ START / END
+MOD-01 ⇒ MOD-01
+PL-2040 ⇒ PL-2040

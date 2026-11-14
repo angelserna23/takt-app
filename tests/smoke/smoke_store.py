@@ -135,7 +135,10 @@ with sync_playwright() as p:
     check('st',pg.locator('.kpi').filter(has_text='OEE').first.inner_text().find('91.1%')>=0,'al reabrir, OEE 91.1 %')
     go(pg,'mm');pg.locator('[data-mmopen]').first.click();pg.wait_for_timeout(200);en(pg,'[data-mmv="graf"]') if pg.locator('[data-mmv="graf"]:not([disabled])').count() else None
     # ---- cambios sin guardar + descartar ----
-    go(pg,'sm');pg.locator('[data-smopen]').first.click();pg.wait_for_timeout(150);en(pg,'[data-smv="info"]');pg.fill('input[name=linea]','PRENSA CAMBIADA');pg.wait_for_timeout(400)
+    go(pg,'sm');pg.locator('[data-smopen]').first.click();pg.wait_for_timeout(150);en(pg,'[data-smv="info"]');pg.fill('input[name=linea]','PRENSA CAMBIADA')
+    # espera activa (con 8 navegadores en paralelo una espera fija de 400 ms a veces no alcanza)
+    try:pg.wait_for_function("document.getElementById('savechip').innerText==='Cambios sin guardar'",timeout=5000)
+    except Exception:pass
     check('sm',pg.locator('#savechip').inner_text()=='Cambios sin guardar','al editar un guardado: «Cambios sin guardar»')
     go(pg,'sm');check('sm',pg.locator('.savetag').count()==1 and 'CAMBIOS' in pg.locator('.savetag').inner_text(),'la lista lo marca')
     pg.click('[data-storediscard]');pg.click('#modal [data-mok]');pg.wait_for_timeout(150)
