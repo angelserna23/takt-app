@@ -411,6 +411,9 @@ Lo que el ingeniero industrial necesita de punta a punta: medir → estándar �
 - Guardado Fase 3: avisos de almacenamiento lleno o no disponible en pantalla y que se recuerden ajustes de vista (p. ej. FY de Eficiencia compuesta).
 - Pagos.
 - Chicos que quedaron anotados: Eficiencia compuesta junta todas las plantas (solo Inicio separa); el GAP de personal del tablero no incluye manejo de materiales.
+- El buscador del encabezado no hace nada (es de adorno): conectarlo o quitarlo.
+- Pruebas viejas `smoke_ds.py`, `smoke_ds2.py`, `smoke_we_tab.py`: actualizarlas o borrarlas.
+- Seguimiento con casillas: `docs/plan-de-trabajo.md`.
 - Al lanzar: `SEED_ON=false` y borrar el bloque `<semilla>` (la app queda en blanco).
 - Para un producto real: cuentas y datos en la nube, usuarios y roles, funcionar sin internet como app instalable, validación en piso real, pasar de un solo archivo a módulos + backend en Python, y política para nombres de operadores (datos personales).
 - Cerrados y quitados de esta lista: qué va en el menú en lugar de OEE / Costo MO (ya se reemplazó con los demás módulos), tiempo estándar (descartado), guardado y exportación (hechos: guardado Fases 1–2 y reportes PDF), botón ‹ Todos los estudios y eliminar desde la lista (hechos).

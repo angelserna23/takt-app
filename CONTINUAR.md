@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md` y `docs/decisiones-mvp.md` (sobre todo «Pendientes» y «La app en inglés»). Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Toca: **guardado Fase 3** (avisos de almacenamiento lleno o no disponible y recordar ajustes de vista). Pagos van en otro chat; el diseño visual al final. Recuerda: todo texto nuevo de pantalla lleva su traducción en `i18n/*.txt`.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md`, `docs/plan-de-trabajo.md` y `docs/decisiones-mvp.md` (sobre todo «Pendientes» y «La app en inglés»). Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Toca: **guardado Fase 3** (avisos de almacenamiento lleno o no disponible y recordar ajustes de vista). Antes de construir, propón el diseño y el plan. Recuerda: todo texto nuevo de pantalla lleva su traducción en `i18n/*.txt`, y al cerrar cada punto se marca en `docs/plan-de-trabajo.md`.
 
 ## Pasos para Claude al iniciar
 
