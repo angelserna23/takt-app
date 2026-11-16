@@ -1,6 +1,6 @@
 # Takt — plan de trabajo (seguimiento)
 
-Actualizado: 2026-11-14 · Orden acordado con Angel: **guardado Fase 3 → pagos (chat aparte) → diseño visual al final**.
+Actualizado: 2026-11-15 · Orden acordado con Angel: **guardado Fase 3 → pagos (chat aparte) → diseño visual al final**.
 Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión va en `docs/decisiones-mvp.md`.
 
 ## Hecho (referencia)
@@ -9,6 +9,7 @@ Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión 
 - [x] Reportes PDF de los 12 formatos · tablero de Inicio · 12 tutoriales (demo y guiado).
 - [x] La app en inglés (2026-11-14): diccionario `i18n/*.txt`, selector ES / EN, prueba que falla si queda español.
 - [x] Teléfono: barra Inicio · Actual Time · cronómetro (elige estudio) · Personal · Configuración; menú y encabezado responsivos.
+- [x] Teléfono (2026-11-15): las 12 listas de estudios ya no se salen de la pantalla; PDF, descartar y eliminar van dentro de la tarjeta (prueba `smoke_listas.py`). Lo detectó Angel en Actual Time y Cálculo de personal.
 
 ## 1. Guardado Fase 3 (siguiente)
 - [ ] Aviso visible en pantalla cuando el almacenamiento está lleno o el navegador no permite guardar (hoy solo un aviso chico).

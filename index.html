@@ -759,6 +759,16 @@ body:not(.tutdemo) #tut .tutbub{pointer-events:none}
 @media (max-width:700px){.tkwe,.tkgrid{grid-template-columns:minmax(0,1fr)}.tkel{gap:6px}.tkel .tkt{width:62px;flex-basis:62px;padding:0 8px}.tkel .opn{width:26px;height:26px;flex-basis:26px;font-size:13px}.tkst{padding:12px}}
 /* Reportes en PDF (#rep solo existe mientras se imprime) */
 .iconbtn.rpdf{flex:0 0 52px;width:52px;height:52px;color:var(--blue);border-color:rgba(29,95,168,.25)}.iconbtn.rpdf:hover{background:rgba(29,95,168,.08)}
+/* Teléfono: la fila de estudio es UNA tarjeta; PDF, descartar y eliminar van abajo, dentro de la tarjeta (nada se sale de la pantalla) */
+@media (max-width:700px){
+  .studyrow{flex-wrap:wrap;justify-content:flex-end;gap:8px;padding:0 10px 10px;border-radius:16px;background:rgba(255,255,255,.72);border:1px solid var(--line)}
+  .studyrow .study{flex:1 1 100%;flex-wrap:wrap;align-items:flex-start;gap:6px 12px;padding:14px 4px 4px;background:transparent;border:0;border-radius:12px}
+  .studyrow .study .meta{flex:1 1 0}
+  .studyrow .study>svg:last-child{display:none}
+  .studyrow .study>div:not(.logo):not(.meta){flex:1 1 100%;text-align:left!important;padding-left:52px}
+  .studyrow .iconbtn.sdel,.studyrow .iconbtn.rpdf{flex:0 0 48px;width:48px;height:48px}
+  .studyrow .savediscard{margin-right:auto;align-self:center}
+}
 #rep{display:none}
 @media print{
   body.rep-on{background:#fff!important}

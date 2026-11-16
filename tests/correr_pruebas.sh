@@ -3,6 +3,7 @@
 #   1) Cálculos (Node): todos los formatos + guiones de Aprende.
 #   2) Guardado (Playwright): los 12 formatos se guardan, se recargan idénticos; cambios, descartar, borrar, tutoriales sin rastro.
 #   2b) Inicio (Playwright): historial de ejemplo (semilla) y tablero.
+#   2c) Listas en teléfono (Playwright): las 12 listas caben en 360 y 390 px; PDF y eliminar dentro de la tarjeta.
 #   3) Tutoriales de Aprende (Playwright): los 12, en demo y guiado, en laptop, tablet y teléfono (en paralelo).
 #      Si una pantalla cambió, dice qué paso de qué tutorial ya no encuentra su botón.
 # Uso: bash tests/correr_pruebas.sh        (todo)
@@ -29,8 +30,10 @@ if [ "$1" != "rapido" ]; then
   SOLO=phone LANG_APP=en python3 tests/smoke/smoke_tut.py >/tmp/takt_tut_en.txt 2>&1 &
   for d in lap tab phone; do SOLO=$d python3 tests/smoke/smoke_tut.py >/tmp/takt_tut_$d.txt 2>&1 & done
   wait
+  python3 tests/smoke/smoke_listas.py >/tmp/takt_listas.txt 2>&1   # después, sola: no suma carga a las pruebas con tiempo límite
   if grep -q "^OK: guardado" /tmp/takt_store.txt; then echo "  ok   guardado (12 formatos)"; else echo "  FALLA guardado"; grep -E "FALLA|Error" /tmp/takt_store.txt | head -5; fallas=1; fi
   if grep -q "^OK: inicio" /tmp/takt_inicio.txt; then echo "  ok   inicio (historial de ejemplo y tablero)"; else echo "  FALLA inicio"; grep -E "FALLA|Error" /tmp/takt_inicio.txt | head -5; fallas=1; fi
+  if grep -q "^OK: listas" /tmp/takt_listas.txt; then echo "  ok   listas en teléfono (nada se sale de la pantalla)"; else echo "  FALLA listas en teléfono"; grep -E "FALLA|Error" /tmp/takt_listas.txt | head -5; fallas=1; fi
   for d in lap phone; do
     if grep -q "^OK: inglés sin español" /tmp/takt_en_$d.txt; then echo "  ok   inglés sin español · $d"; else echo "  FALLA inglés · $d"; grep -E "FALLA|Error" /tmp/takt_en_$d.txt | head -8; fallas=1; fi
   done
