@@ -1,6 +1,6 @@
 # Takt — plan de trabajo (seguimiento)
 
-Actualizado: 2026-11-15 · Orden acordado con Angel: **guardado Fase 3 → pagos (chat aparte) → diseño visual al final**.
+Actualizado: 2026-11-17 · Orden acordado con Angel: **guardado Fase 3 → pagos (chat aparte) → diseño visual al final**.
 Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión va en `docs/decisiones-mvp.md`.
 
 ## Hecho (referencia)
@@ -11,9 +11,9 @@ Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión 
 - [x] Teléfono: barra Inicio · Actual Time · cronómetro (elige estudio) · Personal · Configuración; menú y encabezado responsivos.
 - [x] Teléfono (2026-11-15): las 12 listas de estudios ya no se salen de la pantalla; PDF, descartar y eliminar van dentro de la tarjeta (prueba `smoke_listas.py`). Lo detectó Angel en Actual Time y Cálculo de personal.
 
-## 1. Guardado Fase 3 (siguiente)
-- [ ] Aviso visible en pantalla cuando el almacenamiento está lleno o el navegador no permite guardar (hoy solo un aviso chico).
-- [ ] Recordar ajustes de vista entre visitas (p. ej. el año fiscal elegido en Eficiencia compuesta).
+## 1. Guardado Fase 3 (hecho 2026-11-17)
+- [x] Aviso visible en pantalla: franja bajo el encabezado en todas las pantallas. Rojo (no se cierra): el navegador no permite guardar / almacenamiento lleno (se quita al guardar bien). Ámbar (se cierra): casi lleno ≥ 85 %, estudios que no se pudieron abrir. Tarjeta «Almacenamiento en este dispositivo» en Configuración (estudios guardados, espacio usado, protección contra borrado del navegador con botón para activarla; se pide sola al primer guardado).
+- [x] Recordar ajustes de vista entre visitas: FY elegido a mano y modo con/sin afectación de Eficiencia compuesta (Angel: el FY se queda en el que elijas; si nunca eliges, el más reciente), filtros de planta/área/línea de las listas, planta y línea de Inicio. Lo que ya no existe en el catálogo se limpia solo; los tutoriales arrancan con la vista limpia y no guardan nada. Pruebas: `parts/storetest.js` (37) y `tests/smoke/smoke_fase3.py`.
 
 ## 2. Pagos (chat aparte)
 - [ ] Definir modelo de cobro (planes, prueba gratis, por usuario o por planta) y proveedor de pagos.

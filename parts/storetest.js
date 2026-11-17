@@ -4,7 +4,7 @@ const fs=require('fs'),path=require('path');
 const html=fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8');
 const m=html.match(/\/\/ <store-pure>[^\n]*\n([\s\S]*?)\/\/ <\/store-pure>/);
 if(!m){console.error('FALLA: no se encontró el bloque <store-pure> en index.html');process.exit(1);}
-const {storeUUID,storeEnvelope,storeMigrate,storeMaxId,storeStateOf}=new Function(m[1]+';return {storeUUID,storeEnvelope,storeMigrate,storeMaxId,storeStateOf};')();
+const {storeUUID,storeEnvelope,storeMigrate,storeMaxId,storeStateOf,vistaClean,storeAviso,STORE_CASI}=new Function(m[1]+';return {storeUUID,storeEnvelope,storeMigrate,storeMaxId,storeStateOf,vistaClean,storeAviso,STORE_CASI};')();
 let fails=0,n=0;const ok=(c,msg)=>{n++;if(!c){fails++;console.error('FALLA:',msg);}};
 // 1. UUID: únicos
 const U=new Set(Array.from({length:2000},storeUUID));ok(U.size===2000,'UUID repetidos');
@@ -31,5 +31,36 @@ const cyc={id:7};cyc.self=cyc;ok(storeMaxId(cyc)===7,'resiste referencias circul
 // 5. Estado frente a lo guardado
 const saved=new Map([['a1',JSON.stringify(d)]]);
 ok(storeStateOf(d,saved)==='ok','ok');d.titulo='Y';ok(storeStateOf(d,saved)==='cambios','cambios');ok(storeStateOf({id:1},saved)==='nuevo','nuevo');
+// 6. Ajustes de vista (Fase 3): lo guardado se limpia contra el catálogo de hoy
+const cat={plantas:[{id:'p1',areas:[{id:'a1',lineas:[{id:'l1'}]}]},{id:'p2',areas:[]}]};
+const V0=vistaClean(null,cat);
+ok(V0.ecfy===null&&V0.ecmode==='con'&&V0.ubf.planta===''&&V0.inplanta===null&&V0.inlinea==='','sin nada guardado: valores de siempre');
+const V1=vistaClean({ecfy:25,ecmode:'sin',ubf:{planta:'p1',area:'a1',linea:'l1'},inplanta:'p2',inlinea:'l9'},cat);
+ok(V1.ecfy===25&&V1.ecmode==='sin','FY y modo elegidos se respetan');
+ok(V1.ubf.planta==='p1'&&V1.ubf.area==='a1'&&V1.ubf.linea==='l1','filtro completo válido se respeta');
+ok(V1.inplanta==='p2'&&V1.inlinea==='l9','planta y línea de Inicio pasan (Inicio las valida al dibujar)');
+const V2=vistaClean({ubf:{planta:'p1',area:'aX',linea:'l1'}},cat);
+ok(V2.ubf.planta==='p1'&&V2.ubf.area===''&&V2.ubf.linea==='','área borrada: el filtro se queda en la planta');
+const V3=vistaClean({ubf:{planta:'pX',area:'a1',linea:'l1'}},cat);
+ok(V3.ubf.planta===''&&V3.ubf.area===''&&V3.ubf.linea==='','planta borrada: sin filtro (nunca esconder estudios por algo que ya no existe)');
+const V4=vistaClean({ecfy:'25',ecmode:'otro',ubf:'x',inplanta:5},cat);
+ok(V4.ecfy===null&&V4.ecmode==='con'&&V4.ubf.planta===''&&V4.inplanta===null,'datos con tipo equivocado: valores de siempre');
+ok(vistaClean({ecfy:2026},cat).ecfy===null&&vistaClean({ecfy:-1},cat).ecfy===null&&vistaClean({ecfy:26.5},cat).ecfy===null,'FY fuera de rango (no es de dos dígitos) o con decimales: se ignora');
+ok(vistaClean({ecfy:0},cat).ecfy===0,'FY00 es válido');
+ok(vistaClean({ubf:{planta:'p1'}},{}).ubf.planta==='','sin catálogo: sin filtro');
+// 7. Aviso de almacenamiento: una franja a la vez, la más grave primero
+const A=x=>{const a=storeAviso(Object.assign({ok:true,lleno:false,leer:false,bad:0,usage:0,quota:0,cerrado:[]},x));return a&&a.key+'/'+a.lvl+(a.close?'/x':'');};
+ok(A({})===null,'todo bien: sin franja');
+ok(A({ok:false,lleno:true,bad:3})==='nodisp/rojo','no disponible le gana a todo y no se cierra');
+ok(A({lleno:true,usage:99,quota:100})==='lleno/rojo','lleno le gana a casi lleno');
+ok(STORE_CASI===0.85,'umbral de casi lleno: 85 %');
+ok(A({usage:85,quota:100})==='casi/ambar/x','85 % usado: casi lleno (se puede cerrar)');
+ok(A({usage:84.9,quota:100})===null,'84.9 %: sin franja');
+ok(A({usage:50,quota:0})===null,'sin dato de cupo: no se inventa el aviso');
+ok(A({bad:2})==='bad/ambar/x','estudios que no abrieron: ámbar');
+ok(A({leer:true,bad:2})==='leer/ambar/x','no se pudo leer nada: le gana a «no abrieron N»');
+ok(A({bad:2,cerrado:['bad']})===null,'aviso cerrado: no vuelve en esta sesión');
+ok(A({usage:90,quota:100,bad:1,cerrado:['casi']})==='bad/ambar/x','al cerrar uno, aparece el siguiente');
+ok(A({lleno:true,cerrado:['lleno']})==='lleno/rojo','los rojos no se pueden cerrar');
 if(fails){console.error(fails+' fallas de '+n);process.exit(1);}
-console.log('OK: almacén, '+n+' casos pasan (UUID, sobre, migraciones, contador de IDs, estado)');
+console.log('OK: almacén, '+n+' casos pasan (UUID, sobre, migraciones, contador de IDs, estado, ajustes de vista, avisos)');

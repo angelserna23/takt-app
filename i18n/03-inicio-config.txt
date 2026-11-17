@@ -184,3 +184,24 @@ Por dónde camina el operador o viaja el material sobre el layout del área, y c
 Tipos de diagrama ⇒ Diagram types
 {n} guardado ⇒ {n} saved
 {n} guardados ⇒ {n} saved
+
+# Guardado Fase 3 (2026-11-17): avisos de almacenamiento y tarjeta en Configuración
+Almacenamiento lleno: el último guardado no se hizo. Borra estudios que ya no necesites y vuelve a guardar. ⇒ Storage full: your last save did not go through. Delete studies you no longer need and save again.
+Almacenamiento casi lleno ({n} % usado). Borra estudios que ya no necesites. ⇒ Storage almost full ({n}% used). Delete studies you no longer need.
+Ver detalle ⇒ View details
+Cerrar aviso ⇒ Close notice
+Almacenamiento en este dispositivo ⇒ Storage on this device
+Tus estudios se guardan en este navegador, solo en este dispositivo. ⇒ Your studies are saved in this browser, on this device only.
+estudio guardado ⇒ saved study
+estudios guardados ⇒ saved studies
+Espacio usado ⇒ Space used
+Usado: {x} de {x} ⇒ Used: {1} of {2}
+Espacio usado: el navegador no lo informa ⇒ Space used: not reported by the browser
+Protección contra borrado: no disponible en este navegador ⇒ Protection against deletion: not available in this browser
+Protección contra borrado: activa ⇒ Protection against deletion: on
+Protección contra borrado: no activa. El navegador podría borrar los datos si le falta espacio. ⇒ Protection against deletion: off. The browser could delete your data if it runs low on space.
+Activar protección ⇒ Turn on protection
+Protección activada ✓ ⇒ Protection turned on ✓
+El navegador no la concedió. Se vuelve a pedir al guardar. ⇒ The browser did not grant it. It will be requested again when you save.
+Abre la app fuera del modo privado o en otro navegador. ⇒ Open the app outside private mode or in another browser.
+No se pudo borrar del almacenamiento: puede volver a aparecer al abrir la app ⇒ Could not delete it from storage: it may reappear when you open the app

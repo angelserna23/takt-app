@@ -33,6 +33,12 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
 
+## Estado al 2026-11-17 (guardado Fase 3)
+
+- Hecho: listas de estudios en teléfono dentro de la pantalla (PDF y eliminar dentro de la tarjeta; `smoke_listas.py`). Guardado Fase 3: franja de aviso de almacenamiento (no disponible, lleno, casi lleno, estudios que no abrieron), tarjeta «Almacenamiento en este dispositivo» en Configuración con protección contra borrado, y ajustes de vista recordados (FY y modo de Eficiencia compuesta, filtros de las listas, planta y línea de Inicio). Pruebas: `parts/storetest.js` (37) y `tests/smoke/smoke_fase3.py` (fallas del navegador simuladas).
+- Por qué la Fase 3 sirve aunque llegue la nube: en piso no hay red; el almacén local será la bandeja de salida hacia la nube, así que los avisos protegen justo lo que aún no se sube. La tarjeta agregará «pendientes de subir».
+- Siguiente (plan de trabajo): pendientes chicos (sección 4) → pagos (chat aparte) → diseño.
+
 ## Estado al 2026-11-14 (la app en inglés)
 
 - Hecho: la app completa en inglés (enfoque A): 12 formatos, Inicio, Configuración, avisos, 12 reportes PDF y 12 tutoriales; selector ES / EN visible en el encabezado; prueba que falla si queda español. Detalle en `docs/decisiones-mvp.md` → «La app en inglés».
@@ -80,6 +86,6 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
   - Fase 2: catálogo Planta → Área → Línea → Estación en Configuración; selector en los 9 formatos (con «+» para crear desde el estudio); filtros y ubicación en las listas; migración v1 → v2.
 - Pruebas: `bash tests/correr_pruebas.sh` = 12 de cálculo/lógica + guardado y jerarquía + 9 tutoriales en 3 dispositivos (≈ 5 min). Obligatoria antes de cada commit.
 - **Reglas:** si cambia la forma de los datos de un formato, se sube su versión en `STORE_SCHEMA` y se agrega su migración en `STORE_MIGS` con prueba. Los estudios guardan identificadores del catálogo, nunca nombres.
-- Fase 3 (menor, cuando convenga): avisos visibles de almacenamiento lleno o no disponible; recordar filtros y FY de Eficiencia compuesta.
+- Fase 3: hecha (2026-11-17).
 - Siguiente: estudios complementarios en un chat nuevo. Exportación PDF/Excel casi al final.
 - Pendiente menor: `smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores; actualizarlas o quitarlas.

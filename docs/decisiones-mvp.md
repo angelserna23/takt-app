@@ -408,7 +408,7 @@ Lo que el ingeniero industrial necesita de punta a punta: medir → estándar �
 ## Pendientes (actualizado 2026-11-14)
 - Orden acordado: **pagos (chat aparte) → guardado Fase 3 → diseño al final**. El inglés quedó hecho.
 - **Diseño (de los últimos)** — visual y movimiento de toda la app (tablero incluido), paleta, UX/UI y mejoras extra por formato (incluye la idea grande de Angel para Work Element).
-- Guardado Fase 3: avisos de almacenamiento lleno o no disponible en pantalla y que se recuerden ajustes de vista (p. ej. FY de Eficiencia compuesta).
+- ~~Guardado Fase 3~~ hecho (2026-11-17): franja de avisos de almacenamiento, tarjeta en Configuración con protección contra borrado y ajustes de vista recordados. Decisiones de Angel: los filtros de las listas sí se recuerdan; el FY de Eficiencia compuesta se queda en el que él elija; sí va el aviso ámbar de «casi lleno» (≥ 85 %).
 - Pagos.
 - Chicos que quedaron anotados: Eficiencia compuesta junta todas las plantas (solo Inicio separa); el GAP de personal del tablero no incluye manejo de materiales.
 - El buscador del encabezado no hace nada (es de adorno): conectarlo o quitarlo.
