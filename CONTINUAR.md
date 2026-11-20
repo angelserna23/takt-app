@@ -4,7 +4,7 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md`, `docs/plan-de-trabajo.md` y `docs/decisiones-mvp.md` (sobre todo «Pendientes» y «La app en inglés»). Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Toca: **guardado Fase 3** (avisos de almacenamiento lleno o no disponible y recordar ajustes de vista). Antes de construir, propón el diseño y el plan. Recuerda: todo texto nuevo de pantalla lleva su traducción en `i18n/*.txt`, y al cerrar cada punto se marca en `docs/plan-de-trabajo.md`.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md`, `docs/plan-de-trabajo.md` y **`docs/plan-legal.md`**. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Toca: **Legal**. Actúa como abogado experto en derecho digital mexicano (datos personales, contratos SaaS, comercio electrónico y propiedad intelectual); yo lo confirmaré con un abogado humano. Empieza con las preguntas de la sección 5 de `docs/plan-legal.md`, verifica con búsqueda la vigencia de las leyes antes de citarlas y luego redacta los documentos en `docs/legal/` en el orden del plan. Al cerrar cada documento, márcalo en `docs/plan-de-trabajo.md`.
 
 ## Pasos para Claude al iniciar
 
@@ -38,7 +38,7 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Hecho: buscador del encabezado (12 formatos; lupa en tablet y teléfono), menú contraído sin texto aplastado ni barra, y Configuración sin las tarjetas «Takt de la línea» y «Usuarios y permisos».
 - Configuración rediseñada (círculo → Configuración; secciones Perfil, Empresa, Preferencias, Plantas y líneas, Almacenamiento, Plan y pagos; «Más» en teléfono). Detalle en `docs/plan-de-trabajo.md`.
 - Foto de perfil opcional hecha. Pendiente nuevo pedido por Angel: **Legal** (términos y condiciones, aviso de privacidad, política de uso, contrato de datos para empresas, reembolsos) en un chat aparte; ver `docs/plan-de-trabajo.md` → 2b.
-- Siguiente: pagos (chat aparte; las tarjetas de planes van en Configuración → Plan y pagos).
+- **Orden acordado (2026-11-19): Legal (siguiente chat, plan listo en `docs/plan-legal.md`) → Diseño visual → Pagos** y lo que quede; se van agregando puntos.
 
 ## Estado al 2026-11-17 (guardado Fase 3)
 

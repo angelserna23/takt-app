@@ -1,6 +1,6 @@
 # Takt — plan de trabajo (seguimiento)
 
-Actualizado: 2026-11-19 (noche) · Orden acordado con Angel: **guardado Fase 3 → pagos (chat aparte) → diseño visual al final**.
+Actualizado: 2026-11-19 (noche) · Orden acordado con Angel (2026-11-19): **Legal (siguiente chat) → Diseño visual → Pagos**, y lo que quede pendiente; se agregan puntos conforme salgan.
 Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión va en `docs/decisiones-mvp.md`.
 
 ## Hecho (referencia)
@@ -19,14 +19,16 @@ Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión 
 - [ ] Definir modelo de cobro (planes, prueba gratis, por usuario o por planta) y proveedor de pagos.
 - [ ] Integrarlo cuando exista el backend con cuentas (ver sección 6).
 
-## 2b. Legal (chat aparte, pedido por Angel 2026-11-19)
-Respaldarse legalmente de todo lo posible: la app maneja estudios de tiempos de personas en piso, datos de empresas clientes y pagos. Revisarlo con un abogado antes de lanzar (Claude no es abogado).
+## 2b. Legal (SIGUIENTE CHAT · plan completo en `docs/plan-legal.md`)
+Respaldarse legalmente de todo lo posible: la app maneja estudios de tiempos de personas en piso, datos de empresas clientes y pagos. En ese chat Claude actúa como abogado experto en derecho digital mexicano; Angel lo confirma con un abogado humano antes de lanzar.
 - [ ] Términos y condiciones de uso del servicio (SaaS): qué incluye, responsabilidades, limitación de responsabilidad sobre decisiones tomadas con los cálculos, propiedad de los datos capturados, suspensión y cancelación.
 - [ ] Aviso de privacidad (LFPDPPP, México; GDPR si hay clientes en Europa): qué datos se piden y para qué (perfil, foto opcional, correo), dónde se guardan, derechos ARCO, transferencias a proveedores (nube, pagos).
 - [ ] Política de uso aceptable: uso de los estudios de tiempos (datos de operadores en piso), prohibiciones, cuentas compartidas.
 - [ ] Contrato o anexo de tratamiento de datos para empresas cliente (la empresa es responsable de los datos de sus operadores; Takt, encargado).
 - [ ] Política de cookies / almacenamiento local, política de reembolsos y cancelación (ligada a pagos), aviso sobre el uso de normas y fórmulas (las fórmulas son estándar de ingeniería industrial; Takt no da estándares propios).
-- [ ] Dónde se muestran en la app: aceptación al crear cuenta, enlaces en Configuración y en el pie de los reportes PDF si aplica.
+- [ ] Aviso sobre los cálculos (fórmulas estándar de IE; la decisión es del cliente) y guía para que el cliente informe a sus trabajadores.
+- [ ] Revisar disponibilidad y registro de la marca «Takt» en el IMPI.
+- [ ] Dónde se muestran en la app: sección «Legal» en Configuración, aceptación al crear cuenta, aviso simplificado en Perfil y pie de los reportes PDF si aplica.
 
 ## 3. Diseño visual (al final)
 - [ ] Visual y movimiento de toda la app (tablero incluido), paleta y UX/UI: superficies de vidrio claro, gráficas animadas, uso con una mano y con guantes, nada que se vea genérico.
