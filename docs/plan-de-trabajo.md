@@ -3,6 +3,24 @@
 Actualizado: 2026-11-19 (noche, Legal hecho en borrador) · Orden acordado con Angel (2026-11-19): **Legal (borradores listos; falta abogado) → Diseño visual (siguiente) → Pagos**, y lo que quede pendiente; se agregan puntos conforme salgan.
 Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión va en `docs/decisiones-mvp.md`.
 
+## Ruta hasta el lanzamiento (acordada con Angel, 2026-11-19)
+1. **Diseño visual**, con el nombre o la marca como primer paso.
+2. **Pagos** (completa el documento legal 7).
+3. **Cuentas y nube** (backend, usuarios y roles, sincronización).
+4. **App completa y probada**, validada en piso.
+5. **Actualizar los borradores legales** con los datos reales (responsable, nube, pagos, medidas de seguridad).
+6. **Revisión del abogado** (enviarle Word o PDF con control de cambios).
+7. **Lanzamiento.**
+Antes del punto 5, y sin esperar: consulta corta con abogado o contador para definir **persona física o S.A.S.**
+
+**Enlaces legales en la app (se construyen en el chat de diseño; el contenido entra al aprobarlo el abogado):**
+- **Sitio web / página de entrada:** pie de página con «Aviso de privacidad · Términos y condiciones · Uso aceptable · Cookies y almacenamiento · Reembolsos».
+- **Dentro de la app** (en una app no hay pie de página que se vea siempre): Configuración → sección **«Legal»** con los documentos y su fecha de versión, más «Acerca de Takt» (versión de la app).
+- **Al crear cuenta:** casillas separadas con enlaces a Términos y Aviso de privacidad.
+- **Perfil:** aviso simplificado con enlace al integral.
+- **PDF:** pie con el aviso corto de los cálculos.
+- Mientras estén en revisión, la sección muestra «En revisión» en lugar del texto, para no publicar borradores (y no obligar a traducir al inglés textos sin aprobar).
+
 ## Hecho (referencia)
 - [x] 12 formatos con cálculos validados y pruebas (WS, DS, WE, ST, MM, SM, TK, HS, DF, SP, PC, AT/EC).
 - [x] Guardado Fases 1 y 2 (guardar, cambios sin guardar, descartar, ubicación en planta).
