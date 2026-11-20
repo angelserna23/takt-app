@@ -1,6 +1,6 @@
 # Takt — plan de trabajo (seguimiento)
 
-Actualizado: 2026-11-19 (noche) · Orden acordado con Angel (2026-11-19): **Legal (siguiente chat) → Diseño visual → Pagos**, y lo que quede pendiente; se agregan puntos conforme salgan.
+Actualizado: 2026-11-19 (noche, Legal hecho en borrador) · Orden acordado con Angel (2026-11-19): **Legal (borradores listos; falta abogado) → Diseño visual (siguiente) → Pagos**, y lo que quede pendiente; se agregan puntos conforme salgan.
 Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión va en `docs/decisiones-mvp.md`.
 
 ## Hecho (referencia)
@@ -19,16 +19,23 @@ Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión 
 - [ ] Definir modelo de cobro (planes, prueba gratis, por usuario o por planta) y proveedor de pagos.
 - [ ] Integrarlo cuando exista el backend con cuentas (ver sección 6).
 
-## 2b. Legal (SIGUIENTE CHAT · plan completo en `docs/plan-legal.md`)
+## 2b. Legal (borradores hechos 2026-11-19 · plan en `docs/plan-legal.md`)
 Respaldarse legalmente de todo lo posible: la app maneja estudios de tiempos de personas en piso, datos de empresas clientes y pagos. En ese chat Claude actúa como abogado experto en derecho digital mexicano; Angel lo confirma con un abogado humano antes de lanzar.
-- [ ] Términos y condiciones de uso del servicio (SaaS): qué incluye, responsabilidades, limitación de responsabilidad sobre decisiones tomadas con los cálculos, propiedad de los datos capturados, suspensión y cancelación.
-- [ ] Aviso de privacidad (LFPDPPP, México; GDPR si hay clientes en Europa): qué datos se piden y para qué (perfil, foto opcional, correo), dónde se guardan, derechos ARCO, transferencias a proveedores (nube, pagos).
-- [ ] Política de uso aceptable: uso de los estudios de tiempos (datos de operadores en piso), prohibiciones, cuentas compartidas.
-- [ ] Contrato o anexo de tratamiento de datos para empresas cliente (la empresa es responsable de los datos de sus operadores; Takt, encargado).
-- [ ] Política de cookies / almacenamiento local, política de reembolsos y cancelación (ligada a pagos), aviso sobre el uso de normas y fórmulas (las fórmulas son estándar de ingeniería industrial; Takt no da estándares propios).
-- [ ] Aviso sobre los cálculos (fórmulas estándar de IE; la decisión es del cliente) y guía para que el cliente informe a sus trabajadores.
-- [ ] Revisar disponibilidad y registro de la marca «Takt» en el IMPI.
-- [ ] Dónde se muestran en la app: sección «Legal» en Configuración, aceptación al crear cuenta, aviso simplificado en Perfil y pie de los reportes PDF si aplica.
+Borradores en `docs/legal/` (índice, decisiones de Angel y marco legal verificado en `docs/legal/README.md`). Todos quedan **pendientes de revisión del abogado** antes de publicar.
+Decisiones (2026-11-19): responsable, correo de privacidad y nube por definir (espacios); solo México por ahora; empresas y personas físicas (aplica PROFECO); operadores solo con claves; mayores de 18; al cancelar, 30 días para descargar y luego se borra.
+- [x] 1. Aviso de privacidad integral + simplificado (2026-11-19) → `01-aviso-de-privacidad.md`. Incluye texto para la etapa actual (sin nube) y casillas de registro.
+- [x] 2. Términos y condiciones del servicio (SaaS) (2026-11-19) → `02-terminos-y-condiciones.md`. Separa Cliente empresa y Consumidor (LFPC); cancelación por el mismo medio y aviso de renovación (art. 76 Bis, reforma DOF 12-12-2025).
+- [x] 3. Contrato de tratamiento de datos para empresas cliente (2026-11-19) → `03-contrato-tratamiento-datos.md`. Cliente responsable, Takt encargado; claves en vez de nombres; revisión humana antes de decidir (art. 26); anexos de datos, seguridad y subencargados.
+- [x] 4. Política de uso aceptable (2026-11-19) → `04-politica-uso-aceptable.md`. Uso ético con trabajadores, cuentas compartidas, ingeniería inversa, datos de otras empresas.
+- [x] 5. Aviso sobre los cálculos (2026-11-19) → `05-aviso-sobre-calculos.md`. Tres versiones: completa (Legal), en pantalla (Cálculo de personal, Eficiencia, Takt y balanceo, GAP de Inicio) y pie de todos los PDF.
+- [x] 6. Política de almacenamiento local y cookies (2026-11-19) → `06-politica-almacenamiento-local.md`. Describe lo que guarda hoy la app (base `takt`: `estudios` y `ajustes`), sin cookies; declara Google Fonts.
+- [x] 7. Política de reembolsos y cancelación (2026-11-19, **con espacios**: se completa en el chat de pagos) → `07-politica-reembolsos-cancelacion.md`. Ya fijo por ley: aviso de renovación 5 días naturales, cancelación inmediata por el mismo medio.
+- [x] 8. Guía para el cliente: cómo informar a sus trabajadores (2026-11-19) → `08-guia-informar-trabajadores.md`. Cinco puntos, sindicato, modelo de párrafo para el aviso del empleador, aviso al turno, lista del analista y preguntas frecuentes.
+- [x] 9. Lista para registrar la marca «Takt» en el IMPI (2026-11-19) → `09-lista-registro-marca-impi.md`. **Ojo:** «Takt» solo es descriptivo (art. 173 LFPPI) y ya hay software «Takt» en EE. UU.; decidir con abogado nombre nuevo o marca compuesta **antes del chat de diseño**.
+- [ ] Revisión con abogado humano de los 9 documentos.
+- [ ] Dónde se muestran en la app: sección «Legal» en Configuración, aceptación al crear cuenta (casillas separadas, ninguna premarcada), aviso simplificado en Perfil, aviso de cálculos en pantalla y pie de todos los reportes PDF. Al llegar las cuentas: «Perfil → Comunicaciones» (no a finalidades secundarias) y botón real de cancelar en «Plan y pagos».
+- [ ] Técnico (chat de diseño): servir las fuentes IBM Plex desde el propio sitio en lugar de Google Fonts (hoy el navegador manda la IP del usuario a Google).
+- [ ] App: junto al campo de operador, aviso «usa clave o número, no el nombre».
 
 ## 3. Diseño visual (al final)
 - [ ] Visual y movimiento de toda la app (tablero incluido), paleta y UX/UI: superficies de vidrio claro, gráficas animadas, uso con una mano y con guantes, nada que se vea genérico.

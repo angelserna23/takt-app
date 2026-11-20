@@ -1,5 +1,7 @@
 # Takt — plan del chat legal
 
+> **Estado (2026-11-19, noche): hecho.** Preguntas de la sección 5 respondidas y los 9 documentos redactados en `docs/legal/` (decisiones y marco legal verificado en `docs/legal/README.md`). Falta: revisión con abogado humano y construir la sección 6 en la app.
+
 Preparado el 2026-11-19 para el siguiente chat. En ese chat Claude actúa como **abogado experto en derecho digital mexicano**: protección de datos personales, contratos SaaS y comercio electrónico, propiedad intelectual y lo laboral que toca a una herramienta de estudios de tiempos.
 
 **Advertencia que va en todo lo que salga de ese chat:** son borradores profesionales para ahorrar tiempo y llegar preparados. **Angel los confirma con un abogado humano** (de preferencia especializado en datos personales y tecnología) antes de publicarlos o lanzar la app. Claude no es abogado ni sustituye uno.

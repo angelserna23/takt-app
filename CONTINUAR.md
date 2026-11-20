@@ -33,6 +33,12 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
 
+## Estado al 2026-11-19 (noche: Legal)
+
+- Hecho: preguntas de la sección 5 de `docs/plan-legal.md` y **los 9 borradores legales** en `docs/legal/` (aviso de privacidad, términos, contrato de datos, uso aceptable, aviso de cálculos, almacenamiento local, reembolsos con espacios, guía para informar a trabajadores, lista de marca IMPI). Leyes verificadas con búsqueda antes de citarlas.
+- Pendiente de Angel: revisión con abogado humano; decidir responsable legal (persona física o sociedad) y **el nombre o marca** («Takt» solo es descriptivo y ya hay software «Takt» en EE. UU.) antes del diseño.
+- Siguiente: **Diseño visual** (incluye autoalojar las fuentes en lugar de Google Fonts) → Pagos (completa el documento 7).
+
 ## Estado al 2026-11-19
 
 - Hecho: buscador del encabezado (12 formatos; lupa en tablet y teléfono), menú contraído sin texto aplastado ni barra, y Configuración sin las tarjetas «Takt de la línea» y «Usuarios y permisos».

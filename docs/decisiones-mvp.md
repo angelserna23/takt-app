@@ -418,6 +418,16 @@ Lo que el ingeniero industrial necesita de punta a punta: medir → estándar �
 - **Mes de inicio del año fiscal configurable:** queda pendiente como punto propio, porque abril está en unos 60 lugares y los meses ya capturados deben conservar su mes real.
 - **Nuevo orden: Legal → Diseño visual → Pagos.** El plan del chat legal está en `docs/plan-legal.md`. En ese chat Claude actúa como abogado experto en derecho digital mexicano, y Angel lo confirma con un abogado humano.
 
+## Legal: borradores de los 9 documentos (2026-11-19)
+
+- **Dónde:** `docs/legal/` (índice, marco legal verificado y decisiones en `docs/legal/README.md`). Son **borradores**: Angel los confirma con un abogado humano antes de publicar o lanzar.
+- **Decisiones de Angel:** responsable legal, correo de privacidad y proveedor de nube por definir (van como `[ESPACIOS]`); solo México por ahora (después América y Europa); se vende a empresas **y** personas físicas, así que aplica la LFPC; operadores **solo con claves o números**; mayores de 18; al cancelar, 30 días para descargar y luego se borra.
+- **Marco verificado:** LFPDPPP nueva (DOF 20-03-2025, reforma 14-11-2025, autoridad Secretaría Anticorrupción y Buen Gobierno, sin reglamento nuevo); LFPC con reforma del 12-12-2025 (aviso de renovación 5 días naturales, cancelación inmediata por el mismo medio); NOM-151 vigente; LFPPI con reforma 03-04-2026 y reglamento nuevo 28-04-2026.
+- **Hallazgos que cambian el producto:**
+  - La app carga las fuentes desde **Google Fonts** (la IP del usuario va a Google): autoalojarlas en el chat de diseño.
+  - **«Takt» solo es descriptivo** para el IMPI (art. 173 LFPPI) y ya hay software «Takt» en EE. UU.: decidir nombre nuevo o marca compuesta **antes del diseño visual**.
+  - Para construir después: sección «Legal» en Configuración, casillas separadas al crear cuenta, aviso en Cálculo de personal / Eficiencia / Takt y balanceo / GAP, pie en todos los PDF, botón de cancelar real con aviso 5 días antes de renovar, y aviso «usa clave, no nombre» en el campo de operador.
+
 ## Pendientes (actualizado 2026-11-14)
 - Orden acordado: **pagos (chat aparte) → guardado Fase 3 → diseño al final**. El inglés quedó hecho.
 - **Diseño (de los últimos)** — visual y movimiento de toda la app (tablero incluido), paleta, UX/UI y mejoras extra por formato (incluye la idea grande de Angel para Work Element).
