@@ -7,7 +7,7 @@ with sync_playwright() as p:
     b=p.chromium.launch()
     for w,h,tag in [(1366,1000,'lap'),(1024,1366,'tab'),(393,851,'phone')]:
         pg=b.new_page(viewport={'width':w,'height':h},has_touch=True);pg.route('**/fonts.googleapis.com/**',lambda r:r.abort());pg.on('pageerror',lambda e:errs.append(tag+' '+str(e)))
-        pg.goto(IDX+('#config' if tag=='phone' else '#estudios'))
+        pg.goto(IDX+('#mas' if tag=='phone' else '#estudios'))
         if tag=='phone':pg.locator('.atmore [data-go=at]').click()
         else:pg.locator('.navbtn[data-go=at]').click()
         pg.wait_for_timeout(100);pg.click('[data-atnew]')

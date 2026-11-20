@@ -75,7 +75,7 @@ with sync_playwright() as p:
                 if not st or pg.evaluate('document.body.dataset.tut') == 'fin': break
             revisar(pg, f'{dev} · tutorial {tid} · fin', True)
             pg.evaluate('TaktTut.exit()'); pg.wait_for_timeout(200)
-        for r in ['inicio', 'estudios', 'ws', 'ds', 'we', 'st', 'mm', 'sm', 'tk', 'hs', 'diag', 'df', 'sp', 'pc', 'at', 'at-planta', 'aprende', 'config',
+        for r in ['inicio', 'estudios', 'ws', 'ds', 'we', 'st', 'mm', 'sm', 'tk', 'hs', 'diag', 'df', 'sp', 'pc', 'at', 'at-planta', 'aprende', 'config', 'config-perfil', 'config-empresa', 'config-pref', 'config-plantas', 'config-alm', 'config-plan', 'mas',
                   'ws-nuevo', 'st-nuevo', 'mm-nuevo', 'sm-nuevo', 'tk-nuevo', 'hs-nuevo', 'df-nuevo', 'sp-nuevo', 'pc-nuevo', 'at-nuevo']:
             pg.evaluate(f"location.hash='{r}'"); pg.wait_for_timeout(250)
             revisar(pg, f'{dev} · ruta {r}', True)

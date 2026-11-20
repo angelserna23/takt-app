@@ -26,7 +26,7 @@ with sync_playwright() as p:
         if ONLY and tag!=ONLY:continue
         pg=b.new_page(viewport={'width':w,'height':h},has_touch=True);pg.route('**/fonts.googleapis.com/**',lambda r:r.abort())
         pg.on('pageerror',lambda e,t=tag:errs.append(t+' '+str(e)))
-        pg.goto(IDX+('#config' if tag=='phone' else '#estudios'))
+        pg.goto(IDX+('#mas' if tag=='phone' else '#estudios'))
         if os.environ.get('LANG_APP')=='en':pg.wait_for_function('window.TaktStore&&TaktStore.ready()');pg.evaluate("TaktI18n.set('en')");pg.wait_for_timeout(200)   # mismos tutoriales, app en inglés
         # Entrada: menú lateral en laptop/tablet; en teléfono desde «Más»
         (pg.locator('.atmore [data-go=aprende]') if tag=='phone' else pg.locator('.navbtn[data-go=aprende]')).click();pg.wait_for_timeout(150)

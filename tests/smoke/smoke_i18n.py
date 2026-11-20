@@ -17,13 +17,13 @@ with sync_playwright() as p:
     check('Configuración' in pg.locator('#nav2').inner_text(),'menú en español')
     # selector en Configuración
     pg.evaluate("location.hash='config'");pg.wait_for_timeout(150)
-    pg.locator('#view [data-lang="en"]').click();pg.wait_for_timeout(200)
+    pg.locator('.top [data-lang="en"]').click();pg.wait_for_timeout(200)
     check(pg.evaluate('TaktI18n.get()')=='en','el botón EN cambia el idioma')
     check(pg.evaluate('document.documentElement.lang')=='en','<html lang="en">')
     nav=pg.locator('#nav').inner_text()
     check('Home' in nav and 'Time studies' in nav,'menú en inglés: '+nav.replace('\n',' | '))
     check('Settings' in pg.locator('#nav2').inner_text(),'Configuración → Settings')
-    check(pg.locator('#view [data-lang="en"]').get_attribute('aria-pressed')=='true','EN marcado')
+    check(pg.locator('.top [data-lang="en"]').get_attribute('aria-pressed')=='true','EN marcado')
     check(pg.locator('input[type=search]').get_attribute('placeholder')!='Buscar estudio, operación…','placeholder traducido')
     # datos del usuario: [translate=no] no se toca; un valor de campo tampoco
     pg.evaluate("""()=>{const v=document.getElementById('view');const s=document.createElement('span');s.id='udt';s.setAttribute('translate','no');s.textContent='Configuración';v.appendChild(s);
@@ -61,7 +61,7 @@ with sync_playwright() as p:
     check(m.evaluate('location.hash')=='#st-nuevo' and m.locator('#modal').is_hidden(),'elegir Speed Trial abre un Speed Trial nuevo')
     # barra del teléfono (Angel, 2026-11-14): Inicio · Actual Time · [cronómetro] · Personal · Configuración
     tabs=m.evaluate("[...document.querySelectorAll('.tabbar .tab')].map(t=>t.dataset.go)")
-    check(tabs==['inicio','at','pc','config'],'barra del teléfono: '+str(tabs))
+    check(tabs==['inicio','at','pc','mas'],'barra del teléfono: '+str(tabs))
     m.locator('.tabbar [data-go="at"]').click();m.wait_for_timeout(300);check(m.evaluate('location.hash')=='#at','pestaña Actual Time')
     m.locator('.tabbar [data-go="pc"]').click();m.wait_for_timeout(300);check(m.evaluate('location.hash')=='#pc','pestaña Personal → Cálculo de personal')
     m.locator('.fab').click();m.wait_for_timeout(300);m.locator('[data-picklist]').click();m.wait_for_timeout(300)

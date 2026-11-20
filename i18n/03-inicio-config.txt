@@ -213,3 +213,108 @@ Busca por nombre, línea, analista u operación en los 12 formatos. ⇒ Search b
 Sin resultados para «{x}» ⇒ No results for “{x}”
 Coincide en: ⇒ Match in:
 {n} resultados más: escribe otra palabra para afinar ⇒ {n} more results: type another word to narrow down
+
+# Configuración rediseñada y «Más» (2026-11-19)
+12 formatos y estudios complementarios ⇒ 12 formats and complementary studies
+Abril a marzo · se nombra por el año en que empieza (FY26 = abr 2026 – mar 2027) ⇒ April to March · named for the year it starts (FY26 = Apr 2026 – Mar 2027)
+Agrégalas en Plantas y líneas ⇒ Add them in Plants and lines
+Analista sugerido ⇒ Suggested analyst
+Apagado: el analista se escribe a mano en cada estudio. Tu nombre: ⇒ Off: the analyst is typed by hand in each study. Your name:
+Apellidos ⇒ Last name(s)
+Aquí verás tu plan, tus pagos y tus facturas cuando Takt se lance. ⇒ Your plan, payments and invoices will appear here when Takt launches.
+Arriba a la derecha aparecen tus iniciales. ⇒ Your initials appear at the top right.
+Así se ve en tus reportes ⇒ How it looks on your reports
+Avance del perfil ⇒ Profile progress
+Año fiscal y modo de Eficiencia compuesta, filtros de las listas, planta y línea de Inicio. ⇒ Composite efficiency fiscal year and mode, list filters, Home plant and line.
+Aún no hay estudios con tu nombre como analista. ⇒ No studies with your name as analyst yet.
+Aún no hay plantas ⇒ No plants yet
+Aún no hay plantas. ⇒ No plants yet.
+Cambiar logo ⇒ Change logo
+Carta ⇒ Letter
+Carta (216 × 279 mm) es lo usual en México y EE. UU.; A4 (210 × 297 mm), en Europa y Sudamérica. La hoja de trabajo estándar se imprime siempre en carta horizontal. ⇒ Letter (216 × 279 mm) is usual in Mexico and the US; A4 (210 × 297 mm) in Europe and South America. The standard work sheet always prints on landscape letter.
+Correo ⇒ Email
+Datos de la empresa ⇒ Company details
+Dónde se usa tu perfil ⇒ Where your profile is used
+ENSAMBLE LÍNEA 1 · MOD-A ⇒ ASSEMBLY LINE 1 · MOD-A
+El logo debe ser PNG, JPG o WebP ⇒ The logo must be PNG, JPG or WebP
+El logo es muy pesado; prueba con uno más sencillo ⇒ The logo is too heavy; try a simpler one
+Elaborado por ⇒ Prepared by
+Empresa ⇒ Company
+En MAYÚSCULAS, para capturar rápido ⇒ In CAPITALS, for fast entry
+En este dispositivo ⇒ On this device
+Escribe tu nombre en Perfil para usarlo. ⇒ Enter your name in Profile to use it.
+Escribe tu nombre para ver tus estudios aquí. ⇒ Enter your name to see your studies here.
+Español e inglés ⇒ Spanish and English
+Español o inglés, desde el selector ES / EN del encabezado ⇒ Spanish or English, using the language switch in the header
+Estudios con tu nombre ⇒ Studies with your name
+Estudios nuevos ⇒ New studies
+Flujo de proceso y diagrama de espagueti. ⇒ Process flow and spaghetti diagram.
+Funciona sin internet en este dispositivo ⇒ Works offline on this device
+Guardados por formato ⇒ Saved by format
+Herramientas y configuración ⇒ Tools and settings
+INGENIERO INDUSTRIAL SR. ⇒ SR. INDUSTRIAL ENGINEER
+Iguales para todos los estudios, para que los números se comparen sin conversiones. ⇒ The same for every study, so numbers compare without conversions.
+Información general ⇒ General information
+Las plantas, áreas, líneas y estaciones que aparecen en la Información de cada estudio. ⇒ The plants, areas, lines and stations that appear in each study's Information.
+Logo ⇒ Logo
+Logo de la empresa ⇒ Company logo
+Los 6 estudios: Work Sampling, Delay Study, Work Element, Speed Trial, Man Machine y SMED. ⇒ The 6 studies: Work Sampling, Delay Study, Work Element, Speed Trial, Man Machine and SMED.
+Los estudios nuevos se llenan con ⇒ New studies are filled in with
+Los estudios nuevos se llenan con tu nombre; lo cambias cuando quieras. ⇒ New studies are filled in with your name; change it whenever you want.
+MANUFACTURAS DEL NORTE ⇒ NORTHERN MANUFACTURING
+Minutos decimales (1 min 30 s = 1.5) ⇒ Decimal minutes (1 min 30 s = 1.5)
+No disponible en este navegador ⇒ Not available in this browser
+No se pudo leer la imagen ⇒ Could not read the image
+Nombre de la empresa ⇒ Company name
+Nombre y logo para tus reportes ⇒ Name and logo for your reports
+PNG, JPG o WebP. Se ajusta solo; se ve mejor con fondo transparente. ⇒ PNG, JPG or WebP. It resizes itself; it looks best with a transparent background.
+PRUEBA ⇒ TRIAL
+Perfil ⇒ Profile
+Perfil completo ⇒ Profile complete
+Perfil {n} % completo ⇒ Profile {n}% complete
+Plan de prueba ⇒ Trial plan
+Plan y pagos ⇒ Plan and payments
+Planta donde trabajas ⇒ Plant where you work
+Plantas y líneas ⇒ Plants and lines
+Preferencias ⇒ Preferences
+Prueba · todas las funciones ⇒ Trial · all features
+Puesto y empresa ⇒ Job title and company
+Quitar logo ⇒ Remove logo
+Recordar la vista entre visitas ⇒ Remember the view between visits
+Reglas de la app ⇒ App rules
+Reportes PDF ⇒ PDF reports
+Reportes en hoja A4 ⇒ Reports on A4 paper
+Reportes en hoja carta ⇒ Reports on letter paper
+Restablecer la vista ⇒ Reset the view
+Salen en el encabezado de tus reportes PDF. ⇒ They appear in the header of your PDF reports.
+Secciones de configuración ⇒ Settings sections
+Sin logo ⇒ No logo
+Subir logo ⇒ Upload logo
+Tamaño de hoja ⇒ Paper size
+Te falta: ⇒ Missing:
+Texto capturado ⇒ Entered text
+Tiempo ⇒ Time
+Todas las funciones, sin límite de estudios, mientras Takt está en pruebas. ⇒ All features, no study limit, while Takt is in testing.
+Tu actividad ⇒ Your activity
+Tu círculo ⇒ Your circle
+Tu nombre ⇒ Your name
+Tu nombre, tu empresa y su logo salen en el encabezado. ⇒ Your name, your company and its logo appear in the header.
+Tu perfil en Takt ⇒ Your Takt profile
+Tu perfil y configuración ⇒ Your profile and settings
+Tu perfil, tu empresa y tu app ⇒ Your profile, your company and your app
+Tu perfil, tu empresa, preferencias, plantas y almacenamiento. ⇒ Your profile, your company, preferences, plants and storage.
+Tus datos se guardan solo en este dispositivo. Takt solo pide lo que usa. ⇒ Your data is saved only on this device. Takt only asks for what it uses.
+Tutoriales con una demo en vivo. ⇒ Tutorials with a live demo.
+Usar mi nombre como analista ⇒ Use my name as analyst
+Vista ⇒ View
+Vista restablecida ✓ ⇒ View reset ✓
+nombre@empresa.com ⇒ name@company.com
+· con logo ⇒ · with logo
+· sin logo ⇒ · no logo
+{n} plantas · {n} líneas ⇒ {1} plants · {2} lines
+{n} planta · {n} líneas ⇒ {1} plant · {2} lines
+{n} plantas · {n} línea ⇒ {1} plants · {2} line
+{n} planta · {n} línea ⇒ {1} plant · {2} line
+{n} estudios guardados ⇒ {n} saved studies
+{n} estudio guardado ⇒ {n} saved study
+Nombre(s) ⇒ First name(s)

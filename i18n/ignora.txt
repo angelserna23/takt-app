@@ -71,3 +71,14 @@ Está en el recorrido {x}{x}; esos trayectos se quitan también.
 También se quitan sus {x} {x}{s} y lo que tengan dentro. Ningún estudio las usa.
 {x}{x} · cada uno con su personal y su volumen
 storebar {x}
+@page rep{size:{x} portrait;margin:13mm 12mm 15mm;@bottom-left{content:"Takt ·
+config-{x}
+empresa.logo
+empresa.nombre
+image/jpeg
+image/png
+perfil.apellidos
+perfil.correo
+perfil.nombre
+perfil.planta
+perfil.puesto
