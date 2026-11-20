@@ -405,6 +405,19 @@ Lo que el ingeniero industrial necesita de punta a punta: medir → estándar �
 - **Pruebas:** `parts/i18ntest.js` (motor, 28), `tools/i18n_faltantes.js` (estática: todo texto en español de `index.html` tiene traducción; usa acorn, en `tools/node_modules`), `tests/smoke/smoke_i18n.py` (capa y selector), `tests/smoke/smoke_en.py` (12 tutoriales + todas las rutas en inglés, incluido lo que escribe el bot; luego historial en español + 12 PDF: el español solo se permite como dato del usuario) y `smoke_tut.py` con `LANG_APP=en` (tutoriales guiados en teléfono). Se comprobó que borrar 2 entradas del diccionario hace fallar la prueba.
 - **Al agregar o cambiar un texto de pantalla:** agregar su traducción en `i18n/*.txt`, correr `python3 tools/i18n_build.py`, y `correr_pruebas.sh` dice si falta algo.
 
+## Chat del 2026-11-14 al 19: guardado Fase 3, buscador y Configuración
+
+- **Teléfono:** las 12 listas de estudios ya no se salen de la pantalla; PDF, descartar y eliminar van dentro de la tarjeta.
+- **Guardado Fase 3:** franja de avisos de almacenamiento (no disponible o lleno en rojo; casi lleno ≥ 85 % o estudios que no abrieron en ámbar) y protección contra borrado del navegador. Se recuerdan los ajustes de vista; decisiones de Angel: los filtros sí se recuerdan, el FY se queda en el que él elija y sí va el aviso de casi lleno. Por qué sirve aunque llegue la nube: en piso no hay red, y el almacén local será la bandeja de salida.
+- **Buscador del encabezado:** busca en los 12 formatos (nombre, ubicación, analista, formato en ES/EN y contenido); en tablet y teléfono, con lupa. El menú contraído quedó limpio.
+- **Configuración** (idea de Angel: que se sienta completa, no abandonada):
+  - Se entra con el círculo de perfil, y en laptop también con el engrane; en tablet y teléfono solo con el círculo. La barra del teléfono cambia Configuración por «Más».
+  - Secciones: Perfil (con avance, «te falta», usos y actividad), Empresa (nombre y logo en los PDF), Preferencias (Carta/A4, mi nombre como analista, recordar la vista, reglas de la app), Plantas y líneas, Almacenamiento y Plan y pagos.
+  - Se quitaron Idioma (ya está arriba), Datos de prueba, «Takt de la línea» y «Usuarios y permisos».
+  - **Sin fecha de nacimiento**, por decisión de Angel: no se usa y obligaría a justificarla en el aviso de privacidad. **Foto de perfil opcional:** no sale en los PDF ni cuenta en el avance.
+- **Mes de inicio del año fiscal configurable:** queda pendiente como punto propio, porque abril está en unos 60 lugares y los meses ya capturados deben conservar su mes real.
+- **Nuevo orden: Legal → Diseño visual → Pagos.** El plan del chat legal está en `docs/plan-legal.md`. En ese chat Claude actúa como abogado experto en derecho digital mexicano, y Angel lo confirma con un abogado humano.
+
 ## Pendientes (actualizado 2026-11-14)
 - Orden acordado: **pagos (chat aparte) → guardado Fase 3 → diseño al final**. El inglés quedó hecho.
 - **Diseño (de los últimos)** — visual y movimiento de toda la app (tablero incluido), paleta, UX/UI y mejoras extra por formato (incluye la idea grande de Angel para Work Element).
