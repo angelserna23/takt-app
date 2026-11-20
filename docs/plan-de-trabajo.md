@@ -38,6 +38,8 @@ Decisiones (2026-11-19): responsable, correo de privacidad y nube por definir (e
 - [ ] App: junto al campo de operador, aviso «usa clave o número, no el nombre».
 
 ## 3. Diseño visual (al final)
+- [ ] **Primer paso del chat de diseño: definir el nombre o la marca** (antes del logotipo y la paleta). «Takt» solo es descriptivo para el IMPI y ya hay software «Takt» en EE. UU.; opciones y pasos en `docs/legal/09-lista-registro-marca-impi.md`. Hacer la búsqueda gratuita en MARCia del IMPI de 2 o 3 candidatos antes de elegir.
+- [ ] Autoalojar las fuentes (hoy vienen de Google Fonts).
 - [ ] Visual y movimiento de toda la app (tablero incluido), paleta y UX/UI: superficies de vidrio claro, gráficas animadas, uso con una mano y con guantes, nada que se vea genérico.
 - [ ] Mejoras extra por formato, incluida la idea grande de Angel para Work Element.
 
