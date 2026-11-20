@@ -13,6 +13,11 @@ Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión 
 7. **Lanzamiento.**
 Antes del punto 5, y sin esperar: consulta corta con abogado o contador para definir **persona física o S.A.S.**
 
+**Las tres piezas del producto (idea de Angel, 2026-11-19, como GitHub):**
+- **Página de entrada** (`[dominio]`): qué es Takt, para quién, formatos, capturas, precios, empresas que lo usan (cuando las haya), botones «Iniciar sesión» y «Prueba gratis», pie con enlaces legales. Separada de la app: carga rápida, se encuentra en Google y se cambia sin tocar la app. Se diseña en el **chat de diseño** (junto con el nombre); se construye antes de lanzar.
+- **Acceso** (`app.[dominio]/entrar`): correo y contraseña, **«Continuar con Google»** y, después, Microsoft (muchas plantas usan Office 365). Crear cuenta = crear la **empresa** (queda como administrador) y luego **invitar** a analistas y capturistas por correo. Se construye en **Cuentas y nube**.
+- **La app** (`app.[dominio]`): la que ya existe. Una sola app para laptop, tablet y teléfono: en teléfono y tablet se **instala desde el navegador** («Agregar a pantalla de inicio», PWA) y funciona sin internet. Tiendas de Apple y Google: decidir después (cuestan revisión, cuota anual y comisiones sobre las suscripciones).
+
 **Enlaces legales en la app (se construyen en el chat de diseño; el contenido entra al aprobarlo el abogado):**
 - **Sitio web / página de entrada:** pie de página con «Aviso de privacidad · Términos y condiciones · Uso aceptable · Cookies y almacenamiento · Reembolsos».
 - **Dentro de la app** (en una app no hay pie de página que se vea siempre): Configuración → sección **«Legal»** con los documentos y su fecha de versión, más «Acerca de Takt» (versión de la app).
