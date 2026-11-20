@@ -41,6 +41,11 @@ const L=[{who:'ANGEL SERNA HERNÁNDEZ'},{who:'angel serna'},{who:'Ángel Serna'}
 ok(cfgMios({nombre:'Angel',apellidos:'Serna Hernández'},L)===3,'cuenta mis estudios con variantes de mi nombre');
 ok(cfgMios({nombre:'',apellidos:''},L)===0,'sin nombre: cero (no cuenta los vacíos)');
 
+// 5b. Foto de perfil (opcional): solo imagen JPG/PNG/WebP de hasta 150 KB; no cuenta en el avance
+ok(cfgClean('perfil',{foto:'data:image/jpeg;base64,/9j/AAA'}).foto.startsWith('data:image/jpeg'),'foto JPG válida se conserva');
+ok(cfgClean('perfil',{foto:'data:image/jpeg;base64,'+'A'.repeat(200000)}).foto==='','foto de más de 150 KB: se descarta');
+ok(cfgClean('perfil',{foto:'https://sitio.com/yo.jpg'}).foto===''&&cfgClean('perfil',{foto:'data:image/svg+xml;base64,PHN2Zz4='}).foto==='','foto que no es imagen embebida o es SVG: se descarta');
+ok(cfgCompleto({...P,foto:''},E).pct===100,'sin foto el perfil puede llegar a 100 % (es opcional)');
 // 6. Los valores iniciales escritos en la pantalla (antes del bloque puro) son iguales a CFG_DEF
 const lit=html.match(/const PERFIL=(\{[^}]*\}),EMPRESA=(\{[^}]*\}),PREFS=(\{[^}]*\});/);
 ok(lit&&['perfil','empresa','prefs'].every((k,i)=>JSON.stringify(new Function('return '+lit[i+1])())===JSON.stringify(CFG_DEF[k])),'valores iniciales de PERFIL/EMPRESA/PREFS = CFG_DEF (no se desfasan)');

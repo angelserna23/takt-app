@@ -11,6 +11,8 @@ SEMILLA = "Object.defineProperty(navigator,'webdriver',{get:()=>false})"
 # logo de prueba: PNG 900×300 con transparencia (la app lo debe reducir a máx. 480×160)
 LOGO = os.path.join(tempfile.mkdtemp(), 'logo.png')
 im = Image.new('RGBA', (900, 300), (0, 0, 0, 0)); im.paste((29, 95, 168, 255), (60, 60, 840, 240)); im.save(LOGO)
+# foto de prueba: JPG rectangular grande (la app la recorta al centro a 256×256)
+FOTO = os.path.join(os.path.dirname(LOGO), 'foto.jpg'); Image.new('RGB', (1600, 1000), (190, 120, 80)).save(FOTO, quality=95)
 
 def pagina(b, w, h, semilla=True):
     ctx = b.new_context(viewport={'width': w, 'height': h}, has_touch=w < 1000)
@@ -60,6 +62,21 @@ with sync_playwright() as p:
     # recarga: todo persiste
     reload(pg); go(pg, 'config-perfil')
     check('100%' in pg.inner_text('#cfghero') and pg.inner_text('.top .avatar').strip() == 'AS' and pg.locator('#cfgmiss[hidden]').count() == 1, 'al recargar: perfil 100 %, iniciales y sin «Te falta»')
+    # foto de perfil (opcional)
+    check(pg.locator('#cfghero .cfgfotoopt').count() == 1, 'sin foto: se indica que es opcional')
+    pg.set_input_files('[data-cfgfoto]', FOTO); pg.wait_for_timeout(800)
+    wh = pg.evaluate("new Promise(r=>{const i=new Image();i.onload=()=>r([i.width,i.height,TaktStore._t.PERFIL.foto.length]);i.src=TaktStore._t.PERFIL.foto})")
+    check(wh[0] == 256 and wh[1] == 256 and wh[2] < 150000, f'foto recortada a 256×256 y ligera ({wh[2]//1024} KB)')
+    check(pg.locator('.top .avatar img').count() == 1 and pg.locator('#cfghero .cfgav img').count() == 1 and pg.locator('.cfgme .cfgav img').count() == 1, 'la foto sale en el círculo, la tarjeta de perfil y la lista de secciones')
+    check('100%' in pg.inner_text('#cfghero'), 'la foto no cambia el avance (ya estaba al 100 %)')
+    reload(pg); go(pg, 'config-perfil')
+    check(pg.locator('.top .avatar img').count() == 1, 'la foto sobrevive a la recarga')
+    pg.evaluate(f"TaktRep.build('st',TaktStore._t.storeBox('st').studies[0].id)"); pg.wait_for_timeout(200)
+    check(pg.evaluate("!document.querySelector('#rep img[src^=\"data:image/jpeg\"]')||!document.querySelector('#rep').innerHTML.includes(TaktStore._t.PERFIL.foto.slice(30,90))"), 'la foto NO sale en los reportes PDF')
+    pg.evaluate('TaktRep.close()')
+    pg.click('[data-cfgfotodel]'); pg.wait_for_timeout(300)
+    check(pg.locator('.top .avatar img').count() == 0 and pg.inner_text('.top .avatar').strip() == 'AS' and pg.evaluate('TaktStore._t.PERFIL.foto') == '', 'quitar foto: regresan las iniciales')
+    pg.set_input_files('[data-cfgfoto]', FOTO); pg.wait_for_timeout(800)   # se queda con foto para las capturas
     # preferencias: A4 y reporte con empresa, logo y «Elaborado por»
     go(pg, 'config-pref'); pg.click('[data-cfgset="prefs.hoja|a4"]'); pg.wait_for_timeout(300)
     check(pg.get_attribute('[data-cfgset="prefs.hoja|a4"]', 'aria-pressed') == 'true', 'hoja A4 elegida')
@@ -120,7 +137,7 @@ with sync_playwright() as p:
         pg.click('.cfgitem[data-go="config-perfil"]'); pg.wait_for_timeout(300)
         sw = pg.evaluate('document.documentElement.scrollWidth')
         check(pg.is_visible('#cfghero') and sw <= w, f'{w}px: Perfil cabe en la pantalla ({sw}px)')
-        if w == 390: pg.screenshot(path='/tmp/config_phone_perfil.png', full_page=True)
+        if w == 390: pg.set_input_files('[data-cfgfoto]', FOTO); pg.wait_for_timeout(800); pg.screenshot(path='/tmp/config_phone_perfil.png', full_page=True)
         check(not errs, f'{w}px: sin errores de JavaScript {errs[:2]}'); ctx.close()
 
     # ---------- Inglés: secciones traducidas ----------

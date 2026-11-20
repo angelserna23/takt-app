@@ -1,6 +1,6 @@
 # Takt — plan de trabajo (seguimiento)
 
-Actualizado: 2026-11-19 · Orden acordado con Angel: **guardado Fase 3 → pagos (chat aparte) → diseño visual al final**.
+Actualizado: 2026-11-19 (noche) · Orden acordado con Angel: **guardado Fase 3 → pagos (chat aparte) → diseño visual al final**.
 Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión va en `docs/decisiones-mvp.md`.
 
 ## Hecho (referencia)
@@ -19,6 +19,15 @@ Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión 
 - [ ] Definir modelo de cobro (planes, prueba gratis, por usuario o por planta) y proveedor de pagos.
 - [ ] Integrarlo cuando exista el backend con cuentas (ver sección 6).
 
+## 2b. Legal (chat aparte, pedido por Angel 2026-11-19)
+Respaldarse legalmente de todo lo posible: la app maneja estudios de tiempos de personas en piso, datos de empresas clientes y pagos. Revisarlo con un abogado antes de lanzar (Claude no es abogado).
+- [ ] Términos y condiciones de uso del servicio (SaaS): qué incluye, responsabilidades, limitación de responsabilidad sobre decisiones tomadas con los cálculos, propiedad de los datos capturados, suspensión y cancelación.
+- [ ] Aviso de privacidad (LFPDPPP, México; GDPR si hay clientes en Europa): qué datos se piden y para qué (perfil, foto opcional, correo), dónde se guardan, derechos ARCO, transferencias a proveedores (nube, pagos).
+- [ ] Política de uso aceptable: uso de los estudios de tiempos (datos de operadores en piso), prohibiciones, cuentas compartidas.
+- [ ] Contrato o anexo de tratamiento de datos para empresas cliente (la empresa es responsable de los datos de sus operadores; Takt, encargado).
+- [ ] Política de cookies / almacenamiento local, política de reembolsos y cancelación (ligada a pagos), aviso sobre el uso de normas y fórmulas (las fórmulas son estándar de ingeniería industrial; Takt no da estándares propios).
+- [ ] Dónde se muestran en la app: aceptación al crear cuenta, enlaces en Configuración y en el pie de los reportes PDF si aplica.
+
 ## 3. Diseño visual (al final)
 - [ ] Visual y movimiento de toda la app (tablero incluido), paleta y UX/UI: superficies de vidrio claro, gráficas animadas, uso con una mano y con guantes, nada que se vea genérico.
 - [ ] Mejoras extra por formato, incluida la idea grande de Angel para Work Element.
@@ -30,6 +39,7 @@ Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión 
 - [x] Menú lateral contraído (2026-11-19): ya no se aplasta el texto de la marca arriba ni aparece barra de desplazamiento.
 - [x] Configuración (2026-11-19): se quitaron las tarjetas «Takt de la línea» y «Usuarios y permisos» (Angel).
 - [x] Configuración rediseñada (2026-11-19, ideas de Angel): se entra con el círculo de iniciales (arriba a la derecha) o el engrane del menú (solo laptop; en tablet y teléfono queda el círculo). Secciones: **Perfil** (nombre, apellidos, correo, puesto, planta; avance %, «te falta», dónde se usa, tu actividad), **Empresa** (nombre y logo, con vista previa del encabezado del reporte), **Preferencias** (hoja Carta/A4 para reportes, usar mi nombre como analista, recordar/restablecer la vista, reglas de la app), **Plantas y líneas**, **Almacenamiento** (con conteo por formato) y **Plan y pagos** (plan de prueba; se define en el chat de pagos). Sin fecha de nacimiento (no se usa; obligaría a justificarla en el aviso de privacidad). Teléfono: la barra trae «Más» con las herramientas y Configuración. Usos: iniciales en el círculo, analista sugerido en estudios nuevos (no en tutoriales), logo/empresa/«Elaborado por» en los PDF. Pruebas: `parts/cfgtest.js` (23) y `tests/smoke/smoke_config.py`.
+- [x] Foto de perfil opcional (2026-11-19): recorte cuadrado 256 × 256 JPG; en el círculo, la tarjeta de perfil y la lista de secciones; no sale en los PDF ni cuenta en el avance; se puede quitar.
 - [ ] Mes de inicio del año fiscal configurable por empresa (hoy fijo abril–marzo): toca Actual Time, Cálculo de personal, Eficiencia compuesta, Inicio y reportes; los meses ya capturados deben conservar su mes real.
 - [ ] Pruebas viejas `tests/smoke/smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores: actualizarlas o borrarlas (no están en `correr_pruebas.sh`).
 

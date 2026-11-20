@@ -37,6 +37,7 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 
 - Hecho: buscador del encabezado (12 formatos; lupa en tablet y teléfono), menú contraído sin texto aplastado ni barra, y Configuración sin las tarjetas «Takt de la línea» y «Usuarios y permisos».
 - Configuración rediseñada (círculo → Configuración; secciones Perfil, Empresa, Preferencias, Plantas y líneas, Almacenamiento, Plan y pagos; «Más» en teléfono). Detalle en `docs/plan-de-trabajo.md`.
+- Foto de perfil opcional hecha. Pendiente nuevo pedido por Angel: **Legal** (términos y condiciones, aviso de privacidad, política de uso, contrato de datos para empresas, reembolsos) en un chat aparte; ver `docs/plan-de-trabajo.md` → 2b.
 - Siguiente: pagos (chat aparte; las tarjetas de planes van en Configuración → Plan y pagos).
 
 ## Estado al 2026-11-17 (guardado Fase 3)

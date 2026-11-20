@@ -318,3 +318,11 @@ nombre@empresa.com ⇒ name@company.com
 {n} estudios guardados ⇒ {n} saved studies
 {n} estudio guardado ⇒ {n} saved study
 Nombre(s) ⇒ First name(s)
+
+# Foto de perfil (2026-11-19)
+Subir foto ⇒ Upload photo
+Cambiar foto ⇒ Change photo
+Quitar foto ⇒ Remove photo
+Foto opcional ⇒ Optional photo
+La foto debe ser una imagen ⇒ The photo must be an image
+No se pudo preparar la foto; prueba con otra ⇒ Could not prepare the photo; try another one
