@@ -4,7 +4,15 @@ Cada chat de Claude trabaja en una máquina temporal: lo que no está en este re
 
 ## Mensaje para abrir el chat nuevo (dentro del proyecto Takt)
 
-> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md`, `docs/plan-de-trabajo.md` y **`docs/plan-legal.md`**. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Toca: **Legal**. Actúa como abogado experto en derecho digital mexicano (datos personales, contratos SaaS, comercio electrónico y propiedad intelectual); yo lo confirmaré con un abogado humano. Empieza con las preguntas de la sección 5 de `docs/plan-legal.md`, verifica con búsqueda la vigencia de las leyes antes de citarlas y luego redacta los documentos en `docs/legal/` en el orden del plan. Al cerrar cada documento, márcalo en `docs/plan-de-trabajo.md`.
+> Seguimos con Takt. Clona mi repo `angelserna23/takt-app` y lee `CONTINUAR.md`, `docs/plan-de-trabajo.md` (sobre todo «Ruta hasta el lanzamiento» y la sección 3) y `docs/legal/09-lista-registro-marca-impi.md`. Corre `bash tests/correr_pruebas.sh` para confirmar que todo pasa. Toca: **Diseño visual** (etapa 1 de la ruta). Actúa como director de diseño de producto y diseñador UX/UI senior con experiencia en software industrial. Orden de trabajo:
+> 1. **Nombre o marca** primero: «Takt» solo es descriptivo para el IMPI y ya hay software «Takt» en EE. UU. Propón candidatos (nombre nuevo o marca compuesta), revisa dominios y dime cómo buscarlos en MARCia del IMPI antes de elegir.
+> 2. **Referencias:** te voy a mandar varios links de Instagram y de páginas web con diseños que me gustan. Analízalos (qué tomar de cada uno y por qué) antes de proponer una dirección.
+> 3. **Dirección visual y sistema de diseño:** paleta, tipografías (autoalojadas, ya no Google Fonts), espaciado, componentes y movimiento. Reglas del proyecto: superficies de vidrio claro, tipo tablero, gráficas animadas, usable con una mano y con guantes en piso, nada genérico ni «hecho con IA».
+> 4. **Página de entrada** (landing) y pantalla de **acceso**, según «Las tres piezas del producto» del plan.
+> 5. **La app completa** con el nuevo diseño, incluida la sección **Configuración → Legal** con los documentos «En revisión».
+> Explícame cada decisión para aprender, sé directo y dime cuando algo sea mala idea. Marca cada punto en `docs/plan-de-trabajo.md` al cerrarlo.
+
+**Nota para el chat de diseño:** Claude a veces no puede abrir links de Instagram (la página pide iniciar sesión). Si un link no abre, Angel manda **capturas de pantalla** de esa publicación.
 
 ## Pasos para Claude al iniciar
 
@@ -38,6 +46,8 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Hecho: preguntas de la sección 5 de `docs/plan-legal.md` y **los 9 borradores legales** en `docs/legal/` (aviso de privacidad, términos, contrato de datos, uso aceptable, aviso de cálculos, almacenamiento local, reembolsos con espacios, guía para informar a trabajadores, lista de marca IMPI). Leyes verificadas con búsqueda antes de citarlas.
 - Pendiente de Angel: revisión con abogado humano; decidir responsable legal (persona física o sociedad) y **el nombre o marca** («Takt» solo es descriptivo y ya hay software «Takt» en EE. UU.) antes del diseño.
 - Siguiente: **Diseño visual** (incluye autoalojar las fuentes en lugar de Google Fonts) → Pagos (completa el documento 7).
+- Agregado al plan: **ruta hasta el lanzamiento** (diseño → pagos → cuentas y nube → app probada → actualizar borradores legales → abogado → lanzamiento), **las tres piezas del producto** (página de entrada, acceso con Google/Microsoft e invitaciones, app PWA instalable) y **dónde van los enlaces legales** (pie de la página de entrada; en la app, Configuración → Legal).
+- Legal queda en pausa hasta la etapa 5 de la ruta. Lo único que conviene adelantar: consulta corta para definir persona física o S.A.S.
 
 ## Estado al 2026-11-19
 
