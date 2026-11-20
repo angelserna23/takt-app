@@ -129,7 +129,7 @@ with sync_playwright() as p:
         import re as _re
         n=len(_re.findall(rb'/Type\s*/Page[^s]',pdf));check(rk,n>=1 and b'/MediaBox [0 0 612 792]' in pdf.replace(b'\n',b' ') or n>=1,f'PDF generado ({n} página/s)')
         pg.evaluate('TaktRep.close()');check(rk,pg.locator('#rep').count()==0,'al cerrar se quita el reporte')
-    go(pg,'config');check('tk',pg.locator('.slot').filter(has_text='Takt de la línea').count()==1,'Configuración muestra la tarjeta de takt por línea')
+    go(pg,'config');check('tk',pg.locator('.slot').filter(has_text='Takt de la línea').count()==0 and pg.locator('.slot').filter(has_text='Usuarios y permisos').count()==0,'Configuración ya no muestra takt por línea ni usuarios y permisos (quitadas 2026-11-19)')
     # los resultados se recalculan igual: Speed Trial y Man Machine
     go(pg,'st');pg.locator('[data-stopen]').first.click();pg.wait_for_timeout(200)
     check('st',pg.locator('.kpi').filter(has_text='OEE').first.inner_text().find('91.1%')>=0,'al reabrir, OEE 91.1 %')

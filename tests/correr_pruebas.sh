@@ -13,7 +13,7 @@ cd "$(dirname "$0")/.." || exit 1
 fallas=0
 
 echo "== Cálculos"
-for t in test dstest wetest sttest mmtest smtest tktest hstest sptest pctest attest ectest dftest tuttest storetest intest i18ntest; do
+for t in test dstest wetest sttest mmtest smtest tktest hstest sptest pctest attest ectest dftest tuttest storetest srchtest intest i18ntest; do
   if node parts/$t.js >/tmp/takt_$t.txt 2>&1; then echo "  ok   $t"; else echo "  FALLA $t"; tail -5 /tmp/takt_$t.txt; fallas=1; fi
 done
 
@@ -33,9 +33,11 @@ if [ "$1" != "rapido" ]; then
   wait
   python3 tests/smoke/smoke_listas.py >/tmp/takt_listas.txt 2>&1   # después, sola: no suma carga a las pruebas con tiempo límite
   python3 tests/smoke/smoke_fase3.py >/tmp/takt_fase3.txt 2>&1   # avisos de almacenamiento y ajustes de vista (fallas simuladas)
+  python3 tests/smoke/smoke_buscar.py >/tmp/takt_buscar.txt 2>&1  # buscador del encabezado y menú contraído
   if grep -q "^OK: guardado" /tmp/takt_store.txt; then echo "  ok   guardado (12 formatos)"; else echo "  FALLA guardado"; grep -E "FALLA|Error" /tmp/takt_store.txt | head -5; fallas=1; fi
   if grep -q "^OK: inicio" /tmp/takt_inicio.txt; then echo "  ok   inicio (historial de ejemplo y tablero)"; else echo "  FALLA inicio"; grep -E "FALLA|Error" /tmp/takt_inicio.txt | head -5; fallas=1; fi
   if grep -q "^OK: guardado Fase 3" /tmp/takt_fase3.txt; then echo "  ok   guardado Fase 3 (avisos de almacenamiento y ajustes de vista)"; else echo "  FALLA guardado Fase 3"; grep -E "FALLA|Error" /tmp/takt_fase3.txt | head -5; fallas=1; fi
+  if grep -q "^OK: buscador" /tmp/takt_buscar.txt; then echo "  ok   buscador y menú contraído"; else echo "  FALLA buscador"; grep -E "FALLA|Error" /tmp/takt_buscar.txt | head -5; fallas=1; fi
   if grep -q "^OK: listas" /tmp/takt_listas.txt; then echo "  ok   listas en teléfono (nada se sale de la pantalla)"; else echo "  FALLA listas en teléfono"; grep -E "FALLA|Error" /tmp/takt_listas.txt | head -5; fallas=1; fi
   for d in lap phone; do
     if grep -q "^OK: inglés sin español" /tmp/takt_en_$d.txt; then echo "  ok   inglés sin español · $d"; else echo "  FALLA inglés · $d"; grep -E "FALLA|Error" /tmp/takt_en_$d.txt | head -8; fallas=1; fi

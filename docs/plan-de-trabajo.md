@@ -1,6 +1,6 @@
 # Takt — plan de trabajo (seguimiento)
 
-Actualizado: 2026-11-17 · Orden acordado con Angel: **guardado Fase 3 → pagos (chat aparte) → diseño visual al final**.
+Actualizado: 2026-11-19 · Orden acordado con Angel: **guardado Fase 3 → pagos (chat aparte) → diseño visual al final**.
 Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión va en `docs/decisiones-mvp.md`.
 
 ## Hecho (referencia)
@@ -26,7 +26,9 @@ Marca `[x]` al cerrar cada punto y anota la fecha. El detalle de cada decisión 
 ## 4. Pendientes chicos
 - [ ] Eficiencia compuesta junta todas las plantas; solo Inicio separa por planta. Decidir si se separa también ahí.
 - [ ] El GAP de personal del tablero de Inicio no incluye manejo de materiales.
-- [ ] El buscador del encabezado no hace nada (es de adorno): conectarlo para buscar estudios o quitarlo.
+- [x] Buscador del encabezado conectado (2026-11-19): busca en los 12 formatos por nombre, ubicación, analista, formato (ES o EN) u operación escrita adentro; sin acentos ni mayúsculas; máximo 8 resultados, Enter abre el primero, Esc cierra. En tablet y teléfono una lupa abre el campo. Pruebas: `parts/srchtest.js` y `tests/smoke/smoke_buscar.py`.
+- [x] Menú lateral contraído (2026-11-19): ya no se aplasta el texto de la marca arriba ni aparece barra de desplazamiento.
+- [x] Configuración (2026-11-19): se quitaron las tarjetas «Takt de la línea» y «Usuarios y permisos» (Angel). Siguiente: rediseño de Configuración con las ideas de Angel.
 - [ ] Pruebas viejas `tests/smoke/smoke_ds.py`, `smoke_ds2.py` y `smoke_we_tab.py` buscan botones de diseños anteriores: actualizarlas o borrarlas (no están en `correr_pruebas.sh`).
 
 ## 5. Al lanzar

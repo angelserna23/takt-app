@@ -205,3 +205,11 @@ Protección activada ✓ ⇒ Protection turned on ✓
 El navegador no la concedió. Se vuelve a pedir al guardar. ⇒ The browser did not grant it. It will be requested again when you save.
 Abre la app fuera del modo privado o en otro navegador. ⇒ Open the app outside private mode or in another browser.
 No se pudo borrar del almacenamiento: puede volver a aparecer al abrir la app ⇒ Could not delete it from storage: it may reappear when you open the app
+
+# Buscador del encabezado y Configuración (2026-11-19)
+Plantas, líneas, idioma y almacenamiento ⇒ Plants, lines, language and storage
+Resultados de búsqueda ⇒ Search results
+Busca por nombre, línea, analista u operación en los 12 formatos. ⇒ Search by name, line, analyst or operation across all 12 formats.
+Sin resultados para «{x}» ⇒ No results for “{x}”
+Coincide en: ⇒ Match in:
+{n} resultados más: escribe otra palabra para afinar ⇒ {n} more results: type another word to narrow down

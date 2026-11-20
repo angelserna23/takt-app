@@ -33,6 +33,11 @@ Además: commit + push intermedio cada vez que se cierre algo importante (cálcu
 - Datos ficticios siempre. Nunca usar código, archivos ni datos de empleadores, ni tablas de tiempos estándar de terceros.
 - Tiempo en minutos decimales; texto en MAYÚSCULAS; campos numéricos sin flechas (coma o punto); tablet primero; en teléfono botones de acción abajo y arrastrar en lugar de flechas.
 
+## Estado al 2026-11-19
+
+- Hecho: buscador del encabezado (12 formatos; lupa en tablet y teléfono), menú contraído sin texto aplastado ni barra, y Configuración sin las tarjetas «Takt de la línea» y «Usuarios y permisos».
+- Siguiente: rediseñar Configuración con las ideas de Angel.
+
 ## Estado al 2026-11-17 (guardado Fase 3)
 
 - Hecho: listas de estudios en teléfono dentro de la pantalla (PDF y eliminar dentro de la tarjeta; `smoke_listas.py`). Guardado Fase 3: franja de aviso de almacenamiento (no disponible, lleno, casi lleno, estudios que no abrieron), tarjeta «Almacenamiento en este dispositivo» en Configuración con protección contra borrado, y ajustes de vista recordados (FY y modo de Eficiencia compuesta, filtros de las listas, planta y línea de Inicio). Pruebas: `parts/storetest.js` (37) y `tests/smoke/smoke_fase3.py` (fallas del navegador simuladas).
